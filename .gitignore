@@ -4,8 +4,10 @@
 ### Godot ###
 # Godot-specific ignores
 .import/
-export.cfg
-export_presets.cfg
+
+# be carefull to not commit sensitive data here (for now it's not a problem)
+# export.cfg
+# export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
