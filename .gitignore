@@ -4,6 +4,9 @@
 ### Godot ###
 # Godot-specific ignores
 .import/
+Source/.import
+.godot
+Source/.godot
 
 # be carefull to not commit sensitive data here (for now it's not a problem)
 # export.cfg
