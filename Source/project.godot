@@ -12,8 +12,12 @@ config_version=5
 
 config/name="ManriqueFabricio_Actividad_5-Final"
 run/main_scene="res://Scenes/Launch.tscn"
-config/features=PackedStringArray("4.2")
+config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
+
+[dotnet]
+
+project/assembly_name="ManriqueFabricio_Actividad_5-Final"
 
 [physics]
 
