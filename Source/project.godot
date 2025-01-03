@@ -21,6 +21,7 @@ project/assembly_name="ManriqueFabricio_Actividad_5-Final"
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 common/enable_pause_aware_picking=true
 
 [rendering]
