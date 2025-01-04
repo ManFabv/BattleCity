@@ -19,6 +19,10 @@ config/icon="res://icon.png"
 
 project/assembly_name="ManriqueFabricio_Actividad_5-Final"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
