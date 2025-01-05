@@ -3,15 +3,27 @@ import json
 import os
 import sys
 
-def generate_sonarqube_issues(lint_results_file, sonarqube_output_file):
+def generate_sarif_report(lint_results_file, sarif_output_file):
     # Mapped severity
     severity_map = {
-        "Error": "MAJOR",
-        "Warning": "MINOR"
+        "Error": "error",
+        "Warning": "warning"
     }
 
-    # Will be filled with issues
-    issues = []
+    # Initialize SARIF structure
+    sarif = {
+        "version": "2.1.0",
+        "runs": [{
+            "tool": {
+                "driver": {
+                    "name": "godot-gdscript-toolkit",
+                    "informationUri": "https://github.com/Scony/godot-gdscript-toolkit",
+                    "rules": []
+                }
+            },
+            "results": []
+        }]
+    }
 
     with open(lint_results_file, "r", encoding="utf-8") as file:
         lines = file.readlines()
@@ -21,6 +33,8 @@ def generate_sonarqube_issues(lint_results_file, sonarqube_output_file):
         r"^(.*?):(\d+):\s+(Error|Warning):\s+(.*)\s+\((.*?)\)$"
     )
 
+    rule_ids = set()
+
     # Parsing
     for line in lines:
         match = lint_regex.match(line.strip())
@@ -28,36 +42,45 @@ def generate_sonarqube_issues(lint_results_file, sonarqube_output_file):
             file_path, line_number, severity, message, rule_id = match.groups()
 
             relative_path = os.path.relpath(file_path, start=os.getcwd())
+            rule_ids.add(rule_id)
 
-            # Create SonarQube structure
-            issue = {
-                "engineId": "godot-gdscript-toolkit",
+            # Create SARIF result structure
+            result = {
                 "ruleId": rule_id,
-                "severity": severity_map.get(severity, "INFO"),
-                "type": "CODE_SMELL",
-                "primaryLocation": {
-                    "message": message,
-                    "filePath": relative_path,
-                    "textRange": {
-                        "startLine": int(line_number),
-                        "startColumn": 1
+                "level": severity_map.get(severity, "note"),
+                "message": {"text": message},
+                "locations": [{
+                    "physicalLocation": {
+                        "artifactLocation": {"uri": relative_path.replace("\\", "/")},
+                        "region": {
+                            "startLine": int(line_number),
+                            "startColumn": 1
+                        }
                     }
-                }
+                }]
             }
-            issues.append(issue)
+            sarif["runs"][0]["results"].append(result)
 
-    # Write JSON file
-    with open(sonarqube_output_file, "w", encoding="utf-8") as json_file:
-        json.dump({"issues": issues}, json_file, indent=4)
+    # Add unique rules to the SARIF structure
+    for rule_id in rule_ids:
+        sarif["runs"][0]["tool"]["driver"]["rules"].append({
+            "id": rule_id,
+            "name": rule_id,
+            "shortDescription": {"text": f"Rule {rule_id}"}
+        })
 
-    print(f"SonarQube issues file created: {sonarqube_output_file}")
+    # Write SARIF file
+    with open(sarif_output_file, "w", encoding="utf-8") as json_file:
+        json.dump(sarif, json_file, indent=2)
+
+    print(f"SARIF report created: {sarif_output_file}")
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python generate_sonarqube_issues.py <LINT_RESULTS_FILE> <SONARQUBE_OUTPUT_FILE>")
+        print("Usage: python generate_sarif_report.py <LINT_RESULTS_FILE> <SARIF_OUTPUT_FILE>")
         sys.exit(1)
 
     lint_results_file = sys.argv[1]
-    sonarqube_output_file = sys.argv[2]
-    generate_sonarqube_issues(lint_results_file, sonarqube_output_file)
+    sarif_output_file = sys.argv[2]
+    generate_sarif_report(lint_results_file, sarif_output_file)
