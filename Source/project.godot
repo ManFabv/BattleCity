@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ManriqueFabricio_Actividad_5-Final"
+config/name="BattleCity"
 run/main_scene="res://Scenes/Launch.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
