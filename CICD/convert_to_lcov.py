@@ -4,14 +4,14 @@ import os
 
 def convert_to_lcov(input_file, output_file):
     if not os.path.exists(input_file):
-        print(f"Error: El archivo de entrada '{input_file}' no existe.")
+        print(f"Error: File '{input_file}' not found.")
         sys.exit(1)
 
     try:
         with open(input_file, 'r') as f:
             coverage_data = json.load(f)
     except json.JSONDecodeError as e:
-        print(f"Error al leer el archivo JSON: {e}")
+        print(f"Error reading JSON: {e}")
         sys.exit(1)
 
     try:
@@ -22,14 +22,14 @@ def convert_to_lcov(input_file, output_file):
                 for line, hits in lines.items():
                     f.write(f"DA:{line},{hits}\n")  # Número de línea, número de ejecuciones
                 f.write("end_of_record\n")
-        print(f"Archivo LCOV generado exitosamente: {output_file}")
+        print(f"LCOV successfully generated: {output_file}")
     except Exception as e:
-        print(f"Error al escribir el archivo LCOV: {e}")
+        print(f"Error writing LCOV: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Uso: python convert_to_lcov.py <archivo_entrada.json> <archivo_salida.lcov>")
+        print("Usage: python convert_to_lcov.py <input.json> <output.lcov>")
         sys.exit(1)
 
     input_file = sys.argv[1]
