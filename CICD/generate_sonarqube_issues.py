@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-def generate_sarif_report(lint_results_file, sarif_output_file):
+def generate_sarif_report(lint_results_file, sarif_output_file, revision_id, branch_name):
     # Mapped severity
     severity_map = {
         "Error": "error",
@@ -12,16 +12,26 @@ def generate_sarif_report(lint_results_file, sarif_output_file):
 
     # Initialize SARIF structure
     sarif = {
+        "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
         "version": "2.1.0",
         "runs": [{
             "tool": {
                 "driver": {
-                    "name": "godot-gdscript-toolkit",
+                    "name": "GDScriptToolkit",
+                    "fullName": "Godot GDScript Toolkit Linter",
                     "informationUri": "https://github.com/Scony/godot-gdscript-toolkit",
+                    "version": "1.0.0",
+                    "semanticVersion": "1.0.0",
                     "rules": []
                 }
             },
-            "results": []
+            "versionControlProvenance": [{
+                "repositoryUri": "https://github.com/ManFabv/UNL-Godot-PVJ3-Actividad-5-Final.git",
+                "revisionId": revision_id,
+                "branch": branch_name
+            }],
+            "results": [],
+            "artifacts": []
         }]
     }
 
@@ -42,16 +52,24 @@ def generate_sarif_report(lint_results_file, sarif_output_file):
             file_path, line_number, severity, message, rule_id = match.groups()
 
             relative_path = os.path.relpath(file_path, start=os.getcwd())
-            rule_ids.add(rule_id)
+            rule_id_formatted = f"GDS-{rule_id.replace('_', '-')}"
+
+            rule_ids.add((rule_id_formatted, rule_id))
 
             # Create SARIF result structure
             result = {
-                "ruleId": rule_id,
+                "ruleId": rule_id_formatted,
                 "level": severity_map.get(severity, "note"),
-                "message": {"text": message},
+                "message": {
+                    "id": rule_id_formatted,
+                    "arguments": [message]
+                },
                 "locations": [{
                     "physicalLocation": {
-                        "artifactLocation": {"uri": relative_path.replace("\\", "/")},
+                        "artifactLocation": {
+                            "uri": relative_path.replace("\\", "/"),
+                            "uriBaseId": "%SRCROOT%"
+                        },
                         "region": {
                             "startLine": int(line_number),
                             "startColumn": 1
@@ -60,13 +78,20 @@ def generate_sarif_report(lint_results_file, sarif_output_file):
                 }]
             }
             sarif["runs"][0]["results"].append(result)
+            sarif["runs"][0]["artifacts"].append({
+                "location": {
+                    "uri": relative_path.replace("\\", "/"),
+                    "uriBaseId": "%SRCROOT%"
+                }
+            })
 
     # Add unique rules to the SARIF structure
-    for rule_id in rule_ids:
+    for rule_id_formatted, rule_id in rule_ids:
         sarif["runs"][0]["tool"]["driver"]["rules"].append({
-            "id": rule_id,
-            "name": rule_id,
-            "shortDescription": {"text": f"Rule {rule_id}"}
+            "id": rule_id_formatted,
+            "name": rule_id_formatted,
+            "shortDescription": {"text": f"Rule {rule_id_formatted}"},
+            "helpUri": "https://github.com/Scony/godot-gdscript-toolkit/wiki"
         })
 
     # Write SARIF file
@@ -77,10 +102,12 @@ def generate_sarif_report(lint_results_file, sarif_output_file):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python generate_sarif_report.py <LINT_RESULTS_FILE> <SARIF_OUTPUT_FILE>")
+    if len(sys.argv) != 5:
+        print("Usage: python generate_sarif_report.py <LINT_RESULTS_FILE> <SARIF_OUTPUT_FILE> <REVISION_ID> <BRANCH_NAME>")
         sys.exit(1)
 
     lint_results_file = sys.argv[1]
     sarif_output_file = sys.argv[2]
-    generate_sarif_report(lint_results_file, sarif_output_file)
+    revision_id = sys.argv[3]
+    branch_name = sys.argv[4]
+    generate_sarif_report(lint_results_file, sarif_output_file, revision_id, branch_name)
