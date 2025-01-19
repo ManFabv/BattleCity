@@ -13,7 +13,7 @@ def replace_res_paths(input_file, output_file, old_prefix, new_prefix):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python fix_coverage_path.py <input_file> <output_file> <old_prefix> <new_prefix>")
+        print("Usage: python fix_res_path.py <input_file> <output_file> <old_prefix> <new_prefix>")
         sys.exit(1)
 
     input_file = sys.argv[1]
