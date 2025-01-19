@@ -17,7 +17,8 @@ def run_linter(code_dir, lint_results, gd_script_toolkit):
                         [gd_script_toolkit, file_path],
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT,
-                        text=True
+                        text=True,
+                        cwd=os.getcwd()
                     )
 
                     with open(lint_results, "a", encoding="utf-8") as results_file:
@@ -39,4 +40,3 @@ if __name__ == "__main__":
     lint_results = sys.argv[2]
     gd_script_toolkit = sys.argv[3]
     run_linter(code_dir, lint_results, gd_script_toolkit)
-
