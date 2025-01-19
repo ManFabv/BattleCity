@@ -53,7 +53,6 @@ def generate_sarif_report(lint_results_file, sarif_output_file, revision_id, bra
 
             relative_path = os.path.relpath(file_path, start=os.getcwd())
             rule_id_formatted = f"GDS-{rule_id.replace('_', '-')}"
-
             rule_ids.add((rule_id_formatted, rule_id))
 
             # Create SARIF result structure
@@ -61,8 +60,7 @@ def generate_sarif_report(lint_results_file, sarif_output_file, revision_id, bra
                 "ruleId": rule_id_formatted,
                 "level": severity_map.get(severity, "note"),
                 "message": {
-                    "id": rule_id_formatted,
-                    "arguments": [message]
+                    "text": message  # Add descriptive message text
                 },
                 "locations": [{
                     "physicalLocation": {
@@ -91,7 +89,10 @@ def generate_sarif_report(lint_results_file, sarif_output_file, revision_id, bra
             "id": rule_id_formatted,
             "name": rule_id_formatted,
             "shortDescription": {"text": f"Rule {rule_id_formatted}"},
-            "helpUri": "https://github.com/Scony/godot-gdscript-toolkit/wiki"
+            "helpUri": "https://github.com/Scony/godot-gdscript-toolkit/wiki",
+            "defaultConfiguration": {
+                "level": "warning"  # Default severity for rules
+            }
         })
 
     # Write SARIF file
