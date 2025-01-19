@@ -2,7 +2,7 @@ import json
 import sys
 import os
 
-def convert_to_lcov(input_file, output_file):
+def convert_to_lcov(input_file, output_file, source_dir):
     if not os.path.exists(input_file):
         print(f"Error: File '{input_file}' not found.")
         sys.exit(1)
@@ -17,10 +17,11 @@ def convert_to_lcov(input_file, output_file):
     try:
         with open(output_file, 'w') as f:
             for file_path, lines in coverage_data.items():
-                f.write(f"TN:\n")  # Test Name (opcional, dejar en blanco)
-                f.write(f"SF:{file_path}\n")  # Nombre del archivo fuente
+                relative_file_path = os.path.relpath(file_path, start=os.path.join(os.getcwd(), source_dir)).replace('\\', '/')
+                f.write(f"TN:\n")
+                f.write(f"SF:{relative_file_path.replace('../res:/','')}\n")
                 for line, hits in lines.items():
-                    f.write(f"DA:{line},{hits}\n")  # Número de línea, número de ejecuciones
+                    f.write(f"DA:{line},{hits}\n")
                 f.write("end_of_record\n")
         print(f"LCOV successfully generated: {output_file}")
     except Exception as e:
@@ -28,11 +29,12 @@ def convert_to_lcov(input_file, output_file):
         sys.exit(1)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python convert_to_lcov.py <input.json> <output.lcov>")
+    if len(sys.argv) != 4:
+        print("Usage: python convert_to_lcov.py <input.json> <output.lcov> <source_dir>")
         sys.exit(1)
 
     input_file = sys.argv[1]
     output_file = sys.argv[2]
+    source_dir = sys.argv[3]
 
-    convert_to_lcov(input_file, output_file)
+    convert_to_lcov(input_file, output_file, source_dir)
