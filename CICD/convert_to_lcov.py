@@ -17,10 +17,10 @@ def convert_to_lcov(input_file, output_file):
     try:
         with open(output_file, 'w') as f:
             for file_path, lines in coverage_data.items():
-                f.write(f"TN:\n")  # Test Name (opcional, dejar en blanco)
-                f.write(f"SF:{file_path}\n")  # Nombre del archivo fuente
+                f.write(f"TN:\n")  # Test Name
+                f.write(f"SF:{file_path}\n")  # File Name
                 for line, hits in lines.items():
-                    f.write(f"DA:{line},{hits}\n")  # Número de línea, número de ejecuciones
+                    f.write(f"DA:{line},{hits}\n")  # Line number, execution number
                 f.write("end_of_record\n")
         print(f"LCOV successfully generated: {output_file}")
     except Exception as e:
