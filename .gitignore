@@ -1,9 +1,11 @@
 ### Godot ###
-# Godot-specific ignores
+# Godot 4+ specific ignores
+/android/
 .import/
 Source/.import
 .godot
 Source/.godot
+*.import
 
 # be carefull to not commit sensitive data here (for now it's not a problem)
 # export.cfg
