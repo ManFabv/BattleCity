@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://d177b15gvya4j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
+size = Vector3(1, 0.7, 1.65)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
+size = Vector3(0.8, 0.5, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tugb3"]
+albedo_color = Color(0.369416, 0.491491, 0.25504, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3d8c"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
+albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
+mesh = SubResource("BoxMesh_uvnfx")
+surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
+
+[node name="Turret" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
+mesh = SubResource("BoxMesh_a3d8c")
+surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
