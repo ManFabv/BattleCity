@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene load_steps=7 format=3 uid="uid://d177b15gvya4j"]
+
+[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scenes/Player/player_controller.gd" id="1_uvnfx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -16,6 +18,7 @@ size = Vector3(0.2, 0.2, 1)
 albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
 
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_uvnfx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
