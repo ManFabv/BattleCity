@@ -78,6 +78,7 @@ fire_primary_p2={
 
 [physics]
 
+3d/physics_engine="Jolt Physics"
 common/enable_pause_aware_picking=true
 
 [rendering]
