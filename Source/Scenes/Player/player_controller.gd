@@ -1,10 +1,14 @@
 extends CharacterBody3D
 
 @export_group("Movement")
+## how fast the body will move
 @export_range(1, 10) var move_speed : float = 5
+## how fast the body start stopping movement
 @export_range(1, 10) var move_damping : float = 8
+## how much will modify the player settings gravity
 @export_range(1, 10) var gravity_modifier : float = 10
 @export_group("Player")
+## if this is player 1 or 2
 @export_range(1, 2) var player_id : int = 1
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
@@ -32,10 +36,11 @@ func _ready() -> void:
 func _process(delta) -> void:
 	# this can be processed on another class by AI
 	var move_input = _process_input()
+	# we apply gravity to the body
 	var applied_gravity = _process_gravity()
 	
 	# we convert 2D input to 3D movement
-	var move_direction = Vector3(move_input.x, 0, move_input.y)
+	var move_direction = Vector3(move_input.x, 0, move_input.y).normalized()
 	# we calculate a desired velocity
 	var target_velocity = move_direction * move_speed
 	# we are incrementing the velocity to make it match the desired velocity
@@ -52,22 +57,7 @@ func _physics_process(delta) -> void:
 
 
 func _process_input() -> Vector2:
-	# instead of using get vector, we get the inputs one by one to
-	# give the feeling as the retro controls of the game and this
-	# way we avoid moving upper left or other combinations like that
-	# var move_input = Input.get_vector(move_left_name, move_right_name, move_up_name, move_down_name)
-	var move_input = Vector2.ZERO
-	
-	# we exclude multiple inputs
-	if Input.is_action_pressed(move_left_name):
-		move_input.x = -1
-	elif Input.is_action_pressed(move_right_name):
-		move_input.x = 1
-	elif Input.is_action_pressed(move_up_name):
-		move_input.y = -1
-	elif Input.is_action_pressed(move_down_name):
-		move_input.y = 1
-		
+	var move_input = Input.get_vector(move_left_name, move_right_name, move_up_name, move_down_name)
 	return move_input
 
 func _process_gravity() -> float:
@@ -75,4 +65,5 @@ func _process_gravity() -> float:
 	# if we are falling, we make a sum of the velocity on Y and applying gravity
 	if not is_on_floor():
 		applied_gravity = move_velocity.y - gravity
+	# we return the correct gravity
 	return applied_gravity
