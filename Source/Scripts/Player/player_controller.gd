@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 @export_group("Movement")
@@ -7,30 +8,24 @@ extends CharacterBody3D
 @export_range(1, 10) var move_damping : float = 8
 ## how much will modify the player settings gravity
 @export_range(1, 10) var gravity_modifier : float = 10
-@export_group("Player")
-## if this is player 1 or 2
-@export_range(1, 2) var player_id : int = 1
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
 @onready var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_modifier
 
-#input action names variables
-var move_left_name : String
-var move_right_name : String
-var move_up_name : String
-var move_down_name : String
-var fire_prymary_name : String
-
 #calculated velocity by input
 var move_velocity : Vector3 = Vector3.ZERO
 
-func _ready() -> void:
-	# we map the input actions according to this player id
-	move_left_name = "move_left_p" + str(player_id)
-	move_right_name = "move_right_p" + str(player_id)
-	move_up_name = "move_up_p" + str(player_id)
-	move_down_name = "move_down_p" + str(player_id)
-	fire_prymary_name = "fire_primary_p" + str(player_id)
+#input manager
+var input_manager : InputManager:
+	set(new_input_manager):
+		#we assign the new input manager
+		input_manager = new_input_manager
+		#we listen to the input type changed signal on input manager
+		input_manager.input_type_changed.connect(on_input_type_changed)
+
+
+func on_input_type_changed() -> void:
+	print("INPUT CHANGED")
 
 
 func _process(delta) -> void:
@@ -38,7 +33,6 @@ func _process(delta) -> void:
 	var move_input = _process_input()
 	# we apply gravity to the body
 	var applied_gravity = _process_gravity()
-	
 	# we convert 2D input to 3D movement
 	var move_direction = Vector3(move_input.x, 0, move_input.y).normalized()
 	# we calculate a desired velocity
@@ -57,8 +51,8 @@ func _physics_process(delta) -> void:
 
 
 func _process_input() -> Vector2:
-	var move_input = Input.get_vector(move_left_name, move_right_name, move_up_name, move_down_name)
-	return move_input
+	return input_manager.get_input()
+
 
 func _process_gravity() -> float:
 	var applied_gravity = 0.0

@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7txj2htclqx7"]
+
+[ext_resource type="Script" uid="uid://bahcuvmjcby2k" path="res://Scripts/Input/input_manager.gd" id="1_j82cb"]
+[ext_resource type="Script" uid="uid://hair6c6ogmsn" path="res://Scripts/Input/input_interface.gd" id="1_sqvuy"]
+[ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="2_hiugb"]
+[ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="3_hiugb"]
+[ext_resource type="Script" uid="uid://ce24lbb3kmkjm" path="res://Scripts/Input/Processors/dummy_processor.gd" id="4_bbmhe"]
+
+[node name="InputManager" type="Node" node_paths=PackedStringArray("current_input_processor")]
+script = ExtResource("1_j82cb")
+current_input_processor = NodePath("InputInterface/Dummy")
+
+[node name="InputInterface" type="Node" parent="."]
+script = ExtResource("1_sqvuy")
+
+[node name="KeyboardMouseProcessor" type="Node" parent="InputInterface"]
+script = ExtResource("2_hiugb")
+
+[node name="GamePadProcessor" type="Node" parent="InputInterface"]
+script = ExtResource("3_hiugb")
+
+[node name="Dummy" type="Node" parent="InputInterface"]
+script = ExtResource("4_bbmhe")

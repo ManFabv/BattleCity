@@ -21,7 +21,7 @@ project/assembly_name="ManriqueFabricio_Actividad_5-Final"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 
