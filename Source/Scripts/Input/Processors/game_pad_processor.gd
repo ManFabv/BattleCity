@@ -7,6 +7,7 @@ var _move_up_name : String
 var _move_down_name : String
 var _fire_prymary_name : String
 
+
 func _ready() -> void:
 	# we map the input actions according to this player id
 	_move_left_name = "move_left_p1"
@@ -25,5 +26,5 @@ func get_input_movement() -> Vector2:
 
 
 # here we need to calculate where to look according to right stick
-func get_look_at() -> Vector2:
-	return Vector2.ZERO
+func get_look_at() -> Vector3:
+	return Vector3.ZERO

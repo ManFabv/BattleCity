@@ -8,7 +8,6 @@ extends CharacterBody3D
 @export_range(1, 10) var _move_damping : float = 8
 ## how much will modify the player settings gravity
 @export_range(1, 10) var _gravity_modifier : float = 10
-
 @export_group("Rotation")
 ## how fast the body will rotate
 @export_range(1, 10) var _rotation_speed : float = 7
@@ -40,7 +39,7 @@ func _process(delta) -> void:
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we get the position where we have to look at
-	var look_at_input : Vector2 = _process_look_at_input()
+	var look_at_input : Vector3 = _process_look_at_input()
 	# we convert 2D input to 3D movement
 	var move_direction : Vector3 = Vector3(move_input.x, 0, move_input.y).normalized()
 	# transform movement direction to be relative to the player's rotation
@@ -51,8 +50,8 @@ func _process(delta) -> void:
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _move_damping * delta)
 	_move_velocity.y = applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
-	# we calculate the angle for the current mouse position
-	var _desired_look_at_angle = atan2(-look_at_input.x, -look_at_input.y)
+	# we calculate the angle for the current mouse position (we don't take Y axis cause it's floor level)
+	var _desired_look_at_angle = atan2(-look_at_input.x, -look_at_input.z)
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, _desired_look_at_angle, _rotation_speed * delta)
 	
@@ -70,7 +69,7 @@ func _process_move_input() -> Vector2:
 	return input_manager.get_input_movement()
 
 
-func _process_look_at_input() -> Vector2:
+func _process_look_at_input() -> Vector3:
 	return input_manager.get_look_at()
 
 

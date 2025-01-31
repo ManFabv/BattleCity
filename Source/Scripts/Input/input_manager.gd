@@ -19,6 +19,13 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 @onready var _game_pad_processor: Node = $InputInterface/GamePadProcessor
 
 
+# we will get from this the player camera
+var player_camera : PlayerCamera:
+	set(new_player_camera):
+		# we assign the camera
+		_keyboard_mouse_processor.player_camera = new_player_camera
+
+
 func _ready() -> void:
 	# we subscribe to gamepad changed signal to update input type
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
@@ -52,7 +59,6 @@ func _change_input_type(new_input_type: InputType) -> void:
 	# if we have the same input type, we don't do anything
 	if _last_input == new_input_type:
 		return
-	
 	# we update the current input type
 	_last_input = new_input_type
 	if _last_input == InputType.KEYBOARD_MOUSE:
@@ -69,5 +75,5 @@ func get_input_movement() -> Vector2:
 	return _current_input_processor.get_input_movement()
 
 
-func get_look_at() -> Vector2:
+func get_look_at() -> Vector3:
 	return _current_input_processor.get_look_at()
