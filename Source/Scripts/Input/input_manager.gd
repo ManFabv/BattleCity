@@ -20,7 +20,19 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 
 
 func _ready() -> void:
+	# we subscribe to gamepad changed signal to update input type
+	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	# by default we use keyboard and mouse
 	_change_input_type(InputType.KEYBOARD_MOUSE)
+
+
+# here we check if the gamepad was connected or disconnected and we
+# update the input type accordingly
+func _on_joy_connection_changed(device_id, connected):
+	if connected:
+		_change_input_type(InputType.GAMEPAD)
+	else:
+		_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
 # we get the input of the player to see what controller is the player using
