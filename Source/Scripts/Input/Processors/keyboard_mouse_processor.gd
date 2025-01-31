@@ -15,8 +15,15 @@ func _ready() -> void:
 	move_down_name = "move_down_p1"
 	fire_prymary_name = "fire_primary_p1"
 
-func get_input() -> Vector2:
+
+# here we get the input according to their input axis
+func get_input_movement() -> Vector2:
 	# we get the input of the keyboard
 	var move_input = Input.get_vector(move_left_name, move_right_name, move_up_name, move_down_name)
 	# we return the input value
 	return move_input
+
+
+# here we need to calculate where to look according to mouse position
+func get_look_at() -> Vector2:
+	return Vector2.ZERO
