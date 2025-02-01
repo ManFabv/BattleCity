@@ -3,14 +3,14 @@ extends CharacterBody3D
 
 @export_group("Movement")
 ## how fast the body will move
-@export_range(1, 10) var _move_speed : float = 5
+@export_range(1, 10) var _move_speed : float = 7
 ## how fast the body start stopping movement
-@export_range(1, 10) var _move_damping : float = 8
+@export_range(1, 10) var _move_damping : float = 10
 ## how much will modify the player settings gravity
-@export_range(1, 10) var _gravity_modifier : float = 10
+@export_range(1, 10) var _gravity_modifier : float = 2
 @export_group("Rotation")
 ## how fast the body will rotate
-@export_range(1, 10) var _rotation_speed : float = 7
+@export_range(1, 10) var _rotation_speed : float = 15
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
 @onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _gravity_modifier
@@ -40,16 +40,18 @@ func _process(delta) -> void:
 	var applied_gravity : float = _process_gravity()
 	# we get the position where we have to look at
 	var look_at_input : Vector3 = _process_look_at_input()
+	# we normalize the input
+	move_input = move_input.normalized()
 	# we convert 2D input to 3D movement
-	var move_direction : Vector3 = Vector3(move_input.x, 0, move_input.y).normalized()
-	# transform movement direction to be relative to the player's rotation
-	move_direction = transform.basis * move_direction
+	var move_direction : Vector3 = Vector3(move_input.x, 0, move_input.y)
 	# we calculate a desired velocity
 	var target_velocity : Vector3 = move_direction * _move_speed
 	# we are incrementing the velocity to make it match the desired velocity
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _move_damping * delta)
-	_move_velocity.y = applied_gravity * delta
+	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
+	# we convert the mouse position relative to player position
+	look_at_input -= global_transform.origin
 	# we calculate the angle for the current mouse position (we don't take Y axis cause it's floor level)
 	var _desired_look_at_angle = atan2(-look_at_input.x, -look_at_input.z)
 	# we calculate the amount of the angle to rotate
