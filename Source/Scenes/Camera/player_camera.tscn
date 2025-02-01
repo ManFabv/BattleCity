@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bag6b0v4b3kl"]
+
+[ext_resource type="Script" uid="uid://bri1aktpcdkak" path="res://Scripts/Camera/player_camera.gd" id="1_cjy00"]
+
+[node name="PlayerCamera" type="Camera3D"]
+script = ExtResource("1_cjy00")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -10)
