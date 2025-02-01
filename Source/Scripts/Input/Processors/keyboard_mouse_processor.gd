@@ -8,7 +8,7 @@ var _move_left_name : String
 var _move_right_name : String
 var _move_up_name : String
 var _move_down_name : String
-var _fire_prymary_name : String
+var _fire_primary_name : String
 
 #player camera
 var player_camera : PlayerCamera
@@ -20,7 +20,7 @@ func _ready() -> void:
 	_move_right_name = "move_right_p1"
 	_move_up_name = "move_up_p1"
 	_move_down_name = "move_down_p1"
-	_fire_prymary_name = "fire_primary_p1"
+	_fire_primary_name = "fire_primary_p1"
 
 
 # here we get the input according to their input axis
