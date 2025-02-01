@@ -42,6 +42,15 @@ func _on_joy_connection_changed(device_id, connected):
 		_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
+## TODO: this is only a fast way to quit the game
+## we should implement a better way to quit the game
+## using a UI
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_ESCAPE:
+			get_tree().quit()
+
+
 # we get the input of the player to see what controller is the player using
 func _input(event: InputEvent) -> void:
 	# if it's mouse or keyboard used
