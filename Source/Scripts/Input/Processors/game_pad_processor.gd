@@ -11,6 +11,8 @@ var _look_left_name : String
 var _look_right_name : String
 var _look_up_name : String
 var _look_down_name : String
+#input action for open menu
+var _open_ui_menu_name : String = "open_ui_menu"
 
 
 func _ready() -> void:
@@ -41,3 +43,7 @@ func get_look_at() -> Vector2:
 	var move_input : Vector2 = Input.get_vector(_look_left_name, _look_right_name, _look_up_name, _look_down_name)
 	# we return the input value
 	return move_input
+
+
+func is_open_menu_pressed() -> bool:
+	return Input.is_action_just_pressed(_open_ui_menu_name)

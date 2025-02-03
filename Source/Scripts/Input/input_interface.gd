@@ -9,3 +9,7 @@ func get_input_movement() -> Vector2:
 
 func get_look_at() -> Vector2:
 	return Vector2.ZERO
+
+
+func is_open_menu_pressed() -> bool:
+	return false

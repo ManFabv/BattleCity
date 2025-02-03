@@ -27,10 +27,17 @@ var input_manager : InputManager:
 		input_manager = new_input_manager
 		#we listen to the input type changed signal on input manager
 		input_manager.input_type_changed.connect(_on_input_type_changed)
+		#we listen to the event signal when the menu is opened
+		input_manager.menu_opened.connect(_on_menu_opened)
 
 
 func _on_input_type_changed() -> void:
 	print("INPUT CHANGED")
+	
+
+func _on_menu_opened() -> void:
+	#TODO: we should stop processing player movement input here
+	print("Menu Opened")
 
 
 func _process(delta) -> void:

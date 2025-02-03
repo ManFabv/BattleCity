@@ -9,6 +9,8 @@ var _move_right_name : String
 var _move_up_name : String
 var _move_down_name : String
 var _fire_primary_name : String
+#input action for open menu
+var _open_ui_menu_name : String = "open_ui_menu"
 
 #player camera
 var player_camera : PlayerCamera
@@ -38,3 +40,7 @@ func get_look_at() -> Vector2:
 	# through the camera we convert the mouse position from 2D to 3D
 	var world_pos : Vector3 = player_camera.get_world_position_from_point(mouse_position)
 	return Vector2(world_pos.x, world_pos.z)
+
+
+func is_open_menu_pressed() -> bool:
+	return Input.is_action_just_pressed(_open_ui_menu_name)

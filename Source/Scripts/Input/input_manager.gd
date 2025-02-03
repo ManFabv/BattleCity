@@ -2,7 +2,10 @@ class_name InputManager
 extends Node
 
 # signal that we are going to trigger when the control type changes
-signal input_type_changed()
+signal input_type_changed
+
+# signal that we are going to trigger when the player opens the menu
+signal menu_opened
 
 # we are going to use this enum to keep track of the current user controller type
 # if it's keyboard and mouse, or gamepad
@@ -43,12 +46,14 @@ func _on_joy_connection_changed(device_id, connected):
 
 
 ## TODO: this is only a fast way to quit the game
-## we should implement a better way to quit the game
-## using a UI
+## we should implement a better way to quit the game using a UI
 func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_ESCAPE:
-			get_tree().quit()
+	# if the player wants to open the menu
+	if _current_input_processor.is_open_menu_pressed():
+		# we trigger the event
+		menu_opened.emit()
+		## TODO: this is only temporal, we need to open a UI menu
+		get_tree().quit()
 
 
 # we get the input of the player to see what controller is the player using
