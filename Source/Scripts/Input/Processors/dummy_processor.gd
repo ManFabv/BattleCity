@@ -17,4 +17,9 @@ func is_open_menu_pressed() -> bool:
 
 # we don't need to do anything
 func set_camera(new_player_camera: PlayerCamera) -> void:
-	push_error("set_camera() should be implemented on inherited classes")
+	pass
+
+
+# we don't need to do anything right now
+func set_player(new_player: Player) -> void:
+	pass

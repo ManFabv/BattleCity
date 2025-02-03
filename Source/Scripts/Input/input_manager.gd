@@ -21,6 +21,11 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 @onready var _keyboard_mouse_processor: Node = $InputInterface/KeyboardMouseProcessor
 @onready var _game_pad_processor: Node = $InputInterface/GamePadProcessor
 
+var player : Player:
+	set(new_player):
+		# we assign the player
+		_keyboard_mouse_processor.set_player(new_player)
+		_game_pad_processor.set_player(new_player)
 
 # we will get from this the player camera
 var player_camera : PlayerCamera:

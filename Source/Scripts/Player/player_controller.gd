@@ -59,8 +59,6 @@ func _process(delta) -> void:
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _move_damping * delta)
 	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
-	# we convert the mouse position relative to player position
-	world_look_at -= global_transform.origin
 	# we calculate the angle for the current mouse position (we don't take Y axis cause it's floor level)
 	var _desired_look_at_angle = atan2(-world_look_at.x, -world_look_at.z)
 	# we calculate the amount of the angle to rotate

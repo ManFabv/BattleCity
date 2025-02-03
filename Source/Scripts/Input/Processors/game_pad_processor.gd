@@ -14,6 +14,9 @@ var _look_down_name : String
 #input action for open menu
 var _open_ui_menu_name : String = "open_ui_menu"
 
+#when the player is not moving the right stick, we keep looking at the same point
+var _last_point_position : Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	# we map the input actions
@@ -23,9 +26,9 @@ func _ready() -> void:
 	_move_down_name = "move_down_p1"
 	_fire_primary_name = "fire_primary_p1"
 	# we map the look at input actions
-	_look_left_name = "look_down_p1"
-	_look_right_name = "look_down_p1"
-	_look_up_name = "look_down_p1"
+	_look_left_name = "look_left_p1"
+	_look_right_name = "look_rigth_p1"
+	_look_up_name = "look_up_p1"
 	_look_down_name = "look_down_p1"
 
 
@@ -41,8 +44,11 @@ func get_input_movement() -> Vector2:
 func get_look_at() -> Vector2:
 	# we get the input of the right stick of the gamepad
 	var move_input : Vector2 = Input.get_vector(_look_left_name, _look_right_name, _look_up_name, _look_down_name)
-	# we return the input value
-	return move_input
+	# if we have some input, we cache it
+	if move_input != Vector2.ZERO:
+		_last_point_position = move_input
+	# we return the last input value
+	return _last_point_position
 
 
 func is_open_menu_pressed() -> bool:
@@ -51,4 +57,9 @@ func is_open_menu_pressed() -> bool:
 
 # we don't need to do anything right now
 func set_camera(new_player_camera: PlayerCamera) -> void:
+	pass
+
+
+# we don't need to do anything right now
+func set_player(new_player: Player) -> void:
 	pass

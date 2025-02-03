@@ -14,6 +14,8 @@ var _open_ui_menu_name : String = "open_ui_menu"
 
 #player camera
 var _player_camera : PlayerCamera
+#player
+var _player : Player
 
 
 func _ready() -> void:
@@ -39,6 +41,9 @@ func get_look_at() -> Vector2:
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	# through the camera we convert the mouse position from 2D to 3D
 	var world_pos : Vector3 = _player_camera.get_world_position_from_point(mouse_position)
+	# we convert it relative to the player
+	world_pos -= _player.global_position
+	# we return the converted input
 	return Vector2(world_pos.x, world_pos.z)
 
 
@@ -46,6 +51,12 @@ func get_look_at() -> Vector2:
 func is_open_menu_pressed() -> bool:
 	return Input.is_action_just_pressed(_open_ui_menu_name)
 
+
 # we cache the player camera
 func set_camera(new_player_camera: PlayerCamera) -> void:
 	_player_camera = new_player_camera
+
+
+# we don't need to do anything right now
+func set_player(new_player: Player) -> void:
+	_player = new_player
