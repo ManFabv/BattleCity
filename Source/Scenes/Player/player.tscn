@@ -33,3 +33,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
 mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
+
+[node name="Muzzle" type="Marker3D" parent="Body/Turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.556177)

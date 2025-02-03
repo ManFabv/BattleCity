@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://imre1ajvaje2"]
+
+[ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_2re41"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_1bece"]
+radius = 0.125
+height = 0.25
+radial_segments = 16
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2re41"]
+albedo_color = Color(0.774736, 0.712494, 0.402774, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
+radius = 0.127266
+
+[node name="Projectile" type="Area3D"]
+script = ExtResource("1_2re41")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_1bece")
+surface_material_override/0 = SubResource("StandardMaterial3D_2re41")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2re41")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

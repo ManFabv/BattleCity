@@ -14,6 +14,8 @@ extends CharacterBody3D
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
 @onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _gravity_modifier
+#where we are going to spawn the projectile
+@onready var muzzle: Marker3D = $Body/Turret/Muzzle
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
@@ -65,7 +67,7 @@ func _process(delta) -> void:
 	_look_at_angle = lerp_angle(rotation.y, _desired_look_at_angle, _rotation_speed * delta)
 	
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	# we update the velocity according to the input given on process function
 	velocity = _move_velocity
 	# we rotate accordingly
