@@ -44,7 +44,7 @@ func _ready() -> void:
 
 # here we check if the gamepad was connected or disconnected and we
 # update the input type accordingly
-func _on_joy_connection_changed(device_id, connected):
+func _on_joy_connection_changed(_device_id, connected):
 	if connected:
 		_change_input_type(InputType.GAMEPAD)
 	else:
@@ -53,7 +53,7 @@ func _on_joy_connection_changed(device_id, connected):
 
 ## TODO: this is only a fast way to quit the game
 ## we should implement a better way to quit the game using a UI
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	# if the player wants to open the menu
 	if _current_input_processor.is_open_menu_pressed():
 		# we trigger the event

@@ -56,10 +56,10 @@ func is_open_menu_pressed() -> bool:
 
 
 # we don't need to do anything right now
-func set_camera(new_player_camera: PlayerCamera) -> void:
+func set_camera(_new_player_camera: PlayerCamera) -> void:
 	pass
 
 
 # we don't need to do anything right now
-func set_player(new_player: Player) -> void:
+func set_player(_new_player: Player) -> void:
 	pass
