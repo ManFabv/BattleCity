@@ -39,7 +39,9 @@ func _process(delta) -> void:
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we get the position where we have to look at
-	var look_at_input : Vector3 = _process_look_at_input()
+	var look_at_input : Vector2 = _process_look_at_input()
+	# we convert the input to 3D to be able to move the player in the world
+	var world_look_at : Vector3 = Vector3(look_at_input.x, global_position.y, look_at_input.y)
 	# we normalize the input
 	move_input = move_input.normalized()
 	# we convert 2D input to 3D movement
@@ -51,9 +53,9 @@ func _process(delta) -> void:
 	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
 	# we convert the mouse position relative to player position
-	look_at_input -= global_transform.origin
+	world_look_at -= global_transform.origin
 	# we calculate the angle for the current mouse position (we don't take Y axis cause it's floor level)
-	var _desired_look_at_angle = atan2(-look_at_input.x, -look_at_input.z)
+	var _desired_look_at_angle = atan2(-world_look_at.x, -world_look_at.z)
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, _desired_look_at_angle, _rotation_speed * delta)
 	
@@ -71,7 +73,7 @@ func _process_move_input() -> Vector2:
 	return input_manager.get_input_movement()
 
 
-func _process_look_at_input() -> Vector3:
+func _process_look_at_input() -> Vector2:
 	return input_manager.get_look_at()
 
 

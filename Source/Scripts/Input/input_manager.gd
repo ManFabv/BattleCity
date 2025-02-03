@@ -84,5 +84,5 @@ func get_input_movement() -> Vector2:
 	return _current_input_processor.get_input_movement()
 
 
-func get_look_at() -> Vector3:
+func get_look_at() -> Vector2:
 	return _current_input_processor.get_look_at()

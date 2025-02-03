@@ -32,9 +32,9 @@ func get_input_movement() -> Vector2:
 
 
 # here we need to calculate where to look according to mouse position
-func get_look_at() -> Vector3:
+func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	# through the camera we convert the mouse position from 2D to 3D
 	var world_pos : Vector3 = player_camera.get_world_position_from_point(mouse_position)
-	return world_pos
+	return Vector2(world_pos.x, world_pos.z)

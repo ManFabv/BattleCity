@@ -6,5 +6,5 @@ func get_input_movement() -> Vector2:
 
 
 # here we always return zero
-func get_look_at() -> Vector3:
-	return Vector3.ZERO
+func get_look_at() -> Vector2:
+	return Vector2.ZERO

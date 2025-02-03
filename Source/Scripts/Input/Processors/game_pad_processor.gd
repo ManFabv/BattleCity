@@ -36,8 +36,8 @@ func get_input_movement() -> Vector2:
 
 
 # here we need to calculate where to look according to right stick
-func get_look_at() -> Vector3:
+func get_look_at() -> Vector2:
 	# we get the input of the right stick of the gamepad
 	var move_input : Vector2 = Input.get_vector(_look_left_name, _look_right_name, _look_up_name, _look_down_name)
 	# we return the input value
-	return Vector3(move_input.x, 0, move_input.y)
+	return move_input
