@@ -36,3 +36,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
 [node name="Muzzle" type="Marker3D" parent="Body/Turret"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.556177)
+
+[node name="WeaponSystem" type="Node" parent="."]
