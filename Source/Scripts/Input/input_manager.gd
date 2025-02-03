@@ -26,7 +26,8 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 var player_camera : PlayerCamera:
 	set(new_player_camera):
 		# we assign the camera
-		_keyboard_mouse_processor.player_camera = new_player_camera
+		_keyboard_mouse_processor.set_camera(new_player_camera)
+		_game_pad_processor.set_camera(new_player_camera)
 
 
 func _ready() -> void:

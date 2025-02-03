@@ -13,3 +13,7 @@ func get_look_at() -> Vector2:
 
 func is_open_menu_pressed() -> bool:
 	return false
+
+
+func set_camera(new_player_camera: PlayerCamera) -> void:
+	push_error("set_camera() should be implemented on inherited classes")

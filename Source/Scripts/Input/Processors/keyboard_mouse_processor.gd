@@ -13,7 +13,7 @@ var _fire_primary_name : String
 var _open_ui_menu_name : String = "open_ui_menu"
 
 #player camera
-var player_camera : PlayerCamera
+var _player_camera : PlayerCamera
 
 
 func _ready() -> void:
@@ -38,9 +38,14 @@ func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	# through the camera we convert the mouse position from 2D to 3D
-	var world_pos : Vector3 = player_camera.get_world_position_from_point(mouse_position)
+	var world_pos : Vector3 = _player_camera.get_world_position_from_point(mouse_position)
 	return Vector2(world_pos.x, world_pos.z)
 
 
+# we check if the player wants to open the menu
 func is_open_menu_pressed() -> bool:
 	return Input.is_action_just_pressed(_open_ui_menu_name)
+
+# we cache the player camera
+func set_camera(new_player_camera: PlayerCamera) -> void:
+	_player_camera = new_player_camera
