@@ -15,6 +15,10 @@ func is_open_menu_pressed() -> bool:
 	return false
 
 
+func is_shot_pressed() -> bool:
+	return false
+
+
 func set_camera(_new_player_camera: PlayerCamera) -> void:
 	push_error("set_camera() should be implemented on inherited classes")
 
