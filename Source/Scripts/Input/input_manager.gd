@@ -97,3 +97,7 @@ func get_input_movement() -> Vector2:
 
 func get_look_at() -> Vector2:
 	return _current_input_processor.get_look_at()
+
+
+func is_shot_pressed() -> bool:
+	return _current_input_processor.is_shot_pressed()

@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene load_steps=9 format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/Player/player_controller.gd" id="1_uvnfx"]
+[ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scenes/Weapon/weapon_system.gd" id="2_a3d8c"]
+[ext_resource type="PackedScene" uid="uid://imre1ajvaje2" path="res://Scenes/Projectiles/projectile.tscn" id="3_xpcdj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -35,6 +37,12 @@ mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
 [node name="Muzzle" type="Marker3D" parent="Body/Turret"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.556177)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
 [node name="WeaponSystem" type="Node" parent="."]
+script = ExtResource("2_a3d8c")
+projectile_scene = ExtResource("3_xpcdj")
+
+[node name="FireRateTimer" type="Timer" parent="WeaponSystem"]
+
+[connection signal="timeout" from="WeaponSystem/FireRateTimer" to="WeaponSystem" method="_on_fire_rate_timer_timeout"]

@@ -16,6 +16,11 @@ func is_open_menu_pressed() -> bool:
 
 
 # we don't need to do anything
+func is_shot_pressed() -> bool:
+	return false
+
+
+# we don't need to do anything
 func set_camera(_new_player_camera: PlayerCamera) -> void:
 	pass
 

@@ -52,6 +52,10 @@ func is_open_menu_pressed() -> bool:
 	return Input.is_action_just_pressed(_open_ui_menu_name)
 
 
+func is_shot_pressed() -> bool:
+	return Input.is_action_pressed(_fire_primary_name)
+
+
 # we cache the player camera
 func set_camera(new_player_camera: PlayerCamera) -> void:
 	_player_camera = new_player_camera

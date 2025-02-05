@@ -1,3 +1,4 @@
+class_name Projectile
 extends Area3D
 
 #how fast the projectile will move

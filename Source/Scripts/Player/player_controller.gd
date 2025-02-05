@@ -16,6 +16,8 @@ extends CharacterBody3D
 @onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _gravity_modifier
 #where we are going to spawn the projectile
 @onready var muzzle: Marker3D = $Body/Turret/Muzzle
+#system that will handle all the shooting logic
+@onready var weapon_system: Node = $WeaponSystem
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
@@ -66,6 +68,9 @@ func _process(delta) -> void:
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, _desired_look_at_angle, _rotation_speed * delta)
 	
+	var has_shoot : bool = is_shot_pressed()
+	weapon_system.process_shot(has_shoot, muzzle)
+	
 
 func _physics_process(_delta) -> void:
 	# we update the velocity according to the input given on process function
@@ -82,6 +87,10 @@ func _process_move_input() -> Vector2:
 
 func _process_look_at_input() -> Vector2:
 	return input_manager.get_look_at()
+
+
+func is_shot_pressed() -> bool:
+	return input_manager.is_shot_pressed()
 
 
 func _process_gravity() -> float:
