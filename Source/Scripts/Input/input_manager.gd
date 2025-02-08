@@ -12,7 +12,7 @@ signal menu_opened
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 
 @export_group("Input")
-## According to last controller that the user pressed, we are going to use the input actions corresponding to that controller, e.g. gamepad is not same as mouse
+## According to last controller that the user pressed, we are going to use the correct input
 @export var _last_input : InputType = InputType.DUMMY
 ## this is the actual input processor
 @export var _current_input_processor : InputInterface

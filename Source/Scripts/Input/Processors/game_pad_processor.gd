@@ -35,7 +35,9 @@ func _ready() -> void:
 ## here we need to get the gamepad input and return it
 func get_input_movement() -> Vector2:
 	# we get the input of the keyboard
-	var move_input : Vector2 = Input.get_vector(_move_left_name, _move_right_name, _move_up_name, _move_down_name)
+	var move_input : Vector2 = Input.get_vector(
+		_move_left_name, _move_right_name, _move_up_name, _move_down_name
+		)
 	# we return the input value
 	return move_input
 
@@ -43,7 +45,9 @@ func get_input_movement() -> Vector2:
 # here we need to calculate where to look according to right stick
 func get_look_at() -> Vector2:
 	# we get the input of the right stick of the gamepad
-	var move_input : Vector2 = Input.get_vector(_look_left_name, _look_right_name, _look_up_name, _look_down_name)
+	var move_input : Vector2 = Input.get_vector(
+		_look_left_name, _look_right_name, _look_up_name, _look_down_name
+		)
 	# if we have some input, we cache it
 	if move_input != Vector2.ZERO:
 		_last_point_position = move_input
