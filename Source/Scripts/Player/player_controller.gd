@@ -37,11 +37,10 @@ var input_manager : InputManager:
 
 func _on_input_type_changed() -> void:
 	print("INPUT CHANGED")
-	
+
 
 func _on_menu_opened() -> void:
-	#TODO: we should stop processing player movement input here
-	print("Menu Opened")
+	print("MENU OPENED")
 
 
 func _process(delta) -> void:
@@ -63,14 +62,14 @@ func _process(delta) -> void:
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _move_damping * delta)
 	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
-	# we calculate the angle for the current mouse position (we don't take Y axis cause it's floor level)
-	var _desired_look_at_angle = atan2(-world_look_at.x, -world_look_at.z)
+	# we calculate the angle for the current mouse position (we don't take Y axis cause
+	# it's floor level)
+	var desired_look_at_angle = atan2(-world_look_at.x, -world_look_at.z)
 	# we calculate the amount of the angle to rotate
-	_look_at_angle = lerp_angle(rotation.y, _desired_look_at_angle, _rotation_speed * delta)
-	
-	var has_shoot : bool = is_shot_pressed()
-	weapon_system.process_shot(has_shoot, muzzle)
-	
+	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _rotation_speed * delta)
+	var has_shot : bool = is_shot_pressed()
+	weapon_system.process_shot(has_shot, muzzle)
+
 
 func _physics_process(_delta) -> void:
 	# we update the velocity according to the input given on process function

@@ -30,7 +30,9 @@ func _ready() -> void:
 # here we get the input according to their input axis
 func get_input_movement() -> Vector2:
 	# we get the input of the keyboard
-	var move_input : Vector2 = Input.get_vector(_move_left_name, _move_right_name, _move_up_name, _move_down_name)
+	var move_input : Vector2 = Input.get_vector(
+		_move_left_name, _move_right_name, _move_up_name, _move_down_name
+		)
 	# we return the input value
 	return move_input
 
