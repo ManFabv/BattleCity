@@ -6,9 +6,8 @@
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="3_hiugb"]
 [ext_resource type="Script" uid="uid://ce24lbb3kmkjm" path="res://Scripts/Input/Processors/dummy_processor.gd" id="4_bbmhe"]
 
-[node name="InputManager" type="Node" node_paths=PackedStringArray("_current_input_processor")]
+[node name="InputManager" type="Node"]
 script = ExtResource("1_j82cb")
-_current_input_processor = NodePath("InputInterface/Dummy")
 
 [node name="InputInterface" type="Node" parent="."]
 script = ExtResource("1_sqvuy")

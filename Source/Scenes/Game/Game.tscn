@@ -8,7 +8,7 @@
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_y3kpf")
-input_manager = ExtResource("2_ln2h6")
-player = ExtResource("4_3k6gv")
-player_camera = ExtResource("5_y3kpf")
-world = ExtResource("3_y3kpf")
+_input_manager = ExtResource("2_ln2h6")
+_player = ExtResource("4_3k6gv")
+_player_camera = ExtResource("5_y3kpf")
+_world = ExtResource("3_y3kpf")

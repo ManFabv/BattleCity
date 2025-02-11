@@ -11,16 +11,14 @@ signal menu_opened
 # if it's keyboard and mouse, or gamepad
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 
-@export_group("Input")
-## According to last controller that the user pressed, we are going to use the correct input
-@export var _last_input : InputType = InputType.DUMMY
-## this is the actual input processor
-@export var _current_input_processor : InputInterface
-
 ## different input processors according to player controller
 @onready var _keyboard_mouse_processor: Node = $InputInterface/KeyboardMouseProcessor
 @onready var _game_pad_processor: Node = $InputInterface/GamePadProcessor
 
+## According to last controller that the user pressed, we are going to use the correct input
+var _last_input : InputType = InputType.DUMMY
+## this is the actual input processor
+var _current_input_processor : InputInterface
 
 func setup_before_enter_tree(new_player_camera: PlayerCamera, new_player: Player) -> void:
 	_keyboard_mouse_processor.setup_before_enter_tree(new_player_camera, new_player)
@@ -93,3 +91,11 @@ func get_look_at() -> Vector2:
 
 func is_shot_pressed() -> bool:
 	return _current_input_processor.is_shot_pressed()
+
+
+func is_shot_just_pressed() -> bool:
+	return _current_input_processor.is_shot_just_pressed()
+
+
+func is_shot_just_released() -> bool:
+	return _current_input_processor.is_shot_just_released()
