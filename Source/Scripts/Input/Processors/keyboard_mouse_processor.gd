@@ -58,6 +58,14 @@ func is_shot_pressed() -> bool:
 	return Input.is_action_pressed(_fire_primary_name)
 
 
+func is_shot_just_pressed() -> bool:
+	return Input.is_action_just_pressed(_fire_primary_name)
+
+
+func is_shot_just_released() -> bool:
+	return Input.is_action_just_released(_fire_primary_name)
+
+
 # we cache the player and player camera
 func setup_before_enter_tree(new_player_camera: PlayerCamera, new_player: Player) -> void:
 	_player_camera = new_player_camera

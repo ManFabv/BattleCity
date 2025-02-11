@@ -21,5 +21,15 @@ func is_shot_pressed() -> bool:
 
 
 # we don't need to do anything
+func is_shot_just_pressed() -> bool:
+	return false
+
+
+# we don't need to do anything
+func is_shot_just_released() -> bool:
+	return false
+
+
+# we don't need to do anything
 func setup_before_enter_tree(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
 	pass
