@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://d162n2y0wlrot"]
+
+[ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/weapon_system.gd" id="1_t0jxb"]
+[ext_resource type="PackedScene" uid="uid://imre1ajvaje2" path="res://Scenes/Projectiles/projectile.tscn" id="2_bcgfa"]
+
+[node name="WeaponSystem" type="Node"]
+script = ExtResource("1_t0jxb")
+projectile_scene = ExtResource("2_bcgfa")
+
+[node name="FireRateTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]

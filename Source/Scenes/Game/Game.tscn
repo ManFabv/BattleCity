@@ -8,12 +8,7 @@
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_y3kpf")
-
-[node name="InputManager" parent="." instance=ExtResource("2_ln2h6")]
-
-[node name="World" parent="." instance=ExtResource("3_y3kpf")]
-
-[node name="Player" parent="." instance=ExtResource("4_3k6gv")]
-
-[node name="PlayerCamera" parent="." instance=ExtResource("5_y3kpf")]
-transform = Transform3D(1, 0, 0, 0, 0.312832, 0.949808, 0, -0.949808, 0.312832, 0, 10.5265, 6.068)
+input_manager = ExtResource("2_ln2h6")
+player = ExtResource("4_3k6gv")
+player_camera = ExtResource("5_y3kpf")
+world = ExtResource("3_y3kpf")
