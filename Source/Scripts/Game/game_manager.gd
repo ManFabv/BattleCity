@@ -6,9 +6,7 @@ extends Node3D
 
 
 func _ready() -> void:
-	# we inject the player camera
-	input_manager.player_camera = player_camera
-	# we inject the player
-	input_manager.player = player
+	# we inject the player and player camera
+	input_manager.setup_before_enter_tree(player_camera, player)
 	# we inject the input manager to the player class
 	player.input_manager = input_manager

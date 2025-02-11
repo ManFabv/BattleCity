@@ -19,9 +19,5 @@ func is_shot_pressed() -> bool:
 	return false
 
 
-func set_camera(_new_player_camera: PlayerCamera) -> void:
-	push_error("set_camera() should be implemented on inherited classes")
-
-
-func set_player(_new_player: Player) -> void:
-	push_error("set_player() should be implemented on inherited classes")
+func setup_before_enter_tree(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
+	push_error("setup_before_enter_tree() should be implemented on inherited classes")

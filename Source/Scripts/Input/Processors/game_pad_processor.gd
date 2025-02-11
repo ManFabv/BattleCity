@@ -63,11 +63,5 @@ func is_shot_pressed() -> bool:
 	return Input.is_action_pressed(_fire_primary_name)
 
 
-# we don't need to do anything right now
-func set_camera(_new_player_camera: PlayerCamera) -> void:
-	pass
-
-
-# we don't need to do anything right now
-func set_player(_new_player: Player) -> void:
+func setup_before_enter_tree(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
 	pass

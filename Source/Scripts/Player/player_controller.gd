@@ -64,7 +64,7 @@ func _process(delta) -> void:
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
 	# we calculate the angle for the current mouse position (we don't take Y axis cause
 	# it's floor level)
-	var desired_look_at_angle = atan2(-world_look_at.x, -world_look_at.z)
+	var desired_look_at_angle : float = atan2(-world_look_at.x, -world_look_at.z)
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _rotation_speed * delta)
 	var has_shot : bool = is_shot_pressed()
