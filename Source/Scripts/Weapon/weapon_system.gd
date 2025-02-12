@@ -1,3 +1,4 @@
+class_name WeaponSystem
 extends Node
 
 ## how long it will wait between shots

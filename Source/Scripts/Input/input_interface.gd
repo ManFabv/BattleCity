@@ -33,5 +33,5 @@ func is_shot_just_released() -> bool:
 	return false
 
 
-func setup_before_enter_tree(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
-	push_error("setup_before_enter_tree() should be implemented on inherited classes")
+func configure(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
+	push_error("configure() should be implemented on inherited classes")

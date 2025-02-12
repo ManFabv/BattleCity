@@ -31,5 +31,5 @@ func is_shot_just_released() -> bool:
 
 
 # we don't need to do anything
-func setup_before_enter_tree(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
+func configure(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
 	pass
