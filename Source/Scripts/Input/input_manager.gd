@@ -1,12 +1,6 @@
 class_name InputManager
 extends Node
 
-# signal that we are going to trigger when the control type changes
-signal input_type_changed
-
-# signal that we are going to trigger when the player opens the menu
-signal menu_opened
-
 # we are going to use this enum to keep track of the current user controller type
 # if it's keyboard and mouse, or gamepad
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
@@ -19,17 +13,24 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 var _last_input : InputType = InputType.DUMMY
 ## this is the actual input processor
 var _current_input_processor : InputInterface
+## this is the reference to event bus
+var event_bus : EventBus
 
-func setup_before_enter_tree(new_player_camera: PlayerCamera, new_player: Player) -> void:
-	_keyboard_mouse_processor.setup_before_enter_tree(new_player_camera, new_player)
-	_game_pad_processor.setup_before_enter_tree(new_player_camera, new_player)
+
+func configure(new_player_camera: PlayerCamera, 
+		new_player: Player, new_event_bus: EventBus) -> void:
+	#we cache the event bus
+	event_bus = new_event_bus
+	#we initialize processors
+	_keyboard_mouse_processor.configure(new_player_camera, new_player)
+	_game_pad_processor.configure(new_player_camera, new_player)
+	# by default we use keyboard and mouse
+	_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
 func _ready() -> void:
 	# we subscribe to gamepad changed signal to update input type
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
-	# by default we use keyboard and mouse
-	_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
 # here we check if the gamepad was connected or disconnected and we
@@ -47,7 +48,7 @@ func _unhandled_input(_event):
 	# if the player wants to open the menu
 	if _current_input_processor.is_open_menu_pressed():
 		# we trigger the event
-		menu_opened.emit()
+		event_bus.emit(BaseEvent.EventId.ON_MENU_OPENED)
 		## TODO: this is only temporal, we need to open a UI menu
 		get_tree().quit()
 
@@ -78,7 +79,7 @@ func _change_input_type(new_input_type: InputType) -> void:
 	else: # defaults to keyboard
 		_current_input_processor = _keyboard_mouse_processor
 	# we trigger the signal that the type changed
-	input_type_changed.emit()
+	event_bus.emit(BaseEvent.EventId.INPUT_TYPE_CHANGED)
 
 
 func get_input_movement() -> Vector2:

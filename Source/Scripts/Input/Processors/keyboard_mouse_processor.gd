@@ -67,6 +67,6 @@ func is_shot_just_released() -> bool:
 
 
 # we cache the player and player camera
-func setup_before_enter_tree(new_player_camera: PlayerCamera, new_player: Player) -> void:
+func configure(new_player_camera: PlayerCamera, new_player: Player) -> void:
 	_player_camera = new_player_camera
 	_player = new_player

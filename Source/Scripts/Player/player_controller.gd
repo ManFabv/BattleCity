@@ -17,22 +17,33 @@ extends CharacterBody3D
 #where we are going to spawn the projectile
 @onready var muzzle: Marker3D = $Body/Turret/Muzzle
 #system that will handle all the shooting logic
-@onready var weapon_system: Node = $WeaponSystem
+@onready var weapon_system: WeaponSystem = $WeaponSystem
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
 
+#event bus
+var _event_bus: EventBus:
+	set(new_event_bus):
+		#we assign the new input manager
+		_event_bus = new_event_bus
+
 #input manager
-var input_manager : InputManager:
+var _input_manager : InputManager:
 	set(new_input_manager):
 		#we assign the new input manager
-		input_manager = new_input_manager
-		#we listen to the input type changed signal on input manager
-		input_manager.input_type_changed.connect(_on_input_type_changed)
-		#we listen to the event signal when the menu is opened
-		input_manager.menu_opened.connect(_on_menu_opened)
+		_input_manager = new_input_manager
+
+
+func configure(new_input_manager : InputManager, new_event_bus: EventBus) -> void:
+	_input_manager = new_input_manager
+	_event_bus = new_event_bus
+	#we listen to the input type changed signal on input manager
+	_event_bus.subscribe(BaseEvent.EventId.INPUT_TYPE_CHANGED, _on_input_type_changed)
+	#we listen to the event signal when the menu is opened
+	_event_bus.subscribe(BaseEvent.EventId.ON_MENU_OPENED, _on_menu_opened)
 
 
 func _on_input_type_changed() -> void:
@@ -81,15 +92,15 @@ func _physics_process(_delta) -> void:
 
 
 func _process_move_input() -> Vector2:
-	return input_manager.get_input_movement()
+	return _input_manager.get_input_movement()
 
 
 func _process_look_at_input() -> Vector2:
-	return input_manager.get_look_at()
+	return _input_manager.get_look_at()
 
 
 func is_shot_pressed() -> bool:
-	return input_manager.is_shot_pressed()
+	return _input_manager.is_shot_pressed()
 
 
 func _process_gravity() -> float:
