@@ -33,5 +33,5 @@ func is_shot_just_released() -> bool:
 	return false
 
 
-func configure(_new_player_camera: PlayerCamera, _new_player: Player) -> void:
+func configure(_new_player_camera: PlayerCamera, _new_player: ControllableEntity) -> void:
 	push_error("configure() should be implemented on inherited classes")

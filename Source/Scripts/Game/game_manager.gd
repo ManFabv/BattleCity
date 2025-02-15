@@ -5,6 +5,7 @@ extends Node3D
 @export var _player_camera: PackedScene
 @export var _world: PackedScene
 @export var _event_bus: PackedScene
+@export var _player_controller: PackedScene
 
 
 func _ready() -> void:
@@ -29,10 +30,16 @@ func _ready() -> void:
 	# we add node to the tree and then _ready is called in order
 	add_child(current_input_manager)
 	# we instantiate the player
-	var current_player : Player = _player.instantiate() as Player
-	# we inject the player and player camera
+	var current_player : ControllableEntity = _player.instantiate() as ControllableEntity
+	# we inject the player and player camera and event bus
 	current_input_manager.configure(current_player_camera, current_player, current_event_bus)
-	# we inject the input manager to the player class
-	current_player.configure(current_input_manager, current_event_bus)
+	# we instantiate the player controller
+	var current_player_controller : PlayerController = _player_controller.instantiate()
+	# we inject the player and player camera and event bus
+	current_player_controller.configure(current_input_manager, current_player)
+	# we add node to the tree and then _ready is called in order
+	add_child(current_player_controller)
+	# we inject the input manager, event bus and player controller to the player class
+	current_player.configure(current_event_bus, current_player_controller)
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player)

@@ -1,4 +1,4 @@
-class_name Player
+class_name ControllableEntity
 extends CharacterBody3D
 
 @export_group("Movement")
@@ -30,55 +30,41 @@ var _event_bus: EventBus:
 		#we assign the new input manager
 		_event_bus = new_event_bus
 
-#input manager
-var _input_manager : InputManager:
-	set(new_input_manager):
-		#we assign the new input manager
-		_input_manager = new_input_manager
+# the entity controller we are going to use (player or AI)
+var _entity_controller: EntityController:
+	set(new_entity_controller):
+		#we assign the new entity controller
+		_entity_controller = new_entity_controller
 
 
-func configure(new_input_manager : InputManager, new_event_bus: EventBus) -> void:
-	_input_manager = new_input_manager
+func configure(new_event_bus: EventBus, new_entity_controller: EntityController) -> void:
+	# we cache the references
+	_entity_controller = new_entity_controller
 	_event_bus = new_event_bus
 	#we listen to the input type changed signal on input manager
-	_event_bus.subscribe(BaseEvent.EventId.INPUT_TYPE_CHANGED, _on_input_type_changed)
+	_event_bus.subscribe(BaseEvent.EventId.INPUT_TYPE_CHANGED, _entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened
-	_event_bus.subscribe(BaseEvent.EventId.ON_MENU_OPENED, _on_menu_opened)
-
-
-func _on_input_type_changed() -> void:
-	print("INPUT CHANGED")
-
-
-func _on_menu_opened() -> void:
-	print("MENU OPENED")
+	_event_bus.subscribe(BaseEvent.EventId.ON_MENU_OPENED, _entity_controller.on_menu_opened)
 
 
 func _process(delta) -> void:
-	# this can be processed on another class by AI
-	var move_input : Vector2 = _process_move_input()
-	# we apply gravity to the body
-	var applied_gravity : float = _process_gravity()
-	# we get the position where we have to look at
-	var look_at_input : Vector2 = _process_look_at_input()
-	# we convert the input to 3D to be able to move the player in the world
-	var world_look_at : Vector3 = Vector3(look_at_input.x, global_position.y, look_at_input.y)
-	# we normalize the input
-	move_input = move_input.normalized()
-	# we convert 2D input to 3D movement
-	var move_direction : Vector3 = Vector3(move_input.x, 0, move_input.y)
+	# we get the wanted move direction
+	var move_direction : Vector3 = _entity_controller.get_move_direction()
 	# we calculate a desired velocity
 	var target_velocity : Vector3 = move_direction * _move_speed
+	# we apply gravity to the body
+	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _move_damping * delta)
 	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _move_damping * delta)
-	# we calculate the angle for the current mouse position (we don't take Y axis cause
-	# it's floor level)
-	var desired_look_at_angle : float = atan2(-world_look_at.x, -world_look_at.z)
+	# we calculate the angle for the current position to view to the desired point
+	var desired_look_at_angle : float = _entity_controller.get_look_at_angle()
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _rotation_speed * delta)
-	var has_shot : bool = is_shot_pressed()
+	# we get if the player pressed shot input
+	var has_shot : bool = _entity_controller.is_shot_pressed()
+	# we process the shot information if pressed
 	weapon_system.process_shot(has_shot, muzzle)
 
 
@@ -89,18 +75,6 @@ func _physics_process(_delta) -> void:
 	rotation.y = _look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
-
-
-func _process_move_input() -> Vector2:
-	return _input_manager.get_input_movement()
-
-
-func _process_look_at_input() -> Vector2:
-	return _input_manager.get_look_at()
-
-
-func is_shot_pressed() -> bool:
-	return _input_manager.is_shot_pressed()
 
 
 func _process_gravity() -> float:

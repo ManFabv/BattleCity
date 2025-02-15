@@ -15,7 +15,7 @@ var _open_ui_menu_name : String = "open_ui_menu"
 #player camera
 var _player_camera : PlayerCamera
 #player
-var _player : Player
+var _player : ControllableEntity
 
 
 func _ready() -> void:
@@ -67,6 +67,6 @@ func is_shot_just_released() -> bool:
 
 
 # we cache the player and player camera
-func configure(new_player_camera: PlayerCamera, new_player: Player) -> void:
+func configure(new_player_camera: PlayerCamera, new_player: ControllableEntity) -> void:
 	_player_camera = new_player_camera
 	_player = new_player
