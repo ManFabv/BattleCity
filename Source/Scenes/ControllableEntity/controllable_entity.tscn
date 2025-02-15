@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d177b15gvya4j"]
 
-[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/Player/player_controller.gd" id="1_uvnfx"]
+[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]

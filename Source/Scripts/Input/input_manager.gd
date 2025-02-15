@@ -18,7 +18,7 @@ var event_bus : EventBus
 
 
 func configure(new_player_camera: PlayerCamera, 
-		new_player: Player, new_event_bus: EventBus) -> void:
+		new_player: ControllableEntity, new_event_bus: EventBus) -> void:
 	#we cache the event bus
 	event_bus = new_event_bus
 	#we initialize processors
