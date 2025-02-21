@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://brwijgpd04ss4"]
+
+[ext_resource type="Script" uid="uid://bgwohy6fpevck" path="res://Scripts/StateMachine/state_machine.gd" id="1_2jx1c"]
+[ext_resource type="Script" uid="uid://bbb2fwtywu4yn" path="res://Scripts/StateMachine/State/dummy_state.gd" id="2_b5r7w"]
+
+[node name="StateMachine" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_2jx1c")
+current_state = NodePath("DummyState")
+
+[node name="DummyState" type="Node" parent="."]
+script = ExtResource("2_b5r7w")
+metadata/_custom_type_script = "uid://bbb2fwtywu4yn"
