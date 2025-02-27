@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://do27l2v5ctcmp"]
+
+[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_eoqii"]
+[ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_rnu5e"]
+[ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="3_rnu5e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
+size = Vector3(1, 0.7, 1.65)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
+size = Vector3(0.8, 0.5, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tugb3"]
+albedo_color = Color(0.718571, 0.294859, 0.194478, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3d8c"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
+albedo_color = Color(0.717647, 0.294118, 0.196078, 1)
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_eoqii")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
+mesh = SubResource("BoxMesh_uvnfx")
+surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
+
+[node name="Turret" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
+mesh = SubResource("BoxMesh_a3d8c")
+surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
+
+[node name="Muzzle" type="Marker3D" parent="Body/Turret"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
+
+[node name="WeaponSystem" parent="." instance=ExtResource("2_rnu5e")]
+
+[node name="StateMachine" parent="." instance=ExtResource("3_rnu5e")]
