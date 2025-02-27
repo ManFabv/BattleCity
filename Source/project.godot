@@ -85,6 +85,7 @@ open_ui_menu={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+jolt_physics_3d/simulation/areas_detect_static_bodies=true
 common/enable_pause_aware_picking=true
 
 [rendering]
