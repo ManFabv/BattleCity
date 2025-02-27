@@ -1,18 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2no3e726ilji"]
+[gd_scene load_steps=10 format=3 uid="uid://b2no3e726ilji"]
 
 [ext_resource type="Script" uid="uid://b4p5namp6kwu1" path="res://Scripts/Game/game_manager.gd" id="1_y3kpf"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Scenes/Input/input_manager.tscn" id="2_ln2h6"]
 [ext_resource type="PackedScene" uid="uid://dwt62qx867bb3" path="res://Scenes/World/world.tscn" id="3_y3kpf"]
 [ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://Scenes/ControllableEntity/controllable_entity.tscn" id="4_3k6gv"]
+[ext_resource type="PackedScene" uid="uid://do27l2v5ctcmp" path="res://Scenes/ControllableEntity/controllable_enemy_entity.tscn" id="4_gvja8"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="5_y3kpf"]
 [ext_resource type="PackedScene" uid="uid://d0va702rqbevq" path="res://Scenes/EventBus/event_bus.tscn" id="6_3k6gv"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="7_1q8bt"]
+[ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://Scenes/EntityController/ai_controller.tscn" id="9_m1o7v"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_y3kpf")
 _input_manager = ExtResource("2_ln2h6")
 _player = ExtResource("4_3k6gv")
+_enemy = ExtResource("4_gvja8")
 _player_camera = ExtResource("5_y3kpf")
 _world = ExtResource("3_y3kpf")
 _event_bus = ExtResource("6_3k6gv")
 _player_controller = ExtResource("7_1q8bt")
+_enemy_controller = ExtResource("9_m1o7v")

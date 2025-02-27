@@ -2,10 +2,12 @@ extends Node3D
 
 @export var _input_manager: PackedScene
 @export var _player: PackedScene
+@export var _enemy: PackedScene
 @export var _player_camera: PackedScene
 @export var _world: PackedScene
 @export var _event_bus: PackedScene
 @export var _player_controller: PackedScene
+@export var _enemy_controller: PackedScene
 
 
 func _ready() -> void:
@@ -39,7 +41,19 @@ func _ready() -> void:
 	current_player_controller.configure(current_input_manager, current_player)
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player_controller)
-	# we inject the input manager, event bus and player controller to the player class
+	# we inject the event bus and player controller to the player class
 	current_player.configure(current_event_bus, current_player_controller)
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player)
+	# we instantiate the enemy controlled by AI
+	var current_enemy_controller : AIController = _enemy_controller.instantiate()
+	# we add node to the tree and then _ready is called in order
+	add_child(current_enemy_controller)
+	# we instantiate the enemy
+	var current_enemy : ControllableEntity = _enemy.instantiate()
+	# we inject the event bus and enemy controller to the enemy class
+	current_enemy.configure(current_event_bus, current_enemy_controller)
+	# we move it up on the Z axis and right to the X axis
+	current_enemy.position += Vector3(5, 0, -5)
+	# we add node to the tree and then _ready is called in order
+	add_child(current_enemy)
