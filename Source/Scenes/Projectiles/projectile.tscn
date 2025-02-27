@@ -16,6 +16,8 @@ radius = 0.127266
 
 [node name="Projectile" type="Area3D"]
 top_level = true
+collision_layer = 256
+collision_mask = 3
 script = ExtResource("1_2re41")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -27,4 +29,5 @@ shape = SubResource("SphereShape3D_2re41")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

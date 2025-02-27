@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwt62qx867bb3"]
+[gd_scene load_steps=10 format=3 uid="uid://dwt62qx867bb3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -23,6 +23,17 @@ albedo_color = Color(0.690196, 0.537255, 0.380392, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_r26qh"]
 size = Vector3(20, 0.5, 20)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e2bkl"]
+points = PackedVector3Array(1, 1, 0, 1, -1, 0, 0.995106, 1, -0.0980814, 0.995106, 1, 0.0978857, 0.995106, -1, 0.0978857, 0.995106, -1, -0.0980814, 0.980619, 1, -0.195184, 0.980619, 1, 0.194988, 0.980619, -1, 0.194988, 0.980619, -1, -0.195184, 0.95693, 1, -0.290329, 0.95693, 1, 0.290133, 0.95693, -1, 0.290133, 0.95693, -1, -0.290329, 0.923845, 1, -0.382733, 0.923845, 1, 0.382537, 0.923845, -1, 0.382537, 0.923845, -1, -0.382733, 0.881754, 1, -0.471417, 0.881754, 1, 0.471222, 0.881754, -1, 0.471222, 0.881754, -1, -0.471417, 0.831441, 1, -0.555599, 0.831441, 1, 0.555403, 0.831441, -1, 0.555403, 0.831441, -1, -0.555599, 0.772905, 1, -0.634495, 0.772905, 1, 0.634299, 0.772905, -1, 0.634299, 0.772905, -1, -0.634495, 0.70693, 1, -0.707126, 0.70693, 1, 0.70693, 0.70693, -1, 0.70693, 0.70693, -1, -0.707126, 0.634299, 1, -0.773101, 0.634299, 1, 0.772905, 0.634299, -1, 0.772905, 0.634299, -1, -0.773101, 0.555403, 1, -0.831637, 0.555403, 1, 0.831441, 0.555403, -1, 0.831441, 0.555403, -1, -0.831637, 0.471222, 1, -0.88195, 0.471222, 1, 0.881754, 0.471222, -1, 0.881754, 0.471222, -1, -0.88195, 0.382537, 1, -0.924041, 0.382537, 1, 0.923845, 0.382537, -1, 0.923845, 0.382537, -1, -0.924041, 0.290133, 1, -0.957126, 0.290133, 1, 0.95693, 0.290133, -1, 0.95693, 0.290133, -1, -0.957126, 0.194988, 1, -0.980814, 0.194988, 1, 0.980619, 0.194988, -1, 0.980619, 0.194988, -1, -0.980814, 0.0978857, 1, -0.995301, 0.0978857, 1, 0.995106, 0.0978857, -1, 0.995106, 0.0978857, -1, -0.995301, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0, -1, -1, -0.0980814, 1, -0.995301, -0.0980814, 1, 0.995106, -0.0980814, -1, 0.995106, -0.0980814, -1, -0.995301, -0.195184, 1, -0.980814, -0.195184, 1, 0.980619, -0.195184, -1, 0.980619, -0.195184, -1, -0.980814, -0.290329, 1, -0.957126, -0.290329, 1, 0.95693, -0.290329, -1, 0.95693, -0.290329, -1, -0.957126, -0.382733, 1, -0.924041, -0.382733, 1, 0.923845, -0.382733, -1, 0.923845, -0.382733, -1, -0.924041, -0.471417, 1, -0.88195, -0.471417, 1, 0.881754, -0.471417, -1, 0.881754, -0.471417, -1, -0.88195, -0.555599, 1, -0.831637, -0.555599, 1, 0.831441, -0.555599, -1, 0.831441, -0.555599, -1, -0.831637, -0.634495, 1, -0.773101, -0.634495, 1, 0.772905, -0.634495, -1, 0.772905, -0.634495, -1, -0.773101, -0.707126, 1, -0.707126, -0.707126, 1, 0.70693, -0.707126, -1, 0.70693, -0.707126, -1, -0.707126, -0.773101, 1, -0.634495, -0.773101, 1, 0.634299, -0.773101, -1, 0.634299, -0.773101, -1, -0.634495, -0.831637, 1, -0.555599, -0.831637, 1, 0.555403, -0.831637, -1, 0.555403, -0.831637, -1, -0.555599, -0.88195, 1, -0.471417, -0.88195, 1, 0.471222, -0.88195, -1, 0.471222, -0.88195, -1, -0.471417, -0.924041, 1, -0.382733, -0.924041, 1, 0.382537, -0.924041, -1, 0.382537, -0.924041, -1, -0.382733, -0.957126, 1, -0.290329, -0.957126, 1, 0.290133, -0.957126, -1, 0.290133, -0.957126, -1, -0.290329, -0.980814, 1, -0.195184, -0.980814, 1, 0.194988, -0.980814, -1, 0.194988, -0.980814, -1, -0.195184, -0.995301, 1, -0.0980814, -0.995301, 1, 0.0978857, -0.995301, -1, 0.0978857, -0.995301, -1, -0.0980814, -1, 1, 0, -1, -1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2bkl"]
+albedo_color = Color(0.556581, 0.365005, 0.803822, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t1gg8"]
+material = SubResource("StandardMaterial3D_e2bkl")
+top_radius = 1.0
+bottom_radius = 1.0
+
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -35,6 +46,7 @@ shadow_enabled = true
 
 [node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+collision_mask = 259
 
 [node name="CollisionShape" type="CollisionShape3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194702, 0, 0)
@@ -43,4 +55,61 @@ shape = SubResource("BoxShape3D_qjlgo")
 [node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
 material_override = SubResource("StandardMaterial3D_qjlgo")
 mesh = SubResource("BoxMesh_r26qh")
+skeleton = NodePath("../..")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Prop1" type="StaticBody3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -5)
+collision_mask = 259
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop1"]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CubeProp" type="MeshInstance3D" parent="Props/Prop1"]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop2" type="StaticBody3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, -3)
+collision_mask = 259
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop2"]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CubeProp2" type="MeshInstance3D" parent="Props/Prop2"]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop3" type="StaticBody3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8)
+collision_mask = 259
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop3"]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CubeProp3" type="MeshInstance3D" parent="Props/Prop3"]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop4" type="StaticBody3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 7)
+collision_mask = 259
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop4"]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CubeProp4" type="MeshInstance3D" parent="Props/Prop4"]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop5" type="StaticBody3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 6)
+collision_mask = 259
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Prop5"]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CubeProp5" type="MeshInstance3D" parent="Props/Prop5"]
+mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")

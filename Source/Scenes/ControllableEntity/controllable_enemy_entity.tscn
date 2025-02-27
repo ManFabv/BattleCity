@@ -20,6 +20,8 @@ size = Vector3(0.2, 0.2, 1)
 albedo_color = Color(0.717647, 0.294118, 0.196078, 1)
 
 [node name="Enemy" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 259
 script = ExtResource("1_eoqii")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
