@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+### Other assets and or software licenses ###
+- **GUT**: [The MIT License (MIT)](https://github.com/bitwes/Gut/blob/main/addons/gut/LICENSE.md)
+- **Godot Coverage**: [The MIT License (MIT)](https://github.com/jamie-pate/godot-code-coverage/blob/main/LICENSE)
