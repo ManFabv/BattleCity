@@ -5,6 +5,10 @@ extends Node
 # if it's keyboard and mouse, or gamepad
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 
+@export_group("Events")
+@export var _on_input_changed_event : BaseEvent
+@export var _on_menu_opened_event : BaseEvent
+
 ## different input processors according to player controller
 @onready var _keyboard_mouse_processor: Node = $InputInterface/KeyboardMouseProcessor
 @onready var _game_pad_processor: Node = $InputInterface/GamePadProcessor
@@ -13,14 +17,10 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 var _last_input : InputType = InputType.DUMMY
 ## this is the actual input processor
 var _current_input_processor : InputInterface
-## this is the reference to event bus
-var event_bus : EventBus
 
 
 func configure(new_player_camera: PlayerCamera, 
-		new_player: ControllableEntity, new_event_bus: EventBus) -> void:
-	#we cache the event bus
-	event_bus = new_event_bus
+		new_player: ControllableEntity) -> void:
 	#we initialize processors
 	_keyboard_mouse_processor.configure(new_player_camera, new_player)
 	_game_pad_processor.configure(new_player_camera, new_player)
@@ -48,7 +48,7 @@ func _unhandled_input(_event):
 	# if the player wants to open the menu
 	if _current_input_processor.is_open_menu_pressed():
 		# we trigger the event
-		event_bus.emit(BaseEvent.EventId.ON_MENU_OPENED)
+		_on_menu_opened_event.emit()
 		## TODO: this is only temporal, we need to open a UI menu
 		get_tree().quit()
 
@@ -79,7 +79,7 @@ func _change_input_type(new_input_type: InputType) -> void:
 	else: # defaults to keyboard
 		_current_input_processor = _keyboard_mouse_processor
 	# we trigger the signal that the type changed
-	event_bus.emit(BaseEvent.EventId.INPUT_TYPE_CHANGED)
+	_on_input_changed_event.emit()
 
 
 func get_input_movement() -> Vector2:

@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7txj2htclqx7"]
+[gd_scene load_steps=8 format=3 uid="uid://c7txj2htclqx7"]
 
 [ext_resource type="Script" uid="uid://bahcuvmjcby2k" path="res://Scripts/Input/input_manager.gd" id="1_j82cb"]
 [ext_resource type="Script" uid="uid://hair6c6ogmsn" path="res://Scripts/Input/input_interface.gd" id="1_sqvuy"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="2_hiugb"]
+[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_vsbo5"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_ctt7y"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="3_hiugb"]
 [ext_resource type="Script" uid="uid://ce24lbb3kmkjm" path="res://Scripts/Input/Processors/dummy_processor.gd" id="4_bbmhe"]
 
 [node name="InputManager" type="Node"]
 script = ExtResource("1_j82cb")
+_on_input_changed_event = ExtResource("2_vsbo5")
+_on_menu_opened_event = ExtResource("3_ctt7y")
 
 [node name="InputInterface" type="Node" parent="."]
 script = ExtResource("1_sqvuy")

@@ -5,16 +5,11 @@ extends Node3D
 @export var _enemy: PackedScene
 @export var _player_camera: PackedScene
 @export var _world: PackedScene
-@export var _event_bus: PackedScene
 @export var _player_controller: PackedScene
 @export var _enemy_controller: PackedScene
 
 
 func _ready() -> void:
-	# we instantiate the event bus
-	var current_event_bus : EventBus = _event_bus.instantiate()
-	# we add the nodes to the tree and then _ready is called in order
-	add_child(current_event_bus)
 	# we instantiate the scenes for world
 	var current_world : Node3D = _world.instantiate() as Node3D
 	# we add the nodes to the tree and then _ready is called in order
@@ -34,7 +29,7 @@ func _ready() -> void:
 	# we instantiate the player
 	var current_player : ControllableEntity = _player.instantiate() as ControllableEntity
 	# we inject the player and player camera and event bus
-	current_input_manager.configure(current_player_camera, current_player, current_event_bus)
+	current_input_manager.configure(current_player_camera, current_player)
 	# we instantiate the player controller
 	var current_player_controller : PlayerController = _player_controller.instantiate()
 	# we inject the player and player camera and event bus
@@ -42,7 +37,7 @@ func _ready() -> void:
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player_controller)
 	# we inject the event bus and player controller to the player class
-	current_player.configure(current_event_bus, current_player_controller)
+	current_player.configure(current_player_controller)
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player)
 	# we instantiate the enemy controlled by AI
@@ -52,7 +47,7 @@ func _ready() -> void:
 	# we instantiate the enemy
 	var current_enemy : ControllableEntity = _enemy.instantiate()
 	# we inject the event bus and enemy controller to the enemy class
-	current_enemy.configure(current_event_bus, current_enemy_controller)
+	current_enemy.configure(current_enemy_controller)
 	# we move it up on the Z axis and right to the X axis
 	current_enemy.position += Vector3(5, 0, -5)
 	# we add node to the tree and then _ready is called in order

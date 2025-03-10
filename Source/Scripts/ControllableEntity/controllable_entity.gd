@@ -11,6 +11,9 @@ extends CharacterBody3D
 @export_group("Rotation")
 ## how fast the body will rotate
 @export_range(1, 10) var _rotation_speed : float = 15
+@export_group("Events")
+@export var _on_input_changed_event : BaseEvent
+@export var _on_menu_opened_event : BaseEvent
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
 @onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _gravity_modifier
@@ -24,12 +27,6 @@ var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
 
-#event bus
-var _event_bus: EventBus:
-	set(new_event_bus):
-		#we assign the new input manager
-		_event_bus = new_event_bus
-
 # the entity controller we are going to use (player or AI)
 var _entity_controller: EntityController:
 	set(new_entity_controller):
@@ -37,14 +34,13 @@ var _entity_controller: EntityController:
 		_entity_controller = new_entity_controller
 
 
-func configure(new_event_bus: EventBus, new_entity_controller: EntityController) -> void:
+func configure(new_entity_controller: EntityController) -> void:
 	# we cache the references
 	_entity_controller = new_entity_controller
-	_event_bus = new_event_bus
 	#we listen to the input type changed signal on input manager
-	_event_bus.subscribe(BaseEvent.EventId.INPUT_TYPE_CHANGED, _entity_controller.on_input_type_changed)
+	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened
-	_event_bus.subscribe(BaseEvent.EventId.ON_MENU_OPENED, _entity_controller.on_menu_opened)
+	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened)
 
 
 func _process(delta) -> void:
