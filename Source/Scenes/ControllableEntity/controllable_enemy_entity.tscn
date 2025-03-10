@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://do27l2v5ctcmp"]
+[gd_scene load_steps=11 format=3 uid="uid://do27l2v5ctcmp"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_eoqii"]
+[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_o6bum"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_rnu5e"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_5tnf3"]
 [ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="3_rnu5e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
@@ -23,6 +25,8 @@ albedo_color = Color(0.717647, 0.294118, 0.196078, 1)
 collision_layer = 2
 collision_mask = 259
 script = ExtResource("1_eoqii")
+_on_input_changed_event = ExtResource("2_o6bum")
+_on_menu_opened_event = ExtResource("3_5tnf3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
