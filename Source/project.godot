@@ -82,6 +82,12 @@ open_ui_menu={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="World"
+3d_physics/layer_2="Entities"
+3d_physics/layer_9="Projectiles"
+
 [physics]
 
 2d/run_on_separate_thread=true
