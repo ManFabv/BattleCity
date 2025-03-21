@@ -1,41 +1,5 @@
+## This is the base class for all test scripts.  Extend this...test the world!
 class_name GutTest
-# ##############################################################################
-#(G)odot (U)nit (T)est class
-#
-# ##############################################################################
-# The MIT License (MIT)
-# =====================
-#
-# Copyright (c) 2020 Tom "Butch" Wesley
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-# ##############################################################################
-# View readme for usage details.
-#
-# Version - see gut.gd
-# ##############################################################################
-# Class that all test scripts must extend.`
-#
-# This provides all the asserts and other testing features.  Test scripts are
-# run by the Gut class in gut.gd
-# ##############################################################################
 extends Node
 
 var _compare = GutUtils.Comparator.new()
@@ -73,9 +37,14 @@ var _strutils = GutUtils.Strutils.new()
 var _awaiter = null
 
 # syntax sugar
+## Reference to [addons/gut/parameter_factory.gd] script.
 var ParameterFactory = GutUtils.ParameterFactory
+## @ignore
 var CompareResult = GutUtils.CompareResult
+## Reference to [addons/gut/input_factory.gd] script.
 var InputFactory = GutUtils.InputFactory
+## Reference to [GutInputSender].  This was the way you got to the [GutInputSender]
+## before it was given a [code]class_name[/code]
 var InputSender = GutUtils.InputSender
 
 
@@ -216,7 +185,7 @@ func _fail_if_parameters_not_array(parameters):
 	var invalid = parameters != null and typeof(parameters) != TYPE_ARRAY
 	if(invalid):
 		_lgr.error('The "parameters" parameter must be an array of expected parameter values.')
-		_fail('Cannot compare paramter values because an array was not passed.')
+		_fail('Cannot compare parameter values because an array was not passed.')
 	return invalid
 
 
@@ -296,9 +265,11 @@ func after_each():
 # Public
 # #######################
 
+## @internal
 func get_logger():
 	return _lgr
 
+## @internal
 func set_logger(logger):
 	_lgr = logger
 
@@ -371,20 +342,15 @@ func assert_almost_ne(got, not_expected, error_interval, text=''):
 
 # ------------------------------------------------------------------------------
 # Helper function compares a value against a expected and a +/- range.  Compares
-# all components of Vector2 and Vector3 as well.
+# all components of Vector2, Vector3, and Vector4 as well.
 # ------------------------------------------------------------------------------
 func _is_almost_eq(got, expected, error_interval) -> bool:
 	var result = false
 	var upper = expected + error_interval
 	var lower = expected - error_interval
 
-	if typeof(got) == TYPE_VECTOR2:
-		result = got.x >= lower.x and got.x <= upper.x and \
-				got.y >= lower.y and got.y <= upper.y
-	elif typeof(got) == TYPE_VECTOR3:
-		result = got.x >= lower.x and got.x <= upper.x and \
-				got.y >= lower.y and got.y <= upper.y and \
-				got.z >= lower.z and got.z <= upper.z
+	if typeof(got) in [TYPE_VECTOR2, TYPE_VECTOR3, TYPE_VECTOR4]:
+		result = got.clamp(lower, upper) == got
 	else:
 		result = got >= (lower) and got <= (upper)
 
@@ -1079,12 +1045,11 @@ func _validate_singleton_name(singleton_name):
 	return is_valid
 
 
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
+## @deprecated: no longer supported.
 func assert_setget(
 	instance, name_property,
 	const_or_setter = null, getter="__not_set__"):
-	_lgr.deprecated('assert_setget')
+	_lgr.deprecated('assert_property')
 	_fail('assert_setget has been removed.  Use assert_property, assert_set_property, assert_readonly_property instead.')
 
 
@@ -1189,9 +1154,9 @@ func assert_property(obj, property_name, default_value, new_value) -> void:
 
 	_warn_for_public_accessors(obj, property_name)
 
+
 # ------------------------------------------------------------------------------
-# Mark the current test as pending.
-# ------------------------------------------------------------------------------
+## Mark the current test as pending.
 func pending(text=""):
 	_summary.pending += 1
 	if(gut):
@@ -1200,22 +1165,23 @@ func pending(text=""):
 
 
 # ------------------------------------------------------------------------------
-# Yield for the time sent in.  The optional message will be printed when
-# Gut detects the yield.
-# ------------------------------------------------------------------------------
+## Await for the time sent in.  The optional message will be printed when the
+## await starts
 func wait_seconds(time, msg=''):
 	_lgr.yield_msg(str('-- Awaiting ', time, ' second(s) -- ', msg))
 	_awaiter.wait_seconds(time)
 	return _awaiter.timeout
 
+
+# ------------------------------------------------------------------------------
+## @deprecated: use wait_seconds
 func yield_for(time, msg=''):
 	_lgr.deprecated('yield_for', 'wait_seconds')
 	return wait_seconds(time, msg)
 
 
 # ------------------------------------------------------------------------------
-# Yield to a signal or a maximum amount of time, whichever comes first.
-# ------------------------------------------------------------------------------
+## Yield to a signal or a maximum amount of time, whichever comes first.
 func wait_for_signal(sig : Signal, max_wait, msg=''):
 	watch_signals(sig.get_object())
 	_lgr.yield_msg(str('-- Awaiting signal "', sig.get_name(), '" or for ', max_wait, ' second(s) -- ', msg))
@@ -1224,18 +1190,19 @@ func wait_for_signal(sig : Signal, max_wait, msg=''):
 	return !_awaiter.did_last_wait_timeout
 
 
+# ------------------------------------------------------------------------------
+## @deprecated: use wait_for_signal
 func yield_to(obj, signal_name, max_wait, msg=''):
 	_lgr.deprecated('yield_to', 'wait_for_signal')
 	return await wait_for_signal(Signal(obj, signal_name), max_wait, msg)
 
 
 # ------------------------------------------------------------------------------
-# Yield for a number of frames.  The optional message will be printed. when
-# Gut detects a yield.
-# ------------------------------------------------------------------------------
+## Yield for a number of frames.  The optional message will be printed. when
+## Gut detects a yield.
 func wait_frames(frames, msg=''):
 	if(frames <= 0):
-		var text = str('yeild_frames:  frames must be > 0, you passed  ', frames, '.  0 frames waited.')
+		var text = str('wait_frames:  frames must be > 0, you passed  ', frames, '.  0 frames waited.')
 		_lgr.error(text)
 		frames = 1
 
@@ -1243,6 +1210,8 @@ func wait_frames(frames, msg=''):
 	_awaiter.wait_frames(frames)
 	return _awaiter.timeout
 
+
+# ------------------------------------------------------------------------------
 # p3 can be the optional message or an amount of time to wait between tests.
 # p4 is the optional message if you have specified an amount of time to
 #	wait between tests.
@@ -1259,16 +1228,21 @@ func wait_until(callable, max_wait, p3='', p4=''):
 	await _awaiter.timeout
 	return !_awaiter.did_last_wait_timeout
 
-
+## Returns whether the last wait_* method timed out.  This is always true if
+## the last method was wait_frames or wait_seconds.  It will be false when
+## using wait_for_signal and wait_until if the timeout occurs before what
+## is being waited on.  The wait_* methods return this value so you should be
+## able to avoid calling this directly, but you can.
 func did_wait_timeout():
 	return _awaiter.did_last_wait_timeout
 
 
+## @deprecated: use wait_frames
 func yield_frames(frames, msg=''):
 	_lgr.deprecated("yield_frames", "wait_frames")
 	return wait_frames(frames, msg)
 
-
+## @internal
 func get_summary():
 	return _summary
 
@@ -1284,6 +1258,7 @@ func get_pending_count():
 func get_assert_count():
 	return _summary.asserts
 
+## @internal
 func clear_signal_watcher():
 	_signal_watcher.clear()
 
@@ -1299,6 +1274,7 @@ func pause_before_teardown():
 # ------------------------------------------------------------------------------
 # Convert the _summary dictionary into text
 # ------------------------------------------------------------------------------
+## @internal
 func get_summary_text():
 	var to_return = get_script().get_path() + "\n"
 	to_return += str('  ', _summary.passed, ' of ', _summary.asserts, ' passed.')
@@ -1381,6 +1357,7 @@ func partial_double(thing, double_strat=null, not_used_anymore=null):
 # ------------------------------------------------------------------------------
 # Doubles a Godot singleton
 # ------------------------------------------------------------------------------
+## @internal
 func double_singleton(singleton_name):
 	return null
 	# var to_return = null
@@ -1391,6 +1368,7 @@ func double_singleton(singleton_name):
 # ------------------------------------------------------------------------------
 # Partial Doubles a Godot singleton
 # ------------------------------------------------------------------------------
+## @internal
 func partial_double_singleton(singleton_name):
 	return null
 	# var to_return = null
@@ -1398,19 +1376,14 @@ func partial_double_singleton(singleton_name):
 	# 	to_return = gut.get_doubler().partial_double_singleton(singleton_name)
 	# return to_return
 
-# ------------------------------------------------------------------------------
-# Specifically double a scene
-# ------------------------------------------------------------------------------
+## @deprecated: no longer supported.  Use double
 func double_scene(path, strategy=null):
 	_lgr.deprecated('test.double_scene has been removed.', 'double')
 	return null
 
-	# var override_strat = GutUtils.nvl(strategy, gut.get_doubler().get_strategy())
-	# return gut.get_doubler().double_scene(path, override_strat)
 
-# ------------------------------------------------------------------------------
-# Specifically double a script
-# ------------------------------------------------------------------------------
+
+## @deprecated: no longer supported.  Use double
 func double_script(path, strategy=null):
 	_lgr.deprecated('test.double_script has been removed.', 'double')
 	return null
@@ -1418,9 +1391,8 @@ func double_script(path, strategy=null):
 	# var override_strat = GutUtils.nvl(strategy, gut.get_doubler().get_strategy())
 	# return gut.get_doubler().double(path, override_strat)
 
-# ------------------------------------------------------------------------------
-# Specifically double an Inner class in a a script
-# ------------------------------------------------------------------------------
+
+## @deprecated: no longer supported.  Use register_inner_classes + double
 func double_inner(path, subpath, strategy=null):
 	_lgr.deprecated('double_inner should not be used.  Use register_inner_classes and double instead.', 'double')
 	return null
@@ -1549,13 +1521,14 @@ func use_parameters(params):
 	return ph.next_parameters()
 
 
-# ------------------------------------------------------------------------------
-# When used as the default for a test method parameter, it will cause the test
-# to be run x times.
-#
-# I Hacked this together to test a method that was occassionally failing due to
-# timing issues.  I don't think it's a great idea, but you be the judge.
-# ------------------------------------------------------------------------------
+## @internal
+## When used as the default for a test method parameter, it will cause the test
+## to be run x times.
+##
+## I Hacked this together to test a method that was occassionally failing due to
+## timing issues.  I don't think it's a great idea, but you be the judge.  If
+## you find a good use for it, let me know and I'll make it a legit member
+## of the api.
 func run_x_times(x):
 	var ph = gut.parameter_handler
 	if(ph == null):
@@ -1573,27 +1546,23 @@ func run_x_times(x):
 		gut.parameter_handler = ph
 	return ph.next_parameters()
 
-# ------------------------------------------------------------------------------
-# Marks whatever is passed in to be freed after the test finishes.  It also
-# returns what is passed in so you can save a line of code.
-#   var thing = autofree(Thing.new())
-# ------------------------------------------------------------------------------
+## Marks whatever is passed in to be freed after the test finishes.  It also
+## returns what is passed in so you can save a line of code.
+##   var thing = autofree(Thing.new())
 func autofree(thing):
 	gut.get_autofree().add_free(thing)
 	return thing
 
-# ------------------------------------------------------------------------------
-# Works the same as autofree except queue_free will be called on the object
-# instead.  This also imparts a brief pause after the test finishes so that
-# the queued object has time to free.
-# ------------------------------------------------------------------------------
+
+## Works the same as autofree except queue_free will be called on the object
+## instead.  This also imparts a brief pause after the test finishes so that
+## the queued object has time to free.
 func autoqfree(thing):
 	gut.get_autofree().add_queue_free(thing)
 	return thing
 
-# ------------------------------------------------------------------------------
-# The same as autofree but it also adds the object as a child of the test.
-# ------------------------------------------------------------------------------
+
+## The same as autofree but it also adds the object as a child of the test.
 func add_child_autofree(node, legible_unique_name = false):
 	gut.get_autofree().add_free(node)
 	# Explicitly calling super here b/c add_child MIGHT change and I don't want
@@ -1601,9 +1570,8 @@ func add_child_autofree(node, legible_unique_name = false):
 	super.add_child(node, legible_unique_name)
 	return node
 
-# ------------------------------------------------------------------------------
-# The same as autoqfree but it also adds the object as a child of the test.
-# ------------------------------------------------------------------------------
+
+## The same as autoqfree but it also adds the object as a child of the test.
 func add_child_autoqfree(node, legible_unique_name=false):
 	gut.get_autofree().add_queue_free(node)
 	# Explicitly calling super here b/c add_child MIGHT change and I don't want
@@ -1611,9 +1579,8 @@ func add_child_autoqfree(node, legible_unique_name=false):
 	super.add_child(node, legible_unique_name)
 	return node
 
-# ------------------------------------------------------------------------------
-# Returns true if the test is passing as of the time of this call.  False if not.
-# ------------------------------------------------------------------------------
+
+## Returns true if the test is passing as of the time of this call.  False if not.
 func is_passing():
 	if(gut.get_current_test_object() != null and
 		!['before_all', 'after_all'].has(gut.get_current_test_object().name)):
@@ -1623,9 +1590,8 @@ func is_passing():
 		_lgr.error('No current test object found.  is_passing must be called inside a test.')
 		return null
 
-# ------------------------------------------------------------------------------
-# Returns true if the test is failing as of the time of this call.  False if not.
-# ------------------------------------------------------------------------------
+
+## Returns true if the test is failing as of the time of this call.  False if not.
 func is_failing():
 	if(gut.get_current_test_object() != null and
 		!['before_all', 'after_all'].has(gut.get_current_test_object().name)):
@@ -1635,23 +1601,20 @@ func is_failing():
 		_lgr.error('No current test object found.  is_failing must be called inside a test.')
 		return null
 
-# ------------------------------------------------------------------------------
-# Marks the test as passing.  Does not override any failing asserts or calls to
-# fail_test.  Same as a passing assert.
-# ------------------------------------------------------------------------------
+
+## Marks the test as passing.  Does not override any failing asserts or calls to
+## fail_test.  Same as a passing assert.
 func pass_test(text):
 	_pass(text)
 
-# ------------------------------------------------------------------------------
-# Marks the test as failing.  Same as a failing assert.
-# ------------------------------------------------------------------------------
+
+## Marks the test as failing.  Same as a failing assert.
 func fail_test(text):
 	_fail(text)
 
-# ------------------------------------------------------------------------------
-# Peforms a deep compare on both values, a CompareResult instnace is returned.
-# The optional max_differences paramter sets the max_differences to be displayed.
-# ------------------------------------------------------------------------------
+
+## Peforms a deep compare on both values, a CompareResult instnace is returned.
+## The optional max_differences paramter sets the max_differences to be displayed.
 func compare_deep(v1, v2, max_differences=null):
 	var result = _compare.deep(v1, v2)
 	if(max_differences != null):
@@ -1757,3 +1720,49 @@ func skip_if_godot_version_ne(expected):
 # ------------------------------------------------------------------------------
 func register_inner_classes(base_script):
 	gut.get_doubler().inner_class_registry.register(base_script)
+
+
+
+
+
+
+
+
+
+# ##############################################################################
+#(G)odot (U)nit (T)est class
+#
+# ##############################################################################
+# The MIT License (MIT)
+# =====================
+#
+# Copyright (c) 2025 Tom "Butch" Wesley
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+# ##############################################################################
+# View readme for usage details.
+#
+# Version - see gut.gd
+# ##############################################################################
+# Class that all test scripts must extend.`
+#
+# This provides all the asserts and other testing features.  Test scripts are
+# run by the Gut class in gut.gd
+# ##############################################################################
