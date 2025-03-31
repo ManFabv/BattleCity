@@ -9,7 +9,7 @@ extends CharacterBody3D
 @export var _on_menu_opened_event : BaseEvent
 
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
-@onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _entity_properties._gravity_modifier
+@onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _entity_properties.gravity_modifier
 #where we are going to spawn the projectile
 @onready var muzzle: Marker3D = $Body/Turret/Muzzle
 #system that will handle all the shooting logic
@@ -40,17 +40,17 @@ func _process(delta) -> void:
 	# we get the wanted move direction
 	var move_direction : Vector3 = _entity_controller.get_move_direction()
 	# we calculate a desired velocity
-	var target_velocity : Vector3 = move_direction * _entity_properties._move_speed
+	var target_velocity : Vector3 = move_direction * _entity_properties.move_speed
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
-	_move_velocity.x = lerp(velocity.x, target_velocity.x, _entity_properties._move_damping * delta)
+	_move_velocity.x = lerp(velocity.x, target_velocity.x, _entity_properties.move_damping * delta)
 	_move_velocity.y += applied_gravity * delta
-	_move_velocity.z = lerp(velocity.z, target_velocity.z, _entity_properties._move_damping * delta)
+	_move_velocity.z = lerp(velocity.z, target_velocity.z, _entity_properties.move_damping * delta)
 	# we calculate the angle for the current position to view to the desired point
 	var desired_look_at_angle : float = _entity_controller.get_look_at_angle()
 	# we calculate the amount of the angle to rotate
-	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _entity_properties._rotation_speed * delta)
+	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _entity_properties.rotation_speed * delta)
 	# we get if the player pressed shot input
 	var has_shot : bool = _entity_controller.is_shot_pressed()
 	# we process the shot information if pressed
