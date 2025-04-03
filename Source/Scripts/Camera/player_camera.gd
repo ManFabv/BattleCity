@@ -12,7 +12,7 @@ var _last_position_collision : Vector3 = Vector3.ZERO
 var _last_point_query : Vector2 = Vector2.ZERO
 
 ## this will convert a 2D point to 3D
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# we project the given point
 	ray_cast_3d.target_position = project_local_ray_normal(_last_point_query) * world_position_ray_length
 	# we force to update the collision for this new ray

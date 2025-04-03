@@ -1,7 +1,5 @@
 extends InputInterface
 
-## How long will the ray be to transform mouse position viewport 2D to world position 3D
-@export_range(1, 1000) var ray_length : float = 1000
 
 #input action names variables
 var _move_left_name : String
