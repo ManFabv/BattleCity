@@ -16,7 +16,8 @@ func _physics_process(delta: float) -> void:
 #here we check if the projectile left the screen to remove it
 #this is done using the VisibleOnScreenNotifier3D node
 func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
-	_destroy_projectile()
+	# we only need to remove the projectile
+	queue_free()
 
 
 # if we collided with other body

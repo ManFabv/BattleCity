@@ -31,7 +31,7 @@ func _ready() -> void:
 	# we inject the player and player camera and event bus
 	current_input_manager.configure(current_player_camera, current_player)
 	# we instantiate the player controller
-	var current_player_controller : PlayerController = _player_controller.instantiate()
+	var current_player_controller : PlayerController = _player_controller.instantiate() as PlayerController
 	# we inject the player and player camera and event bus
 	current_player_controller.configure(current_input_manager, current_player)
 	# we add node to the tree and then _ready is called in order
@@ -41,11 +41,11 @@ func _ready() -> void:
 	# we add node to the tree and then _ready is called in order
 	add_child(current_player)
 	# we instantiate the enemy controlled by AI
-	var current_enemy_controller : AIController = _enemy_controller.instantiate()
+	var current_enemy_controller : AIController = _enemy_controller.instantiate() as AIController
 	# we add node to the tree and then _ready is called in order
 	add_child(current_enemy_controller)
 	# we instantiate the enemy
-	var current_enemy : ControllableEntity = _enemy.instantiate()
+	var current_enemy : ControllableEntity = _enemy.instantiate() as ControllableEntity
 	# we inject the event bus and enemy controller to the enemy class
 	current_enemy.configure(current_enemy_controller)
 	# we move it up on the Z axis and right to the X axis
