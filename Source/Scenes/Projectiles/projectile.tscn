@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://imre1ajvaje2"]
+[gd_scene load_steps=6 format=3 uid="uid://imre1ajvaje2"]
 
 [ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_2re41"]
+[ext_resource type="Resource" uid="uid://bwqerckn88ab0" path="res://Resources/Projectiles/base_projectile.tres" id="2_aihi3"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -19,6 +20,7 @@ top_level = true
 collision_layer = 256
 collision_mask = 3
 script = ExtResource("1_2re41")
+projectile_stats = ExtResource("2_aihi3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_1bece")

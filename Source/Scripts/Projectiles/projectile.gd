@@ -1,8 +1,8 @@
 class_name Projectile
 extends Area3D
 
-#how fast the projectile will move
-@export_range(1, 100) var speed : float = 10
+#Projectile stats like velocity and damage
+@export var projectile_stats : ProjectileStats
 
 #direction where the projectile is moving
 var direction : Vector3 = Vector3.FORWARD
@@ -10,7 +10,7 @@ var direction : Vector3 = Vector3.FORWARD
 
 #we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	position += direction * speed * delta
+	position += direction * projectile_stats._speed * delta
 
 
 #here we check if the projectile left the screen to remove it
