@@ -2,7 +2,7 @@ class_name ControllableEntity
 extends CharacterBody3D
 
 @export_group("Entity Properties")
-## Properties that define entity
+## manages the entity stats and its modifiers
 @export var _entity_stats_manager : EntityStatsManager
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
@@ -20,7 +20,7 @@ var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
 
-# the entity stats
+# the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
 		return _entity_stats_manager.entity_stats()

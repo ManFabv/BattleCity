@@ -1,6 +1,7 @@
 class_name EntityStats
 extends Resource
 
+
 @export_group("Movement")
 ## how fast the body will move
 @export_range(1, 10) var move_speed : float = 7:

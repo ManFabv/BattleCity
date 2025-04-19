@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
-[ext_resource type="Resource" uid="uid://do5uyurd4d06x" path="res://Resources/EntityStats/entity_stats_manager.tres" id="2_kitst"]
+[ext_resource type="Resource" uid="uid://clrsfw7gdv34w" path="res://Resources/EntityStats/Managers/entity_stats_manager.tres" id="2_kitst"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 
