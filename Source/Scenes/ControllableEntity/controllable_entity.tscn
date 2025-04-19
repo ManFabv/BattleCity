@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
-[ext_resource type="Resource" uid="uid://clrsfw7gdv34w" path="res://Resources/EntityStats/Managers/entity_stats_manager.tres" id="2_kitst"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
+[ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -25,7 +25,6 @@ albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
 collision_layer = 2
 collision_mask = 259
 script = ExtResource("1_uvnfx")
-_entity_stats_manager = ExtResource("2_kitst")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 
@@ -47,3 +46,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
 [node name="WeaponSystem" parent="." instance=ExtResource("2_a3d8c")]
+
+[node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]

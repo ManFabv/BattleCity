@@ -1,12 +1,13 @@
 class_name EntityStatsManager
-extends Resource
+extends Node
 
 @export_group("Stats")
 ## base entity stats before any modification
 @export var _base_entity_stats : EntityStats
 @export_group("Stats Modifiers")
+
 ## a list of different modifiers for the current stats
-@export var _modifiers : Array[EntityStatsModifier]
+var _modifiers : Array[EntityStatsModifier]
 
 ## we are going to work over this copy to not affect the real resource
 var _current_base_entity_stats : EntityStats:
@@ -20,11 +21,16 @@ var _current_base_entity_stats : EntityStats:
 
 
 func add_modifier(new_modifier : EntityStatsModifier) -> void:
+	new_modifier.init(self)
+	new_modifier.on_modifier_depleted.connect(_modifier_depleted)
 	_modifiers.append(new_modifier)
+	_apply_modifiers()
 
 
 func remove_modifier(modifier : EntityStatsModifier) -> void:
+	modifier.on_modifier_depleted.disconnect(_modifier_depleted)
 	_modifiers.erase(modifier)
+	_apply_modifiers()
 
 
 ## we apply all entity stats modifiers
@@ -37,3 +43,8 @@ func _apply_modifiers() -> void:
 ## we get the base stats with all entity stats modifiers applied
 func entity_stats() -> EntityStats:
 	return _current_base_entity_stats
+
+
+## when we deplete a modifier, we remove it from the list
+func _modifier_depleted(modifier: EntityStatsModifier) -> void:
+	remove_modifier(modifier)
