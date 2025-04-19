@@ -1,24 +1,28 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-@export_group("Entity Properties")
-## manages the entity stats and its modifiers
-@export var _entity_stats_manager : EntityStatsManager
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
 @export var _on_menu_opened_event : BaseEvent
 
-#we are applying the gravity defined by the setting and the multiplier set by the inspector
-@onready var _gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") * _entity_stats.gravity_modifier
 #where we are going to spawn the projectile
 @onready var muzzle: Marker3D = $Body/Turret/Muzzle
 #system that will handle all the shooting logic
 @onready var weapon_system: WeaponSystem = $WeaponSystem
+## manages the entity stats and its modifiers
+@onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
+## project settings gravity
+@onready var _project_settings_gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
+
+#we are applying the gravity defined by the setting and the multiplier set by the inspector
+var _gravity : float:
+	get():
+		return _project_settings_gravity * _entity_stats.gravity_modifier
 
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
