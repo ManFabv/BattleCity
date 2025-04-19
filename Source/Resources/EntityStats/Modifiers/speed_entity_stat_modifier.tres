@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SpeedEntityStatModifier" load_steps=2 format=3 uid="uid://cckytcyauscc6"]
+
+[ext_resource type="Script" uid="uid://bkh3w3nsj0th2" path="res://Scripts/EntityStats/Modifiers/speed_entity_stats_modifier.gd" id="1_ovlcb"]
+
+[resource]
+script = ExtResource("1_ovlcb")
+_speed_multiplier = 1.5
+move_speed = 7.0
+move_damping = 10.0
+gravity_modifier = 2.0
+rotation_speed = 15.0
+metadata/_custom_type_script = "uid://bkh3w3nsj0th2"
