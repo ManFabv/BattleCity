@@ -31,6 +31,13 @@ var _entity_controller: EntityController:
 		_entity_controller = new_entity_controller
 
 
+func _ready() -> void:
+	#we listen to health change events
+	_health_system.on_health_changed.connect(_on_health_changed)
+	#we listen to entity dead event
+	_health_system.on_dead.connect(_on_dead)
+
+
 func configure(new_entity_controller: EntityController) -> void:
 	# we cache the references
 	_entity_controller = new_entity_controller
@@ -77,3 +84,17 @@ func _process_gravity() -> float:
 		applied_gravity = _move_velocity.y - _entity_stats.gravity
 	# we return the correct gravity
 	return applied_gravity
+
+
+## called everytime the health changes, healing or damaging
+func _on_health_changed(current_health: int, max_health : int) -> void:
+	# TODO: this should be connected to the UI to see visually the health
+	pass
+
+
+## called when the entity has no health
+func _on_dead() -> void:
+	# TODO: we need a better implementation for this method
+	# like spawning particles or playing sounds before 
+	# removing the node
+	queue_free()
