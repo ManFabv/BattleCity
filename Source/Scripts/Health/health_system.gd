@@ -1,3 +1,4 @@
+class_name HealthSystem
 extends Node
 
 signal on_health_changed(current_health: int, max_health : int)

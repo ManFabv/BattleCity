@@ -11,18 +11,13 @@ extends CharacterBody3D
 @onready var weapon_system: WeaponSystem = $WeaponSystem
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
-## project settings gravity
-@onready var _project_settings_gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
+## manages the health for the entity
+@onready var _health_system : HealthSystem = $HealthSystem
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
-
-#we are applying the gravity defined by the setting and the multiplier set by the inspector
-var _gravity : float:
-	get():
-		return _project_settings_gravity * _entity_stats.gravity_modifier
 
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
@@ -79,6 +74,6 @@ func _process_gravity() -> float:
 	var applied_gravity : float = 0.0
 	# if we are falling, we make a sum of the velocity on Y and applying gravity
 	if not is_on_floor():
-		applied_gravity = _move_velocity.y - _gravity
+		applied_gravity = _move_velocity.y - _entity_stats.gravity
 	# we return the correct gravity
 	return applied_gravity
