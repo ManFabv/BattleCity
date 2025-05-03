@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene load_steps=12 format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
+[ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="6_g264i"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
@@ -48,3 +49,5 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="WeaponSystem" parent="." instance=ExtResource("2_a3d8c")]
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]
+
+[node name="HealthSystem" parent="." instance=ExtResource("6_g264i")]

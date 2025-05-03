@@ -11,18 +11,13 @@ extends CharacterBody3D
 @onready var weapon_system: WeaponSystem = $WeaponSystem
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
-## project settings gravity
-@onready var _project_settings_gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
+## manages the health for the entity
+@onready var _health_system : HealthSystem = $HealthSystem
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
 var _look_at_angle : float = 0
-
-#we are applying the gravity defined by the setting and the multiplier set by the inspector
-var _gravity : float:
-	get():
-		return _project_settings_gravity * _entity_stats.gravity_modifier
 
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
@@ -34,6 +29,13 @@ var _entity_controller: EntityController:
 	set(new_entity_controller):
 		#we assign the new entity controller
 		_entity_controller = new_entity_controller
+
+
+func _ready() -> void:
+	#we listen to health change events
+	_health_system.on_health_changed.connect(_on_health_changed)
+	#we listen to entity dead event
+	_health_system.on_dead.connect(_on_dead)
 
 
 func configure(new_entity_controller: EntityController) -> void:
@@ -79,6 +81,20 @@ func _process_gravity() -> float:
 	var applied_gravity : float = 0.0
 	# if we are falling, we make a sum of the velocity on Y and applying gravity
 	if not is_on_floor():
-		applied_gravity = _move_velocity.y - _gravity
+		applied_gravity = _move_velocity.y - _entity_stats.gravity
 	# we return the correct gravity
 	return applied_gravity
+
+
+## called everytime the health changes, healing or damaging
+func _on_health_changed(current_health: int, max_health : int) -> void:
+	# TODO: this should be connected to the UI to see visually the health
+	pass
+
+
+## called when the entity has no health
+func _on_dead() -> void:
+	# TODO: we need a better implementation for this method
+	# like spawning particles or playing sounds before 
+	# removing the node
+	queue_free()
