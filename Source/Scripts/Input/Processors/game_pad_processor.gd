@@ -1,3 +1,4 @@
+class_name GamePadProcessor
 extends InputInterface
 
 #input action names variables
@@ -69,8 +70,3 @@ func is_shot_just_pressed() -> bool:
 
 func is_shot_just_released() -> bool:
 	return Input.is_action_just_released(_fire_primary_name)
-
-
-# we don't need to do anything right now
-func configure(_new_player_camera: PlayerCamera, _new_player: ControllableEntity) -> void:
-	pass

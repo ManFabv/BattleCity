@@ -1,3 +1,4 @@
+class_name DummyProcessor
 extends InputInterface
 
 ## here we always return zero
@@ -28,8 +29,3 @@ func is_shot_just_pressed() -> bool:
 # we don't need to do anything
 func is_shot_just_released() -> bool:
 	return false
-
-
-# we don't need to do anything
-func configure(_new_player_camera: PlayerCamera, _new_player: ControllableEntity) -> void:
-	pass

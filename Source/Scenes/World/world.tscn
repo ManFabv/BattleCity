@@ -1,4 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwt62qx867bb3"]
+[gd_scene load_steps=13 format=3 uid="uid://dwt62qx867bb3"]
+
+[ext_resource type="PackedScene" uid="uid://beght3yhsbv2v" path="res://Scenes/ControllableEntity/controllable_enemy_entity.tscn" id="2_yp2ti"]
+[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://Scenes/ControllableEntity/controllable_player_entity.tscn" id="3_vadfg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -120,3 +123,9 @@ shape = SubResource("ConvexPolygonShape3D_e2bkl")
 [node name="CillinderProp5" type="MeshInstance3D" parent="NavigationRegion/Props/Prop5"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
+
+[node name="Player" parent="." instance=ExtResource("3_vadfg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
+
+[node name="Enemy" parent="." instance=ExtResource("2_yp2ti")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.72838, -9.53674e-07, -4.73478)

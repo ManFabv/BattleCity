@@ -31,7 +31,3 @@ func is_shot_just_pressed() -> bool:
 func is_shot_just_released() -> bool:
 	push_error("is_shot_just_released() should be implemented on inherited classes")
 	return false
-
-
-func configure(_new_player_camera: PlayerCamera, _new_player: ControllableEntity) -> void:
-	push_error("configure() should be implemented on inherited classes")

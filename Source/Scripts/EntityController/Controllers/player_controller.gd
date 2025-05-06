@@ -1,18 +1,10 @@
 class_name PlayerController
 extends EntityController
 
-var _owner : ControllableEntity
-
-#input manager
-var _input_manager : InputManager:
-	set(new_input_manager):
-		#we assign the new input manager
-		_input_manager = new_input_manager
-
-
-func configure(new_input_manager : InputManager, new_owner : ControllableEntity) -> void:
-	_input_manager = new_input_manager
-	_owner = new_owner
+@export_group("Controllers")
+## reference to the input manager
+@export var _input_manager : InputManager
+@export var _owner : ControllableEntity
 
 
 func on_input_type_changed() -> void:
