@@ -1,14 +1,14 @@
 class_name StateMachine
 extends Node
 
-@export var initial_state: EntityState
+@export var _initial_state: EntityState
 
 # state that is currently running
 var _current_state: EntityState
 
 
 func _ready() -> void:
-	_current_state = initial_state
+	_current_state = _initial_state
 
 
 # we process the current state and check if we need to change to a new one

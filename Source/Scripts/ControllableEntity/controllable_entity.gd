@@ -11,9 +11,9 @@ extends CharacterBody3D
 @export var _entity_controller : EntityController
 
 #where we are going to spawn the projectile
-@onready var muzzle: Marker3D = $Body/Turret/Muzzle
+@onready var _muzzle: Marker3D = $Body/Turret/Muzzle
 #system that will handle all the shooting logic
-@onready var weapon_system: WeaponSystem = $WeaponSystem
+@onready var _weapon_system: WeaponSystem = $WeaponSystem
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
 ## manages the health for the entity
@@ -59,7 +59,7 @@ func _process(delta) -> void:
 	# we get if the player pressed shot input
 	var has_shot : bool = _entity_controller.is_shot_pressed()
 	# we process the shot information if pressed
-	weapon_system.process_shot(has_shot, muzzle)
+	_weapon_system.process_shot(has_shot, _muzzle)
 
 
 func _physics_process(_delta) -> void:

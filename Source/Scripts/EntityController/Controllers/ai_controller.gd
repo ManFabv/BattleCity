@@ -1,7 +1,8 @@
 class_name AIController
 extends EntityController
 
-# TODO: this will implement AI movement for the enemies
+@export_group("Navigation")
+@export var _navigation_agent : NavigationAgent3D
 
 
 func get_move_direction() -> Vector3:

@@ -2,7 +2,7 @@ class_name Projectile
 extends Area3D
 
 ## Projectile stats like velocity and damage
-@export var projectile_stats : ProjectileStats
+@export var _projectile_stats : ProjectileStats
 
 ## direction where the projectile is moving
 var direction : Vector3 = Vector3.FORWARD
@@ -10,7 +10,7 @@ var direction : Vector3 = Vector3.FORWARD
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	position += direction * projectile_stats.speed * delta
+	position += direction * _projectile_stats.speed * delta
 
 
 ## here we check if the projectile left the screen to remove it
@@ -26,7 +26,7 @@ func _on_body_entered(_body: Node3D) -> void:
 	for child in children:
 		if is_instance_of(child, HealthSystem):
 			var health_system : HealthSystem = child as HealthSystem
-			health_system.take_damage(projectile_stats.damage)
+			health_system.take_damage(_projectile_stats.damage)
 	#we destroy the projectile after it collides with anything
 	_destroy_projectile()
 

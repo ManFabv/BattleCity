@@ -54,4 +54,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="HealthSystem" parent="." instance=ExtResource("8_bw2vp")]
 
-[node name="AiController" parent="." instance=ExtResource("7_adugg")]
+[node name="AiController" parent="." node_paths=PackedStringArray("_navigation_agent") instance=ExtResource("7_adugg")]
+_navigation_agent = NodePath("../NavigationAgent3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

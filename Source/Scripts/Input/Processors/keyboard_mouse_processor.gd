@@ -8,13 +8,13 @@ var _move_up_name : String
 var _move_down_name : String
 var _fire_primary_name : String
 #input action for open menu
-var _open_ui_menu_name : String = "open_ui_menu"
+var _open_ui_menu_name : String
 
 @export_group("References")
 ## player camera
-@export var player_camera : PlayerCamera
+@export var _player_camera : PlayerCamera
 ## player
-@export var player : ControllableEntity
+@export var _player : ControllableEntity
 
 
 func _ready() -> void:
@@ -24,6 +24,8 @@ func _ready() -> void:
 	_move_up_name = "move_up_p1"
 	_move_down_name = "move_down_p1"
 	_fire_primary_name = "fire_primary_p1"
+	# we map the open UI menu
+	_open_ui_menu_name = "open_ui_menu"
 
 
 # here we get the input according to their input axis
@@ -41,9 +43,9 @@ func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	# through the camera we convert the mouse position from 2D to 3D
-	var world_pos : Vector3 = player_camera.get_world_position_from_point(mouse_position)
+	var world_pos : Vector3 = _player_camera.get_world_position_from_point(mouse_position)
 	# we convert it relative to the player
-	world_pos -= player.global_position
+	world_pos -= _player.global_position
 	# we return the converted input
 	return Vector2(world_pos.x, world_pos.z)
 

@@ -5,7 +5,7 @@
 
 [node name="WeaponSystem" type="Node"]
 script = ExtResource("1_t0jxb")
-projectile_scene = ExtResource("2_bcgfa")
+_projectile_scene = ExtResource("2_bcgfa")
 
 [node name="FireRateTimer" type="Timer" parent="."]
 

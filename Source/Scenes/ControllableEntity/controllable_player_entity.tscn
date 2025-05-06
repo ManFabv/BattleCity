@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene load_steps=17 format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="6_g264i"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
+[ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
+[ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -54,9 +56,17 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 10, 6.5)
 top_level = true
 
-[node name="InputManager" parent="." node_paths=PackedStringArray("_player", "_player_camera") instance=ExtResource("4_qg7t1")]
-_player = NodePath("..")
-_player_camera = NodePath("../PlayerCamera")
+[node name="InputManager" parent="." node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
+_keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
+_game_pad_processor = NodePath("GamePadProcessor")
+
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" node_paths=PackedStringArray("_player_camera", "_player")]
+script = ExtResource("10_t6wpt")
+_player_camera = NodePath("../../PlayerCamera")
+_player = NodePath("../..")
+
+[node name="GamePadProcessor" type="Node" parent="InputManager"]
+script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." instance=ExtResource("2_a3d8c")]
 
@@ -67,3 +77,5 @@ _player_camera = NodePath("../PlayerCamera")
 [node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 _owner = NodePath("..")
+
+[editable path="InputManager"]

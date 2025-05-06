@@ -2,7 +2,7 @@ class_name TimedEntityStatsModifier
 extends EntityStatsModifier
 
 ## how much time this stats modifier will be applied
-@export_range(0, 60) var duration : float = 3
+@export_range(0, 60) var _duration : float = 3
 
 ## internal timer for deplete this stats modifier
 var _timer : Timer
@@ -22,7 +22,7 @@ func setup_timer() -> void:
 	_timer = Timer.new()
 	# modifier should be used only once
 	_timer.one_shot = true
-	_timer.wait_time = duration
+	_timer.wait_time = _duration
 	# we connect the timeout signal to let our nodes know when modifier is depleted
 	_timer.timeout.connect(_on_timer_timeout)
 

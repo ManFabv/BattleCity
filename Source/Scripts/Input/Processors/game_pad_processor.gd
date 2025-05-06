@@ -13,7 +13,7 @@ var _look_right_name : String
 var _look_up_name : String
 var _look_down_name : String
 #input action for open menu
-var _open_ui_menu_name : String = "open_ui_menu"
+var _open_ui_menu_name : String
 
 #when the player is not moving the right stick, we keep looking at the same point
 var _last_point_position : Vector2 = Vector2.ZERO
@@ -31,6 +31,8 @@ func _ready() -> void:
 	_look_right_name = "look_rigth_p1"
 	_look_up_name = "look_up_p1"
 	_look_down_name = "look_down_p1"
+	# we map the open UI menu
+	_open_ui_menu_name = "open_ui_menu"
 
 
 ## here we need to get the gamepad input and return it
