@@ -28,7 +28,7 @@ func _on_body_entered(_body: Node3D) -> void:
 			var health_system : HealthSystem = child as HealthSystem
 			health_system.take_damage(projectile_stats.damage)
 	#we destroy the projectile after it collides with anything
-	_destroy_projectile()	
+	_destroy_projectile()
 
 
 # for now we only remove the node from the tree
