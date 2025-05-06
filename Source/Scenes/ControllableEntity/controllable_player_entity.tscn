@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene load_steps=15 format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
+[ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Scenes/Input/input_manager.tscn" id="4_qg7t1"]
+[ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="6_g264i"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
+[ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -22,12 +25,13 @@ size = Vector3(0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
 albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_entity_controller")]
 collision_layer = 2
 collision_mask = 259
 script = ExtResource("1_uvnfx")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
+_entity_controller = NodePath("PlayerController")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -46,8 +50,20 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 [node name="Muzzle" type="Marker3D" parent="Body/Turret"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
+[node name="PlayerCamera" parent="." instance=ExtResource("4_sfijf")]
+transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 10, 6.5)
+top_level = true
+
+[node name="InputManager" parent="." node_paths=PackedStringArray("_player", "_player_camera") instance=ExtResource("4_qg7t1")]
+_player = NodePath("..")
+_player_camera = NodePath("../PlayerCamera")
+
 [node name="WeaponSystem" parent="." instance=ExtResource("2_a3d8c")]
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]
 
 [node name="HealthSystem" parent="." instance=ExtResource("6_g264i")]
+
+[node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner") instance=ExtResource("8_sfijf")]
+_input_manager = NodePath("../InputManager")
+_owner = NodePath("..")

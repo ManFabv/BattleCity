@@ -9,9 +9,13 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 @export var _on_input_changed_event : BaseEvent
 @export var _on_menu_opened_event : BaseEvent
 
+@export_group("References")
+@export var _player : ControllableEntity
+@export var _player_camera : PlayerCamera
+
 ## different input processors according to player controller
-@onready var _keyboard_mouse_processor: Node = $InputInterface/KeyboardMouseProcessor
-@onready var _game_pad_processor: Node = $InputInterface/GamePadProcessor
+@onready var _keyboard_mouse_processor: KeyboardAndMouseProcessor = $InputInterface/KeyboardMouseProcessor
+@onready var _game_pad_processor: GamePadProcessor = $InputInterface/GamePadProcessor
 
 ## According to last controller that the user pressed, we are going to use the correct input
 var _last_input : InputType = InputType.DUMMY
@@ -19,16 +23,12 @@ var _last_input : InputType = InputType.DUMMY
 var _current_input_processor : InputInterface
 
 
-func configure(new_player_camera: PlayerCamera, 
-		new_player: ControllableEntity) -> void:
+func _ready() -> void:
 	#we initialize processors
-	_keyboard_mouse_processor.configure(new_player_camera, new_player)
-	_game_pad_processor.configure(new_player_camera, new_player)
+	_keyboard_mouse_processor.player = _player
+	_keyboard_mouse_processor.player_camera = _player_camera
 	# by default we use keyboard and mouse
 	_change_input_type(InputType.KEYBOARD_MOUSE)
-
-
-func _ready() -> void:
 	# we subscribe to gamepad changed signal to update input type
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 

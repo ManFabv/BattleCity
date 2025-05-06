@@ -2,10 +2,6 @@ class_name EntityController
 extends Node
 
 
-func configure(_new_input_manager : InputManager, _new_owner : ControllableEntity) -> void:
-	push_error("configure() should be implemented on inherited classes")
-
-
 func get_move_direction() -> Vector3:
 	push_error("get_move_direction() should be implemented on inherited classes")
 	return Vector3.ZERO

@@ -1,5 +1,5 @@
+class_name KeyboardAndMouseProcessor
 extends InputInterface
-
 
 #input action names variables
 var _move_left_name : String
@@ -10,10 +10,11 @@ var _fire_primary_name : String
 #input action for open menu
 var _open_ui_menu_name : String = "open_ui_menu"
 
-#player camera
-var _player_camera : PlayerCamera
-#player
-var _player : ControllableEntity
+@export_group("References")
+## player camera
+@export var player_camera : PlayerCamera
+## player
+@export var player : ControllableEntity
 
 
 func _ready() -> void:
@@ -40,9 +41,9 @@ func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	# through the camera we convert the mouse position from 2D to 3D
-	var world_pos : Vector3 = _player_camera.get_world_position_from_point(mouse_position)
+	var world_pos : Vector3 = player_camera.get_world_position_from_point(mouse_position)
 	# we convert it relative to the player
-	world_pos -= _player.global_position
+	world_pos -= player.global_position
 	# we return the converted input
 	return Vector2(world_pos.x, world_pos.z)
 
@@ -62,9 +63,3 @@ func is_shot_just_pressed() -> bool:
 
 func is_shot_just_released() -> bool:
 	return Input.is_action_just_released(_fire_primary_name)
-
-
-# we cache the player and player camera
-func configure(new_player_camera: PlayerCamera, new_player: ControllableEntity) -> void:
-	_player_camera = new_player_camera
-	_player = new_player
