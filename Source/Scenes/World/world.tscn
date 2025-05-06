@@ -73,7 +73,7 @@ collision_mask = 259
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/Props/Prop1"]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
 
-[node name="CilinderProp1" type="MeshInstance3D" parent="NavigationRegion/Props/Prop1"]
+[node name="CillinderProp1" type="MeshInstance3D" parent="NavigationRegion/Props/Prop1"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
 
@@ -84,7 +84,7 @@ collision_mask = 259
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/Props/Prop2"]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
 
-[node name="CilinderProp2" type="MeshInstance3D" parent="NavigationRegion/Props/Prop2"]
+[node name="CillinderProp2" type="MeshInstance3D" parent="NavigationRegion/Props/Prop2"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
 
@@ -95,7 +95,7 @@ collision_mask = 259
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/Props/Prop3"]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
 
-[node name="CilinderProp3" type="MeshInstance3D" parent="NavigationRegion/Props/Prop3"]
+[node name="CillinderProp3" type="MeshInstance3D" parent="NavigationRegion/Props/Prop3"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
 
@@ -106,7 +106,7 @@ collision_mask = 259
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/Props/Prop4"]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
 
-[node name="CilinderProp4" type="MeshInstance3D" parent="NavigationRegion/Props/Prop4"]
+[node name="CillinderProp4" type="MeshInstance3D" parent="NavigationRegion/Props/Prop4"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
 
@@ -117,6 +117,6 @@ collision_mask = 259
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion/Props/Prop5"]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
 
-[node name="CilinderProp5" type="MeshInstance3D" parent="NavigationRegion/Props/Prop5"]
+[node name="CillinderProp5" type="MeshInstance3D" parent="NavigationRegion/Props/Prop5"]
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
