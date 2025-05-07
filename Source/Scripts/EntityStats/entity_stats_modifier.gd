@@ -1,6 +1,7 @@
 class_name EntityStatsModifier
 extends Resource
 
+@warning_ignore("unused_signal")
 ## we are going to call this when a modifier is depleted
 signal on_modifier_depleted(EntityStatsModifier)
 
