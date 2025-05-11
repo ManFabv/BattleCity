@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://beght3yhsbv2v"]
+[gd_scene load_steps=15 format=3 uid="uid://beght3yhsbv2v"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_xtgfm"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_1qpgy"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="6_23ltj"]
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://Scenes/EntityController/ai_controller.tscn" id="7_adugg"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="7_m5nrn"]
+[ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="8_7cnhx"]
 [ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="8_bw2vp"]
+[ext_resource type="Script" uid="uid://c160ny2u5iv3q" path="res://Scripts/StateMachine/State/States/wander_state.gd" id="9_xtgfm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -59,3 +61,11 @@ _navigation_agent = NodePath("../NavigationAgent3D")
 _owner = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initial_state", "_owner") instance=ExtResource("8_7cnhx")]
+_initial_state = NodePath("WanderState")
+_owner = NodePath("..")
+
+[node name="WanderState" type="Node" parent="StateMachine"]
+script = ExtResource("9_xtgfm")
+metadata/_custom_type_script = "uid://c160ny2u5iv3q"

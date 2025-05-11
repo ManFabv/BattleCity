@@ -2,6 +2,7 @@ class_name StateMachine
 extends Node
 
 @export var _initial_state: EntityState
+@export var _owner: ControllableEntity
 
 # state that is currently running
 var _current_state: EntityState
@@ -9,6 +10,7 @@ var _current_state: EntityState
 
 func _ready() -> void:
 	_current_state = _initial_state
+	_current_state.enter(_owner)
 
 
 # we process the current state and check if we need to change to a new one
@@ -33,4 +35,4 @@ func _physics_process(delta: float) -> void:
 func change_state(new_state: EntityState) -> void:
 	_current_state.exit()
 	_current_state = new_state
-	_current_state.enter()
+	_current_state.enter(_owner)
