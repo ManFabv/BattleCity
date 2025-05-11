@@ -14,6 +14,9 @@ extends EntityController
 var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
+## we need the navigation region RID to be able to get random target positions
+## inside the navigation region
+var _region_rid : RID
 
 
 func get_move_direction() -> Vector3:
@@ -36,12 +39,37 @@ func get_look_at_angle() -> float:
 
 
 func is_shot_pressed() -> bool:
-	return false
+	return false # nothing for now
 
 
 func on_input_type_changed() -> void:
-	pass
+	pass # nothing for now
 
 
 func on_menu_opened() -> void:
-	pass
+	pass # nothing for now
+
+
+# in order to get a random target position we need to set the region rid
+func _get_region_rid() -> void:
+	# we take the navigation map rid
+	var map_rid : RID = _navigation_agent.get_navigation_map()
+	# we update the map to be able to get the map regions
+	NavigationServer3D.map_force_update(map_rid)
+	# we get the first map rid
+	_region_rid = NavigationServer3D.map_get_regions(map_rid)[0]
+
+
+## this will help us take a random point inside navigation mesh
+func set_random_target_position() -> void:
+	# everytime we set a new target position, we update the region rid
+	_get_region_rid()
+	# get a random point from NavigationRegion2D
+	_target_position = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
+	# we set the new target destination position
+	_navigation_agent.set_target_position(_target_position)
+
+
+# this will notify when the entity reaches the target destination
+func connect_on_target_reached_signal(on_target_reached : Callable) -> void:
+	_navigation_agent.navigation_finished.connect(on_target_reached)

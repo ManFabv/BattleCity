@@ -1,10 +1,10 @@
 class_name EntityStatsModifier
 extends Resource
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 ## we are going to call this when a modifier is depleted
 signal on_modifier_depleted(EntityStatsModifier)
-
+@warning_ignore_restore("unused_signal")
 
 ## here we should initialize whats needed
 func init(_owner: Node) -> void:
