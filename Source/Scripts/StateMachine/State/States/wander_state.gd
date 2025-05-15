@@ -44,4 +44,4 @@ func _set_next_target_position() -> void:
 
 ## function that allows us to wait for given seconds
 func wait(seconds : float) -> void:
-	await get_tree().create_timer(_seconds_between_movements).timeout
+	await get_tree().create_timer(seconds).timeout
