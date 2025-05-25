@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=3 format=3 uid="uid://df8ghheytbtt5"]
+
+[ext_resource type="PackedScene" uid="uid://cdmdkapjxmg55" path="res://Scenes/Projectiles/projectile_player.tscn" id="1_hc5x6"]
+[ext_resource type="Script" uid="uid://b5pgjkvc106as" path="res://Scripts/Weapon/WeaponStats/weapon_stats.gd" id="2_lvb5j"]
+
+[resource]
+script = ExtResource("2_lvb5j")
+fire_rate = 1.0
+projectile_scene = ExtResource("1_hc5x6")
+metadata/_custom_type_script = "uid://b5pgjkvc106as"

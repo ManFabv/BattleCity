@@ -22,6 +22,7 @@ func _ready() -> void:
 
 ## if we collided with other body
 func _on_area_entered(_body: Health) -> void:
+	print("AKSKALJSLKAJS")
 	# we take damage when the
 	if _body != null:
 		_body.take_damage(_damage_stats.damage)
