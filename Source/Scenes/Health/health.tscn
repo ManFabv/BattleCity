@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://wjn101irgvcg"]
+
+[ext_resource type="Script" uid="uid://bi0yhb86y50dy" path="res://Scripts/Health/health.gd" id="1_sobi6"]
+
+[node name="Health" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_sobi6")
+metadata/_custom_type_script = "uid://bi0yhb86y50dy"

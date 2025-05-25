@@ -17,7 +17,7 @@ extends CharacterBody3D
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
 ## manages the health for the entity
-@onready var _health_system : HealthSystem = $HealthSystem
+@onready var _health : Health = $Health
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
@@ -32,9 +32,9 @@ var _entity_stats : EntityStats:
 
 func _ready() -> void:
 	#we listen to health change events
-	_health_system.on_health_changed.connect(_on_health_changed)
+	_health.on_health_changed.connect(_on_health_changed)
 	#we listen to entity dead event
-	_health_system.on_dead.connect(_on_dead)
+	_health.on_dead.connect(_on_dead)
 	#we listen to the input type changed signal on input manager
 	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened

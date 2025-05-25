@@ -6,11 +6,11 @@
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Scenes/Input/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="4_sfijf"]
-[ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="6_g264i"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
+[ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="11_t6wpt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -72,10 +72,14 @@ script = ExtResource("11_g2a7d")
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]
 
-[node name="HealthSystem" parent="." instance=ExtResource("6_g264i")]
-
 [node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 _owner = NodePath("..")
+
+[node name="Health" parent="." instance=ExtResource("11_t6wpt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
 
 [editable path="InputManager"]

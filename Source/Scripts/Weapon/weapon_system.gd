@@ -24,6 +24,8 @@ func process_shot(has_shot : bool, muzzle: Marker3D) -> void:
 		var shot = _weapon_stats.projectile_scene.instantiate() as Projectile
 		# we add the shot to the scene (after this ready function will be triggered)
 		add_child(shot)
+		# we configure the shot
+		shot.init()
 		# we set the position to be at the muzzle
 		shot.global_position = muzzle.global_position
 		# we take the muzzle forward position

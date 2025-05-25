@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://Scenes/EntityController/ai_controller.tscn" id="7_adugg"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="7_m5nrn"]
 [ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="8_7cnhx"]
-[ext_resource type="PackedScene" uid="uid://bbnpowu00617f" path="res://Scenes/Health/health_system.tscn" id="8_bw2vp"]
+[ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="9_1qpgy"]
 [ext_resource type="Script" uid="uid://c160ny2u5iv3q" path="res://Scripts/StateMachine/State/States/wander_state.gd" id="9_xtgfm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
@@ -54,8 +54,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("7_m5nrn")]
 
-[node name="HealthSystem" parent="." instance=ExtResource("8_bw2vp")]
-
 [node name="AiController" parent="." node_paths=PackedStringArray("_navigation_agent", "_owner") instance=ExtResource("7_adugg")]
 _navigation_agent = NodePath("../NavigationAgent3D")
 _owner = NodePath("..")
@@ -69,3 +67,9 @@ _owner = NodePath("..")
 [node name="WanderState" type="Node" parent="StateMachine"]
 script = ExtResource("9_xtgfm")
 metadata/_custom_type_script = "uid://c160ny2u5iv3q"
+
+[node name="Health" parent="." instance=ExtResource("9_1qpgy")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
