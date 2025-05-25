@@ -1,5 +1,5 @@
-class_name HealthSystem
-extends Node
+class_name Health
+extends Area3D
 
 signal on_health_changed(current_health: int, max_health : int)
 signal on_dead

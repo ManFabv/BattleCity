@@ -85,8 +85,10 @@ open_ui_menu={
 [layer_names]
 
 3d_physics/layer_1="World"
-3d_physics/layer_2="Entities"
-3d_physics/layer_9="Projectiles"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Enemy"
+3d_physics/layer_9="PlayerProjectiles"
+3d_physics/layer_10="EnemyProjectiles"
 
 [physics]
 
