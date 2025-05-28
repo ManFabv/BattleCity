@@ -22,7 +22,6 @@ top_level = true
 collision_layer = 256
 collision_mask = 5
 script = ExtResource("1_rrlge")
-_damage_stats = ExtResource("2_2d16g")
 _projectile_stats = ExtResource("3_oyv0f")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -36,6 +35,7 @@ shape = SubResource("SphereShape3D_2re41")
 
 [node name="Hurt" parent="." instance=ExtResource("4_f8ohn")]
 collision_mask = 4
+_damage_stats = ExtResource("2_2d16g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt"]
 shape = SubResource("SphereShape3D_2re41")

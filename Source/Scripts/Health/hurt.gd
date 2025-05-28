@@ -2,15 +2,14 @@ class_name Hurt
 extends Area3D
 
 ## damage that it's going to be applied
-var _damage_stats : DamageStats
+@export var _damage_stats : DamageStats
 
 ## it´s going to be triggered when taking damage
 signal _on_damage_taken
 
 
 ## we cache references
-func configure(damage_stats: DamageStats, on_damage_taken: Callable) -> void:
-	_damage_stats = damage_stats
+func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
 	_on_damage_taken.connect(on_damage_taken)
 
 

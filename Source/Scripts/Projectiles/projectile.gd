@@ -1,8 +1,6 @@
 class_name Projectile
 extends Area3D
 
-## Damage stats like damage
-@export var _damage_stats : DamageStats
 ## Projectile stats like velocity
 @export var _projectile_stats: ProjectileStats
 
@@ -15,7 +13,7 @@ var direction : Vector3 = Vector3.FORWARD
 
 func _ready() -> void:
 	# we setup the hurt area
-	_hurt_entity.configure(_damage_stats, _destroy_projectile)
+	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
 
 
 ## we configure the projectile
