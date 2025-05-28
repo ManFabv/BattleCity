@@ -18,8 +18,8 @@ func _ready() -> void:
 	_fire_rate_timer.start()
 
 
-func process_shot(has_shot : bool, muzzle: Marker3D) -> void:
-	if has_shot and _can_shot:
+func process_shot(has_shoot : bool, muzzle: Marker3D) -> void:
+	if has_shoot and _can_shot:
 		# we instantiate the projectile
 		var shot = _weapon_stats.projectile_scene.instantiate() as Projectile
 		# we add the shot to the scene (after this ready function will be triggered)
