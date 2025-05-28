@@ -24,20 +24,16 @@ func process_shot(has_shot : bool, muzzle: Marker3D) -> void:
 		var shot = _weapon_stats.projectile_scene.instantiate() as Projectile
 		# we add the shot to the scene (after this ready function will be triggered)
 		add_child(shot)
-		# we configure the shot
-		shot.init()
-		# we set the position to be at the muzzle
-		shot.global_position = muzzle.global_position
-		# we take the muzzle forward position
-		shot.direction = muzzle.global_transform.basis.z
+		# we fire the shot
+		shot.fire(muzzle)
 		# we reset the timer
 		restart_timer()
-		# we say we cant shot after the timer resets
-		_can_shot = false
 
 
 # we need to stop and start again to restart
 func restart_timer() -> void:
+	# we say we cant shot after the timer resets
+	_can_shot = false
 	_fire_rate_timer.stop()
 	_fire_rate_timer.start()
 

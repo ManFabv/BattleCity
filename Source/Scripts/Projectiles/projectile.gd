@@ -13,9 +13,17 @@ extends Area3D
 var direction : Vector3 = Vector3.FORWARD
 
 
-## we configure the projectile
-func init() -> void:
+func _ready() -> void:
+	# we setup the hurt area
 	_hurt_entity.configure(_damage_stats, _destroy_projectile)
+
+
+## we configure the projectile
+func fire(shoot_point: Marker3D) -> void:
+	# we set the position to be at the muzzle
+	global_position = shoot_point.global_position
+	# we take the muzzle forward position
+	direction = shoot_point.global_transform.basis.z
 
 
 ## we move the projectile on the forward direction
