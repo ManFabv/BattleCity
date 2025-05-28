@@ -22,9 +22,9 @@ func _ready() -> void:
 
 
 ## here we take damage and emit the corresponding signal if player is dead
-func take_damage(damage : int) -> void:
+func take_damage(damage_stats : DamageStats) -> void:
 	# we update the current health substracting the damage
-	_current_health -= damage
+	_current_health -= damage_stats.damage
 	# because we clamp the current health on the setter, we won´t get less than 0
 	if _current_health == 0:
 		# we notify that this entity is dead

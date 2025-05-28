@@ -24,6 +24,6 @@ func _ready() -> void:
 func _on_area_entered(_body: Health) -> void:
 	# we take damage when the
 	if _body != null:
-		_body.take_damage(_damage_stats.damage)
+		_body.take_damage(_damage_stats)
 		# we notify that we collide with something
 		_on_damage_taken.emit()
