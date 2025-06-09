@@ -3,7 +3,7 @@ extends Node
 
 # we are going to use this enum to keep track of the current user controller type
 # if it's keyboard and mouse, or gamepad
-enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
+enum InputType { KEYBOARD_MOUSE, GAMEPAD, NOT_SET }
 
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
@@ -15,7 +15,7 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, DUMMY, NOT_SET }
 @export var _game_pad_processor: GamePadProcessor
 
 ## According to last controller that the user pressed, we are going to use the correct input
-var _last_input : InputType = InputType.DUMMY
+var _last_input : InputType = InputType.NOT_SET
 ## this is the actual input processor
 var _current_input_processor : InputInterface
 
@@ -64,6 +64,9 @@ func _change_input_type(new_input_type: InputType) -> void:
 	# if we have the same input type, we don't do anything
 	if _last_input == new_input_type:
 		return
+	# if we have a valid input set, we call the exit method
+	if _current_input_processor:
+		_current_input_processor.exit_input_type()
 	# we update the current input type
 	_last_input = new_input_type
 	if _last_input == InputType.KEYBOARD_MOUSE:
@@ -72,6 +75,8 @@ func _change_input_type(new_input_type: InputType) -> void:
 		_current_input_processor = _game_pad_processor
 	else: # defaults to keyboard
 		_current_input_processor = _keyboard_mouse_processor
+	# we call the method for start using this input type
+	_current_input_processor.enter_input_type()
 	# we trigger the signal that the type changed
 	_on_input_changed_event.emit()
 

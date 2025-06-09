@@ -28,6 +28,16 @@ func _ready() -> void:
 	_open_ui_menu_name = "open_ui_menu"
 
 
+# called when we are going to start using this input
+func enter_input_type() -> void:
+	pass #TODO: here we can change cursor GUI
+
+
+# called when we are going to stop using this input and change to another
+func exit_input_type() -> void:
+	pass #TODO: here we can change cursor GUI
+
+
 # here we get the input according to their input axis
 func get_input_movement() -> Vector2:
 	# we get the input of the keyboard

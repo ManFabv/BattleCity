@@ -3,6 +3,14 @@ class_name InputInterface
 extends Node
 
 
+func enter_input_type() -> void:
+	push_error("get_input_movement() should be implemented on inherited classes")
+
+
+func exit_input_type() -> void:
+	push_error("get_input_movement() should be implemented on inherited classes")
+
+
 func get_input_movement() -> Vector2:
 	push_error("get_input_movement() should be implemented on inherited classes")
 	return Vector2.ZERO
