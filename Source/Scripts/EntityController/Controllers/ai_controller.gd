@@ -6,10 +6,6 @@ extends EntityController
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
 
-@export_group("References")
-## who is the AI entity that we want to move
-@export var _owner : ControllableEntity
-
 ## where we want to move
 var _target_position : Vector3
 ## where we want to look
@@ -24,7 +20,7 @@ func get_move_direction() -> Vector3:
 	var next_position : Vector3 = _navigation_agent.get_next_path_position()
 	# we take the direction between our owner position and the next
 	# path position to know in which direction we need to move
-	_target_position = _owner.global_position.direction_to(next_position)
+	_target_position = owner_controllable_entity.global_position.direction_to(next_position)
 	# we return the desired position
 	return _target_position
 

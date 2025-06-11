@@ -54,9 +54,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("7_m5nrn")]
 
-[node name="AiController" parent="." node_paths=PackedStringArray("_navigation_agent", "_owner") instance=ExtResource("7_adugg")]
+[node name="AiController" parent="." node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("7_adugg")]
 _navigation_agent = NodePath("../NavigationAgent3D")
-_owner = NodePath("..")
+owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

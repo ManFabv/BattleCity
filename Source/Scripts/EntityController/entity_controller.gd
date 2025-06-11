@@ -1,6 +1,14 @@
 class_name EntityController
 extends Node
 
+@export_group("References")
+## who is the AI entity that we want to move
+@export var owner_controllable_entity : ControllableEntity:
+	set(new_value):
+		owner_controllable_entity = new_value
+	get():
+		return owner_controllable_entity
+
 
 func get_move_direction() -> Vector3:
 	push_error("get_move_direction() should be implemented on inherited classes")
