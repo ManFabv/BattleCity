@@ -7,7 +7,7 @@ signal on_modifier_depleted(EntityStatsModifier)
 @warning_ignore_restore("unused_signal")
 
 ## here we should initialize whats needed
-func init(_owner: Node) -> void:
+func init(_owner_node: Node) -> void:
 	push_error("init() should be implemented on inherited classes")
 
 

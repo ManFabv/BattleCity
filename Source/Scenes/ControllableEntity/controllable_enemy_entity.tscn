@@ -60,9 +60,9 @@ owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("_initial_state", "_owner") instance=ExtResource("8_7cnhx")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("_initial_state", "_owner_controllable_entity") instance=ExtResource("8_7cnhx")]
 _initial_state = NodePath("WanderState")
-_owner = NodePath("..")
+_owner_controllable_entity = NodePath("..")
 
 [node name="WanderState" type="Node" parent="StateMachine"]
 script = ExtResource("9_xtgfm")

@@ -9,11 +9,11 @@ var _timer : Timer
 
 
 ## we are going to start a timer for this
-func init(owner: Node) -> void:
+func init(_owner_node: Node) -> void:
 	# we create an initialize the timer
 	setup_timer()
 	# we add it to the scene tree as child of the stats modifier owner
-	owner.add_child(_timer)
+	_owner_node.add_child(_timer)
 	# we start the timer
 	_timer.start()
 

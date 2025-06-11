@@ -9,7 +9,7 @@ var _current_next_state_to_transition: EntityState
 
 
 # executed at the begin of the new state change
-func enter(_owner : ControllableEntity) -> void:
+func enter(_owner_controllable_entity : ControllableEntity) -> void:
 	push_error("enter() should be implemented on inherited classes")
 
 

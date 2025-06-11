@@ -8,10 +8,10 @@ var _ai_controller : AIController
 
 
 # executed at the begin of the new state change
-func enter(_owner : ControllableEntity) -> void:
+func enter(_owner_controllable_entity : ControllableEntity) -> void:
 	# we cache the controller which will allows us to set 
 	# different target destinations
-	_ai_controller = _owner._entity_controller
+	_ai_controller = _owner_controllable_entity._entity_controller
 	# we subscribe to the signal because we want to select another destination
 	# after reaching the previous position
 	_ai_controller.connect_on_target_reached_signal(_set_next_target_position)

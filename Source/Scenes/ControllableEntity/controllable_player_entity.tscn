@@ -74,9 +74,9 @@ _weapon_stats = ExtResource("9_g2a7d")
 
 [node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+[node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
-_owner = NodePath("..")
+_owner_controllable_entity = NodePath("..")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." instance=ExtResource("11_t6wpt")]
