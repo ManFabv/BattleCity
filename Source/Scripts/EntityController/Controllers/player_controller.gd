@@ -30,7 +30,8 @@ func get_look_at_angle() -> float:
 	# we get the position where we have to look at
 	var look_at_input : Vector2 = _process_look_at_input()
 	# we convert the input to 3D to be able to move the player in the world
-	var world_look_at : Vector3 = Vector3(look_at_input.x, _owner_controllable_entity.global_position.y, look_at_input.y)
+	var world_look_at : Vector3 = Vector3(look_at_input.x,
+		_owner_controllable_entity.global_position.y, look_at_input.y)
 	var desired_look_at_angle : float = atan2(-world_look_at.x, -world_look_at.z)
 	# we return the wanted angle
 	return desired_look_at_angle
