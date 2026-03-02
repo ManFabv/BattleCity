@@ -80,6 +80,13 @@ El jugador debera defender su base de los ataques enemigos y tratar que los enem
 ## Genero ##
 Juego de accion Twin Stick Shooter 3D con vista Top-Down
 
+## Política de Colaboración con IA ##
+Este proyecto utiliza Inteligencia Artificial como consultor para temas puntuales y no como generador principal de ideas, código ni assets.
+Mi flujo de desarrollo incluye:
+* Validación de Restricciones: Análisis de ventajas y desventajas de mis diseños específicos.
+Nota: Toda la integración final del código, el flujo lógico y la optimización del sistema se realizan manualmente.
+
+
 ## Referencias: ##
 * [Battle City NES Gameplay](https://www.youtube.com/watch?v=YqaDd1oAApU)
 * [Assault Android Cactus+](https://www.youtube.com/watch?v=1StvcYeEdaU)
