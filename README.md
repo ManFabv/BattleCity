@@ -1,4 +1,3 @@
-
 # UNL PVJ3 Actividad 5 Final en Godot Engine #
 **Version del documento 0.0.2**
 **27/06/2025**
@@ -86,6 +85,13 @@ Mi flujo de desarrollo incluye:
 * Validación de Restricciones: Análisis de ventajas y desventajas de mis diseños específicos.
 Nota: Toda la integración final del código, el flujo lógico y la optimización del sistema se realizan manualmente.
 
+## Recursos de aprendizaje: ##
+* [Principal: UNL](https://www.unl.edu.ar/carreras/tecnicatura-en-diseno-y-programacion-de-videojuegos-2/)
+* [Godot Documentation](https://docs.godotengine.org/en/stable/)
+* [HUMBLE BUNDLE – GAME DEV 2024 – TIER 3](https://academy.zenva.com/product/humble-bundle-game-dev-2024-tier-3/)
+* [Complete Godot 3D](https://www.udemy.com/course/complete-godot-3d/)
+* [Godot 4 Shaders](https://www.udemy.com/course/godot-4-shaders/)
+* [Godot 4: Build an Action RPG](https://www.udemy.com/course/godot-rpg/)
 
 ## Referencias: ##
 * [Battle City NES Gameplay](https://www.youtube.com/watch?v=YqaDd1oAApU)
