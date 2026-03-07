@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://beght3yhsbv2v"]
+[gd_scene format=3 uid="uid://beght3yhsbv2v"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_xtgfm"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_1qpgy"]
@@ -25,7 +25,7 @@ size = Vector3(0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
 albedo_color = Color(0.8, 0.145098, 0.0352941, 1)
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("_entity_controller")]
+[node name="Enemy" type="CharacterBody3D" unique_id=182664517 node_paths=PackedStringArray("_entity_controller")]
 collision_layer = 4
 collision_mask = 263
 script = ExtResource("1_xtgfm")
@@ -33,44 +33,44 @@ _on_input_changed_event = ExtResource("2_1qpgy")
 _on_menu_opened_event = ExtResource("3_mp0d4")
 _entity_controller = NodePath("AiController")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=651671434]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1120106347]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMesh_uvnfx")
 surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
 
-[node name="Turret" type="MeshInstance3D" parent="Body"]
+[node name="Turret" type="MeshInstance3D" parent="Body" unique_id=496678410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
 mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
-[node name="Muzzle" type="Marker3D" parent="Body/Turret"]
+[node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=2106042964]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
-[node name="WeaponSystem" parent="." instance=ExtResource("6_23ltj")]
+[node name="WeaponSystem" parent="." unique_id=1161335480 instance=ExtResource("6_23ltj")]
 
-[node name="EntityStatsManager" parent="." instance=ExtResource("7_m5nrn")]
+[node name="EntityStatsManager" parent="." unique_id=1255174216 instance=ExtResource("7_m5nrn")]
 
-[node name="AiController" parent="." node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("7_adugg")]
+[node name="AiController" parent="." unique_id=1943080836 node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("7_adugg")]
 _navigation_agent = NodePath("../NavigationAgent3D")
 owner_controllable_entity = NodePath("..")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1295136493]
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("_initial_state", "_owner_controllable_entity") instance=ExtResource("8_7cnhx")]
+[node name="StateMachine" parent="." unique_id=1305433353 node_paths=PackedStringArray("_initial_state", "_owner_controllable_entity") instance=ExtResource("8_7cnhx")]
 _initial_state = NodePath("WanderState")
 _owner_controllable_entity = NodePath("..")
 
-[node name="WanderState" type="Node" parent="StateMachine"]
+[node name="WanderState" type="Node" parent="StateMachine" unique_id=1530106032]
 script = ExtResource("9_xtgfm")
 metadata/_custom_type_script = "uid://c160ny2u5iv3q"
 
-[node name="Health" parent="." instance=ExtResource("9_1qpgy")]
+[node name="Health" parent="." unique_id=1679365679 instance=ExtResource("9_1qpgy")]
 collision_layer = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Health"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1374745845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")

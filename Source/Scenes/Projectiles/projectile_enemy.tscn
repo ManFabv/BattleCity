@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://imre1ajvaje2"]
+[gd_scene format=3 uid="uid://imre1ajvaje2"]
 
 [ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/damage_stats.tres" id="2_oq121"]
@@ -17,27 +17,27 @@ albedo_color = Color(0.774736, 0.712494, 0.402774, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
 
-[node name="ProjectileEnemy" type="Area3D"]
+[node name="ProjectileEnemy" type="Area3D" unique_id=1840560226]
 top_level = true
 collision_layer = 512
 collision_mask = 3
 script = ExtResource("1_gmg2w")
 _projectile_stats = ExtResource("3_iioyw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454117825]
 mesh = SubResource("SphereMesh_1bece")
 surface_material_override/0 = SubResource("StandardMaterial3D_2re41")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=130583393]
 shape = SubResource("SphereShape3D_2re41")
 
-[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1294217409]
 
-[node name="Hurt" parent="." instance=ExtResource("4_qkl3l")]
+[node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("4_qkl3l")]
 collision_mask = 2
 _damage_stats = ExtResource("2_oq121")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cr85cpalo2gue"]
+[gd_scene format=3 uid="uid://cr85cpalo2gue"]
 
-[ext_resource type="Script" path="res://Tests/play_mode_tests.gd" id="1_aakch"]
+[ext_resource type="Script" uid="uid://dpacu0o7uyy36" path="res://Tests/play_mode_tests.gd" id="1_aakch"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=251340764]
 script = ExtResource("1_aakch")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1375457794]
 text = "InterExtends(Inner((hello world)))"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=942526631]
 wait_time = 0.1
 one_shot = true
 autostart = true

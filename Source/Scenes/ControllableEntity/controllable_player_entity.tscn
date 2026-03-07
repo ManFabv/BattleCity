@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d177b15gvya4j"]
+[gd_scene format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
@@ -28,7 +28,7 @@ size = Vector3(0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
 albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_entity_controller")]
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller")]
 collision_layer = 2
 collision_mask = 519
 script = ExtResource("1_uvnfx")
@@ -36,53 +36,53 @@ _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=90287670]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMesh_uvnfx")
 surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
 
-[node name="Turret" type="MeshInstance3D" parent="Body"]
+[node name="Turret" type="MeshInstance3D" parent="Body" unique_id=1219414516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
 mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
-[node name="Muzzle" type="Marker3D" parent="Body/Turret"]
+[node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=453008260]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
-[node name="PlayerCamera" parent="." instance=ExtResource("4_sfijf")]
+[node name="PlayerCamera" parent="." unique_id=166363893 instance=ExtResource("4_sfijf")]
 transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 10, 6.5)
 top_level = true
 
-[node name="InputManager" parent="." node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
+[node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
 _keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
 _game_pad_processor = NodePath("GamePadProcessor")
 
-[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" node_paths=PackedStringArray("_player_camera", "_player")]
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" unique_id=740792287 node_paths=PackedStringArray("_player_camera", "_player")]
 script = ExtResource("10_t6wpt")
 _player_camera = NodePath("../../PlayerCamera")
 _player = NodePath("../..")
 
-[node name="GamePadProcessor" type="Node" parent="InputManager"]
+[node name="GamePadProcessor" type="Node" parent="InputManager" unique_id=904701735]
 script = ExtResource("11_g2a7d")
 
-[node name="WeaponSystem" parent="." instance=ExtResource("2_a3d8c")]
+[node name="WeaponSystem" parent="." unique_id=702535043 instance=ExtResource("2_a3d8c")]
 _weapon_stats = ExtResource("9_g2a7d")
 
-[node name="EntityStatsManager" parent="." instance=ExtResource("6_mx24k")]
+[node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+[node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 _owner_controllable_entity = NodePath("..")
 owner_controllable_entity = NodePath("..")
 
-[node name="Health" parent="." instance=ExtResource("11_t6wpt")]
+[node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
 collision_layer = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Health"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
