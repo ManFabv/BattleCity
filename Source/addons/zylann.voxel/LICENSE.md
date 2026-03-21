@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022 Fabricio
+Copyright (c) 2016-2024 Marc Gilleron
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-### Other assets and or software licenses ###
-- **GUT**: [The MIT License (MIT)](https://github.com/bitwes/Gut/blob/main/addons/gut/LICENSE.md)
-- **Godot Coverage**: [The MIT License (MIT)](https://github.com/jamie-pate/godot-code-coverage/blob/main/LICENSE)
-- **Phantom Camera**: [The MIT License (MIT)](https://github.com/ramokz/phantom-camera/blob/main/LICENSE)
-- **Voxel Utils**: [The MIT License (MIT)](https://github.com/Zylann/godot_voxel/blob/master/LICENSE.md)
