@@ -24,3 +24,4 @@ SOFTWARE.
 ### Other assets and or software licenses ###
 - **GUT**: [The MIT License (MIT)](https://github.com/bitwes/Gut/blob/main/addons/gut/LICENSE.md)
 - **Godot Coverage**: [The MIT License (MIT)](https://github.com/jamie-pate/godot-code-coverage/blob/main/LICENSE)
+- **Phantom Camera**: [The MIT License (MIT)](https://github.com/ramokz/phantom-camera/blob/main/LICENSE)
