@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="11_t6wpt"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="13_3iwsj"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_vd6wt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -27,6 +29,9 @@ size = Vector3(0.2, 0.2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
 albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
+
+[sub_resource type="Resource" id="Resource_j4dxc"]
+script = ExtResource("14_vd6wt")
 
 [node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller")]
 collision_layer = 2
@@ -54,8 +59,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
 [node name="PlayerCamera" parent="." unique_id=166363893 instance=ExtResource("4_sfijf")]
-transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 10, 6.5)
-top_level = true
+physics_interpolation_mode = 1
+transform = Transform3D(1.0000007, 0, 0, 0, 0.13960394, 0.9902044, 0, -0.990205, 0.13960385, 0, 14.510377, 2)
 
 [node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
 _keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
@@ -85,5 +90,23 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
+
+[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=413954673 node_paths=PackedStringArray("follow_target", "look_at_target")]
+transform = Transform3D(1.0000007, 0, 0, 0, 0.13960394, 0.9902044, 0, -0.990205, 0.13960385, 0, 14.510377, 2)
+top_level = true
+script = ExtResource("13_3iwsj")
+follow_mode = 2
+follow_target = NodePath("../Body")
+look_at_mode = 2
+look_at_target = NodePath("../Body")
+tween_resource = SubResource("Resource_j4dxc")
+host_layers = 2
+follow_offset = Vector3(0, 14.255, 2)
+follow_damping = true
+look_at_damping = true
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [editable path="InputManager"]
