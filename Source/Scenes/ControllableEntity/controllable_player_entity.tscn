@@ -103,6 +103,7 @@ tween_resource = SubResource("Resource_j4dxc")
 host_layers = 2
 follow_offset = Vector3(0, 14.255, 2)
 follow_damping = true
+follow_axis_lock = 2
 look_at_damping = true
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
