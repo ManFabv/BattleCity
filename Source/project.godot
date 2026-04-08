@@ -16,10 +16,6 @@ run/main_scene="uid://dc0iugm0iea4h"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.png"
 
-[autoload]
-
-PhantomCameraManager="*uid://c88656x3k4nc3"
-
 [dotnet]
 
 project/assembly_name="ManriqueFabricio_Actividad_5-Final"
