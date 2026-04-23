@@ -1,4 +1,2 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
-Source/android/build/**/*.aar filter=lfs diff=lfs merge=lfs -text
-Source/android/build/**/*.jar filter=lfs diff=lfs merge=lfs -text
