@@ -47,7 +47,7 @@ func exit_input_type() -> void:
 
 ## here we need to get the gamepad input and return it
 func get_input_movement() -> Vector2:
-	# we get the input of the keyboard
+	# we get the input of joystick
 	var move_input : Vector2 = Input.get_vector(
 		_move_left_name, _move_right_name, _move_up_name, _move_down_name
 		)
