@@ -13,7 +13,7 @@ config_version=5
 config/name="BattleCity"
 config/version="0.0.1"
 run/main_scene="uid://dc0iugm0iea4h"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.7")
 config/icon="res://icon.png"
 
 [dotnet]
