@@ -4,31 +4,23 @@ extends EntityStatsModifier
 ## how much time this stats modifier will be applied
 @export_range(0, 60) var _duration : float = 3
 
-## internal timer for deplete this stats modifier
-var _timer : Timer
 
-
-## we are going to start a timer for this
+## Starts the lifetime of this modifier using the SceneTreeTimer
 func init(_owner_node: Node) -> void:
-	# we create an initialize the timer
-	setup_timer()
-	# we add it to the scene tree as child of the stats modifier owner
-	_owner_node.add_child(_timer)
-	# we start the timer
-	_timer.start()
-
-## here we create and set the signals for the timer
-func setup_timer() -> void:
-	_timer = Timer.new()
-	# modifier should be used only once
-	_timer.one_shot = true
-	_timer.wait_time = _duration
-	# we connect the timeout signal to let our nodes know when modifier is depleted
-	_timer.timeout.connect(_on_timer_timeout)
+	# Safety check to ensure the node is inside the active scene tree
+	if not _owner_node.is_inside_tree():
+		push_warning("TimedEntityStatsModifier: _owner_node is not inside the SceneTree.")
+		return
+	setup_timer(_owner_node)
+	
+func setup_timer(_owner_node: Node) -> void:
+	# Create a SceneTreeTimer directly from the tree. 
+	# It automatically starts counting down and destroys itself on timeout.
+	var _scene_timer : SceneTreeTimer = _owner_node.get_tree().create_timer(_duration)
+	# Connect the timeout signal directly to our depletion logic
+	_scene_timer.timeout.connect(_on_timer_timeout)
 
 
 func _on_timer_timeout() -> void:
-	# we trigger the notification that this modifier is depleted
+	# Trigger the notification that this modifier is depleted
 	on_modifier_depleted.emit(self)
-	# we remove the timer
-	_timer.queue_free()
