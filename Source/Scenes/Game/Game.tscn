@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://dc0iugm0iea4h"]
-
-[ext_resource type="Script" uid="uid://b4p5namp6kwu1" path="res://Scripts/Game/game_manager.gd" id="1_y3kpf"]
-[ext_resource type="PackedScene" uid="uid://dwt62qx867bb3" path="res://Scenes/World/world.tscn" id="3_y3kpf"]
-
-[node name="Game" type="Node3D" unique_id=624028641]
-script = ExtResource("1_y3kpf")
-_initial_scene = ExtResource("3_y3kpf")
