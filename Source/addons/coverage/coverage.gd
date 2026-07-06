@@ -455,16 +455,36 @@ class NullCoverage:
 	extends Coverage
 
 	var _queue: PackedInt32Array
+	var _null_collector: NullScriptCoverageCollector
+
+	func _init() -> void:
+		_null_collector = NullScriptCoverageCollector.new("", "")
 
 	func get_coverage_queue() -> PackedInt32Array:
 		return _queue
 
-	func get_coverage_collector(_script_name: String):
-		return self
+	# Ahora cumple con la firma estricta devolviendo el recolector dummy
+	func get_coverage_collector(_script_name: String) -> ScriptCoverageCollector:
+		return _null_collector
 
 	func add_line_coverage(_line: int):
 		pass
 
+
+class NullScriptCoverageCollector:
+	extends ScriptCoverageCollector
+
+	func _init(_coverage_script_path: String, _script_path: String) -> void:
+		super("", "")
+
+	func _interpolate_coverage(_coverage_script_path: String, _script: GDScript, _id: int) -> String:
+		return ""
+
+	func set_instrumented(_value := true):
+		pass
+
+	func maybe_process_queue():
+		pass
 
 func _init(scene_tree: MainLoop, exclude_paths := []):
 	_exclude_paths += exclude_paths
@@ -784,4 +804,4 @@ static func finalize(print_verbosity := 0) -> void:
 	instance._finalize(print_verbosity)
 	var scene_tree = instance._scene_tree
 	instance = null
-	instance = NullCoverage.new(scene_tree)
+	instance = NullCoverage.new()
