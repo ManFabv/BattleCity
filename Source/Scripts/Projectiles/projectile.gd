@@ -1,17 +1,16 @@
 class_name Projectile
 extends Area3D
 
-## Projectile stats like velocity
-@export var _projectile_stats: ProjectileStats
+## Projectile shooting strategy
+@export var _shooting_strategy: ShootingStrategy
 
 # reference to the component
 @onready var _hurt_entity: Hurt = $Hurt
 
-## direction where the projectile is moving
-var direction : Vector3 = Vector3.FORWARD
-
 
 func _ready() -> void:
+	# because resources are references, we grab a copy of it
+	_shooting_strategy = _shooting_strategy.duplicate()
 	# we setup the hurt area
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
 
@@ -20,13 +19,13 @@ func _ready() -> void:
 func fire(shoot_point: Marker3D) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we take the muzzle forward position
-	direction = shoot_point.global_transform.basis.z
+	# we initialize the movement strategy
+	_shooting_strategy.initialize(shoot_point, self)
 
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	position += direction * _projectile_stats.speed * delta
+	_shooting_strategy.update_shooting_strategy(delta)
 
 
 ## here we check if the projectile left the screen to remove it

@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://Scripts/ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
-[ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/weapon_system.tscn" id="2_a3d8c"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Scenes/Input/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
-[ext_resource type="Resource" uid="uid://df8ghheytbtt5" path="res://Resources/Weapons/player_weapon_stats.tres" id="9_g2a7d"]
+[ext_resource type="PackedScene" uid="uid://y2s34qfomgs7" path="res://Scenes/Weapon/player_weapon_system.tscn" id="8_t6wpt"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="11_t6wpt"]
@@ -68,8 +67,7 @@ _player = NodePath("../..")
 [node name="GamePadProcessor" type="Node" parent="InputManager" unique_id=904701735]
 script = ExtResource("11_g2a7d")
 
-[node name="WeaponSystem" parent="." unique_id=702535043 instance=ExtResource("2_a3d8c")]
-_weapon_stats = ExtResource("9_g2a7d")
+[node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 

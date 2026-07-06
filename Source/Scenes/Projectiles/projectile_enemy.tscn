@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://imre1ajvaje2"]
+[gd_scene format=3 uid="uid://2geoxcmr11jb"]
 
 [ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
+[ext_resource type="Resource" uid="uid://dcjwfq8rnnq3i" path="res://Resources/Shooting/Strategies/enemy_normal_shooting_strategy.tres" id="2_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/damage_stats.tres" id="2_oq121"]
-[ext_resource type="Resource" uid="uid://bwqerckn88ab0" path="res://Resources/Projectiles/enemy_projectile.tres" id="3_iioyw"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_qkl3l"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
@@ -22,7 +22,7 @@ top_level = true
 collision_layer = 512
 collision_mask = 3
 script = ExtResource("1_gmg2w")
-_projectile_stats = ExtResource("3_iioyw")
+_shooting_strategy = ExtResource("2_gmg2w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454117825]
 mesh = SubResource("SphereMesh_1bece")

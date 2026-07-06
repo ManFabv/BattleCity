@@ -21,7 +21,7 @@ func _ready() -> void:
 ## NOTE: that this implementation probably won't work if the have a modifier that is 
 ## increasing or decreasing its modified value because we reapply the modifiers again
 func add_modifier(new_modifier : EntityStatsModifier) -> void:
-	new_modifier.init(self)
+	new_modifier.initialize(self)
 	new_modifier.on_modifier_depleted.connect(_modifier_depleted)
 	_modifiers.append(new_modifier)
 	_apply_modifiers()
