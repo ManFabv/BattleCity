@@ -7,8 +7,8 @@ signal on_modifier_depleted(EntityStatsModifier)
 @warning_ignore_restore("unused_signal")
 
 ## here we should initialize whats needed
-func init(_owner_node: Node) -> void:
-	push_error("init() should be implemented on inherited classes")
+func initialize(_owner_node: Node) -> void:
+	push_error("initialize() should be implemented on inherited classes")
 
 
 ## we apply the new stats into the base stats

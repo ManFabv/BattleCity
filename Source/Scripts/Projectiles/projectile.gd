@@ -4,11 +4,11 @@ extends Area3D
 ## Projectile stats like velocity
 @export var _projectile_stats: ProjectileStats
 
+## Strategy responsible for moving the projectile
+@export var _continuous_movement_strategy: ContinuousMovementStrategy
+
 # reference to the component
 @onready var _hurt_entity: Hurt = $Hurt
-
-## direction where the projectile is moving
-var direction : Vector3 = Vector3.FORWARD
 
 
 func _ready() -> void:
@@ -20,13 +20,14 @@ func _ready() -> void:
 func fire(shoot_point: Marker3D) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we take the muzzle forward position
-	direction = shoot_point.global_transform.basis.z
+	# we initialize the movement strategy
+	_continuous_movement_strategy.initialize(shoot_point)
 
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	position += direction * _projectile_stats.speed * delta
+	_continuous_movement_strategy.update_continuous_movement(delta,
+		_projectile_stats, self)
 
 
 ## here we check if the projectile left the screen to remove it
