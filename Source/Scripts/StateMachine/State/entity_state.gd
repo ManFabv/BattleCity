@@ -23,11 +23,6 @@ func update(_delta: float) -> void:
 	push_error("update() should be implemented on inherited classes")
 
 
-# updated at fixed steps
-func physics_update(_delta: float) -> void:
-	push_error("physics_update() should be implemented on inherited classes")
-
-
 # this will tell us if any transition condition is met
 func can_transition() -> bool:
 	for transition in _transitions:

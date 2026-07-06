@@ -29,11 +29,6 @@ func update(_delta: float) -> void:
 	pass # nothing at the moment
 
 
-# updated at fixed steps
-func physics_update(_delta: float) -> void:
-	pass # nothing at the moment
-
-
 # sets the new destination for the entity
 func _set_next_target_position() -> void:
 	# we first wait to avoid crazy movements of the entity

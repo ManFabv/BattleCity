@@ -25,11 +25,6 @@ func _change_if_condition_met() -> void:
 		change_state(new_state)
 
 
-# we made the physics process of the current state
-func _physics_process(delta: float) -> void:
-	_current_state.physics_update(delta)
-
-
 # here we call the corresponding methods to change the current 
 # state to the new one
 func change_state(new_state: EntityState) -> void:
