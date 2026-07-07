@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2geoxcmr11jb"]
 
 [ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
-[ext_resource type="Resource" uid="uid://dcjwfq8rnnq3i" path="res://Resources/Shooting/Strategies/enemy_normal_shooting_strategy.tres" id="2_gmg2w"]
+[ext_resource type="Resource" uid="uid://dcjwfq8rnnq3i" path="res://Resources/Shooting/ShootingStrategies/enemy_normal_shooting_strategy.tres" id="2_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/damage_stats.tres" id="2_oq121"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_qkl3l"]
 
