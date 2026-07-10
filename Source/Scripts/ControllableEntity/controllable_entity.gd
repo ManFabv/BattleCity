@@ -59,7 +59,7 @@ func _process(delta) -> void:
 	# we get if the player pressed shot input
 	var has_shot : bool = _entity_controller.is_shot_pressed()
 	# we process the shot information if pressed
-	_weapon_system.process_shot(has_shot, _muzzle)
+	_weapon_system.try_shot(has_shot, _muzzle)
 
 
 func _physics_process(_delta) -> void:
