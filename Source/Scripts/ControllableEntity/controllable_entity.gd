@@ -31,10 +31,8 @@ var _entity_stats : EntityStats:
 
 
 func _ready() -> void:
-	#we listen to health change events
-	_health.on_health_changed.connect(_on_health_changed)
-	#we listen to entity dead event
-	_health.on_dead.connect(_on_dead)
+	#we set the callbacks for the healths
+	_health.initialize(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
 	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened

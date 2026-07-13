@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cdmdkapjxmg55"]
 
 [ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_rrlge"]
-[ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/damage_stats.tres" id="2_2d16g"]
 [ext_resource type="Resource" uid="uid://n03kwb455t00" path="res://Resources/Shooting/ShootingStrategies/player_normal_shooting_strategy.tres" id="2_rrlge"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_f8ohn"]
+[ext_resource type="Resource" uid="uid://bnadnqldwigma" path="res://Resources/Health/DamageStats/player_damage_stats.tres" id="4_rrlge"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -35,7 +35,7 @@ shape = SubResource("SphereShape3D_2re41")
 
 [node name="Hurt" parent="." unique_id=1016129527 instance=ExtResource("4_f8ohn")]
 collision_mask = 4
-_damage_stats = ExtResource("2_2d16g")
+_damage_stats = ExtResource("4_rrlge")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1883193573]
 shape = SubResource("SphereShape3D_2re41")
