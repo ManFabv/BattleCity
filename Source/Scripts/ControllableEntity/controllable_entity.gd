@@ -22,7 +22,7 @@ extends CharacterBody3D
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
 #desired angle to rotate
-var _look_at_angle : float = 0
+var _look_at_angle : float = 0.0
 
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
