@@ -5,7 +5,7 @@ extends Area3D
 @export var _shooting_strategy: ShootingStrategy
 
 # reference to the component
-@onready var _hurt_entity: Hurt = $Hurt
+@onready var _hurt_entity: Hurt = %Hurt
 
 
 func _ready() -> void:

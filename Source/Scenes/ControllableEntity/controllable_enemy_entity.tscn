@@ -49,11 +49,14 @@ mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
 [node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=2106042964]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("6_23ltj")]
+unique_name_in_owner = true
 
 [node name="EntityStatsManager" parent="." unique_id=1255174216 instance=ExtResource("7_m5nrn")]
+unique_name_in_owner = true
 
 [node name="AiController" parent="." unique_id=1943080836 node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("7_adugg")]
 _navigation_agent = NodePath("../NavigationAgent3D")
@@ -70,6 +73,7 @@ script = ExtResource("9_xtgfm")
 metadata/_custom_type_script = "uid://c160ny2u5iv3q"
 
 [node name="Health" parent="." unique_id=1679365679 instance=ExtResource("9_1qpgy")]
+unique_name_in_owner = true
 collision_layer = 4
 _health_stats = ExtResource("10_1qpgy")
 

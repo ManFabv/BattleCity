@@ -34,6 +34,7 @@ shape = SubResource("SphereShape3D_2re41")
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1294217409]
 
 [node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("4_qkl3l")]
+unique_name_in_owner = true
 collision_mask = 2
 _damage_stats = ExtResource("2_oq121")
 

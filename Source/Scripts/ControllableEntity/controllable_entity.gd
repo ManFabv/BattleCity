@@ -11,13 +11,13 @@ extends CharacterBody3D
 @export var _entity_controller : EntityController
 
 #where we are going to spawn the projectile
-@onready var _muzzle: Marker3D = $Body/Turret/Muzzle
+@onready var _muzzle: Marker3D = %Muzzle
 #system that will handle all the shooting logic
-@onready var _weapon_system: WeaponSystem = $WeaponSystem
+@onready var _weapon_system: WeaponSystem = %WeaponSystem
 ## manages the entity stats and its modifiers
-@onready var _entity_stats_manager : EntityStatsManager = $EntityStatsManager
+@onready var _entity_stats_manager : EntityStatsManager = %EntityStatsManager
 ## manages the health for the entity
-@onready var _health : Health = $Health
+@onready var _health : Health = %Health
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO

@@ -51,6 +51,7 @@ mesh = SubResource("BoxMesh_a3d8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 
 [node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=453008260]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
 [node name="PlayerCamera" parent="." unique_id=166363893 instance=ExtResource("4_sfijf")]
@@ -69,8 +70,10 @@ _player = NodePath("../..")
 script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
+unique_name_in_owner = true
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
+unique_name_in_owner = true
 
 [node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
@@ -78,6 +81,7 @@ _owner_controllable_entity = NodePath("..")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
+unique_name_in_owner = true
 collision_layer = 2
 _health_stats = ExtResource("12_g2a7d")
 
