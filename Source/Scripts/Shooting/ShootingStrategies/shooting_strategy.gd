@@ -3,16 +3,25 @@ class_name ShootingStrategy
 
 
 ## Projectile stats like velocity
-@warning_ignore("unused_private_class_variable")
-@export var _projectile_stats: ProjectileStats
+@export var _projectile_stats: ProjectileStats:
+	get():
+		return _projectile_stats
+	set(new_value):
+		_projectile_stats = new_value
 
 ## Strategy responsible for moving the projectile
-@warning_ignore("unused_private_class_variable")
-@export var _continuous_movement_strategy: ContinuousMovementStrategy
+@export var _continuous_movement_strategy: ContinuousMovementStrategy:
+	get():
+		return _continuous_movement_strategy
+	set(new_value):
+		_continuous_movement_strategy = new_value
 
 ## reference to projectile object
-@warning_ignore("unused_private_class_variable")
-var _projectile : Projectile
+var _projectile : Projectile:
+	get():
+		return _projectile
+	set(new_value):
+		_projectile = new_value
 
 
 ## here we can setup the strategy before use
