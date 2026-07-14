@@ -1,11 +1,11 @@
 class_name Hurt
 extends Area3D
 
-## damage that it's going to be applied
-@export var _damage_stats : DamageStats
-
 ## it´s going to be triggered when taking damage
 signal _on_damage_taken
+
+## damage that it's going to be applied
+var damage_stats : DamageStats
 
 
 ## we cache references
@@ -23,6 +23,6 @@ func _ready() -> void:
 func _on_area_entered(_body: Health) -> void:
 	# we take damage when the
 	if _body != null:
-		_body.take_damage(_damage_stats)
+		_body.take_damage(damage_stats)
 		# we notify that we collide with something
 		_on_damage_taken.emit()
