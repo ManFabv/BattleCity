@@ -4,13 +4,6 @@ extends Area3D
 ## Projectile shooting strategy
 @export var _shooting_strategy: ShootingStrategy
 
-## how fast the projectile will move
-@export_range(0.0, 100.0) var speed : float = 10.0:
-	get():
-		return speed
-	set(new_value):
-		speed = new_value
-
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
 
