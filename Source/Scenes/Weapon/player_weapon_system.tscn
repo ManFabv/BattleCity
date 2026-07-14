@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/weapon_system.gd" id="1_1n27g"]
 [ext_resource type="Resource" uid="uid://df8ghheytbtt5" path="res://Resources/Weapons/player_weapon_stats.tres" id="2_1n27g"]
-[ext_resource type="Resource" uid="uid://dicynpv4k6gg0" path="res://Resources/Shooting/ShootingCostStrategies/player_timed_shooting_cost_strategy.tres.tres" id="3_udpco"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_1n27g")
 _weapon_stats = ExtResource("2_1n27g")
-_shooting_cost_strategy = ExtResource("3_udpco")

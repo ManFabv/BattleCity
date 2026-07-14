@@ -1,11 +1,9 @@
 [gd_resource type="Resource" script_class="NormalShootingStrategy" format=3 uid="uid://dcjwfq8rnnq3i"]
 
 [ext_resource type="Resource" uid="uid://u815mjtpjpxb" path="res://Resources/Shooting/ContinuousMovement/Strategies/linear_continuous_movement.tres" id="1_sbqxa"]
-[ext_resource type="Resource" uid="uid://bwqerckn88ab0" path="res://Resources/Projectiles/enemy_projectile.tres" id="2_lyfdt"]
 [ext_resource type="Script" uid="uid://bl2njcipnempa" path="res://Scripts/Shooting/ShootingStrategies/Strategies/normal_shooting_strategy.gd" id="3_flbhh"]
 
 [resource]
 script = ExtResource("3_flbhh")
-_projectile_stats = ExtResource("2_lyfdt")
 _continuous_movement_strategy = ExtResource("1_sbqxa")
 metadata/_custom_type_script = "uid://bl2njcipnempa"

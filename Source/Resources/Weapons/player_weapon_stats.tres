@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cdmdkapjxmg55" path="res://Scenes/Projectiles/projectile_player.tscn" id="1_hc5x6"]
 [ext_resource type="Script" uid="uid://b5pgjkvc106as" path="res://Scripts/Weapon/WeaponStats/weapon_stats.gd" id="2_lvb5j"]
+[ext_resource type="Resource" uid="uid://dicynpv4k6gg0" path="res://Resources/Shooting/ShootingCostStrategies/player_timed_shooting_cost_strategy.tres.tres" id="3_lvb5j"]
 
 [resource]
 script = ExtResource("2_lvb5j")
+shooting_cost_strategy = ExtResource("3_lvb5j")
 fire_rate = 0.5
 projectile_scene = ExtResource("1_hc5x6")
 metadata/_custom_type_script = "uid://b5pgjkvc106as"

@@ -12,7 +12,5 @@ func initialize(origin: Node3D) -> void:
 
 
 ## function responsible for handling any continuous movement like projectiles
-func update_continuous_movement(delta: float, 
-		projectile_stats: ProjectileStats, 
-		projectile: Projectile) -> void:
-	projectile.position += direction * projectile_stats.speed * delta
+func update_continuous_movement(delta: float, projectile: Projectile) -> void:
+	projectile.position += direction * projectile.speed * delta

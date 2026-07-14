@@ -4,19 +4,16 @@ extends Node
 ## Weapon stats like velocity and damage
 @export var _weapon_stats : WeaponStats
 
-## Weapon stats like velocity and damage
-@export var _shooting_cost_strategy : ShootingCostStrategy
+
+func _ready() -> void:
+	_weapon_stats = _weapon_stats.duplicate()
+	_weapon_stats.initialize()
 
 
 func _process(delta: float) -> void:
-	_shooting_cost_strategy._process_update_conditions(delta)
+	_weapon_stats.process_weapon(delta)
 
 
-func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
-	if has_shoot_pressed and _shooting_cost_strategy._can_shot(_weapon_stats):
-		# we instantiate the projectile
-		var shot : Projectile = _weapon_stats.projectile_scene.instantiate() as Projectile
-		# we add the shot to the scene (after this ready function will be triggered)
-		add_child(shot)
-		# we fire the shot
-		shot.fire(muzzle)
+func try_shot(has_shoot_pressed : bool, muzzle: Marker3D, controllable_entity: ControllableEntity) -> void:
+	if has_shoot_pressed and _weapon_stats.can_shot():
+		_weapon_stats.try_shot(muzzle, controllable_entity)
