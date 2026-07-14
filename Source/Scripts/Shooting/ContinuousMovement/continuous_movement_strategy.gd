@@ -8,7 +8,5 @@ func initialize(_origin: Node3D) -> void:
 
 
 ## function responsible for handling any continuous movement like projectiles
-func update_continuous_movement(_delta: float, 
-		_projectile_stats: ProjectileStats, 
-		_projectile: Projectile) -> void:
+func update_continuous_movement(_delta: float, _projectile: Projectile) -> void:
 	push_error("update_continuous_movement should be implemented on inherited")

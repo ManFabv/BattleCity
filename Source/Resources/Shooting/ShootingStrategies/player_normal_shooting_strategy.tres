@@ -6,6 +6,5 @@
 
 [resource]
 script = ExtResource("3_4mj33")
-_projectile_stats = ExtResource("2_oybld")
 _continuous_movement_strategy = ExtResource("1_oybld")
 metadata/_custom_type_script = "uid://bl2njcipnempa"
