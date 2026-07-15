@@ -11,7 +11,7 @@ class_name ShootingStrategy
 
 
 ## here we can setup the strategy before use
-func initialize(origin: Node3D) -> void:
+func initialize(_origin: Node3D) -> void:
 	push_error("initialize() should be implemented on inherited")
 
 

@@ -1,6 +1,14 @@
 class_name WeaponStats
 extends Resource
 
+## damage that it's going to be applied
+@export var damage_stats : DamageStats:
+	get():
+		return damage_stats
+	set(new_value):
+		damage_stats = new_value
+
+
 ## Weapon stats like velocity and damage
 @export var shooting_cost_strategy : ShootingCostStrategy:
 	get():
@@ -45,4 +53,4 @@ func try_shot(muzzle: Marker3D, controllable_entity: ControllableEntity) -> void
 	# we add the shot to the scene (after this ready function will be triggered)
 	controllable_entity.add_child(shot)
 	# we fire the shot
-	shot.fire(muzzle)
+	shot.fire(muzzle, damage_stats)

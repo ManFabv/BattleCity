@@ -10,6 +10,10 @@ extends CharacterBody3D
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
+@export_group("Controller")
+## this will give us the reference to the health component
+@export var _health_stats : HealthStats
+
 #where we are going to spawn the projectile
 @onready var _muzzle: Marker3D = %Muzzle
 #system that will handle all the shooting logic
@@ -32,7 +36,7 @@ var _entity_stats : EntityStats:
 
 func _ready() -> void:
 	#we set the callbacks for the healths
-	_health.initialize(_on_health_changed, _on_dead)
+	_health.initialize(_on_health_changed, _on_dead, _health_stats)
 	#we listen to the input type changed signal on input manager
 	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened
