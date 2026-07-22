@@ -12,8 +12,7 @@ func initialize(_owner_node: Node) -> void:
 		push_warning("TimedEntityStatsModifier: _owner_node is not inside the SceneTree.")
 		return
 	setup_timer(_owner_node)
-
-
+	
 func setup_timer(_owner_node: Node) -> void:
 	# Create a SceneTreeTimer directly from the tree. 
 	# It automatically starts counting down and destroys itself on timeout.
