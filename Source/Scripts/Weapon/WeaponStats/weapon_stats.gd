@@ -35,6 +35,7 @@ extends Resource
 
 func initialize() -> void:
 	shooting_cost_strategy = shooting_cost_strategy.duplicate()
+	damage_stats = damage_stats.duplicate()
 
 
 ## we update the cost strategy to see if we can shoot
