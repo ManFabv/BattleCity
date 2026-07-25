@@ -1,8 +1,10 @@
 class_name HealthStats
 extends Resource
 
+
 signal on_health_changed(current_health: int, max_health : int)
 signal on_dead
+
 
 ## entity max starting health points
 @export_range(0, 200) var max_health : int = 100:
@@ -25,5 +27,5 @@ var current_health : int:
 			on_dead.emit()
 		
 		
-func initialize() -> void:
+func initialize_max_health() -> void:
 	current_health = max_health

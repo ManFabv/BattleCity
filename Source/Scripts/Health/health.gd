@@ -1,15 +1,19 @@
 class_name Health
 extends Area3D
 
-var health_stats: HealthStats
+## health stats for the entity
+@export var health_stats: HealthStats
 
 
-func initialize(_on_health_changed : Callable, _on_dead : Callable, 
-		_health_stats: HealthStats) -> void:
-	#we save the health
-	health_stats = _health_stats.duplicate()
+func _ready() -> void:
+	# we save the health because resources are shared, 
+	# so we duplicate it to avoid modifying the original resource
+	health_stats = health_stats.duplicate()
 	# we start the entity with the max health
-	health_stats.initialize()
+	health_stats.initialize_max_health()
+
+
+func subscribe_to_health_signals(_on_health_changed : Callable, _on_dead : Callable) -> void:
 	#we listen to health change events
 	health_stats.on_health_changed.connect(_on_health_changed)
 	#we listen to entity dead event

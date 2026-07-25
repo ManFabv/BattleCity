@@ -33,7 +33,6 @@ script = ExtResource("1_xtgfm")
 _on_input_changed_event = ExtResource("2_1qpgy")
 _on_menu_opened_event = ExtResource("3_mp0d4")
 _entity_controller = NodePath("AiController")
-_health_stats = ExtResource("10_1qpgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=651671434]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -76,6 +75,7 @@ metadata/_custom_type_script = "uid://c160ny2u5iv3q"
 [node name="Health" parent="." unique_id=1679365679 instance=ExtResource("9_1qpgy")]
 unique_name_in_owner = true
 collision_layer = 4
+health_stats = ExtResource("10_1qpgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1374745845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
