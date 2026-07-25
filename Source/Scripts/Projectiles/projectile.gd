@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 ## we configure the projectile
-func fire(shoot_point: Marker3D) -> void:
+func fire(_shoot_point: Marker3D) -> void:
 	push_error("fire() should be implemented on inherited classes")
 
 
