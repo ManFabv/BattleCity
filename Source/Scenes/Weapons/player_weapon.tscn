@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cra8ju5u1623t"]
+
+[ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Scripts/Weapon/weapon.gd" id="1_lwy11"]
+[ext_resource type="Resource" uid="uid://df8ghheytbtt5" path="res://Resources/Weapons/player_weapon_stats.tres" id="2_ghjwq"]
+[ext_resource type="PackedScene" uid="uid://dbymkfccvhno5" path="res://Scenes/Shooting/ShootingCostStrategy/player_timed_shooting_cost_strategy.tscn" id="3_cb87j"]
+
+[node name="Weapon" type="Node3D" unique_id=523735498]
+script = ExtResource("1_lwy11")
+_weapon_stats = ExtResource("2_ghjwq")
+_shooting_cost_strategy_scene = ExtResource("3_cb87j")

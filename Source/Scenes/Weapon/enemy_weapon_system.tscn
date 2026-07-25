@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://d162n2y0wlrot"]
-
-[ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/weapon_system.gd" id="1_t0jxb"]
-[ext_resource type="Resource" uid="uid://dlodrdxmlsqnu" path="res://Resources/Weapons/enemy_weapon_stats.tres" id="2_t0jxb"]
-
-[node name="WeaponSystem" type="Node" unique_id=523735498]
-script = ExtResource("1_t0jxb")
-_weapon_stats = ExtResource("2_t0jxb")

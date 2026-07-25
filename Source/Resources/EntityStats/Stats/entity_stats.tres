@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_mh50r")
+gravity_modifier = 5.0
 metadata/_custom_type_script = "uid://c20qkm4e2f4lx"

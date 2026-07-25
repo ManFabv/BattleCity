@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
-[ext_resource type="PackedScene" uid="uid://y2s34qfomgs7" path="res://Scenes/Weapon/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="PackedScene" uid="uid://y2s34qfomgs7" path="res://Scenes/Weapons/Systems/player_weapon_system.tscn" id="8_t6wpt"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="11_t6wpt"]
@@ -35,7 +35,6 @@ script = ExtResource("1_uvnfx")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
-_health_stats = ExtResource("12_g2a7d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -85,6 +84,7 @@ owner_controllable_entity = NodePath("..")
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
 unique_name_in_owner = true
 collision_layer = 2
+health_stats = ExtResource("12_g2a7d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

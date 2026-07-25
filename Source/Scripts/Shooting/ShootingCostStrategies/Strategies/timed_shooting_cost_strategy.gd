@@ -25,6 +25,6 @@ func can_shot(weapon_stats: WeaponStats) -> bool:
 
 
 ## here we update the time passed
-func process_update_conditions(delta: float) -> void:
+func _process(delta: float) -> void:
 	# we increment the time passed in this frame
 	_time_passed += delta
