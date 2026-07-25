@@ -5,7 +5,16 @@ extends Area3D
 signal _on_damage_taken
 
 ## damage that it's going to be applied
-var damage_stats : DamageStats
+@export var _damage_stats : DamageStats
+
+
+## to avoid having to connect this signal on
+## every node, we connect it here
+func _ready() -> void:
+	connect("area_entered", _on_area_entered)
+	# we save the hurt because resources are shared, 
+	# so we duplicate it to avoid modifying the original resource
+	_damage_stats = _damage_stats.duplicate()
 
 
 ## we cache references
@@ -13,16 +22,11 @@ func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
 	_on_damage_taken.connect(on_damage_taken)
 
 
-## to avoid having to connect this signal on
-## every node, we connect it here
-func _ready() -> void:
-	connect("area_entered", _on_area_entered)
-
-
 ## if we collided with other body
 func _on_area_entered(_body: Health) -> void:
-	# we take damage when the
+	# if the body is not a Health component, we ignore it
 	if _body != null:
-		_body.take_damage(damage_stats)
+		# we take damage when the body has a health component
+		_body.take_damage(_damage_stats)
 		# we notify that we collide with something
 		_on_damage_taken.emit()

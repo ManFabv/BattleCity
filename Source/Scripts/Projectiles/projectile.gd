@@ -16,13 +16,11 @@ func _ready() -> void:
 
 
 ## we configure the projectile
-func fire(shoot_point: Marker3D, damage_stats: DamageStats) -> void:
+func fire(shoot_point: Marker3D) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
 	# we initialize the movement strategy
 	_shooting_strategy.initialize(shoot_point)
-	# we set the damage stats
-	_hurt_entity.damage_stats = damage_stats.duplicate()
 
 
 ## we move the projectile on the forward direction
