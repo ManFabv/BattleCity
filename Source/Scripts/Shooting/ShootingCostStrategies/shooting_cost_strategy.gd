@@ -1,4 +1,4 @@
-extends Resource
+extends Node
 class_name ShootingCostStrategy
 
 
@@ -6,8 +6,3 @@ class_name ShootingCostStrategy
 func can_shot(_weapon_stats: WeaponStats) -> bool:
 	push_error("_can_shot() should be implemented on inherited")
 	return false
-
-
-## here we can update the conditions
-func process_update_conditions(_delta: float) -> void:
-	push_error("_process_update_conditions() should be implemented on inherited")

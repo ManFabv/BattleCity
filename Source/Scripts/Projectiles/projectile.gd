@@ -1,16 +1,13 @@
 class_name Projectile
 extends Area3D
 
-## Projectile shooting strategy
-@export var _shooting_strategy: ShootingStrategy
-
+## Strategy responsible for moving the projectile
+@onready var _continuous_movement_strategy: ContinuousMovementStrategy = %ContinuousMovementStrategy
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
 
 
 func _ready() -> void:
-	# because resources are references, we grab a copy of it
-	_shooting_strategy = _shooting_strategy.duplicate()
 	# we setup the hurt area
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
 
@@ -19,13 +16,13 @@ func _ready() -> void:
 func fire(shoot_point: Marker3D) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we initialize the movement strategy
-	_shooting_strategy.initialize(shoot_point)
+	# we initialize the movement direction from the firing origin
+	_continuous_movement_strategy.initialize(shoot_point)
 
 
 ## we move the projectile on the forward direction
-func _physics_process(delta: float) -> void:
-	_shooting_strategy.update_shooting_strategy(delta, self)
+func _process(delta: float) -> void:
+	_continuous_movement_strategy.update_continuous_movement(delta, self)
 
 
 ## here we check if the projectile left the screen to remove it

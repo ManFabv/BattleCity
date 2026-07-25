@@ -15,7 +15,7 @@ var direction : Vector3 = Vector3.FORWARD
 ## here we can setup the strategy before use
 func initialize(origin: Node3D) -> void:
 	# we take the origin (usually the shooting point) forward position
-	direction = origin.global_transform.basis.z
+	direction = origin.global_transform.basis.z.normalized()
 
 
 ## function responsible for handling any continuous movement like projectiles
