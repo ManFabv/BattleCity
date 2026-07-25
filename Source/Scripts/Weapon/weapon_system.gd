@@ -1,22 +1,31 @@
 class_name WeaponSystem
 extends Node
 
-## Weapon stats like velocity and damage
-@export var _weapon_stats : WeaponStats
+
+## the initial weapon scene to instantiate
+@export var _weapon_scene : PackedScene
 
 
-## Shooting cost strategy to check if we can shoot
-@onready var _shooting_cost_strategy : ShootingCostStrategy = %ShootingCostStrategy
+## current equipped weapon
+var _current_weapon : Weapon
 
 
+## we set the initial weapon scene to instantiate
 func _ready() -> void:
-	change_weapon(_weapon_stats)
+	change_weapon(_weapon_scene)
 
 
+## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
 func try_shot(has_shoot_pressed : bool, muzzle: Marker3D, controllable_entity: ControllableEntity) -> void:
-	if has_shoot_pressed and _shooting_cost_strategy.can_shot(_weapon_stats):
-		_weapon_stats.try_shot(muzzle, controllable_entity)
+	if has_shoot_pressed and _current_weapon.can_shot():
+		_current_weapon.try_shot(muzzle, controllable_entity)
 
 
-func change_weapon(new_weapon_stats: WeaponStats) -> void:
-	_weapon_stats = new_weapon_stats.duplicate()
+func change_weapon(new_weapon_scene: PackedScene) -> void:
+	# if we have a weapon we remove it
+	if _current_weapon != null:
+		_current_weapon.remove_weapon()
+	# we instantiate the new weapon
+	_current_weapon = new_weapon_scene.instantiate() as Weapon
+	# we add the weapon to the scene
+	add_child(_current_weapon)
