@@ -84,6 +84,7 @@ Este proyecto utiliza Inteligencia Artificial como consultor para temas puntuale
 Mi flujo de desarrollo incluye:
 * Validación de Restricciones: Análisis de ventajas y desventajas de mis diseños específicos.
 Nota: Toda la integración final del código, el flujo lógico y la optimización del sistema se realizan manualmente.
+- Ayuda en el refactoring para dejar de usar tantos resources y comenzar a usar mas nodos: [49c319ee39ccd2c9e449df5bab995958a0cf6b2a](https://github.com/ManFabv/BattleCity/commit/49c319ee39ccd2c9e449df5bab995958a0cf6b2a)
 
 ## Recursos de aprendizaje: ##
 * [Principal: UNL](https://www.unl.edu.ar/carreras/tecnicatura-en-diseno-y-programacion-de-videojuegos-2/)
