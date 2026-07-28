@@ -9,7 +9,7 @@ func process_weapon(_delta: float) -> void:
 
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
-	return _shooting_cost_strategy.can_shot(self)
+	return _shooting_cost_strategy.can_shot()
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it

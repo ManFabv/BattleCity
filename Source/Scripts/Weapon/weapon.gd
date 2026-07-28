@@ -17,14 +17,6 @@ class_name Weapon
 		projectile_scene = new_value
 
 
-## how long it will wait between shots
-@export_range(0.0, 10.0) var fire_rate : float = 1.0:
-	get():
-		return fire_rate
-	set(new_value):
-		fire_rate = new_value
-
-
 ## we update the weapon status
 func process_weapon(_delta: float) -> void:
 	push_error("process_weapon() should be implemented on inherited classes")
