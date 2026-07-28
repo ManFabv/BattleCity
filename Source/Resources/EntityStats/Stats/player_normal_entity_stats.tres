@@ -4,6 +4,8 @@
 
 [resource]
 script = ExtResource("1_yry4t")
+move_speed = 10.0
 move_damping = 30.0
 gravity_modifier = 10.0
+rotation_speed = 30.0
 metadata/_custom_type_script = "uid://c20qkm4e2f4lx"

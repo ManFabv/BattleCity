@@ -41,6 +41,7 @@ func try_shot(_muzzle: Marker3D, _controllable_entity: ControllableEntity) -> vo
 	push_error("try_shot() should be implemented on inherited classes")
 
 
+## for cleanup
 func remove_weapon() -> void:
 	push_error("remove_weapon() should be implemented on inherited classes")
 
