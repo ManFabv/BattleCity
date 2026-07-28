@@ -33,5 +33,3 @@ func change_weapon(new_weapon: Weapon) -> void:
 	_current_weapon = new_weapon.duplicate()
 	# we initialize the weapon stats and the shooting cost strategy
 	_current_weapon._initialize()
-	# we add the weapon to the scene
-	add_child(_current_weapon)

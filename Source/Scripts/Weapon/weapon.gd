@@ -1,4 +1,4 @@
-extends Node3D
+extends Resource
 class_name Weapon
 
 ## the current shooting cost strategy
@@ -42,8 +42,5 @@ func remove_weapon() -> void:
 
 ## we initialize the weapon stats and the shooting cost strategy
 func _initialize() -> void:
-	_initialize_shooting_cost_strategy()
-
-
-func _initialize_shooting_cost_strategy() -> void:
 	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()
+	

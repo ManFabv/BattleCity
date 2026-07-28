@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="NormalWeapon" format=3 uid="uid://ng3xt45hd7dw"]
+
+[ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Scripts/Weapon/WeaponTypes/normal_weapon.gd" id="1_8g8s6"]
+[ext_resource type="Resource" uid="uid://evt1m00ekdqg" path="res://Resources/Shooting/ShootingCostStrategy/enemy_timed_shooting_cost_strategy.tres" id="1_s21tx"]
+[ext_resource type="PackedScene" uid="uid://2geoxcmr11jb" path="res://Scenes/Projectiles/enemy_normal_projectile.tscn" id="2_spcy2"]
+
+[resource]
+script = ExtResource("1_8g8s6")
+_shooting_cost_strategy = ExtResource("1_s21tx")
+projectile_scene = ExtResource("2_spcy2")
+metadata/_custom_type_script = "uid://daroot5kxtm0h"
