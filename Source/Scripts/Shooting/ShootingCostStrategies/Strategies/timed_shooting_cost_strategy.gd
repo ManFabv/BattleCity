@@ -13,9 +13,9 @@ var _time_passed : float = 0.0:
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot
-func can_shot(weapon_stats: WeaponStats) -> bool:
+func can_shot(weapon: Weapon) -> bool:
 	# if the time passed and is higher than the fire rate we can shoot
-	if _time_passed > weapon_stats.fire_rate:
+	if _time_passed > weapon.fire_rate:
 		# we reset the timer
 		_time_passed = 0
 		# we say that we can shoot
