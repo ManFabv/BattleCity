@@ -19,6 +19,11 @@ func _ready() -> void:
 	change_weapon(_initial_weapon)
 
 
+func _process(delta: float) -> void:
+	# we update the weapon status
+	_current_weapon.process_weapon(delta)
+
+
 ## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
 func try_shot(has_shoot_pressed : bool, muzzle: Marker3D, controllable_entity: ControllableEntity) -> void:
 	if has_shoot_pressed and _current_weapon.can_shot():

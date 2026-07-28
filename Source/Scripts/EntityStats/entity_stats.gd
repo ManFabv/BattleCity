@@ -10,7 +10,7 @@ extends Resource
 		move_speed = new_value
 
 ## how fast the body start stopping movement
-@export_range(1, 10) var move_damping : float = 10:
+@export_range(1, 50) var move_damping : float = 10:
 	get():
 		return move_damping
 	set(new_value):

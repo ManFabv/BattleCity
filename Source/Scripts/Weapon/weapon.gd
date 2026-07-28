@@ -9,6 +9,14 @@ class_name Weapon
 		_shooting_cost_strategy = new_value
 
 
+## projectile scene to instantiate
+@export var projectile_scene : PackedScene:
+	get():
+		return projectile_scene
+	set(new_value):
+		projectile_scene = new_value
+
+
 ## how long it will wait between shots
 @export_range(0.0, 10.0) var fire_rate : float = 1.0:
 	get():
@@ -17,12 +25,9 @@ class_name Weapon
 		fire_rate = new_value
 
 
-## projectile scene to instantiate
-@export var projectile_scene : PackedScene:
-	get():
-		return projectile_scene
-	set(new_value):
-		projectile_scene = new_value
+## we update the weapon status
+func process_weapon(_delta: float) -> void:
+	push_error("process_weapon() should be implemented on inherited classes")
 
 
 ## we ask the shooting cost strategy if we can shoot or not

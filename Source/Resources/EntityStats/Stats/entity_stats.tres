@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="EntityStats" format=3 uid="uid://brupxsi3wvt0x"]
-
-[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://Scripts/EntityStats/entity_stats.gd" id="1_mh50r"]
-
-[resource]
-script = ExtResource("1_mh50r")
-gravity_modifier = 5.0
-metadata/_custom_type_script = "uid://c20qkm4e2f4lx"

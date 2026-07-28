@@ -2,6 +2,11 @@ extends Weapon
 class_name NormalWeapon
 
 
+func process_weapon(_delta: float) -> void:
+	# we update the shooting cost strategy
+	_shooting_cost_strategy._process_cost(_delta)
+
+
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
 	return _shooting_cost_strategy.can_shot(self)

@@ -8,4 +8,5 @@
 script = ExtResource("1_wagf0")
 _shooting_cost_strategy = ExtResource("1_y315g")
 projectile_scene = ExtResource("2_81fgg")
+fire_rate = 0.35
 metadata/_custom_type_script = "uid://daroot5kxtm0h"
