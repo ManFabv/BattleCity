@@ -8,16 +8,9 @@ class_name Weapon
 	set(new_value):
 		_weapon_stats = new_value
 
-## the current shooting cost strategy scene to instantiate
-@export var _shooting_cost_strategy_scene : PackedScene:
-	get:
-		return _shooting_cost_strategy_scene
-	set(new_value):
-		_shooting_cost_strategy_scene = new_value
-
 
 ## the current shooting cost strategy
-var _shooting_cost_strategy : ShootingCostStrategy:
+@export var _shooting_cost_strategy : ShootingCostStrategy:
 	get:
 		return _shooting_cost_strategy
 	set(new_value):
@@ -37,3 +30,17 @@ func try_shot(_muzzle: Marker3D, _controllable_entity: ControllableEntity) -> vo
 
 func remove_weapon() -> void:
 	push_error("remove_weapon() should be implemented on inherited classes")
+
+
+## we initialize the weapon stats and the shooting cost strategy
+func _initialize() -> void:
+	_initialize_weapon_stats()
+	_initialize_shooting_cost_strategy()
+
+
+func _initialize_weapon_stats() -> void:
+	_weapon_stats = _weapon_stats.duplicate()
+
+
+func _initialize_shooting_cost_strategy() -> void:
+	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()

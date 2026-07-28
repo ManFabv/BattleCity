@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://d162n2y0wlrot"]
 
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/weapon_system.gd" id="1_f6rwe"]
-[ext_resource type="PackedScene" uid="uid://ba0v2hhogtkxl" path="res://Scenes/Weapon/Weapons/normal_enemy_weapon.tscn" id="2_alhtd"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_f6rwe")
-_weapon_scene = ExtResource("2_alhtd")
