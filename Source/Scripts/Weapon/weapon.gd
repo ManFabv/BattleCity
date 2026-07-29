@@ -30,7 +30,7 @@ func can_shot() -> bool:
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
-func try_shot(_muzzle: Marker3D, _controllable_entity: ControllableEntity) -> void:
+func try_shot(_muzzle: Marker3D, _node_to_attach_to: Node) -> void:
 	push_error("try_shot() should be implemented on inherited classes")
 
 

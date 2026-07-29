@@ -9,6 +9,9 @@ extends Node
 	set(new_value):
 		_initial_weapon = new_value
 
+## the node where we will attach the projectile to the scene tree
+@onready var _shoot_container_node : Node = %ShootContainerNode
+
 
 ## current equipped weapon
 var _current_weapon : Weapon
@@ -25,9 +28,9 @@ func _process(delta: float) -> void:
 
 
 ## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
-func try_shot(has_shoot_pressed : bool, muzzle: Marker3D, controllable_entity: ControllableEntity) -> void:
+func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
 	if has_shoot_pressed and _current_weapon.can_shot():
-		_current_weapon.try_shot(muzzle, controllable_entity)
+		_current_weapon.try_shot(muzzle, _shoot_container_node)
 
 
 func change_weapon(new_weapon: Weapon) -> void:

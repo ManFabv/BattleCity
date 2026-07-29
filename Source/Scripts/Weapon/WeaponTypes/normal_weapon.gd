@@ -8,11 +8,13 @@ func can_shot() -> bool:
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
-func try_shot(muzzle: Marker3D, controllable_entity: ControllableEntity) -> void:
+func try_shot(muzzle: Marker3D, node_to_attach_to: Node) -> void:
 	# we instantiate the projectile
 	var shot : Projectile = projectile_scene.instantiate() as Projectile
+	# we make it top level to avoid any transform issues
+	shot.top_level = true
 	# we add the shot to the scene (after this ready function will be triggered)
-	controllable_entity.add_child(shot)
+	node_to_attach_to.add_child(shot)
 	# we fire the shot
 	shot.fire(muzzle)
 
