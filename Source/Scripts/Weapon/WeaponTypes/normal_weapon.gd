@@ -2,11 +2,6 @@ extends Weapon
 class_name NormalWeapon
 
 
-func process_weapon(_delta: float) -> void:
-	# we update the shooting cost strategy
-	_shooting_cost_strategy.process_cost(_delta)
-
-
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
 	return _shooting_cost_strategy.can_shot()
@@ -23,5 +18,5 @@ func try_shot(muzzle: Marker3D, controllable_entity: ControllableEntity) -> void
 
 
 func remove_weapon() -> void:
-	# nothing to do here
+	# nothing to do here at this moment, but we keep the function for future use
 	pass
