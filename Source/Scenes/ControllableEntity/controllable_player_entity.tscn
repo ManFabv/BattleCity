@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
 [ext_resource type="PackedScene" uid="uid://y2s34qfomgs7" path="res://Scenes/Weapon/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="Resource" uid="uid://bpd3hyyqx573a" path="res://Resources/EntityStats/Stats/player_normal_entity_stats.tres" id="10_bqc0e"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="11_t6wpt"]
@@ -75,6 +76,7 @@ unique_name_in_owner = true
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 unique_name_in_owner = true
+_base_entity_stats = ExtResource("10_bqc0e")
 
 [node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")

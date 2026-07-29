@@ -1,27 +1,25 @@
-extends Node3D
+extends Resource
 class_name Weapon
 
-## the current weapons stats
-@export var _weapon_stats : WeaponStats:
-	get:
-		return _weapon_stats
-	set(new_value):
-		_weapon_stats = new_value
-
-## the current shooting cost strategy scene to instantiate
-@export var _shooting_cost_strategy_scene : PackedScene:
-	get:
-		return _shooting_cost_strategy_scene
-	set(new_value):
-		_shooting_cost_strategy_scene = new_value
-
-
 ## the current shooting cost strategy
-var _shooting_cost_strategy : ShootingCostStrategy:
+@export var _shooting_cost_strategy : ShootingCostStrategy:
 	get:
 		return _shooting_cost_strategy
 	set(new_value):
 		_shooting_cost_strategy = new_value
+
+
+## projectile scene to instantiate
+@export var projectile_scene : PackedScene:
+	get():
+		return projectile_scene
+	set(new_value):
+		projectile_scene = new_value
+
+
+## we update the weapon status
+func process_weapon(_delta: float) -> void:
+	push_error("process_weapon() should be implemented on inherited classes")
 
 
 ## we ask the shooting cost strategy if we can shoot or not
@@ -35,5 +33,12 @@ func try_shot(_muzzle: Marker3D, _controllable_entity: ControllableEntity) -> vo
 	push_error("try_shot() should be implemented on inherited classes")
 
 
+## for cleanup
 func remove_weapon() -> void:
 	push_error("remove_weapon() should be implemented on inherited classes")
+
+
+## we initialize the weapon stats and the shooting cost strategy
+func initialize() -> void:
+	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()
+	
