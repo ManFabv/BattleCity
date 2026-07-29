@@ -9,16 +9,16 @@ class_name LinearContinuousMovementStrategy
 
 
 ## direction where the projectile is moving
-var direction : Vector3 = Vector3.FORWARD
+var _direction : Vector3 = Vector3.FORWARD
 
 
 ## here we can setup the strategy before use
 func initialize(origin: Node3D) -> void:
 	# we take the origin (usually the shooting point) forward position
-	direction = origin.global_transform.basis.z.normalized()
+	_direction = origin.global_transform.basis.z.normalized()
 
 
 ## function responsible for handling any continuous movement like projectiles
 func update_continuous_movement(delta: float, transform_to_move: Transform3D) -> Transform3D:
-	transform_to_move.origin += direction * speed * delta
+	transform_to_move.origin += _direction * speed * delta
 	return transform_to_move
