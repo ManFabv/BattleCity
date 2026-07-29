@@ -39,6 +39,6 @@ func remove_weapon() -> void:
 
 
 ## we initialize the weapon stats and the shooting cost strategy
-func _initialize() -> void:
+func initialize() -> void:
 	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()
 	

@@ -1,6 +1,7 @@
 class_name Projectile
 extends Area3D
 
+
 ## Strategy responsible for moving the projectile
 @onready var _continuous_movement_strategy: ContinuousMovementStrategy = %ContinuousMovementStrategy
 # reference to the component
@@ -13,8 +14,11 @@ func _ready() -> void:
 
 
 ## we configure the projectile
-func fire(_shoot_point: Marker3D) -> void:
-	push_error("fire() should be implemented on inherited classes")
+func fire(shoot_point: Marker3D) -> void:
+	# we set the position to be at the muzzle
+	global_position = shoot_point.global_position
+	# we initialize the movement direction from the firing origin
+	_continuous_movement_strategy.initialize(shoot_point)
 
 
 ## we move the projectile on the forward direction
@@ -32,7 +36,7 @@ func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
 ## for now we only remove the node from the tree
 ## but we can spawn particles, play sound, etc
 func _destroy_projectile() -> void:
-	push_error("_destroy_projectile() should be implemented on inherited classes")
+	queue_free()
 
 
 func _on_body_entered(_body: Node3D) -> void:

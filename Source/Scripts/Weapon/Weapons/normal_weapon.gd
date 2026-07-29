@@ -4,7 +4,7 @@ class_name NormalWeapon
 
 func process_weapon(_delta: float) -> void:
 	# we update the shooting cost strategy
-	_shooting_cost_strategy._process_cost(_delta)
+	_shooting_cost_strategy.process_cost(_delta)
 
 
 ## we ask the shooting cost strategy if we can shoot or not
@@ -23,5 +23,5 @@ func try_shot(muzzle: Marker3D, controllable_entity: ControllableEntity) -> void
 
 
 func remove_weapon() -> void:
-    # nothing to do here
+	# nothing to do here
 	pass

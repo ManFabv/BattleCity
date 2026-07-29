@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2geoxcmr11jb"]
 
-[ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/Normal/normal_projectile.gd" id="1_gmg2w"]
+[ext_resource type="Script" uid="uid://c37uscni563x8" path="res://Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/HurtStats/NormalShots/enemy_hurt_stats.tres" id="2_oq121"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_qkl3l"]
 [ext_resource type="PackedScene" uid="uid://bltyynlskx7yn" path="res://Scenes/Shooting/ContinuousMovement/enemy_linear_continuous_movement.tscn" id="5_oq121"]

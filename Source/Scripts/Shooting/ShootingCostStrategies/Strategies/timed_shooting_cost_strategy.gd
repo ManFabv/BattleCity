@@ -33,6 +33,6 @@ func can_shot() -> bool:
 
 
 ## here we update the time passed
-func _process_cost(delta: float) -> void:
+func process_cost(delta: float) -> void:
 	# we increment the time passed in this frame
 	_time_passed += delta
