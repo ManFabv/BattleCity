@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://cdmdkapjxmg55"]
+[gd_scene format=3 uid="uid://cv5v5p2hq1q7l"]
 
-[ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Projectiles/projectile.gd" id="1_rrlge"]
+[ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Weapon/Projectiles/projectile.gd" id="1_rrlge"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_f8ohn"]
 [ext_resource type="Resource" uid="uid://bnadnqldwigma" path="res://Resources/Health/HurtStats/NormalShots/player_hurt_stats.tres" id="4_rrlge"]
-[ext_resource type="PackedScene" uid="uid://1n1au6yt3nye" path="res://Scenes/Shooting/ContinuousMovement/player_linear_continuous_movement.tscn" id="5_2d16g"]
+[ext_resource type="PackedScene" uid="uid://1n1au6yt3nye" path="res://Scenes/Weapon/Shooting/ContinuousMovement/player_linear_continuous_movement.tscn" id="5_2d16g"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125

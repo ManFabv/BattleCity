@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Scenes/Camera/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://Scenes/EntityController/player_controller.tscn" id="8_sfijf"]
-[ext_resource type="PackedScene" uid="uid://y2s34qfomgs7" path="res://Scenes/Weapon/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="PackedScene" uid="uid://dh0t6qdmefsv8" path="res://Scenes/Weapon/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="Resource" uid="uid://rkcs3ii757wg" path="res://Resources/Weapon/WeaponTypes/player_normal_weapon.tres" id="9_3iwsj"]
 [ext_resource type="Resource" uid="uid://bpd3hyyqx573a" path="res://Resources/EntityStats/Stats/player_normal_entity_stats.tres" id="10_bqc0e"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Scripts/Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Scripts/Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
@@ -73,6 +74,7 @@ script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
 unique_name_in_owner = true
+_initial_weapon = ExtResource("9_3iwsj")
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 unique_name_in_owner = true

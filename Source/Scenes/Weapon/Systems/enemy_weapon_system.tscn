@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d162n2y0wlrot"]
 
-[ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/Systems/weapon_system.gd" id="1_f6rwe"]
+[ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/System/weapon_system.gd" id="1_f6rwe"]
 [ext_resource type="Resource" uid="uid://ng3xt45hd7dw" path="res://Resources/Weapon/WeaponTypes/enemy_normal_weapon.tres" id="2_w0ui4"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
