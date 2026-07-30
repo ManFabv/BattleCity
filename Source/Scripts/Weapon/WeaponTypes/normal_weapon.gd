@@ -16,7 +16,7 @@ func try_shot(muzzle: Marker3D, node_to_attach_to: Node) -> void:
 	# we add the shot to the scene (after this ready function will be triggered)
 	node_to_attach_to.add_child(shot)
 	# we fire the shot
-	shot.fire(muzzle)
+	shot.fire(muzzle, continuous_movement_strategy)
 
 
 func remove_weapon() -> void:

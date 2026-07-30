@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Weapon/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/HurtStats/enemy_hurt_stats.tres" id="2_oq121"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_qkl3l"]
-[ext_resource type="Resource" path="res://Resources/Weapon/ContinuousMovement/enemy_linear_continuous_movement.tres" id="5_oq121"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -22,7 +21,6 @@ top_level = true
 collision_layer = 512
 collision_mask = 3
 script = ExtResource("1_gmg2w")
-_continuous_movement_strategy = ExtResource("5_oq121")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454117825]
 mesh = SubResource("SphereMesh_1bece")
@@ -40,7 +38,6 @@ _damage_stats = ExtResource("2_oq121")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")
-
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

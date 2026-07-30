@@ -17,6 +17,14 @@ class_name Weapon
 		projectile_scene = new_value
 
 
+## movement strategy injected into the projectile when fired
+@export var continuous_movement_strategy : ContinuousMovementStrategy:
+	get():
+		return continuous_movement_strategy
+	set(new_value):
+		continuous_movement_strategy = new_value
+
+
 ## we update the weapon status
 func process_weapon(_delta: float) -> void:
 	# we update the shooting cost strategy
