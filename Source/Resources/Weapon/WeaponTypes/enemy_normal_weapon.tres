@@ -2,10 +2,12 @@
 
 [ext_resource type="Resource" uid="uid://evt1m00ekdqg" path="res://Resources/Weapon/Shooting/ShootingCost/enemy_timed_shooting_cost_strategy.tres" id="1_s21tx"]
 [ext_resource type="PackedScene" uid="uid://2geoxcmr11jb" path="res://Scenes/Weapon/Projectiles/enemy_normal_projectile.tscn" id="2_spcy2"]
+[ext_resource type="Resource" uid="uid://b3p4p5x7q8sa" path="res://Resources/Weapon/ContinuousMovement/enemy_linear_continuous_movement.tres" id="2_wijgy"]
 [ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Scripts/Weapon/WeaponTypes/normal_weapon.gd" id="3_wijgy"]
 
 [resource]
 script = ExtResource("3_wijgy")
 _shooting_cost_strategy = ExtResource("1_s21tx")
 projectile_scene = ExtResource("2_spcy2")
+continuous_movement_strategy = ExtResource("2_wijgy")
 metadata/_custom_type_script = "uid://daroot5kxtm0h"

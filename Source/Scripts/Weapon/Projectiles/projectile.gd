@@ -3,7 +3,8 @@ extends Area3D
 
 
 ## Strategy responsible for moving the projectile
-@onready var _continuous_movement_strategy: ContinuousMovementStrategy = %ContinuousMovementStrategy
+var _continuous_movement_strategy: ContinuousMovementStrategy
+
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
 
@@ -14,10 +15,12 @@ func _ready() -> void:
 
 
 ## we configure the projectile
-func fire(shoot_point: Marker3D) -> void:
+func fire(shoot_point: Marker3D, continuous_movement_strategy: ContinuousMovementStrategy) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we initialize the movement direction from the firing origin
+	# we cache the movement strategy and we don't want to modify the original one after this point
+	_continuous_movement_strategy = continuous_movement_strategy.duplicate()
+	# we initialize the movement strategy
 	_continuous_movement_strategy.initialize(shoot_point)
 
 

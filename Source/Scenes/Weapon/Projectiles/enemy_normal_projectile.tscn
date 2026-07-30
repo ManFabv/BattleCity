@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Weapon/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/HurtStats/enemy_hurt_stats.tres" id="2_oq121"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_qkl3l"]
-[ext_resource type="PackedScene" uid="uid://bltyynlskx7yn" path="res://Scenes/Weapon/Shooting/ContinuousMovement/enemy_linear_continuous_movement.tscn" id="5_oq121"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -39,9 +38,6 @@ _damage_stats = ExtResource("2_oq121")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")
-
-[node name="ContinuousMovementStrategy" parent="." unique_id=166881119 instance=ExtResource("5_oq121")]
-unique_name_in_owner = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
