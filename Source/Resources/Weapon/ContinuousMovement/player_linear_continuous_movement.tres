@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="LinearContinuousMovementStrategy" format=3 uid="uid://c4q5r6s7t8va"]
+
+[ext_resource type="Script" uid="uid://c7d8ly51n4tiq" path="res://Scripts/Weapon/ContinuousMovement/Strategies/linear_continuous_movement_strategy.gd" id="1_s607m"]
+
+[resource]
+script = ExtResource("1_s607m")
+speed = 20.0

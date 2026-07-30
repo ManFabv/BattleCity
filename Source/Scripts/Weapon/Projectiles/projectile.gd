@@ -3,7 +3,7 @@ extends Area3D
 
 
 ## Strategy responsible for moving the projectile
-@onready var _continuous_movement_strategy: ContinuousMovementStrategy = %ContinuousMovementStrategy
+@export var _continuous_movement_strategy: ContinuousMovementStrategy
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
 

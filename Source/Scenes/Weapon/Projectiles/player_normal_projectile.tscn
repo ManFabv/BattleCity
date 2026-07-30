@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Weapon/Projectiles/projectile.gd" id="1_rrlge"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Scenes/Health/hurt.tscn" id="4_f8ohn"]
 [ext_resource type="Resource" uid="uid://bnadnqldwigma" path="res://Resources/Health/HurtStats/player_hurt_stats.tres" id="4_rrlge"]
-[ext_resource type="PackedScene" uid="uid://1n1au6yt3nye" path="res://Scenes/Weapon/Shooting/ContinuousMovement/player_linear_continuous_movement.tscn" id="5_2d16g"]
+[ext_resource type="Resource" path="res://Resources/Weapon/ContinuousMovement/player_linear_continuous_movement.tres" id="5_2d16g"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -22,6 +22,7 @@ top_level = true
 collision_layer = 256
 collision_mask = 5
 script = ExtResource("1_rrlge")
+_continuous_movement_strategy = ExtResource("5_2d16g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1319705289]
 mesh = SubResource("SphereMesh_1bece")
@@ -40,9 +41,6 @@ _damage_stats = ExtResource("4_rrlge")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1883193573]
 shape = SubResource("SphereShape3D_2re41")
 
-[node name="ContinuousMovementStrategy" parent="." unique_id=166881119 instance=ExtResource("5_2d16g")]
-unique_name_in_owner = true
-speed = 20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
