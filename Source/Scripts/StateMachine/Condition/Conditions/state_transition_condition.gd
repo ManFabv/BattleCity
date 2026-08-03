@@ -1,5 +1,5 @@
 class_name StateTransitionCondition
-extends Node
+extends Resource
 
 
 # we return true if the condition is met
