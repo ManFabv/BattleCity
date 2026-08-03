@@ -8,26 +8,32 @@ extends Node
 var _current_state: EntityState
 
 
+## we start the state machine with the initial state
 func _ready() -> void:
-	_current_state = _initial_state
-	_current_state.enter(_owner_controllable_entity)
-
-
-# we process the current state and check if we need to change to a new one
-func _process(delta) -> void:
-	_current_state.update(delta)
-	_change_if_condition_met()
-
-
-func _change_if_condition_met() -> void:
-	if _current_state.can_transition():
-		var new_state : EntityState = _current_state.get_new_state_to_transition()
-		change_state(new_state)
+	change_state(_initial_state)
 
 
 # here we call the corresponding methods to change the current 
 # state to the new one
 func change_state(new_state: EntityState) -> void:
-	_current_state.exit()
+	_exit_current_state()
 	_current_state = new_state
-	_current_state.enter(_owner_controllable_entity)
+	_enter_current_state()
+
+
+## we exit the current state and disconnect the signal to avoid memory leaks
+func _exit_current_state() -> void:
+	if _current_state != null:
+		_current_state.transition_requested.disconnect(_on_transition_requested)
+		_current_state.exit()
+
+
+## we enter the new state and connect the signal to be notified when we want to change to another state
+func _enter_current_state() -> void:
+	if _current_state != null:
+		_current_state.enter(_owner_controllable_entity)
+		_current_state.transition_requested.connect(_on_transition_requested)
+
+
+func _on_transition_requested(new_state: EntityState) -> void:
+	change_state(new_state)

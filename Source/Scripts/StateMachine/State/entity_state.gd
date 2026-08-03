@@ -1,11 +1,15 @@
 class_name EntityState
 extends Node
 
-## an array of possible transitions from this state to another
-@export var _transitions: Array[StateTransition]
+## this is the signal that will be emitted when we want to change to another state
+signal transition_requested(new_state: EntityState)
 
-## if we met any condition, we will cache here the new state
-var _current_next_state_to_transition: EntityState
+## the state where we want to transition when the condition is met
+@export var _next_state: EntityState:
+	get:
+		return _next_state
+	set(new_value):
+		_next_state = new_value
 
 
 # executed at the begin of the new state change
@@ -18,20 +22,6 @@ func exit() -> void:
 	push_error("exit() should be implemented on inherited classes")
 
 
-# updated at every frame
-func update(_delta: float) -> void:
-	push_error("update() should be implemented on inherited classes")
-
-
-# this will tell us if any transition condition is met
-func can_transition() -> bool:
-	for transition in _transitions:
-		if transition.can_transition():
-			_current_next_state_to_transition = transition.next_state
-			return true
-	return false
-
-
-# this will return the new state where we have to change after the condition is met
-func get_new_state_to_transition() -> EntityState:
-	return _current_next_state_to_transition
+# this will notify that we want to change to another state
+func request_transition(new_state: EntityState) -> void:
+	transition_requested.emit(new_state)

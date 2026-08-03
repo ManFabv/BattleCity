@@ -1,6 +1,10 @@
 class_name AIController
 extends EntityController
 
+## triggered after we shot, this will allow us to change to another state
+signal _controller_has_shot
+
+
 @export_group("Navigation")
 ## this is the component used to make an AI entity to
 ## navigate through the world
@@ -13,6 +17,8 @@ var _target_look_at : float
 ## we need the navigation region RID to be able to get random target positions
 ## inside the navigation region
 var _region_rid : RID
+## this will help us to know if we have already shot
+var _has_shot : bool = false
 
 
 func get_move_direction() -> Vector3:
@@ -34,8 +40,21 @@ func get_look_at_angle() -> float:
 	return _target_look_at
 
 
+## we said that the entity is going to shoot, so we directly request a shot
+## and emit the signal to notify that we have shot
+func shoot() -> void:
+	_has_shot = true
+	owner_controllable_entity.request_shot()
+	_controller_has_shot.emit()
+
+
+## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
+func stop_shooting() -> void:
+	_has_shot = false
+
+
 func is_shot_pressed() -> bool:
-	return false # nothing for now
+	return _has_shot
 
 
 func on_input_type_changed() -> void:
@@ -69,3 +88,18 @@ func set_random_target_position() -> void:
 # this will notify when the entity reaches the target destination
 func connect_on_target_reached_signal(on_target_reached : Callable) -> void:
 	_navigation_agent.navigation_finished.connect(on_target_reached)
+
+
+# we stop listening to the signal when we don't want to be notified anymore
+func disconnect_on_target_reached_signal(on_target_reached : Callable) -> void:
+	_navigation_agent.navigation_finished.disconnect(on_target_reached)
+
+
+# this will notify when the entity has shot
+func connect_on_shot_signal(on_target_reached : Callable) -> void:
+	_controller_has_shot.connect(on_target_reached)
+
+
+# we stop listening to the signal when we don't want to be notified anymore
+func disconnect_on_shot_signal(on_target_reached : Callable) -> void:
+	_controller_has_shot.disconnect(on_target_reached)
