@@ -60,6 +60,12 @@ func _process(delta) -> void:
 	_weapon_system.try_shot(_has_shot, _muzzle)
 
 
+func request_shot() -> void:
+	# the AI or player can request a shot directly without relying on the
+	# frame-by-frame input state from the controller
+	_weapon_system.try_shot(true, _muzzle)
+
+
 func _physics_process(_delta) -> void:
 	# we update the velocity according to the input given on process function
 	velocity = _move_velocity

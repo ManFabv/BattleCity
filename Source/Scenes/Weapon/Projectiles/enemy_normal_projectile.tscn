@@ -11,7 +11,7 @@ radial_segments = 16
 rings = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2re41"]
-albedo_color = Color(0.774736, 0.712494, 0.402774, 1)
+albedo_color = Color(0.7764706, 0.21176471, 0.40392157, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
