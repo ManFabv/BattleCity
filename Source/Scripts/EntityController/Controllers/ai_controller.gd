@@ -1,14 +1,17 @@
 class_name AIController
 extends EntityController
 
-## triggered after we shot, this will allow us to change to another state
-signal _controller_has_shot
+## Emitted when the AI decides it wants to perform a shot.
+signal _shot_requested
 
 
 @export_group("Navigation")
 ## this is the component used to make an AI entity to
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
+
+## the entity state chart for triggering state events
+@onready var state_chart: StateChart = %"StateChart"
 
 ## where we want to move
 var _target_position : Vector3
@@ -42,14 +45,13 @@ func get_look_at_angle() -> float:
 
 ## we said that the entity is going to shoot, so we directly request a shot
 ## and emit the signal to notify that we have shot
-func shoot() -> void:
+func _start_shooting() -> void:
 	_has_shot = true
-	owner_controllable_entity.request_shot()
-	_controller_has_shot.emit()
+	_shot_requested.emit()
 
 
 ## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
-func stop_shooting() -> void:
+func _stop_shooting() -> void:
 	_has_shot = false
 
 
@@ -76,7 +78,7 @@ func _get_region_rid() -> void:
 
 
 ## this will help us take a random point inside navigation mesh
-func set_random_target_position() -> void:
+func _set_random_target_position() -> void:
 	# everytime we set a new target position, we update the region rid
 	_get_region_rid()
 	# get a random point from NavigationRegion2D
@@ -85,21 +87,18 @@ func set_random_target_position() -> void:
 	_navigation_agent.set_target_position(_target_position)
 
 
-# this will notify when the entity reaches the target destination
-func connect_on_target_reached_signal(on_target_reached : Callable) -> void:
-	_navigation_agent.navigation_finished.connect(on_target_reached)
+func _on_fire_state_entered() -> void:
+	_start_shooting()
 
 
-# we stop listening to the signal when we don't want to be notified anymore
-func disconnect_on_target_reached_signal(on_target_reached : Callable) -> void:
-	_navigation_agent.navigation_finished.disconnect(on_target_reached)
+func _on_wander_state_entered() -> void:
+	_set_random_target_position()
 
 
-# this will notify when the entity has shot
-func connect_on_shot_signal(on_target_reached : Callable) -> void:
-	_controller_has_shot.connect(on_target_reached)
+func _on_navigation_agent_3d_target_reached() -> void:
+	state_chart.send_event("fire_event")
 
 
-# we stop listening to the signal when we don't want to be notified anymore
-func disconnect_on_shot_signal(on_target_reached : Callable) -> void:
-	_controller_has_shot.disconnect(on_target_reached)
+func _on_weapon_system_shot_fired() -> void:
+	_stop_shooting()
+	state_chart.send_event("wander_event")

@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/Systems/enemy_weapon_system.tscn" id="6_23ltj"]
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://Scenes/EntityController/ai_controller.tscn" id="7_adugg"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="7_m5nrn"]
-[ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="8_7cnhx"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="9_1qpgy"]
-[ext_resource type="Script" uid="uid://cu6gj5ghj0yfg" path="res://Scripts/StateMachine/State/States/fire_state.gd" id="9_mp0d4"]
-[ext_resource type="Script" uid="uid://c160ny2u5iv3q" path="res://Scripts/StateMachine/State/States/wander_state.gd" id="9_xtgfm"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="9_xtgfm"]
 [ext_resource type="Resource" uid="uid://bw7dodfdw0dt5" path="res://Resources/Health/HealthStats/enemy_health_stats.tres" id="10_1qpgy"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="10_mp0d4"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="11_mp0d4"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="12_s0wmm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -65,20 +66,6 @@ owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1295136493]
 
-[node name="StateMachine" parent="." unique_id=1305433353 node_paths=PackedStringArray("_initial_state", "_owner_controllable_entity") instance=ExtResource("8_7cnhx")]
-_initial_state = NodePath("WanderState")
-_owner_controllable_entity = NodePath("..")
-
-[node name="WanderState" type="Node" parent="StateMachine" unique_id=1530106032 node_paths=PackedStringArray("_next_state")]
-script = ExtResource("9_xtgfm")
-_next_state = NodePath("../FireState")
-metadata/_custom_type_script = "uid://c160ny2u5iv3q"
-
-[node name="FireState" type="Node" parent="StateMachine" unique_id=50146299 node_paths=PackedStringArray("_next_state")]
-script = ExtResource("9_mp0d4")
-_next_state = NodePath("../WanderState")
-metadata/_custom_type_script = "uid://c160ny2u5iv3q"
-
 [node name="Health" parent="." unique_id=1679365679 instance=ExtResource("9_1qpgy")]
 unique_name_in_owner = true
 collision_layer = 4
@@ -87,3 +74,35 @@ health_stats = ExtResource("10_1qpgy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1374745845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
+
+[node name="StateChart" type="Node" parent="." unique_id=973522680]
+unique_name_in_owner = true
+script = ExtResource("9_xtgfm")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="RootCompoundState" type="Node" parent="StateChart" unique_id=1185004751]
+script = ExtResource("10_mp0d4")
+initial_state = NodePath("Wander")
+
+[node name="Fire" type="Node" parent="StateChart/RootCompoundState" unique_id=2000884193]
+script = ExtResource("11_mp0d4")
+
+[node name="TransitionToWander" type="Node" parent="StateChart/RootCompoundState/Fire" unique_id=1566989461]
+script = ExtResource("12_s0wmm")
+to = NodePath("../../Wander")
+event = &"wander_event"
+delay_in_seconds = "1"
+
+[node name="Wander" type="Node" parent="StateChart/RootCompoundState" unique_id=903085462]
+script = ExtResource("11_mp0d4")
+
+[node name="TransitionToFire" type="Node" parent="StateChart/RootCompoundState/Wander" unique_id=691508063]
+script = ExtResource("12_s0wmm")
+to = NodePath("../../Fire")
+event = &"fire_event"
+delay_in_seconds = "1"
+
+[connection signal="shot_fired" from="WeaponSystem" to="AiController" method="_on_weapon_system_shot_fired"]
+[connection signal="target_reached" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_target_reached"]
+[connection signal="state_entered" from="StateChart/RootCompoundState/Fire" to="AiController" method="_on_fire_state_entered"]
+[connection signal="state_entered" from="StateChart/RootCompoundState/Wander" to="AiController" method="_on_wander_state_entered"]
