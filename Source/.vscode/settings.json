@@ -1,0 +1,19 @@
+{
+    "search.exclude": {
+        "**/.godot/**": true,
+        "**/addons/**": true,
+        "**/*.uid": true,
+        "**/.vscode/**": true
+    },
+    "files.exclude": {
+        "**/.godot": true,
+        "**/addons": true,
+        "**/*.uid": true,
+        "**/.vscode": true
+    },
+    "files.watcherExclude": {
+        "**/.godot/**": true,
+        "**/*.uid": true,
+        "**/.vscode/**": true
+    }
+}
