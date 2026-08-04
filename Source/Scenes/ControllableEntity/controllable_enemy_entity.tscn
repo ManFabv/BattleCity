@@ -6,10 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Scenes/Weapon/Systems/enemy_weapon_system.tscn" id="6_23ltj"]
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://Scenes/EntityController/ai_controller.tscn" id="7_adugg"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://Scenes/EntityStats/entity_stats_manager.tscn" id="7_m5nrn"]
-[ext_resource type="PackedScene" uid="uid://brwijgpd04ss4" path="res://Scenes/StateMachine/state_machine.tscn" id="8_7cnhx"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Scenes/Health/health.tscn" id="9_1qpgy"]
-[ext_resource type="Script" uid="uid://cu6gj5ghj0yfg" path="res://Scripts/StateMachine/State/States/fire_state.gd" id="9_mp0d4"]
-[ext_resource type="Script" uid="uid://c160ny2u5iv3q" path="res://Scripts/StateMachine/State/States/wander_state.gd" id="9_xtgfm"]
 [ext_resource type="Resource" uid="uid://bw7dodfdw0dt5" path="res://Resources/Health/HealthStats/enemy_health_stats.tres" id="10_1qpgy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
@@ -64,20 +61,6 @@ _navigation_agent = NodePath("../NavigationAgent3D")
 owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1295136493]
-
-[node name="StateMachine" parent="." unique_id=1305433353 node_paths=PackedStringArray("_initial_state", "_owner_controllable_entity") instance=ExtResource("8_7cnhx")]
-_initial_state = NodePath("WanderState")
-_owner_controllable_entity = NodePath("..")
-
-[node name="WanderState" type="Node" parent="StateMachine" unique_id=1530106032 node_paths=PackedStringArray("_next_state")]
-script = ExtResource("9_xtgfm")
-_next_state = NodePath("../FireState")
-metadata/_custom_type_script = "uid://c160ny2u5iv3q"
-
-[node name="FireState" type="Node" parent="StateMachine" unique_id=50146299 node_paths=PackedStringArray("_next_state")]
-script = ExtResource("9_mp0d4")
-_next_state = NodePath("../WanderState")
-metadata/_custom_type_script = "uid://c160ny2u5iv3q"
 
 [node name="Health" parent="." unique_id=1679365679 instance=ExtResource("9_1qpgy")]
 unique_name_in_owner = true
