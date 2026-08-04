@@ -1,6 +1,8 @@
 class_name WeaponSystem
 extends Node
 
+## called after we just shoot
+signal shot_fired
 
 ## the initial weapon scene to instantiate
 @export var _initial_weapon : Weapon:
@@ -31,6 +33,7 @@ func _process(delta: float) -> void:
 func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
 	if has_shoot_pressed and _current_weapon.can_shot():
 		_current_weapon.try_shot(muzzle, _shoot_container_node)
+		shot_fired.emit()
 
 
 func change_weapon(new_weapon: Weapon) -> void:
