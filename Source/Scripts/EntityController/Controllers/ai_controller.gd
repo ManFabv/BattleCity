@@ -1,8 +1,8 @@
 class_name AIController
 extends EntityController
 
-## triggered after we shot, this will allow us to change to another state
-signal _controller_has_shot
+## Emitted when the AI decides it wants to perform a shot.
+signal _shot_requested
 
 
 @export_group("Navigation")
@@ -44,8 +44,7 @@ func get_look_at_angle() -> float:
 ## and emit the signal to notify that we have shot
 func shoot() -> void:
 	_has_shot = true
-	owner_controllable_entity.request_shot()
-	_controller_has_shot.emit()
+	_shot_requested.emit()
 
 
 ## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
@@ -93,13 +92,3 @@ func connect_on_target_reached_signal(on_target_reached : Callable) -> void:
 # we stop listening to the signal when we don't want to be notified anymore
 func disconnect_on_target_reached_signal(on_target_reached : Callable) -> void:
 	_navigation_agent.navigation_finished.disconnect(on_target_reached)
-
-
-# this will notify when the entity has shot
-func connect_on_shot_signal(on_target_reached : Callable) -> void:
-	_controller_has_shot.connect(on_target_reached)
-
-
-# we stop listening to the signal when we don't want to be notified anymore
-func disconnect_on_shot_signal(on_target_reached : Callable) -> void:
-	_controller_has_shot.disconnect(on_target_reached)
