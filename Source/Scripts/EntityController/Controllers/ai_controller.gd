@@ -10,8 +10,9 @@ signal _shot_requested
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
 
-## the entity state chart for triggering state events
-@onready var state_chart: StateChart = %"StateChart"
+@export_group("Weapons")
+## this is the component used to make an AI entity to shoot
+@export var _weapon_system : WeaponSystem
 
 ## where we want to move
 var _target_position : Vector3
@@ -45,13 +46,13 @@ func get_look_at_angle() -> float:
 
 ## we said that the entity is going to shoot, so we directly request a shot
 ## and emit the signal to notify that we have shot
-func _start_shooting() -> void:
+func start_shooting() -> void:
 	_has_shot = true
 	_shot_requested.emit()
 
 
 ## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
-func _stop_shooting() -> void:
+func stop_shooting() -> void:
 	_has_shot = false
 
 
@@ -78,7 +79,7 @@ func _get_region_rid() -> void:
 
 
 ## this will help us take a random point inside navigation mesh
-func _set_random_target_position() -> void:
+func set_random_target_position() -> void:
 	# everytime we set a new target position, we update the region rid
 	_get_region_rid()
 	# get a random point from NavigationRegion2D
@@ -87,18 +88,9 @@ func _set_random_target_position() -> void:
 	_navigation_agent.set_target_position(_target_position)
 
 
-func _on_fire_state_entered() -> void:
-	_start_shooting()
+func connect_on_target_reached_signal(on_navigation_agent_3d_target_reached : Callable) -> void:
+	_navigation_agent.navigation_finished.connect(on_navigation_agent_3d_target_reached)
 
 
-func _on_wander_state_entered() -> void:
-	_set_random_target_position()
-
-
-func _on_navigation_agent_3d_target_reached() -> void:
-	state_chart.send_event("fire_event")
-
-
-func _on_weapon_system_shot_fired() -> void:
-	_stop_shooting()
-	state_chart.send_event("wander_event")
+func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
+	_weapon_system.connect_on_shot_fired_signal(on_weapon_system_shot_fired)
