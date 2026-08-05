@@ -34,3 +34,6 @@ desktop.ini
 *.tmp
 *.autosave
 .idea/
+.vs/
+.vscode/*
+!.vscode/settings.json
