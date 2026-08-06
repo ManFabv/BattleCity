@@ -2,6 +2,12 @@ extends Resource
 class_name ContinuousMovementStrategy
 
 
+## We use a local copy because we don't want the resource to be shared 
+## between different entities, we want each entity to have its own values
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 ## here we can setup the strategy before use
 func initialize(_origin: Node3D) -> void:
 	push_error("initialize() should be implemented on inherited")
