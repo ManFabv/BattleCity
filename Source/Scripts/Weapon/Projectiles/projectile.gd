@@ -26,7 +26,7 @@ func fire(shoot_point: Marker3D, continuous_movement_strategy: ContinuousMovemen
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	global_transform = _continuous_movement_strategy.update_continuous_movement(delta, global_transform)
+	global_transform = _continuous_movement_strategy.update_movement(delta, global_transform)
 
 
 ## here we check if the projectile left the screen to remove it
