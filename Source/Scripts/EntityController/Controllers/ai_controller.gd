@@ -1,9 +1,6 @@
 class_name AIController
 extends EntityController
 
-## Emitted when the AI decides it wants to perform a shot.
-signal _shot_requested
-
 
 @export_group("Navigation")
 ## this is the component used to make an AI entity to
@@ -48,7 +45,6 @@ func get_look_at_angle() -> float:
 ## and emit the signal to notify that we have shot
 func start_shooting() -> void:
 	_has_shot = true
-	_shot_requested.emit()
 
 
 ## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
