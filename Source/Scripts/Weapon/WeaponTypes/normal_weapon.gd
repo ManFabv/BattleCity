@@ -2,11 +2,6 @@ extends Weapon
 class_name NormalWeapon
 
 
-## we ask the shooting cost strategy if we can shoot or not
-func can_shot() -> bool:
-	return _shooting_cost_strategy.can_shot()
-
-
 ## the weapon will handle the shot, instantiating the projectile and firing it
 func try_shot(muzzle: Marker3D, node_to_attach_to: Node) -> void:
 	# we instantiate the projectile
@@ -17,8 +12,3 @@ func try_shot(muzzle: Marker3D, node_to_attach_to: Node) -> void:
 	node_to_attach_to.add_child(shot)
 	# we fire the shot
 	shot.fire(muzzle, continuous_movement_strategy)
-
-
-func remove_weapon() -> void:
-	# nothing to do here at this moment, but we keep the function for future use
-	pass

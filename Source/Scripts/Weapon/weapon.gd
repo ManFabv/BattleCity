@@ -33,18 +33,12 @@ func process_weapon(_delta: float) -> void:
 
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
-	push_error("can_shot() should be implemented on inherited classes")
-	return false
+	return _shooting_cost_strategy.can_shot()
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
 func try_shot(_muzzle: Marker3D, _node_to_attach_to: Node) -> void:
 	push_error("try_shot() should be implemented on inherited classes")
-
-
-## for cleanup
-func remove_weapon() -> void:
-	push_error("remove_weapon() should be implemented on inherited classes")
 
 
 ## we initialize the weapon stats and the shooting cost strategy
