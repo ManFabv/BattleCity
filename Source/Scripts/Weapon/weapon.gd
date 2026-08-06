@@ -39,9 +39,3 @@ func can_shot() -> bool:
 ## the weapon will handle the shot, instantiating the projectile and firing it
 func try_shot(_muzzle: Marker3D, _node_to_attach_to: Node) -> void:
 	push_error("try_shot() should be implemented on inherited classes")
-
-
-## we initialize the weapon stats and the shooting cost strategy
-func initialize() -> void:
-	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()
-	
