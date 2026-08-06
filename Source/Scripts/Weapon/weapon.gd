@@ -1,6 +1,13 @@
 extends Resource
 class_name Weapon
 
+
+## We use a local copy because we don't want the resource to be shared 
+## between different entities, we want each entity to have its own values
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 ## the current shooting cost strategy
 @export var _shooting_cost_strategy : ShootingCostStrategy:
 	get:
