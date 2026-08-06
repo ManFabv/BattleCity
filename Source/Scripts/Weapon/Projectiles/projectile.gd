@@ -19,8 +19,8 @@ func _ready() -> void:
 func fire(shoot_point: Marker3D, continuous_movement_strategy: ContinuousMovementStrategy) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we cache the movement strategy 
-	_continuous_movement_strategy = continuous_movement_strategy
+	# we cache the movement strategy and we don't want to modify the original one after this point
+	_continuous_movement_strategy = continuous_movement_strategy.duplicate()
 	# we initialize the movement strategy
 	_continuous_movement_strategy.initialize(shoot_point)
 
