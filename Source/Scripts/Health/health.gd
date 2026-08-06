@@ -9,9 +9,6 @@ signal _on_dead
 
 
 func _ready() -> void:
-	# we save the health because resources are shared, 
-	# so we duplicate it to avoid modifying the original resource
-	health_stats = health_stats.duplicate()
 	# we start the entity with the max health
 	health_stats.initialize_max_health()
 
