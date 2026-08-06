@@ -19,6 +19,6 @@ func initialize(origin: Node3D) -> void:
 
 
 ## function responsible for handling any continuous movement like projectiles
-func update_continuous_movement(delta: float, transform_to_move: Transform3D) -> Transform3D:
+func update_movement(delta: float, transform_to_move: Transform3D) -> Transform3D:
 	transform_to_move.origin += _direction * speed * delta
 	return transform_to_move

@@ -57,9 +57,8 @@ unique_name_in_owner = true
 [node name="EntityStatsManager" parent="." unique_id=1255174216 instance=ExtResource("7_m5nrn")]
 unique_name_in_owner = true
 
-[node name="AiController" parent="." unique_id=1943080836 node_paths=PackedStringArray("_navigation_agent", "_weapon_system", "owner_controllable_entity") instance=ExtResource("7_adugg")]
+[node name="AiController" parent="." unique_id=1943080836 node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("7_adugg")]
 _navigation_agent = NodePath("../NavigationAgent3D")
-_weapon_system = NodePath("../WeaponSystem")
 owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1295136493]
@@ -75,5 +74,8 @@ shape = SubResource("BoxShape3D_tugb3")
 
 [node name="StateMachine" parent="." unique_id=994521171 node_paths=PackedStringArray("_ai_controller") instance=ExtResource("9_xtgfm")]
 _ai_controller = NodePath("../AiController")
+
+[connection signal="shot_fired" from="WeaponSystem" to="StateMachine" method="_on_weapon_system_shot_fired"]
+[connection signal="target_reached" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_3d_target_reached"]
 
 [editable path="StateMachine"]

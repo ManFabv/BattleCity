@@ -12,9 +12,6 @@ signal _on_damage_taken
 ## every node, we connect it here
 func _ready() -> void:
 	connect("area_entered", _on_area_entered)
-	# we save the hurt because resources are shared, 
-	# so we duplicate it to avoid modifying the original resource
-	_damage_stats = _damage_stats.duplicate()
 
 
 ## we cache references

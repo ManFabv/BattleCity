@@ -37,13 +37,8 @@ func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
 
 
 func change_weapon(new_weapon: Weapon) -> void:
-	# if we have a weapon we remove it
-	if _current_weapon != null:
-		_current_weapon.remove_weapon()
 	# we cache the new weapon
-	_current_weapon = new_weapon.duplicate()
-	# we initialize the new weapon
-	_current_weapon.initialize()
+	_current_weapon = new_weapon
 
 
 func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:

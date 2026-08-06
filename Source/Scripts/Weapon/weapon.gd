@@ -1,6 +1,13 @@
 extends Resource
 class_name Weapon
 
+
+## We use a local copy because we don't want the resource to be shared 
+## between different entities, we want each entity to have its own values
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 ## the current shooting cost strategy
 @export var _shooting_cost_strategy : ShootingCostStrategy:
 	get:
@@ -33,21 +40,9 @@ func process_weapon(_delta: float) -> void:
 
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
-	push_error("can_shot() should be implemented on inherited classes")
-	return false
+	return _shooting_cost_strategy.can_shot()
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
 func try_shot(_muzzle: Marker3D, _node_to_attach_to: Node) -> void:
 	push_error("try_shot() should be implemented on inherited classes")
-
-
-## for cleanup
-func remove_weapon() -> void:
-	push_error("remove_weapon() should be implemented on inherited classes")
-
-
-## we initialize the weapon stats and the shooting cost strategy
-func initialize() -> void:
-	_shooting_cost_strategy = _shooting_cost_strategy.duplicate()
-	

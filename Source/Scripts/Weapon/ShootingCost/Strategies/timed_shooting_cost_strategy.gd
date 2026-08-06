@@ -6,7 +6,7 @@ class_name TimedShootingCostStrategy
 	get():
 		return _fire_rate
 	set(new_value):
-		_fire_rate = new_value
+		_fire_rate = max(new_value, 0.0) 
 
 
 # time accumulator
@@ -14,10 +14,7 @@ var _time_passed : float = 0.0:
 	get():
 		return _time_passed
 	set(new_value):
-		if new_value < 0.0:
-			_time_passed = 0
-		else:
-			_time_passed = new_value
+		_time_passed = max(new_value, 0.0) 
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot

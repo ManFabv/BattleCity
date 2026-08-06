@@ -8,6 +8,6 @@ func initialize(_origin: Node3D) -> void:
 
 
 ## function responsible for handling any continuous movement like projectiles
-func update_continuous_movement(_delta: float, _transform_to_move: Transform3D) -> Transform3D:
+func update_movement(_delta: float, _transform_to_move: Transform3D) -> Transform3D:
 	push_error("update_continuous_movement should be implemented on inherited")
 	return _transform_to_move

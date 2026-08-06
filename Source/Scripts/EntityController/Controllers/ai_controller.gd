@@ -1,18 +1,12 @@
 class_name AIController
 extends EntityController
 
-## Emitted when the AI decides it wants to perform a shot.
-signal _shot_requested
-
 
 @export_group("Navigation")
 ## this is the component used to make an AI entity to
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
 
-@export_group("Weapons")
-## this is the component used to make an AI entity to shoot
-@export var _weapon_system : WeaponSystem
 
 ## where we want to move
 var _target_position : Vector3
@@ -48,7 +42,6 @@ func get_look_at_angle() -> float:
 ## and emit the signal to notify that we have shot
 func start_shooting() -> void:
 	_has_shot = true
-	_shot_requested.emit()
 
 
 ## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
@@ -86,11 +79,3 @@ func set_random_target_position() -> void:
 	_target_position = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
 	# we set the new target destination position
 	_navigation_agent.set_target_position(_target_position)
-
-
-func connect_on_target_reached_signal(on_navigation_agent_3d_target_reached : Callable) -> void:
-	_navigation_agent.navigation_finished.connect(on_navigation_agent_3d_target_reached)
-
-
-func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
-	_weapon_system.connect_on_shot_fired_signal(on_weapon_system_shot_fired)
