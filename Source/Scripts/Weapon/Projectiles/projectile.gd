@@ -9,8 +9,9 @@ var _continuous_movement_strategy: ContinuousMovementStrategy
 @onready var _hurt_entity: Hurt = %Hurt
 
 
+## to avoid having to connect this signal on
+## every node, we connect it here
 func _ready() -> void:
-	# we setup the hurt area
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
 
 
