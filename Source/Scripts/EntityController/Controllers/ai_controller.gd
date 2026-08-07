@@ -23,9 +23,12 @@ func get_move_direction() -> Vector3:
 	# we take the next position on the navmesh
 	var next_position : Vector3 = _navigation_agent.get_next_path_position()
 	# we take the direction between our owner position and the next
-	# path position to know in which direction we need to move
-	_target_position = owner_controllable_entity.global_position.direction_to(next_position)
-	# we return the desired position
+	# path position to know in which intended direction we need to move
+	var intended_direction : Vector3 = owner_controllable_entity.global_position.direction_to(next_position)
+	# we set intended velocity to the navigation agent for avoidance calculation
+	_navigation_agent.velocity = intended_direction.normalized()
+	# Return the safe position which is calculated 
+	# by the avoidance callback previously
 	return _target_position
 
 
@@ -79,3 +82,16 @@ func set_random_target_position() -> void:
 	_target_position = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
 	# we set the new target destination position
 	_navigation_agent.set_target_position(_target_position)
+
+
+func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+	# We cache the computed safe velocity that the navigation agent calculated
+	# while having avoidance capabilities for the entity
+	_target_position = safe_velocity
+
+
+func _on_enemy_entity_stats_set() -> void:
+	# to avoid issues, we set the agent max avoidance speed equals to
+	# the entity movement speed
+	# keep a safe default here; actual speed should be set by the owner
+	_navigation_agent.max_speed = owner_controllable_entity.entity_move_speed

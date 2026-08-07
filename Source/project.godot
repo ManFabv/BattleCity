@@ -94,10 +94,20 @@ joypads/ignore_joypad_on_unfocused_application=true
 [layer_names]
 
 3d_physics/layer_1="World"
+3d_navigation/layer_1="World"
 3d_physics/layer_2="Player"
+3d_navigation/layer_2="Player"
 3d_physics/layer_3="Enemy"
+3d_navigation/layer_3="Enemy"
 3d_physics/layer_9="PlayerProjectiles"
+3d_navigation/layer_9="PlayerProjectiles"
 3d_physics/layer_10="EnemyProjectiles"
+3d_navigation/layer_10="EnemyProjectiles"
+avoidance/layer_1="World"
+avoidance/layer_2="Player"
+avoidance/layer_3="Enemy"
+avoidance/layer_9="PlayerProjectiles"
+avoidance/layer_10="EnemyProjectiles"
 
 [physics]
 

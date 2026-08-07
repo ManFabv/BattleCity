@@ -1,6 +1,9 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
+## This signal is emitted when the entity stats are set
+signal entity_stats_set
+
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
 @export var _on_menu_opened_event : BaseEvent
@@ -29,6 +32,11 @@ var _entity_stats : EntityStats:
 	get():
 		return _entity_stats_manager.entity_stats()
 
+# the entity move speed shorthand access
+var entity_move_speed : float:
+	get():
+		return _entity_stats.move_speed
+
 
 func _ready() -> void:
 	#we set the callbacks for the healths
@@ -37,13 +45,15 @@ func _ready() -> void:
 	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
 	#we listen to the event signal when the menu is opened
 	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened)
+	# emit a signal to notify that the correct entity stats is set
+	entity_stats_set.emit()
 
 
 func _process(delta) -> void:
 	# we get the wanted move direction
 	var move_direction : Vector3 = _entity_controller.get_move_direction()
 	# we calculate a desired velocity
-	var target_velocity : Vector3 = move_direction * _entity_stats.move_speed
+	var target_velocity : Vector3 = move_direction * entity_move_speed
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
