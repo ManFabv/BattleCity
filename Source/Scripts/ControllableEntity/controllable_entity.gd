@@ -79,11 +79,6 @@ func _physics_process(_delta) -> void:
 	move_and_slide()
 
 
-func request_shot() -> void:
-	# Explicit event-driven shot request
-	_weapon_system.try_shot(true, _muzzle)
-
-
 func _process_gravity() -> float:
 	var applied_gravity : float = 0.0
 	# if we are falling, we make a sum of the velocity on Y and applying gravity
