@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bim3ckfauijxb" path="res://Scripts/Weapon/ShootingCost/timed_shooting_cost_strategy.gd" id="1_mio8k"]
 
-[node name="TimedShootingCostStrategy" type="Node3D" unique_id=424651723]
+[node name="TimedShootingCostStrategy" type="Node" unique_id=788235922]
 script = ExtResource("1_mio8k")
 _fire_rate = 0.25

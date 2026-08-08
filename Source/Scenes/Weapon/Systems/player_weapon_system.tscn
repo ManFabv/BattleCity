@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dh0t6qdmefsv8"]
 
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/Systems/weapon_system.gd" id="1_h1tie"]
-[ext_resource type="Resource" uid="uid://rkcs3ii757wg" path="res://Resources/Weapon/WeaponTypes/player_normal_weapon.tres" id="2_gi2mh"]
+[ext_resource type="PackedScene" uid="uid://nq4uaokarhhp" path="res://Scenes/Weapon/WeaponTypes/player_normal_weapon.tscn" id="2_gi2mh"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_h1tie")

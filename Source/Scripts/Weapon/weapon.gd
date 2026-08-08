@@ -1,20 +1,12 @@
-extends Resource
+extends Node
 class_name Weapon
-
-
-## We use a local copy because we don't want the resource to be shared 
-## between different entities, we want each entity to have its own values
-func _init() -> void:
-	resource_local_to_scene = true
 
 
 ## the current shooting cost strategy scene
 @export var _shooting_cost_strategy_scene : PackedScene
 
-
 ## projectile scene to instantiate
 @export var projectile_scene : PackedScene
-
 
 ## movement strategy scene injected into the projectile when fired
 @export var continuous_movement_scene : PackedScene
@@ -35,9 +27,9 @@ func can_shot() -> bool:
 	return _shooting_cost_strategy.can_shot()
 
 
-func setup_weapon(owner: Node) -> void:
+func setup_weapon(_owner: Node) -> void:
 	_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
-	owner.add_child(_shooting_cost_strategy)
+	_owner.add_child(_shooting_cost_strategy)
 
 
 func release_weapon() -> void:
