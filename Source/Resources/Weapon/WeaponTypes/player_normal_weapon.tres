@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="NormalWeapon" format=3 uid="uid://rkcs3ii757wg"]
 
+[ext_resource type="PackedScene" uid="uid://cxu8gdl5mwmii" path="res://Scenes/Weapon/ShootingCost/player_timed_shooting_cost_strategy.tscn" id="1_81fgg"]
 [ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Scripts/Weapon/WeaponTypes/normal_weapon.gd" id="1_wagf0"]
-[ext_resource type="Resource" uid="uid://c70t64h03af3g" path="res://Resources/Weapon/Shooting/ShootingCost/player_timed_shooting_cost_strategy.tres" id="1_y315g"]
 [ext_resource type="PackedScene" uid="uid://cv5v5p2hq1q7l" path="res://Scenes/Weapon/Projectiles/player_normal_projectile.tscn" id="2_81fgg"]
 [ext_resource type="PackedScene" uid="uid://dgffnb650mdxy" path="res://Scenes/Weapon/ContinuousMovement/player_linear_continuous_movement.tscn" id="2_ftbom"]
 
 [resource]
 script = ExtResource("1_wagf0")
-_shooting_cost_strategy = ExtResource("1_y315g")
+_shooting_cost_strategy_scene = ExtResource("1_81fgg")
 projectile_scene = ExtResource("2_81fgg")
 continuous_movement_scene = ExtResource("2_ftbom")
 metadata/_custom_type_script = "uid://daroot5kxtm0h"

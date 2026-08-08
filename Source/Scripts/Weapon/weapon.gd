@@ -8,28 +8,20 @@ func _init() -> void:
 	resource_local_to_scene = true
 
 
-## the current shooting cost strategy
-@export var _shooting_cost_strategy : ShootingCostStrategy:
-	get:
-		return _shooting_cost_strategy
-	set(new_value):
-		_shooting_cost_strategy = new_value
+## the current shooting cost strategy scene
+@export var _shooting_cost_strategy_scene : PackedScene
 
 
 ## projectile scene to instantiate
-@export var projectile_scene : PackedScene:
-	get():
-		return projectile_scene
-	set(new_value):
-		projectile_scene = new_value
+@export var projectile_scene : PackedScene
 
 
 ## movement strategy scene injected into the projectile when fired
-@export var continuous_movement_scene : PackedScene:
-	get():
-		return continuous_movement_scene
-	set(new_value):
-		continuous_movement_scene = new_value
+@export var continuous_movement_scene : PackedScene
+
+
+## the shooting cost strategy instance
+var _shooting_cost_strategy : ShootingCostStrategy
 
 
 ## we update the weapon status
@@ -41,6 +33,15 @@ func process_weapon(_delta: float) -> void:
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
 	return _shooting_cost_strategy.can_shot()
+
+
+func setup_weapon(owner: Node) -> void:
+	_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
+	owner.add_child(_shooting_cost_strategy)
+
+
+func release_weapon() -> void:
+	_shooting_cost_strategy.queue_free()
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it

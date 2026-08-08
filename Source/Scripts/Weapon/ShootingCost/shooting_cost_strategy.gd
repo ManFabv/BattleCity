@@ -1,12 +1,5 @@
-extends Resource
+extends Node3D
 class_name ShootingCostStrategy
-
-
-## We use a local copy because we don't want the resource to be shared 
-## between different entities, we want each entity to have its own values
-func _init() -> void:
-	resource_local_to_scene = true
-
 
 
 ## this will tell us if the owner has the requisites for shooting
