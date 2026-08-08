@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://2geoxcmr11jb"]
+[gd_scene format=3 uid="uid://xlofvlpm7bbb"]
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Scripts/Weapon/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Resources/Health/HurtStats/enemy_hurt_stats.tres" id="2_oq121"]

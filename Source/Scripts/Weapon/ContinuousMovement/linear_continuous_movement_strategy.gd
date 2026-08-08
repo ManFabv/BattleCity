@@ -1,11 +1,7 @@
 extends ContinuousMovementStrategy
 class_name LinearContinuousMovementStrategy
 
-@export_range(0.0, 100.0) var speed : float = 10.0:
-	get():
-		return speed
-	set(new_value):
-		speed = new_value
+@export var continuous_movement_stats: ContinuousMovementStats
 
 
 ## direction where the projectile is moving
@@ -20,5 +16,5 @@ func initialize(origin: Node3D) -> void:
 
 ## function responsible for handling any continuous movement like projectiles
 func update_movement(delta: float, transform_to_move: Transform3D) -> Transform3D:
-	transform_to_move.origin += _direction * speed * delta
+	transform_to_move.origin += _direction * continuous_movement_stats.max_speed * delta
 	return transform_to_move

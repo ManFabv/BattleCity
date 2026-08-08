@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://1aj4l46afq7t"]
+
+[ext_resource type="Script" uid="uid://c7d8ly51n4tiq" path="res://Scripts/Weapon/ContinuousMovement/linear_continuous_movement_strategy.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bpkdf1sse66nj" path="res://Resources/Weapon/ContinuousMovement/Stats/enemy_normal_continuous_movement_stats.tres" id="2_jwhnf"]
+
+[node name="LinearContinuousMovement" type="Node3D" unique_id=1255361280]
+script = ExtResource("1")
+continuous_movement_stats = ExtResource("2_jwhnf")

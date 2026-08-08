@@ -1,4 +1,4 @@
-extends Resource
+extends Node3D
 class_name ContinuousMovementStrategy
 
 
