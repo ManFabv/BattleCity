@@ -94,7 +94,7 @@ func _process_gravity() -> float:
 
 
 ## called everytime the health changes, healing or damaging
-func _on_health_changed(_health_stats: HealthStats) -> void:
+func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> void:
 	# TODO: this should be connected to the UI to see visually the health
 	pass
 
