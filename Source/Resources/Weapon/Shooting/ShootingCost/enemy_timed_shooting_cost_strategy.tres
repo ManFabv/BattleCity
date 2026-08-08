@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TimedShootingCostStrategy" format=3 uid="uid://evt1m00ekdqg"]
 
-[ext_resource type="Script" uid="uid://bim3ckfauijxb" path="res://Scripts/Weapon/ShootingCost/Strategies/timed_shooting_cost_strategy.gd" id="1_ly6yk"]
+[ext_resource type="Script" uid="uid://bim3ckfauijxb" path="res://Scripts/Weapon/ShootingCost/timed_shooting_cost_strategy.gd" id="1_ly6yk"]
 
 [resource]
 script = ExtResource("1_ly6yk")

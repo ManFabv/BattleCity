@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dcka437mnq7ij"]
+
+[ext_resource type="Script" uid="uid://bim3ckfauijxb" path="res://Scripts/Weapon/ShootingCost/timed_shooting_cost_strategy.gd" id="1_iu5av"]
+
+[node name="TimedShootingCostStrategy" type="Node3D" unique_id=424651723]
+script = ExtResource("1_iu5av")
