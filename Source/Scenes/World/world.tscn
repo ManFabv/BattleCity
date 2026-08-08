@@ -150,6 +150,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.4797
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
 
 [editable path="Enemies/Enemy01"]
+[editable path="Enemies/Enemy01/StateMachine"]
 [editable path="Enemies/Enemy02"]
+[editable path="Enemies/Enemy02/StateMachine"]
 [editable path="Enemies/Enemy03"]
+[editable path="Enemies/Enemy03/StateMachine"]
 [editable path="Enemies/Enemy04"]
+[editable path="Enemies/Enemy04/StateMachine"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dkjuyxuulffow"]
+
+[ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Scripts/Weapon/WeaponTypes/normal_weapon.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dcka437mnq7ij" path="res://Scenes/Weapon/ShootingCost/enemy_timed_shooting_cost_strategy.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://xlofvlpm7bbb" path="res://Scenes/Weapon/Projectiles/enemy_normal_projectile.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://1aj4l46afq7t" path="res://Scenes/Weapon/ContinuousMovement/enemy_linear_continuous_movement.tscn" id="4"]
+
+[node name="Weapon" type="Node" unique_id=1582226440]
+script = ExtResource("1")
+_shooting_cost_strategy_scene = ExtResource("2")
+projectile_scene = ExtResource("3")
+continuous_movement_scene = ExtResource("4")

@@ -3,6 +3,6 @@
 [ext_resource type="Script" uid="uid://c7d8ly51n4tiq" path="res://Scripts/Weapon/ContinuousMovement/linear_continuous_movement_strategy.gd" id="1"]
 [ext_resource type="Resource" uid="uid://cq3x4gtauh43i" path="res://Resources/Weapon/ContinuousMovement/Stats/player_normal_continuous_movement_stats.tres" id="2_3jjtl"]
 
-[node name="LinearContinuousMovement" type="Node3D" unique_id=1255361280]
+[node name="LinearContinuousMovement" type="Node" unique_id=1392982510]
 script = ExtResource("1")
 continuous_movement_stats = ExtResource("2_3jjtl")
