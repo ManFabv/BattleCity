@@ -24,12 +24,12 @@ func _init() -> void:
 		projectile_scene = new_value
 
 
-## movement strategy injected into the projectile when fired
-@export var continuous_movement_strategy : ContinuousMovementStrategy:
+## movement strategy scene injected into the projectile when fired
+@export var continuous_movement_scene : PackedScene:
 	get():
-		return continuous_movement_strategy
+		return continuous_movement_scene
 	set(new_value):
-		continuous_movement_strategy = new_value
+		continuous_movement_scene = new_value
 
 
 ## we update the weapon status

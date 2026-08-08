@@ -16,11 +16,12 @@ func _ready() -> void:
 
 
 ## we configure the projectile
-func fire(shoot_point: Marker3D, continuous_movement_strategy: ContinuousMovementStrategy) -> void:
+func fire(shoot_point: Marker3D, continuous_movement_scene: PackedScene) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
-	# we cache the movement strategy and we don't want to modify the original one after this point
-	_continuous_movement_strategy = continuous_movement_strategy.duplicate()
+	# instantiate the continuous movement node and attach it as a child
+	_continuous_movement_strategy = continuous_movement_scene.instantiate() as ContinuousMovementStrategy
+	add_child(_continuous_movement_strategy)
 	# we initialize the movement strategy
 	_continuous_movement_strategy.initialize(shoot_point)
 
