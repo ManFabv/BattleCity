@@ -7,11 +7,11 @@ extends EntityController
 @export var _owner_controllable_entity : ControllableEntity
 
 
-func on_input_type_changed() -> void:
+func on_input_type_changed(_event_context: Variant = null) -> void:
 	print("INPUT CHANGED")
 
 
-func on_menu_opened() -> void:
+func on_menu_opened(_event_context: Variant = null) -> void:
 	print("MENU OPENED")
 
 

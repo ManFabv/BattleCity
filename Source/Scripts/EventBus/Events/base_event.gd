@@ -3,12 +3,12 @@ extends Resource
 
 # this is the sinal where we are going to connect
 # the methods to be triggered
-signal _event_signal
+signal _event_signal(event_context: Variant)
 
 
 # we emit the signal
-func emit() -> void:
-	_event_signal.emit()
+func emit(event_context: Variant = null) -> void:
+	_event_signal.emit(event_context)
 
 
 # we connect the method from the signal

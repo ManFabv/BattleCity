@@ -8,7 +8,7 @@ signal shot_fired
 @export var _initial_weapon : PackedScene
 
 ## the node where we will attach the projectile to the scene tree
-@onready var _shoot_container_node : Node = %ShootContainerNode
+@export var _on_projectile_spawned : BaseEvent
 
 
 ## current equipped weapon
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 ## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
 func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
 	if has_shoot_pressed and _current_weapon.can_shot():
-		_current_weapon.try_shot(muzzle, _shoot_container_node)
+		_current_weapon.try_shot(muzzle, _on_projectile_spawned)
 		shot_fired.emit()
 
 

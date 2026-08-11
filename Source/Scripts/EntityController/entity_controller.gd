@@ -25,9 +25,9 @@ func is_shot_pressed() -> bool:
 	return false
 
 
-func on_input_type_changed() -> void:
+func on_input_type_changed(_event_context: Variant = null) -> void:
 	push_error("on_input_type_changed() should be implemented on inherited classes")
 
 
-func on_menu_opened() -> void:
+func on_menu_opened(_event_context: Variant = null) -> void:
 	push_error("on_menu_opened() should be implemented on inherited classes")
