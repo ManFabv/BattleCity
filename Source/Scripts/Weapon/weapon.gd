@@ -37,5 +37,5 @@ func release_weapon() -> void:
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
-func try_shot(_muzzle: Marker3D, _node_to_attach_to: Node) -> void:
+func try_shot(_muzzle: Marker3D, _on_projectile_spawned: BaseEvent) -> void:
 	push_error("try_shot() should be implemented on inherited classes")

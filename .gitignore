@@ -37,3 +37,5 @@ desktop.ini
 .vs/
 .vscode/*
 !.vscode/settings.json
+graphify-out
+.cursor

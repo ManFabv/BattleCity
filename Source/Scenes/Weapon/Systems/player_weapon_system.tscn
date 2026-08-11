@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Scripts/Weapon/Systems/weapon_system.gd" id="1_h1tie"]
 [ext_resource type="PackedScene" uid="uid://nq4uaokarhhp" path="res://Scenes/Weapon/WeaponTypes/player_normal_weapon.tscn" id="2_gi2mh"]
+[ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://Resources/Events/on_projectile_spawned.tres" id="3_srfyk"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_h1tie")
 _initial_weapon = ExtResource("2_gi2mh")
-
-[node name="ShootContainerNode" type="Node" parent="." unique_id=141496126]
-unique_name_in_owner = true
+_on_projectile_spawned = ExtResource("3_srfyk")

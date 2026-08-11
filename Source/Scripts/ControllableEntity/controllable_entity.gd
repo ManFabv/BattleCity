@@ -42,9 +42,9 @@ func _ready() -> void:
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
-	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed)
+	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed, tree_exited)
 	#we listen to the event signal when the menu is opened
-	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened)
+	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
 	# emit a signal to notify that the correct entity stats is set
 	entity_stats_set.emit()
 

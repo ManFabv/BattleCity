@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://by3dt8h5n8avg"]
+
+[ext_resource type="Script" uid="uid://do2b3wnec6llb" path="res://Scripts/Container/node_container.gd" id="1_egf64"]
+[ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://Resources/Events/on_projectile_spawned.tres" id="2_t8rka"]
+
+[node name="ProjectileContainer" type="Node3D" unique_id=645560195]
+script = ExtResource("1_egf64")
+_on_node_spawned = ExtResource("2_t8rka")

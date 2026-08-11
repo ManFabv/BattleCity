@@ -56,11 +56,11 @@ func is_shot_pressed() -> bool:
 	return _has_shot
 
 
-func on_input_type_changed() -> void:
+func on_input_type_changed(_event_context: Variant = null) -> void:
 	pass # nothing for now
 
 
-func on_menu_opened() -> void:
+func on_menu_opened(_event_context: Variant = null) -> void:
 	pass # nothing for now
 
 
