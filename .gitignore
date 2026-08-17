@@ -28,6 +28,8 @@ data_*/
 .DS_Store
 Thumbs.db
 desktop.ini
+.sync.ffs_db
+sync.ffs_db
 
 # Temp files
 *.log
@@ -39,3 +41,4 @@ desktop.ini
 !.vscode/settings.json
 graphify-out
 .cursor
+openspec
