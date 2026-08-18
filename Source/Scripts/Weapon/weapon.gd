@@ -3,13 +3,25 @@ class_name Weapon
 
 
 ## the current shooting cost strategy scene
-@export var _shooting_cost_strategy_scene : PackedScene
+@export var _shooting_cost_strategy_scene : PackedScene:
+	get():
+		return _shooting_cost_strategy_scene
+	set(new_value):
+		_shooting_cost_strategy_scene = new_value
 
 ## projectile scene to instantiate
-@export var _projectile_scene : PackedScene
+@export var _projectile_scene : PackedScene:
+	get():
+		return _projectile_scene
+	set(new_value):
+		_projectile_scene = new_value
 
 ## movement strategy scene injected into the projectile when fired
-@export var _continuous_movement_scene : PackedScene
+@export var _continuous_movement_scene : PackedScene:
+	get():
+		return _continuous_movement_scene
+	set(new_value):
+		_continuous_movement_scene = new_value
 
 
 ## the shooting cost strategy instance
