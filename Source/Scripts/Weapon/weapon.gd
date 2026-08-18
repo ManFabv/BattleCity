@@ -27,13 +27,16 @@ func can_shot() -> bool:
 	return _shooting_cost_strategy.can_shot()
 
 
+## we initialize the needed variables for the weapon
 func setup_weapon(_owner: Node) -> void:
 	_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
 	_owner.add_child(_shooting_cost_strategy)
 
 
+## we release the weapon resources
 func release_weapon() -> void:
 	_shooting_cost_strategy.queue_free()
+	queue_free()
 
 
 ## the weapon will handle the shot, instantiating the projectile and firing it
