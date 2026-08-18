@@ -7,10 +7,6 @@ extends EntityStatsModifier
 
 ## Starts the lifetime of this modifier using the SceneTreeTimer
 func initialize(_owner_node: Node) -> void:
-	# Safety check to ensure the node is inside the active scene tree
-	if not _owner_node.is_inside_tree():
-		push_warning("TimedEntityStatsModifier: _owner_node is not inside the SceneTree.")
-		return
 	setup_timer(_owner_node)
 	
 func setup_timer(_owner_node: Node) -> void:

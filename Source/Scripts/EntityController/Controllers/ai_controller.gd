@@ -41,13 +41,12 @@ func get_look_at_angle() -> float:
 	return _target_look_at
 
 
-## we said that the entity is going to shoot, so we directly request a shot
-## and emit the signal to notify that we have shot
+## we said that the entity is going to shoot
 func start_shooting() -> void:
 	_has_shot = true
 
 
-## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
+## we said that the entity stopped shooting
 func stop_shooting() -> void:
 	_has_shot = false
 
@@ -87,7 +86,7 @@ func set_random_target_position() -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	# We cache the computed safe velocity that the navigation agent calculated
 	# while having avoidance capabilities for the entity
-	_target_position = safe_velocity
+	_target_position = safe_velocity.normalized()
 
 
 func _on_enemy_entity_stats_set() -> void:

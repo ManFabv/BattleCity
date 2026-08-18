@@ -36,11 +36,10 @@ func change_weapon(new_weapon: PackedScene) -> void:
 	# destroy the previous weapon if it exists
 	if _current_weapon != null:
 		_current_weapon.release_weapon()
-		_current_weapon.queue_free()
 	# we instantiate the new weapon and add it to the scene tree
 	_current_weapon = new_weapon.instantiate() as Weapon
 	add_child(_current_weapon)
-	_current_weapon.setup_weapon(self)
+
 
 func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
 	shot_fired.connect(on_weapon_system_shot_fired)
