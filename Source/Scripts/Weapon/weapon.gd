@@ -16,6 +16,12 @@ class_name Weapon
 var _current_shooting_cost_strategy : ShootingCostStrategy
 
 
+## the initialize the weapon when it is added to the scene
+func _ready() -> void:
+	_current_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
+	add_child(_current_shooting_cost_strategy)
+
+
 ## we update the weapon status
 func process_weapon(_delta: float) -> void:
 	# we update the shooting cost strategy
@@ -25,12 +31,6 @@ func process_weapon(_delta: float) -> void:
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
 	return _current_shooting_cost_strategy.can_shot()
-
-
-## we initialize the needed variables for the weapon
-func setup_weapon() -> void:
-	_current_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
-	add_child(_current_shooting_cost_strategy)
 
 
 ## we release the weapon resources
