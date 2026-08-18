@@ -8,11 +8,11 @@ class_name NodeContainer
 
 func _ready() -> void:
 	# We start listening to the event
-	_on_node_spawned.subscribe(_parent_projectile, tree_exited)
+	_on_node_spawned.subscribe(_parent_node, tree_exited)
 
 
-func _parent_projectile(projectile: Projectile) -> void:
-	# if the parameter is a projectile
-	if projectile:
-		# we add the projectile as child
-		add_child(projectile)
+func _parent_node(new_node: Node) -> void:
+	# if the parameter is valid
+	if is_instance_valid(new_node):
+		# we add the node as child
+		add_child(new_node)
