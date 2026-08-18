@@ -41,13 +41,12 @@ func get_look_at_angle() -> float:
 	return _target_look_at
 
 
-## we said that the entity is going to shoot, so we directly request a shot
-## and emit the signal to notify that we have shot
+## we said that the entity is going to shoot
 func start_shooting() -> void:
 	_has_shot = true
 
 
-## we said that the entity stopped shooting, so we set the status to true and emit the signal to notify that we have shot
+## we said that the entity stopped shooting
 func stop_shooting() -> void:
 	_has_shot = false
 
