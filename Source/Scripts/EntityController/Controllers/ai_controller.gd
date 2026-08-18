@@ -86,7 +86,7 @@ func set_random_target_position() -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	# We cache the computed safe velocity that the navigation agent calculated
 	# while having avoidance capabilities for the entity
-	_target_position = safe_velocity
+	_target_position = safe_velocity.normalized()
 
 
 func _on_enemy_entity_stats_set() -> void:
