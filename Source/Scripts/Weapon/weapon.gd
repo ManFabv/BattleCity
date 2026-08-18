@@ -28,9 +28,9 @@ func can_shot() -> bool:
 
 
 ## we initialize the needed variables for the weapon
-func setup_weapon(_owner: Node) -> void:
+func setup_weapon() -> void:
 	_current_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
-	_owner.add_child(_current_shooting_cost_strategy)
+	add_child(_current_shooting_cost_strategy)
 
 
 ## we release the weapon resources
