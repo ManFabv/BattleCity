@@ -8,5 +8,5 @@
 [node name="Weapon" type="Node" unique_id=1582226440]
 script = ExtResource("1")
 _shooting_cost_strategy_scene = ExtResource("2")
-projectile_scene = ExtResource("3")
-continuous_movement_scene = ExtResource("4")
+_projectile_scene = ExtResource("3")
+_continuous_movement_scene = ExtResource("4")
