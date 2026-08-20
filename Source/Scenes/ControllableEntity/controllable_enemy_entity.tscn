@@ -75,12 +75,10 @@ health_stats = ExtResource("10_1qpgy")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
-[node name="StateMachine" parent="." unique_id=994521171 node_paths=PackedStringArray("_ai_controller") instance=ExtResource("9_xtgfm")]
+[node name="StateMachine" parent="." unique_id=994521171 node_paths=PackedStringArray("_ai_controller", "_navigation_agent", "_weapon_system") instance=ExtResource("9_xtgfm")]
 _ai_controller = NodePath("../AiController")
+_navigation_agent = NodePath("../NavigationAgent3D")
+_weapon_system = NodePath("../WeaponSystem")
 
 [connection signal="entity_stats_set" from="." to="AiController" method="_on_enemy_entity_stats_set"]
-[connection signal="shot_fired" from="WeaponSystem" to="StateMachine" method="_on_weapon_system_shot_fired"]
-[connection signal="target_reached" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]
-
-[editable path="StateMachine"]
