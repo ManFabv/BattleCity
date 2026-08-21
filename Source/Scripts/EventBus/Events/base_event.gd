@@ -17,7 +17,7 @@ func subscribe(method: Callable, on_unsubscribe_requested: Signal) -> void:
 		_event_signal.connect(method)
 		# we grab the current method using bind so the unsubscribe knows
 		# which method should disconnect
-		on_unsubscribe_requested.connect(unsubscribe.bind(method))
+		on_unsubscribe_requested.connect(unsubscribe.bind(method), CONNECT_ONE_SHOT)
 
 
 # we disconnect the method from the signal
