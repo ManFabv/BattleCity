@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="SpeedEntityStatModifier" format=3 uid="uid://cckytcyauscc6"]
 
 [ext_resource type="Script" uid="uid://bkh3w3nsj0th2" path="res://Scripts/EntityStats/Modifiers/speed_entity_stat_modifier.gd" id="1_ovlcb"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://Resources/Events/on_timer_requested.tres" id="2_timer"]
 
 [resource]
 script = ExtResource("1_ovlcb")
+timer_requested = ExtResource("2_timer")
 metadata/_custom_type_script = "uid://bkh3w3nsj0th2"
