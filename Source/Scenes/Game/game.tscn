@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b4p5namp6kwu1" path="res://Scripts/Game/game_manager.gd" id="1_qxfds"]
 [ext_resource type="PackedScene" uid="uid://dwt62qx867bb3" path="res://Scenes/World/world.tscn" id="2_qikps"]
+[ext_resource type="PackedScene" uid="uid://bmh0tl4vipift" path="res://Scenes/TimeManager/time_manager.tscn" id="3_qikps"]
 
 [node name="Game" type="Node3D" unique_id=624028641]
 script = ExtResource("1_qxfds")
 _initial_scene = ExtResource("2_qikps")
+_timer_manager = ExtResource("3_qikps")

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bmh0tl4vipift"]
+
+[ext_resource type="Script" uid="uid://cjc1yjfui73x4" path="res://Scripts/TimerManager/time_manager.gd" id="1_hmr8q"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://Resources/Events/on_timer_requested.tres" id="2_yjmmu"]
+
+[node name="TimeManager" type="Node" unique_id=557686218]
+script = ExtResource("1_hmr8q")
+_request_timer = ExtResource("2_yjmmu")
