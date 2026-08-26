@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EntityStats" format=3 uid="uid://brupxsi3wvt0x"]
+
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/entity_stats.gd" id="1_o005d"]
+
+[resource]
+script = ExtResource("1_o005d")
+move_speed = 5.0
+move_damping = 20.0
+gravity_modifier = 10.0
+metadata/_custom_type_script = "uid://c20qkm4e2f4lx"

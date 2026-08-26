@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://d177b15gvya4j"]
+
+[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/controllable_entity.gd" id="1_uvnfx"]
+[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Events/on_input_changed_event.tres" id="2_odrml"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Events/on_menu_opened_event.tres" id="3_kitst"]
+[ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/input_manager.tscn" id="4_qg7t1"]
+[ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/player_camera.tscn" id="4_sfijf"]
+[ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
+[ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/player_controller.tscn" id="8_sfijf"]
+[ext_resource type="PackedScene" uid="uid://dh0t6qdmefsv8" path="res://Weapon/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="Resource" uid="uid://bpd3hyyqx573a" path="res://EntityStats/Stats/player_normal_entity_stats.tres" id="10_bqc0e"]
+[ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
+[ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
+[ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/health.tscn" id="11_t6wpt"]
+[ext_resource type="Resource" uid="uid://dwu5glf012qkr" path="res://Health/HealthStats/player_health_stats.tres" id="12_g2a7d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
+size = Vector3(1, 0.7, 1.65)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
+size = Vector3(0.8, 0.5, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tugb3"]
+albedo_color = Color(0.369416, 0.491491, 0.25504, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3d8c"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvnfx"]
+albedo_color = Color(0.368627, 0.490196, 0.254902, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller")]
+collision_layer = 2
+collision_mask = 519
+script = ExtResource("1_uvnfx")
+_on_input_changed_event = ExtResource("2_odrml")
+_on_menu_opened_event = ExtResource("3_kitst")
+_entity_controller = NodePath("PlayerController")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=90287670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
+mesh = SubResource("BoxMesh_uvnfx")
+surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
+
+[node name="Turret" type="MeshInstance3D" parent="Body" unique_id=1219414516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
+mesh = SubResource("BoxMesh_a3d8c")
+surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
+
+[node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=453008260]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
+
+[node name="PlayerCamera" parent="." unique_id=166363893 instance=ExtResource("4_sfijf")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
+
+[node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
+_keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
+_game_pad_processor = NodePath("GamePadProcessor")
+
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" unique_id=740792287 node_paths=PackedStringArray("_player_camera", "_player")]
+script = ExtResource("10_t6wpt")
+_player_camera = NodePath("../../PlayerCamera")
+_player = NodePath("../..")
+
+[node name="GamePadProcessor" type="Node" parent="InputManager" unique_id=904701735]
+script = ExtResource("11_g2a7d")
+
+[node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
+unique_name_in_owner = true
+
+[node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
+unique_name_in_owner = true
+_base_entity_stats = ExtResource("10_bqc0e")
+
+[node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+_input_manager = NodePath("../InputManager")
+_owner_controllable_entity = NodePath("..")
+owner_controllable_entity = NodePath("..")
+
+[node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
+unique_name_in_owner = true
+collision_layer = 2
+health_stats = ExtResource("12_g2a7d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D_tugb3")
+
+[editable path="InputManager"]

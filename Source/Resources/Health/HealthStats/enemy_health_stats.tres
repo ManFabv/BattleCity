@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="HealthStats" format=3 uid="uid://bw7dodfdw0dt5"]
-
-[ext_resource type="Script" uid="uid://cgmb0bougnqhk" path="res://Scripts/Health/HealthStats/health_stats.gd" id="1_6l6df"]
-
-[resource]
-script = ExtResource("1_6l6df")
-max_health = 30
-metadata/_custom_type_script = "uid://cgmb0bougnqhk"

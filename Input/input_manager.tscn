@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c7txj2htclqx7"]
+
+[ext_resource type="Script" uid="uid://bahcuvmjcby2k" path="res://Input/input_manager.gd" id="1_j82cb"]
+[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Events/on_input_changed_event.tres" id="2_vsbo5"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Events/on_menu_opened_event.tres" id="3_ctt7y"]
+
+[node name="InputManager" type="Node" unique_id=1019401152]
+script = ExtResource("1_j82cb")
+_on_input_changed_event = ExtResource("2_vsbo5")
+_on_menu_opened_event = ExtResource("3_ctt7y")

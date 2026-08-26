@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://wx50lpp58dmd"]
+
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="1_f8pib"]
+[ext_resource type="Script" uid="uid://b4p03o2kn6lkv" path="res://StateMachine/Normal/normal_state_machine.gd" id="1_rf7p6"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="2_rf7p6"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_lf2qg"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_ctv5m"]
+
+[node name="StateMachine" type="Node" unique_id=994521171]
+script = ExtResource("1_rf7p6")
+
+[node name="StateChart" type="Node" parent="." unique_id=1895341624]
+unique_name_in_owner = true
+script = ExtResource("1_f8pib")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="RootCompoundState" type="Node" parent="StateChart" unique_id=1004531640]
+script = ExtResource("2_rf7p6")
+initial_state = NodePath("Wander")
+
+[node name="Fire" type="Node" parent="StateChart/RootCompoundState" unique_id=1070319110]
+script = ExtResource("3_lf2qg")
+
+[node name="TransitionToWander" type="Node" parent="StateChart/RootCompoundState/Fire" unique_id=1125466939]
+script = ExtResource("4_ctv5m")
+to = NodePath("../../Wander")
+event = &"wander_event"
+delay_in_seconds = "1"
+
+[node name="Wander" type="Node" parent="StateChart/RootCompoundState" unique_id=2020642812]
+script = ExtResource("3_lf2qg")
+
+[node name="TransitionToFire" type="Node" parent="StateChart/RootCompoundState/Wander" unique_id=1359237042]
+script = ExtResource("4_ctv5m")
+to = NodePath("../../Fire")
+event = &"fire_event"
+delay_in_seconds = "1"
+
+[connection signal="state_entered" from="StateChart/RootCompoundState/Fire" to="." method="_on_fire_state_entered"]
+[connection signal="state_entered" from="StateChart/RootCompoundState/Wander" to="." method="_on_wander_state_entered"]
