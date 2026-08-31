@@ -10,7 +10,7 @@ extends EntityStatsModifier
 
 ## Starts the lifetime of this modifier using the Timer Manager
 func initialize(owner_node: Node) -> void:
-	var timer_context : TimerContext = TimerContext.new(_duration, false, _on_timer_timeout, owner_node.tree_exited)
+	var timer_context : TimerContext = TimerContext.create_one_shot(_duration, _on_timer_timeout, owner_node.tree_exited)
 	timer_requested.emit(timer_context)
 
 
