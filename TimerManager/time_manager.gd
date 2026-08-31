@@ -50,6 +50,8 @@ func _on_timer_requested(timer_context: TimerContext) -> void:
 		# when the requester leaves the tree, we drop this timer from the list
 		# we use bind so we can cache the timer reference
 		timer_context.on_owner_freed.connect(_remove_timer_requested.bind(timer), CONNECT_ONE_SHOT)
+		# we connect the restart signal
+		timer_context.restart_requested.connect(timer.start.bind())
 
 
 ## we add the timer and we start it
