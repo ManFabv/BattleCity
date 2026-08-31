@@ -13,13 +13,15 @@ class_name TimedShootingCostStrategy
 
 
 ## here we cache if we can shoot or not based on the timer
-var _has_reached_timeout: bool = false
+var _has_reached_timeout: bool = true
+## here we cache the timer context reference so we can use it to restart the timer when we shoot
+var _timer_context: TimerContext
 
 
 ## at the beginning we create a new timer
 func _ready() -> void:
-	var timer_context : TimerContext = TimerContext.new(_fire_rate, true, _on_timer_timeout, tree_exited)
-	timer_requested.emit(timer_context)
+	_timer_context = TimerContext.create_manual(_fire_rate, _on_timer_timeout, tree_exited)
+	timer_requested.emit(_timer_context)
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot
@@ -28,6 +30,9 @@ func can_shot() -> bool:
 	if _has_reached_timeout:
 		# we reset the variable
 		_has_reached_timeout = false
+		# we manually restart because the timer is manual, we don't want to restart it on the timeout
+		# this way the timer will only restart when we actually shoot avoiding timing issues
+		_timer_context.restart_requested.emit()
 		# we say that we can shoot
 		return true
 	# is not ready to shoot

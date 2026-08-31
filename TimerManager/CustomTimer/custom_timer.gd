@@ -16,24 +16,23 @@ var _time_left: float = 0.0:
 		_time_left = max(new_value, 0.0)
 
 ## timer time that we want to wait
-var _time: float = 0.0:
+var _duration: float = 0.0:
 	get():
-		return _time
+		return _duration
 	set(new_value):
-		_time = max(new_value, 0.0) 
+		_duration = max(new_value, 0.0) 
 
 
 ## current timer state
 var _state: TimerState = TimerState.NEEDS_INIT
-
-## if the timer should loop or not
-var _loop: bool
+## timer mode (will apply different strategies when we reach the timeout)
+var _mode: TimerContext.TimerMode
 
 
 ## we cache the timer values
 func _init(timer_context: TimerContext) -> void:
-	_time = timer_context.time
-	_loop = timer_context.loop
+	_duration = timer_context.duration
+	_mode = timer_context.mode
 	# we connect the timeout signal
 	timeout.connect(timer_context.timeout)
 	# we init the timer
@@ -73,7 +72,7 @@ func stop() -> void:
 
 ## we cache the initial time
 func reset() -> void:
-	_time_left = _time
+	_time_left = _duration
 	_state = TimerState.INITED
 
 
@@ -104,9 +103,20 @@ func _prepare_for_cleanup() -> void:
 	_state = TimerState.READY_TO_CLEANUP
 
 
+## we stop the timer momentarily
+func _stop_timer() -> void:
+	stop()
+
+
 # if it's looping we start the timer again and if it's not then we free the timer
 func _handle_no_time_left() -> void:
-	if _loop:
-		_restart_by_loop()
-	else:
-		_prepare_for_cleanup()
+	match _mode:
+		# if it's looping, we need to restart the loop
+		TimerContext.TimerMode.LOOP:
+			_restart_by_loop()
+		# if it's manual, we just stop the timer and wait for the user to start it again
+		TimerContext.TimerMode.MANUAL:
+			_stop_timer()
+		# if it's one shot, we prepare it for cleanup
+		TimerContext.TimerMode.ONE_SHOT:
+			_prepare_for_cleanup()
