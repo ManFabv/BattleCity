@@ -39,6 +39,3 @@ sync.ffs_db
 .vs/
 .vscode/*
 !.vscode/settings.json
-graphify-out
-.cursor
-openspec
