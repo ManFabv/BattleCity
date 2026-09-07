@@ -3,6 +3,7 @@ extends Weapon
 
 @export_range(0.1, 10.0) var _shoot_distance_offset: float = 0.2
 
+
 ## Level-two weapon: emits two projectiles and uses the faster fire-rate scene.
 func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	# we instantiate two projectiles
@@ -21,3 +22,6 @@ func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	var offset: Vector3 = muzzle.global_transform.basis.x * _shoot_distance_offset
 	left_shot.global_position -= offset
 	right_shot.global_position += offset
+
+func process_shot_input(_pressed: bool, _just_pressed: bool, _just_released: bool) -> void:
+	pass # nothing to do here, we just shoot when the button is pressed

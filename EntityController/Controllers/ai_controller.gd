@@ -55,6 +55,14 @@ func is_shot_pressed() -> bool:
 	return _has_shot
 
 
+func is_shot_just_pressed() -> bool:
+	return false # TODO: we don't need this for AI at this point, but we can implement it
+
+
+func is_shot_just_released() -> bool:
+	return false # TODO: we don't need this for AI at this point, but we can implement it
+
+
 func on_input_type_changed(_event_context: Variant = null) -> void:
 	pass # nothing for now
 

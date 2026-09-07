@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cv5v5p2hq1q7l" path="res://Weapon/Projectiles/player_normal_projectile.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dgffnb650mdxy" path="res://Weapon/ContinuousMovement/player_linear_continuous_movement.tscn" id="4"]
 
-[node name="Weapon" type="Node" unique_id=315908292]
+[node name="NormalWeapon" type="Node" unique_id=315908292]
 script = ExtResource("1")
 _shooting_cost_strategy_scene = ExtResource("2")
 _projectile_scene = ExtResource("3")

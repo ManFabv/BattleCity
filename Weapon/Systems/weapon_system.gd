@@ -31,10 +31,15 @@ func _process(delta: float) -> void:
 
 
 ## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
-func try_shot(has_shoot_pressed : bool, muzzle: Marker3D) -> void:
-	if has_shoot_pressed and _current_weapon.can_shot():
-		_current_weapon.try_shot(muzzle, _on_projectile_spawned)
-		shot_fired.emit()
+func try_shot(has_shoot_pressed: bool, muzzle: Marker3D,
+		has_shot_just_pressed: bool = false, has_shot_just_released: bool = false) -> void:
+	_current_weapon.process_shot_input(has_shoot_pressed, has_shot_just_pressed,
+		has_shot_just_released)
+	var release_shot: bool = has_shot_just_released and _current_weapon.fires_on_release()
+	if (has_shoot_pressed and not _current_weapon.fires_on_release()) or release_shot:
+		if _current_weapon.can_shot():
+			_current_weapon.try_shot(muzzle, _on_projectile_spawned)
+			shot_fired.emit()
 
 
 ## Equip the weapon at the requested progression index.

@@ -65,9 +65,10 @@ func _process(delta) -> void:
 	# we calculate the amount of the angle to rotate
 	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _entity_stats.rotation_speed * delta)
 	# we get if the player pressed shot input
-	var _has_shot : bool = _entity_controller.is_shot_pressed()
-	# we process the shot information if pressed
-	_weapon_system.try_shot(_has_shot, _muzzle)
+	var has_shot: bool = _entity_controller.is_shot_pressed()
+	var has_shot_just_pressed: bool = _entity_controller.is_shot_just_pressed()
+	var has_shot_just_released: bool = _entity_controller.is_shot_just_released()
+	_weapon_system.try_shot(has_shot, _muzzle, has_shot_just_pressed, has_shot_just_released)
 
 
 func _physics_process(_delta) -> void:

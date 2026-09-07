@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ContinuousMovementStats" format=3 uid="uid://ce2p1difebsdi"]
+
+[ext_resource type="Script" uid="uid://b2v2svm6q32x1" path="res://Weapon/ContinuousMovement/Stats/continuous_movement_stats.gd" id="1_movement"]
+
+[resource]
+script = ExtResource("1_movement")
+metadata/_custom_type_script = "res://Weapon/ContinuousMovement/Stats/continuous_movement_stats.gd"
