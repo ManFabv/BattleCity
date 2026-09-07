@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://q7u3nkc05lqk"]
+
+[ext_resource type="Script" uid="uid://bs376r8siu1oi" path="res://Weapon/WeaponTypes/double_fast_weapon.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cro2ssastoid" path="res://Weapon/ShootingCost/player_double_fast_timed_shooting_cost_strategy.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cwdacexud0eld" path="res://Weapon/Projectiles/player_double_fast_projectile.tscn" id="3_2wv8q"]
+[ext_resource type="PackedScene" uid="uid://dj3cuoob47xya" path="res://Weapon/ContinuousMovement/player_double_fast_linear_continuous_movement.tscn" id="4_613an"]
+
+[node name="DoubleFastWeapon" type="Node" unique_id=1234071714]
+script = ExtResource("1")
+_shooting_cost_strategy_scene = ExtResource("2")
+_projectile_scene = ExtResource("3_2wv8q")
+_continuous_movement_scene = ExtResource("4_613an")

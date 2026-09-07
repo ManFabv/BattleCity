@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DamageStats" format=3 uid="uid://d2u4d0dutqfkv"]
+
+[ext_resource type="Script" uid="uid://runlcy0x17cf" path="res://Health/HurtStats/hurt_stats.gd" id="1_vsgvf"]
+
+[resource]
+script = ExtResource("1_vsgvf")
+damage = 5
+metadata/_custom_type_script = "uid://runlcy0x17cf"

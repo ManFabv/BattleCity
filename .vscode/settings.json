@@ -3,17 +3,29 @@
         "**/.godot/**": true,
         "**/addons/**": true,
         "**/*.uid": true,
-        "**/.vscode/**": true
+        "**/.vscode/**": true,
+        ".vscode": true,
+        "**/graphify-out/**": true,
+        ".github/**": true,
+        "**/openspec/**": true
     },
     "files.exclude": {
         "**/.godot": true,
         "**/addons": true,
         "**/*.uid": true,
-        "**/.vscode": true
+        "**/.vscode": true,
+        ".vscode": true,
+        "**/graphify-out/**": true,
+        ".github/**": true,
+        "**/openspec/**": true
     },
     "files.watcherExclude": {
         "**/.godot/**": true,
         "**/*.uid": true,
-        "**/.vscode/**": true
+        "**/.vscode/**": true,
+        ".vscode": true,
+        "**/graphify-out/**": true,
+        ".github/**": true,
+        "**/openspec/**": true
     }
 }
