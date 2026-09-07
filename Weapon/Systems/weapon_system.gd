@@ -49,10 +49,5 @@ func change_weapon(new_level: int) -> void:
 	_weapon_level = new_level
 
 
-## Advance one level, for example when collecting a star power-up.
-func increase_weapon_level() -> void:
-	change_weapon(_weapon_level + 1)
-
-
 func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
 	shot_fired.connect(on_weapon_system_shot_fired)

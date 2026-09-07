@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dwt62qx867bb3"]
 
 [ext_resource type="PackedScene" uid="uid://beght3yhsbv2v" path="res://ControllableEntity/controllable_enemy_entity.tscn" id="2_yp2ti"]
-[ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Weapon/Container/projectile_container.tscn" id="3_3rhlx"]
+[ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Container/node_container.tscn" id="3_3rhlx"]
 [ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/controllable_player_entity.tscn" id="3_vadfg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]

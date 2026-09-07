@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ContinuousMovementStats" format=3 uid="uid://b4qj83quf8guk"]
+
+[ext_resource type="Script" uid="uid://b2v2svm6q32x1" path="res://Weapon/ContinuousMovement/Stats/continuous_movement_stats.gd" id="1_qk0jc"]
+
+[resource]
+script = ExtResource("1_qk0jc")
+max_speed = 30.0
+metadata/_custom_type_script = "uid://b2v2svm6q32x1"
