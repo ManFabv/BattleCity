@@ -8,8 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/player_controller.tscn" id="8_sfijf"]
 [ext_resource type="PackedScene" uid="uid://dh0t6qdmefsv8" path="res://Weapon/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="PackedScene" uid="uid://dp0krxju0b0bw" path="res://Weapon/WeaponTypes/player_charged_weapon.tscn" id="9_bj3nj"]
 [ext_resource type="Resource" uid="uid://bpd3hyyqx573a" path="res://EntityStats/Stats/player_normal_entity_stats.tres" id="10_bqc0e"]
+[ext_resource type="PackedScene" uid="uid://nq4uaokarhhp" path="res://Weapon/WeaponTypes/player_normal_weapon.tscn" id="10_ots0u"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
+[ext_resource type="PackedScene" uid="uid://q7u3nkc05lqk" path="res://Weapon/WeaponTypes/player_double_fast_weapon.tscn" id="11_fvvxb"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://dwu5glf012qkr" path="res://Health/HealthStats/player_health_stats.tres" id="12_g2a7d"]
@@ -73,6 +76,7 @@ script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
 unique_name_in_owner = true
+_weapons = Array[PackedScene]([ExtResource("9_bj3nj"), ExtResource("10_ots0u"), ExtResource("11_fvvxb"), ExtResource("9_bj3nj")])
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 unique_name_in_owner = true
