@@ -80,11 +80,16 @@ El jugador debera defender su base de los ataques enemigos y tratar que los enem
 Juego de accion Twin Stick Shooter 3D con vista Top-Down
 
 ## Política de Colaboración con IA ##
-Este proyecto utiliza Inteligencia Artificial como consultor para temas puntuales y no como generador principal de ideas, código ni assets.
+Este proyecto utiliza Inteligencia Artificial únicamente como consultor y herramienta de brainstorming para temas puntuales. La arquitectura, las decisiones de diseño, la implementación del refactor, la integración final del código y la optimización del sistema son responsabilidad del autor.
+
 Mi flujo de desarrollo incluye:
-* Validación de Restricciones: Análisis de ventajas y desventajas de mis diseños específicos.
-Nota: Toda la integración final del código, el flujo lógico y la optimización del sistema se realizan manualmente.
-- Ayuda en el refactoring para dejar de usar tantos resources y comenzar a usar mas nodos: [49c319ee39ccd2c9e449df5bab995958a0cf6b2a](https://github.com/ManFabv/BattleCity/commit/49c319ee39ccd2c9e449df5bab995958a0cf6b2a)
+* Brainstorming: exploración de alternativas y detección de posibles mejoras.
+* Validación de restricciones: análisis de ventajas y desventajas de mis diseños específicos.
+* Revisión puntual: contraste de errores o riesgos antes de integrar un cambio.
+
+La IA no es el autor principal de las ideas, del código ni de los assets. Las sugerencias se revisan, adaptan y aplican manualmente. Cuando una consulta de IA aporta directamente a un cambio, se documenta en el commit correspondiente; no implica que la herramienta haya realizado la implementación.
+
+Ejemplo de consulta sobre el refactor de Resources y nodos: [49c319ee39ccd2c9e449df5bab995958a0cf6b2a](https://github.com/ManFabv/BattleCity/commit/49c319ee39ccd2c9e449df5bab995958a0cf6b2a).
 
 ## Recursos de aprendizaje: ##
 * [Principal: UNL](https://www.unl.edu.ar/carreras/tecnicatura-en-diseno-y-programacion-de-videojuegos-2/)

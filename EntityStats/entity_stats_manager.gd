@@ -43,7 +43,7 @@ func _apply_modifiers() -> void:
 	# we apply all the modifiers
 	for modifier in _modifiers:
 		# we "decorate" the current stats with this current modifier
-		_current_stacked_entity_stats = modifier.apply(_current_stacked_entity_stats)
+		modifier.apply(_current_stacked_entity_stats)
 
 
 ## we get the base stats with all entity stats modifiers applied

@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Weapon/Systems/weapon_system.gd" id="1_h1tie"]
 [ext_resource type="PackedScene" uid="uid://nq4uaokarhhp" path="res://Weapon/WeaponTypes/player_normal_weapon.tscn" id="2_gi2mh"]
 [ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://EventBus/Events/on_projectile_spawned.tres" id="3_srfyk"]
+[ext_resource type="PackedScene" path="res://Weapon/WeaponTypes/player_double_fast_weapon.tscn" id="4_level2"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_h1tie")
-_initial_weapon = ExtResource("2_gi2mh")
+_weapons = Array[PackedScene]([ExtResource("2_gi2mh"), ExtResource("4_level2")])
 _on_projectile_spawned = ExtResource("3_srfyk")

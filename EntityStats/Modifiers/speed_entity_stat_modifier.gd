@@ -4,7 +4,6 @@ extends TimedEntityStatsModifier
 @export_range(1, 10) var _speed_multiplier: float = 1.5
 
 
-# we receive an Entity stats and we "decorate" it with our modifier
-func apply(new_stats: EntityStats) -> EntityStats:
-	new_stats.move_speed *= _speed_multiplier
-	return new_stats
+# We modify the recalculated stats in place.
+func apply(stats: EntityStats) -> void:
+	stats.move_speed *= _speed_multiplier
