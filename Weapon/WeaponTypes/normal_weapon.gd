@@ -12,3 +12,7 @@ func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	on_projectile_spawned.emit(shot)
 	# we fire the shot with a movement scene
 	shot.fire(muzzle, _continuous_movement_scene)
+
+
+func process_shot_input(_pressed: bool, _just_pressed: bool, _just_released: bool) -> void:
+	pass # nothing to do here, we just shoot when the button is pressed

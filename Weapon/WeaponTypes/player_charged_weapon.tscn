@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dp0krxju0b0bw"]
+
+[ext_resource type="Script" uid="uid://kxnhglj04n2j" path="res://Weapon/WeaponTypes/charged_weapon.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cv5v5p2hq1q7l" path="res://Weapon/Projectiles/player_normal_projectile.tscn" id="2_normal_projectile"]
+[ext_resource type="PackedScene" uid="uid://cxu8gdl5mwmii" path="res://Weapon/ShootingCost/player_timed_shooting_cost_strategy.tscn" id="2_cost"]
+[ext_resource type="PackedScene" uid="uid://dcqpg2hhe5ei7" path="res://Weapon/Projectiles/player_charged_projectile.tscn" id="3_14us2"]
+[ext_resource type="PackedScene" uid="uid://dgffnb650mdxy" path="res://Weapon/ContinuousMovement/player_linear_continuous_movement.tscn" id="5_normal_movement"]
+[ext_resource type="PackedScene" uid="uid://cdmktvn124fe1" path="res://Weapon/ContinuousMovement/charged_shot_linear_continuous_movement.tscn" id="6_charged_movement"]
+
+[node name="ChargedWeapon" type="Node" unique_id=1300675796]
+script = ExtResource("1_script")
+_projectile_scene = ExtResource("2_normal_projectile")
+_charged_projectile_scene = ExtResource("3_14us2")
+_continuous_movement_scene = ExtResource("5_normal_movement")
+_charged_continuous_movement_scene = ExtResource("6_charged_movement")
+_shooting_cost_strategy_scene = ExtResource("2_cost")
