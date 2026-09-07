@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Weapon/ShootingCost/timed_shooting_cost_strategy.gd" id="1"]
+[ext_resource type="Resource" path="res://EventBus/Events/on_timer_requested.tres" id="2"]
+
+[node name="TimedShootingCostStrategy" type="Node"]
+script = ExtResource("1")
+timer_requested = ExtResource("2")
+_fire_rate = 0.125

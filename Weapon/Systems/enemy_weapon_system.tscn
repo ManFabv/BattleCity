@@ -6,5 +6,5 @@
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_f6rwe")
-_initial_weapon = ExtResource("2_w0ui4")
+_weapons = Array[PackedScene]([ExtResource("2_w0ui4")])
 _on_projectile_spawned = ExtResource("3_vw4ff")

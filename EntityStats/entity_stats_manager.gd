@@ -10,9 +10,11 @@ var _modifiers : Array[EntityStatsModifier]
 
 ## we are going to work over this copy to not affect the real resource
 var _current_stacked_entity_stats : EntityStats
+var _runtime_state: EntityState
 
 
 func _ready() -> void:
+	_runtime_state = EntityState.new()
 	# we apply the modifiers
 	_apply_modifiers()
 
@@ -40,15 +42,21 @@ func remove_modifier(modifier : EntityStatsModifier) -> void:
 func _apply_modifiers() -> void:
 	# we generate a copy to not affect real stats and we apply the modifiers
 	_current_stacked_entity_stats = _base_entity_stats.duplicate()
+	_runtime_state = EntityState.new()
 	# we apply all the modifiers
 	for modifier in _modifiers:
 		# we "decorate" the current stats with this current modifier
-		_current_stacked_entity_stats = modifier.apply(_current_stacked_entity_stats)
+		modifier.apply(_current_stacked_entity_stats, _runtime_state)
 
 
 ## we get the base stats with all entity stats modifiers applied
 func entity_stats() -> EntityStats:
 	return _current_stacked_entity_stats
+
+
+## Runtime logical state rebuilt together with the numeric stats.
+func entity_state() -> EntityState:
+	return _runtime_state
 
 
 ## when we deplete a modifier, we remove it from the list

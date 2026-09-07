@@ -11,7 +11,6 @@ func initialize(_owner_node: Node) -> void:
 	push_error("initialize() should be implemented on inherited classes")
 
 
-## we apply the new stats into the base stats
-func apply(_new_stats: EntityStats) -> EntityStats:
+## Apply this modifier directly to the recalculated runtime values.
+func apply(_stats: EntityStats, _state: EntityState) -> void:
 	push_error("apply() should be implemented on inherited classes")
-	return null
