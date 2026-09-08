@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://if85h33ppep0"]
+
+[ext_resource type="Script" uid="uid://do2b3wnec6llb" path="res://Container/Scripts/node_container.gd" id="1_w51ey"]
+[ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="2_w51ey"]
+
+[node name="EnemyContainer" type="Node3D" unique_id=645560195]
+script = ExtResource("1_w51ey")
+_on_node_spawned = ExtResource("2_w51ey")
