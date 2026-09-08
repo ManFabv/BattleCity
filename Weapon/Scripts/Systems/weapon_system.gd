@@ -7,7 +7,7 @@ signal shot_fired
 ## Weapons are ordered by progression level: index 0 is the base weapon.
 @export var _weapons: Array[PackedScene]
 
-## the node where we will attach the projectile to the scene tree
+## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
 
 
