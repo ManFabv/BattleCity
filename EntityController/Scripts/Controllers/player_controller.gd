@@ -47,11 +47,3 @@ func _process_look_at_input() -> Vector2:
 
 func is_shot_pressed() -> bool:
 	return _input_manager.is_shot_pressed()
-
-
-func is_shot_just_pressed() -> bool:
-	return _input_manager.is_shot_just_pressed()
-
-
-func is_shot_just_released() -> bool:
-	return _input_manager.is_shot_just_released()

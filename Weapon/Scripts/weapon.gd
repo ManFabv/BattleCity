@@ -40,14 +40,6 @@ func process_weapon(_delta: float) -> void:
 	_current_shooting_cost_strategy.process_cost(_delta)
 
 
-func process_shot_input(_pressed: bool, _just_pressed: bool, _just_released: bool) -> void:
-	push_error("process_shot_input() should be implemented on inherited classes")
-
-
-func fires_on_release() -> bool:
-	return false
-
-
 ## we ask the shooting cost strategy if we can shoot or not
 func can_shot() -> bool:
 	return _current_shooting_cost_strategy.can_shot()

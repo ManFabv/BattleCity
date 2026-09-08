@@ -25,16 +25,6 @@ func is_shot_pressed() -> bool:
 	return false
 
 
-func is_shot_just_pressed() -> bool:
-	push_error("is_shot_just_pressed() should be implemented on inherited classes")
-	return false
-
-
-func is_shot_just_released() -> bool:
-	push_error("is_shot_just_released() should be implemented on inherited classes")
-	return false
-
-
 func on_input_type_changed(_event_context: Variant = null) -> void:
 	push_error("on_input_type_changed() should be implemented on inherited classes")
 

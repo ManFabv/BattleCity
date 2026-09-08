@@ -91,11 +91,3 @@ func get_look_at() -> Vector2:
 
 func is_shot_pressed() -> bool:
 	return _current_input_processor.is_shot_pressed()
-
-
-func is_shot_just_pressed() -> bool:
-	return _current_input_processor.is_shot_just_pressed()
-
-
-func is_shot_just_released() -> bool:
-	return _current_input_processor.is_shot_just_released()

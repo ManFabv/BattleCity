@@ -5,9 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://nq4uaokarhhp" path="res://Weapon/Scenes/WeaponTypes/player_normal_weapon.tscn" id="2_gi2mh"]
 [ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://EventBus/Resources/Events/on_projectile_spawned.tres" id="3_srfyk"]
 [ext_resource type="PackedScene" uid="uid://q7u3nkc05lqk" path="res://Weapon/Scenes/WeaponTypes/player_double_fast_weapon.tscn" id="4_level2"]
-[ext_resource type="PackedScene" uid="uid://dp0krxju0b0bw" path="res://Weapon/Scenes/WeaponTypes/player_charged_weapon.tscn" id="5_6k2gp"]
 
 [node name="WeaponSystem" type="Node" unique_id=523735498]
 script = ExtResource("1_h1tie")
-_weapons = Array[PackedScene]([ExtResource("2_crwkl"), ExtResource("2_gi2mh"), ExtResource("4_level2"), ExtResource("5_6k2gp")])
+_weapons = Array[PackedScene]([ExtResource("2_crwkl"), ExtResource("2_gi2mh"), ExtResource("4_level2")])
 _on_projectile_spawned = ExtResource("3_srfyk")

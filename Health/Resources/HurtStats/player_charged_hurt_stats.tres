@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="DamageStats" format=3 uid="uid://dlfarhgfmx2af"]
-
-[ext_resource type="Script" uid="uid://runlcy0x17cf" path="res://Health/Scripts/HurtStats/hurt_stats.gd" id="1_damage"]
-
-[resource]
-script = ExtResource("1_damage")
-damage = 50

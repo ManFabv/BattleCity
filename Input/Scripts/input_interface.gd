@@ -29,13 +29,3 @@ func is_open_menu_pressed() -> bool:
 func is_shot_pressed() -> bool:
 	push_error("is_shot_pressed() should be implemented on inherited classes")
 	return false
-
-
-func is_shot_just_pressed() -> bool:
-	push_error("is_shot_just_pressed() should be implemented on inherited classes")
-	return false
-
-
-func is_shot_just_released() -> bool:
-	push_error("is_shot_just_released() should be implemented on inherited classes")
-	return false
