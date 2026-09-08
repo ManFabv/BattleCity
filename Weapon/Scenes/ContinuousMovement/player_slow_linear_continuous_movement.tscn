@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://yu4hh6rt0ud1"]
+
+[ext_resource type="Script" uid="uid://c7d8ly51n4tiq" path="res://Weapon/Scripts/ContinuousMovement/linear_continuous_movement_strategy.gd" id="1_x3455"]
+[ext_resource type="Resource" uid="uid://ctgqo3gcu23yi" path="res://Weapon/Resources/ContinuousMovement/Stats/player_slow_continuous_movement_stats.tres" id="2_dry0l"]
+
+[node name="SlowShotLinearContinuousMovement" type="Node" unique_id=417118094]
+script = ExtResource("1_x3455")
+continuous_movement_stats = ExtResource("2_dry0l")

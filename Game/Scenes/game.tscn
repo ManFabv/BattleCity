@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dc0iugm0iea4h"]
+
+[ext_resource type="Script" uid="uid://b4p5namp6kwu1" path="res://Game/Scripts/game_manager.gd" id="1_0648w"]
+[ext_resource type="PackedScene" uid="uid://dwt62qx867bb3" path="res://World/Scenes/world.tscn" id="2_0648w"]
+[ext_resource type="PackedScene" uid="uid://bmh0tl4vipift" path="res://TimerManager/Scenes/timer_manager.tscn" id="3_xa23u"]
+
+[node name="Game" type="Node3D" unique_id=624028641]
+script = ExtResource("1_0648w")
+_initial_scene = ExtResource("2_0648w")
+_timer_manager = ExtResource("3_xa23u")

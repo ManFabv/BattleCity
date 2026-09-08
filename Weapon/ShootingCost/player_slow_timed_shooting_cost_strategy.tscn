@@ -1,9 +1,0 @@
-[gd_scene format=3]
-
-[ext_resource type="Script" path="res://Weapon/ShootingCost/timed_shooting_cost_strategy.gd" id="1_script"]
-[ext_resource type="Resource" path="res://EventBus/Events/on_timer_requested.tres" id="2_event"]
-
-[node name="SlowTimedShootingCostStrategy" type="Node"]
-script = ExtResource("1_script")
-timer_requested = ExtResource("2_event")
-_fire_rate = 0.5
