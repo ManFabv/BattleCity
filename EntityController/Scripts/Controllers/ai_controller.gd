@@ -25,8 +25,9 @@ func get_move_direction() -> Vector3:
 	# we take the direction between our owner position and the next
 	# path position to know in which intended direction we need to move
 	var intended_direction : Vector3 = owner_controllable_entity.global_position.direction_to(next_position)
-	# we set intended velocity to the navigation agent for avoidance calculation
-	_navigation_agent.velocity = intended_direction.normalized()
+	# we set the desired velocity to the navigation agent for avoidance calculation
+	# the navigation agent needs the actual desired movement speed
+	_navigation_agent.velocity = intended_direction.normalized()* owner_controllable_entity.entity_move_speed
 	# Return the safe position which is calculated 
 	# by the avoidance callback previously
 	return _target_position
@@ -84,13 +85,13 @@ func set_random_target_position() -> void:
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
-	# We cache the computed safe velocity that the navigation agent calculated
-	# while having avoidance capabilities for the entity
+	# We cache the computed safe velocity as a direction for the entity.
+	# The entity is responsible for applying its own movement speed.
 	_target_position = safe_velocity.normalized()
 
 
 func _on_enemy_entity_stats_set() -> void:
-	# to avoid issues, we set the agent max avoidance speed equals to
+	# to avoid issues, we set the agent max avoidance speed equal to
 	# the entity movement speed
 	# keep a safe default here; actual speed should be set by the owner
 	_navigation_agent.max_speed = owner_controllable_entity.entity_move_speed

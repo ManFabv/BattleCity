@@ -13,7 +13,8 @@ signal shot_fired
 
 ## current equipped weapon
 var _current_weapon : Weapon
-var _weapon_level: int = 0:
+## current weapon level, used to index the _weapons array
+var _weapon_level: int = -1:
 	get():
 		return _weapon_level
 	set(new_value):
@@ -39,15 +40,20 @@ func try_shot(has_shoot_pressed: bool, muzzle: Marker3D) -> void:
 
 ## Equip the weapon at the requested progression index.
 func change_weapon(new_level: int) -> void:
+	# if it's the same level, we don't need to change anything
+	if new_level == _weapon_level:
+		return
+	# we update the current weapon level and instantiate the new weapon
 	_weapon_level = new_level
-	var new_weapon: PackedScene = _weapons[_weapon_level]
+	var new_weapon_scene: PackedScene = _weapons[_weapon_level]
 	# destroy the previous weapon if it exists
 	if _current_weapon != null:
 		_current_weapon.release_weapon()
 	# we instantiate the new weapon and add it to the scene tree
-	_current_weapon = new_weapon.instantiate() as Weapon
+	_current_weapon = new_weapon_scene.instantiate() as Weapon
 	add_child(_current_weapon)
 
 
+## we connect the shot_fired signal to the provided callable, allowing external systems to react when a shot is fired
 func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
 	shot_fired.connect(on_weapon_system_shot_fired)

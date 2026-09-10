@@ -16,6 +16,12 @@ var current_health : int:
 		current_health = clamp(new_value, 0, health_stats.max_health)
 
 
+## use to keep track if the entity is dead or alive
+var is_dead : bool = false:
+	get():
+		return current_health == 0
+
+
 func _ready() -> void:
 	# we start the entity with the max health
 	_initialize_max_health()
@@ -35,6 +41,9 @@ func subscribe_to_health_signals(on_health_changed : Callable, on_dead : Callabl
 
 ## here we take damage and emit the corresponding signal if player is dead
 func take_damage(damage_stats : DamageStats) -> void:
+	# if the entity is already dead we don´t want to take more damage nor emit the signal
+	if is_dead:
+		return
 	# we update the current health substracting the damage
 	current_health -= damage_stats.damage
 	_emit_health_changed_signal()
@@ -45,6 +54,9 @@ func take_damage(damage_stats : DamageStats) -> void:
 
 ## here we take heal amount
 func take_heal(heal_points : int) -> void:
+	# if the entity is already dead we don´t want to heal nor emit the signal
+	if is_dead:
+		return
 	# we update the current health adding the heal
 	current_health += heal_points
 	_emit_health_changed_signal()
