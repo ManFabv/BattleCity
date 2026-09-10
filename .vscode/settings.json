@@ -7,7 +7,8 @@
         ".vscode": true,
         "**/graphify-out/**": true,
         ".github/**": true,
-        "**/openspec/**": true
+        "**/openspec/**": true,
+        ".graphifyyignore": true
     },
     "files.exclude": {
         "**/.godot": true,
@@ -17,7 +18,8 @@
         ".vscode": true,
         "**/graphify-out/**": true,
         ".github/**": true,
-        "**/openspec/**": true
+        "**/openspec/**": true,
+        ".graphifyyignore": true
     },
     "files.watcherExclude": {
         "**/.godot/**": true,
@@ -26,6 +28,7 @@
         ".vscode": true,
         "**/graphify-out/**": true,
         ".github/**": true,
-        "**/openspec/**": true
+        "**/openspec/**": true,
+        ".graphifyyignore": true
     }
 }

@@ -24,8 +24,10 @@ signal entity_stats_set
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
-#desired angle to rotate
-var _look_at_angle : float = 0.0
+#input intention captured during the render frame
+var _input_move_direction : Vector3 = Vector3.ZERO
+var _input_look_at_angle : float = 0.0
+var _input_has_shot : bool = false
 
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
@@ -49,11 +51,16 @@ func _ready() -> void:
 	entity_stats_set.emit()
 
 
-func _process(delta) -> void:
-	# we get the wanted move direction
-	var move_direction : Vector3 = _entity_controller.get_move_direction()
+func _process(_delta) -> void:
+	# we capture the input intention for the next physics step
+	_input_move_direction = _entity_controller.get_move_direction()
+	_input_look_at_angle = _entity_controller.get_look_at_angle()
+	_input_has_shot = _entity_controller.is_shot_pressed()
+
+
+func _physics_process(delta) -> void:
 	# we calculate a desired velocity
-	var target_velocity : Vector3 = move_direction * entity_move_speed
+	var target_velocity : Vector3 = _input_move_direction * entity_move_speed
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
@@ -61,19 +68,13 @@ func _process(delta) -> void:
 	_move_velocity.y += applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _entity_stats.move_damping * delta)
 	# we calculate the angle for the current position to view to the desired point
-	var desired_look_at_angle : float = _entity_controller.get_look_at_angle()
-	# we calculate the amount of the angle to rotate
-	_look_at_angle = lerp_angle(rotation.y, desired_look_at_angle, _entity_stats.rotation_speed * delta)
+	var look_at_angle : float = lerp_angle(rotation.y, _input_look_at_angle, _entity_stats.rotation_speed * delta)
 	# we get if the player pressed shot input
-	var has_shot: bool = _entity_controller.is_shot_pressed()
-	_weapon_system.try_shot(has_shot, _muzzle)
-
-
-func _physics_process(_delta) -> void:
-	# we update the velocity according to the input given on process function
+	_weapon_system.try_shot(_input_has_shot, _muzzle)
+	# we update the velocity according to the calculated movement
 	velocity = _move_velocity
 	# we rotate accordingly
-	rotation.y = _look_at_angle
+	rotation.y = look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
 
