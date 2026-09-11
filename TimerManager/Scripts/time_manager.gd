@@ -2,11 +2,6 @@ extends Node
 class_name TimerManager
 
 
-## event where we are going to subscribe
-## to listen when objects need a timer
-@export var _request_timer : BaseEvent
-
-
 ## list of current created timers
 var _timers : Array[CustomTimer]
 
@@ -14,7 +9,7 @@ var _timers : Array[CustomTimer]
 ## at the begining we subscribe to the event
 func _ready() -> void:
 	# We start listening to the event
-	_request_timer.subscribe(_on_timer_requested, tree_exited)
+	TimerContext.TIMER_REQUESTED.subscribe(_on_timer_requested, tree_exited)
 
 
 ## we process all the timers and we remove the not needed ones

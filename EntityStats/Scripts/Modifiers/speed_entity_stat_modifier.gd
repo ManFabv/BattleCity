@@ -1,6 +1,7 @@
 class_name SpeedEntityStatModifier
 extends TimedEntityStatsModifier
 
+## how much the speed will be multiplied by when this modifier is applied
 @export_range(1, 10) var _speed_multiplier: float = 1.5
 
 
