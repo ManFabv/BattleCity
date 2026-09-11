@@ -8,7 +8,7 @@
         "**/graphify-out/**": true,
         ".github/**": true,
         "**/openspec/**": true,
-        ".graphifyyignore": true
+        ".graphifyignore": true
     },
     "files.exclude": {
         "**/.godot": true,
@@ -19,7 +19,7 @@
         "**/graphify-out/**": true,
         ".github/**": true,
         "**/openspec/**": true,
-        ".graphifyyignore": true
+        ".graphifyignore": true
     },
     "files.watcherExclude": {
         "**/.godot/**": true,
@@ -29,6 +29,6 @@
         "**/graphify-out/**": true,
         ".github/**": true,
         "**/openspec/**": true,
-        ".graphifyyignore": true
+        ".graphifyignore": true
     }
 }
