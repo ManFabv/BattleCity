@@ -5,17 +5,9 @@ extends EntityStatsModifier
 @export var timer_requested : BaseEvent
 
 ## how much time this stats modifier will be applied
-@export_range(0, 60) var _duration : float = 3
+@export_range(0, 60) var duration : float = 3.0
 
 
-## Starts the lifetime of this modifier using the Timer Manager
-func initialize(owner_node: Node) -> void:
-	var timer_context : TimerContext = TimerContext.create_one_shot(_duration, _on_timer_timeout, owner_node.tree_exited)
-	timer_requested.emit(timer_context)
-
-
-## this method is called when the timer reaches its timeout
-## so we say that the modifier is depleted
-func _on_timer_timeout() -> void:
-	# Trigger the notification that this modifier is depleted
-	on_modifier_depleted.emit(self)
+## We create a new instance of the modifier to be applied to the current stats
+func create_instance() -> EntityStatsModifierInstance:
+	return TimedEntityStatsModifierInstance.new(self)
