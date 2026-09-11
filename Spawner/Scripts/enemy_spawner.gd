@@ -6,10 +6,6 @@ extends Node3D
 ## the event where we notify that an enemy should be added to the tree
 @export var _on_enemy_spawned : BaseEvent
 
-## the event to request a timer
-@export var _on_timer_requested : BaseEvent
-
-
 ## TODO: this logic will be improved: we setup the initial spawn logic. 
 func _ready() -> void:
 	# we take a random time to spawn a new enemy
@@ -17,7 +13,7 @@ func _ready() -> void:
 	# we create a timer to handle when we want to spawn a new enemy
 	var timer_context : TimerContext = TimerContext.create_loop(time_between_spawns, _spawn_enemy, tree_exited)
 	# we subscribe the timer so it can start ticking
-	_on_timer_requested.emit(timer_context)
+	TimerContext.request(timer_context)
 
 
 ## TODO: this logic will be improved: we instantiate a new enemy in the level

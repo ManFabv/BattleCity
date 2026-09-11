@@ -9,7 +9,7 @@ var _timer_context: TimerContext
 func initialize(owner_node: Node) -> void:
 	var stat_modifier : TimedEntityStatsModifier = _entity_stats_modifier as TimedEntityStatsModifier
 	_timer_context = TimerContext.create_one_shot(stat_modifier.duration, _on_timer_timeout, owner_node.tree_exited)
-	stat_modifier.timer_requested.emit(_timer_context)
+	TimerContext.request(_timer_context)
 
 
 ## this method is called when the timer reaches its timeout

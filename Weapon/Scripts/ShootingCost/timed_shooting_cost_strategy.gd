@@ -1,9 +1,6 @@
 extends ShootingCostStrategy
 class_name TimedShootingCostStrategy
 
-## Base Event we will need to handle the request for the timers
-@export var timer_requested : BaseEvent
-
 ## how long it will wait between shots
 @export_range(0.0, 10.0) var _fire_rate : float = 1.0:
 	get():
@@ -21,7 +18,7 @@ var _timer_context: TimerContext
 ## at the beginning we create a new timer
 func _ready() -> void:
 	_timer_context = TimerContext.create_manual(_fire_rate, _on_timer_timeout, tree_exited)
-	timer_requested.emit(_timer_context)
+	TimerContext.request(_timer_context)
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot

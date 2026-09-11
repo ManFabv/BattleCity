@@ -1,6 +1,9 @@
 extends RefCounted
 class_name TimerContext
 
+## it uses the uid of this file: res://EventBus/Resources/Events/on_timer_requested.tres
+const TIMER_REQUESTED: BaseEvent = preload("uid://bwcmravgyylyh")
+
 ## we will have different modes for the timer, one shot, loop and manual
 enum TimerMode { ONE_SHOT, LOOP, MANUAL }
 
@@ -18,6 +21,11 @@ var timeout: Callable
 var on_owner_freed: Signal
 ## variable holding the mode of the timer (one shot, loop or manual)
 var mode: TimerMode = TimerMode.ONE_SHOT
+
+
+## request the TimerManager to create and start this timer
+static func request(timer_context: TimerContext) -> void:
+	TIMER_REQUESTED.emit(timer_context)
 
 
 ## we save the references when we create a new timer context
