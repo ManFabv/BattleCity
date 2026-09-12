@@ -1,6 +1,6 @@
 # UNL PVJ3 Actividad 5 Final en Godot Engine #
-**Version del documento 0.0.2**
-**27/06/2025**
+**Version del documento 0.0.3**
+**12/09/2026**
 
 ## Itch.io ##
 [Battle City UNL](https://manfabv.itch.io/battle-city-unl)
@@ -28,8 +28,10 @@ Vidas:
 Diferentes tipos de disparo y cuenta con municion ilimitada:
 * Normal: el que puede disparar la municion mas rapidamente. 
 * Rapido: con daño normal, sin efecto grafico.
-* Cargado: el que debe acumular energia (durante un tiempo) para disparar. 
 * Lento, con daño aumentado, con efecto grafico.
+
+Estado de vida critica:
+* Cuando al jugador le queda una sola vida (o un umbral bajo de vidas), su tanque activa un efecto grafico de energia (el mismo shader que antes se usaba para el disparo cargado) como advertencia visual de que esta a punto de perder.
 
 Punto de inicio del jugador:
 * Cada vez que inicie un nivel o el jugador pierda una vida (si todavia le queda alguna), volvera a reaparecer en el mismo punto.
@@ -43,6 +45,9 @@ Comportamiento:
 
 Vida:
 * Los enemigos cuentan con una cantidad limite de disparos que puede recibir de parte del jugador
+
+Estado de vida critica:
+* Cuando a un enemigo le queda un solo disparo antes de ser destruido, activa el mismo efecto grafico de energia usado por el jugador, indicando que esta a punto de morir.
 
 Generacion:
 * La generacion de enemigos sera en puntos especificos del mapa seleccionados de forma aleatoria
