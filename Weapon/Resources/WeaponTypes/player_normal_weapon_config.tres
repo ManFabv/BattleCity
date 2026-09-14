@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://cv5v5p2hq1q7l" path="res://Weapon/Scenes/Projectiles/player_normal_projectile.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dgffnb650mdxy" path="res://Weapon/Scenes/ContinuousMovement/player_linear_continuous_movement.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://cxu8gdl5mwmii" path="res://Weapon/Scenes/ShootingCost/player_timed_shooting_cost_strategy.tscn" id="5"]
+[ext_resource type="Resource" uid="uid://qk80ikacc71l" path="res://Weapon/Resources/Projectiles/player_normal_projectile_config.tres" id="6"]
+[ext_resource type="Resource" uid="uid://c3wshpr85up8b" path="res://Weapon/Resources/ShootingCost/player_normal_shooting_cost_config.tres" id="7"]
 
 [resource]
 script = ExtResource("1")
 weapon_scene = ExtResource("2")
 projectile_scene = ExtResource("3")
-continuous_movement_scene = ExtResource("4")
+projectile_config = ExtResource("6")
 shooting_cost_strategy_scene = ExtResource("5")
+shooting_cost_config = ExtResource("7")

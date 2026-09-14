@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1_77i46"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="2_llhic"]
-[ext_resource type="Resource" uid="uid://d2u4d0dutqfkv" path="res://Health/Resources/HurtStats/player_double_fast_hurt_stats.tres" id="3_77i46"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
@@ -35,7 +34,6 @@ shape = SubResource("SphereShape3D_2re41")
 [node name="Hurt" parent="." unique_id=1016129527 instance=ExtResource("2_llhic")]
 unique_name_in_owner = true
 collision_mask = 4
-_damage_stats = ExtResource("3_77i46")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1883193573]
 shape = SubResource("SphereShape3D_2re41")

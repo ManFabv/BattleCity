@@ -4,4 +4,3 @@
 
 [node name="TimedShootingCostStrategy" type="Node" unique_id=788235922]
 script = ExtResource("1_mio8k")
-_fire_rate = 0.25

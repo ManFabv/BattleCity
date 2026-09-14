@@ -3,8 +3,9 @@ class_name Weapon
 
 
 var _shooting_cost_strategy_scene : PackedScene
+var _shooting_cost_config : ShootingCostConfig
 var _projectile_scene : PackedScene
-var _continuous_movement_scene : PackedScene
+var _projectile_config : ProjectileConfig
 
 
 ## the shooting cost strategy instance
@@ -13,13 +14,15 @@ var _current_shooting_cost_strategy : ShootingCostStrategy
 
 func configure(config: WeaponConfig) -> void:
 	_projectile_scene = config.projectile_scene
-	_continuous_movement_scene = config.continuous_movement_scene
+	_projectile_config = config.projectile_config
 	_shooting_cost_strategy_scene = config.shooting_cost_strategy_scene
+	_shooting_cost_config = config.shooting_cost_config
 
 
 ## the initialize the weapon when it is added to the scene
 func _ready() -> void:
 	_current_shooting_cost_strategy = _shooting_cost_strategy_scene.instantiate() as ShootingCostStrategy
+	_current_shooting_cost_strategy.configure(_shooting_cost_config)
 	add_child(_current_shooting_cost_strategy)
 
 

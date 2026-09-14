@@ -11,4 +11,4 @@ func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	# we add the shot to the scene (after this ready function will be triggered)
 	on_projectile_spawned.emit(shot)
 	# we fire the shot with a movement scene
-	shot.fire(muzzle, _continuous_movement_scene)
+	shot.fire(muzzle, _projectile_config)

@@ -5,25 +5,12 @@ extends Node
 signal shot_fired
 
 ## Weapons are ordered by progression level: index 0 is the base weapon.
-@export var _weapons: Array[WeaponConfig]
-
 ## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
 
 
 ## current equipped weapon
 var _current_weapon : Weapon
-## current weapon level, used to index the _weapons array
-var _weapon_level: int = -1:
-	get():
-		return _weapon_level
-	set(new_value):
-		_weapon_level = clampi(new_value, 0, _weapons.size() - 1)
-
-
-## we set the initial weapon scene to instantiate
-func _ready() -> void:
-	change_weapon(0)
 
 
 func _process(delta: float) -> void:
@@ -38,18 +25,9 @@ func try_shot(has_shoot_pressed: bool, muzzle: Marker3D) -> void:
 		shot_fired.emit()
 
 
-## Equip the weapon at the requested progression index.
-func change_weapon(new_level: int) -> void:
-	# if it's the same level, we don't need to change anything
-	if new_level == _weapon_level:
-		return
-	# we update the current weapon level and instantiate the new weapon
-	_weapon_level = new_level
-	var config: WeaponConfig = _weapons[_weapon_level]
-	# destroy the previous weapon if it exists
+func change_weapon(config: WeaponConfig) -> void:
 	if _current_weapon != null:
 		_current_weapon.release_weapon()
-	# we instantiate the new weapon and add it to the scene tree
 	_current_weapon = config.weapon_scene.instantiate() as Weapon
 	_current_weapon.configure(config)
 	add_child(_current_weapon)

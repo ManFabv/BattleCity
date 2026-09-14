@@ -4,4 +4,3 @@
 
 [node name="SlowTimedShootingCostStrategy" type="Node" unique_id=1995273037]
 script = ExtResource("1_script")
-_fire_rate = 0.5

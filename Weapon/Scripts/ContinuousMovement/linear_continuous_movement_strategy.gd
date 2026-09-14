@@ -1,11 +1,15 @@
 extends ContinuousMovementStrategy
 class_name LinearContinuousMovementStrategy
 
-@export var continuous_movement_stats: ContinuousMovementStats
+var continuous_movement_stats: ContinuousMovementStats
 
 
 ## direction where the projectile is moving
 var _direction : Vector3 = Vector3.FORWARD
+
+
+func configure(stats: ContinuousMovementStats) -> void:
+	continuous_movement_stats = stats
 
 
 ## here we can setup the strategy before use

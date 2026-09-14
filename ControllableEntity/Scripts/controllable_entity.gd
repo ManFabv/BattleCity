@@ -13,6 +13,9 @@ signal entity_stats_set
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
+@export_group("Entity")
+@export var _entity_levels: Array[EntityLevelConfig]
+
 #where we are going to spawn the projectile
 @onready var _muzzle: Marker3D = %Muzzle
 #system that will handle all the shooting logic
@@ -41,6 +44,7 @@ var entity_move_speed : float:
 
 
 func _ready() -> void:
+	set_entity_level(0)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -51,16 +55,11 @@ func _ready() -> void:
 	entity_stats_set.emit()
 
 
-func set_speed_level(level: int) -> void:
-	_entity_stats_manager.set_speed_level(level)
-
-
-func set_health_level(level: int) -> void:
-	_health.set_health_level(level)
-
-
-func set_weapon_level(level: int) -> void:
-	_weapon_system.change_weapon(level)
+func set_entity_level(level: int) -> void:
+	var entity_level: EntityLevelConfig = _entity_levels[level]
+	_entity_stats_manager.configure(entity_level.entity_stats)
+	_health.configure(entity_level.health_stats)
+	_weapon_system.change_weapon(entity_level.weapon_config)
 
 
 func _process(_delta) -> void:

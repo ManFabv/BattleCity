@@ -2,6 +2,11 @@ extends Node
 class_name ContinuousMovementStrategy
 
 
+## here we setup the strategy before use
+func configure(_stats: ContinuousMovementStats) -> void:
+	push_error("configure() should be implemented on inherited")
+
+
 ## here we can setup the strategy before use
 func initialize(_origin: Node3D) -> void:
 	push_error("initialize() should be implemented on inherited")
