@@ -40,7 +40,7 @@ script = ExtResource("1_uvnfx")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
-_speed_levels = Array[ExtResource("17")]([ExtResource("18")])
+_entity_stats_levels = Array[ExtResource("17")]([ExtResource("18")])
 _health_levels = Array[ExtResource("19")]([ExtResource("20")])
 _weapon_levels = Array[ExtResource("21")]([ExtResource("22")])
 

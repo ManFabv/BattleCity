@@ -37,7 +37,7 @@ script = ExtResource("1")
 _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
-_speed_levels = Array[ExtResource("10")]([ExtResource("11")])
+_entity_stats_levels = Array[ExtResource("10")]([ExtResource("11")])
 _health_levels = Array[ExtResource("14")]([ExtResource("12")])
 _weapon_levels = Array[ExtResource("15")]([ExtResource("13")])
 

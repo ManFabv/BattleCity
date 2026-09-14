@@ -14,8 +14,8 @@ signal entity_stats_set
 @export var _entity_controller : EntityController
 
 @export_group("Entity")
-## speed level (index in _speed_levels)
-@export var _speed_levels: Array[EntityStats]
+## entity stats level (index in _entity_stats_levels)
+@export var _entity_stats_levels: Array[EntityStats]
 ## health level (index in _health_levels)
 @export var _health_levels: Array[HealthStats]
 ## weapon level (index in _weapon_levels)
@@ -49,7 +49,7 @@ var entity_move_speed : float:
 
 
 func _ready() -> void:
-	set_speed_level(0)
+	set_entity_stats_level(0)
 	set_health_level(0)
 	set_weapon_level(0)
 	#we set the callbacks for the healths
@@ -62,8 +62,8 @@ func _ready() -> void:
 	entity_stats_set.emit()
 
 
-func set_speed_level(level: int) -> void:
-	_entity_stats_manager.configure(_speed_levels[level])
+func set_entity_stats_level(level: int) -> void:
+	_entity_stats_manager.configure(_entity_stats_levels[level])
 
 
 func set_health_level(level: int) -> void:
