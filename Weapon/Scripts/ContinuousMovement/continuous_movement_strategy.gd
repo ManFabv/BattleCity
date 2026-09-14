@@ -7,7 +7,7 @@ func initialize(_origin: Node3D) -> void:
 	push_error("initialize() should be implemented on inherited")
 
 
-## function responsible for handling any continuous movement like projectiles
-func update_movement(_delta: float, _transform_to_move: Transform3D) -> Transform3D:
-	push_error("update_continuous_movement should be implemented on inherited")
-	return _transform_to_move
+## function responsible for calculating the movement of projectiles
+func get_motion(_delta: float) -> Vector3:
+	push_error("get_motion() should be implemented on inherited")
+	return Vector3.ZERO
