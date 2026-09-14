@@ -48,7 +48,7 @@ func take_damage(damage_stats : DamageStats) -> void:
 	current_health -= damage_stats.damage
 	_emit_health_changed_signal()
 	# because we clamp the current health on the setter, we won´t get less than 0
-	if current_health == 0:
+	if is_dead:
 		_emit_dead_signal()
 
 

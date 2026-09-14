@@ -1,8 +1,8 @@
 extends Node3D
 class_name NodeContainer
 
-## we are going to listen this event so we can parent the projectiles
-## to this object avoiding to remove projectiles when their owners are removed
+## we are going to listen this event so we can parent the nodes
+## to this object avoiding to remove nodes when their owners are removed
 @export var _on_node_spawned: BaseEvent
 
 

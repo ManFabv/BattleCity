@@ -27,7 +27,7 @@ func get_move_direction() -> Vector3:
 	var intended_direction : Vector3 = owner_controllable_entity.global_position.direction_to(next_position)
 	# we set the desired velocity to the navigation agent for avoidance calculation
 	# the navigation agent needs the actual desired movement speed
-	_navigation_agent.velocity = intended_direction.normalized()* owner_controllable_entity.entity_move_speed
+	_navigation_agent.velocity = intended_direction.normalized() * owner_controllable_entity.entity_move_speed
 	# Return the safe position which is calculated 
 	# by the avoidance callback previously
 	return _target_position
