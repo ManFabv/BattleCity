@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EntityLevelConfig" format=3 uid="uid://bmie078l1q1lp"]
+
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/entity_level_config.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bmrycrs0nxijg" path="res://EntityStats/Resources/Stats/player_slow_entity_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://belptktwg6e07" path="res://Health/Resources/HealthStats/player_health_0.tres" id="3"]
+[ext_resource type="Resource" uid="uid://cmj6v73vex2ou" path="res://Weapon/Resources/WeaponTypes/player_slow_weapon_config.tres" id="4"]
+
+[resource]
+script = ExtResource("1")
+entity_stats = ExtResource("2")
+health_stats = ExtResource("3")
+weapon_config = ExtResource("4")

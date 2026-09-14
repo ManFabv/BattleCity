@@ -8,7 +8,9 @@ extends EntityController
 @export var _navigation_agent : NavigationAgent3D
 
 
-## where we want to move
+## safe movement direction, computed asynchronously by the avoidance callback.
+## NOTE: this must stay a direction (not a world position); mixing the two caused
+## huge one-frame velocity spikes ("teleports") right after a new wander target was set.
 var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
@@ -79,9 +81,11 @@ func set_random_target_position() -> void:
 	# everytime we set a new target position, we update the region rid
 	_get_region_rid()
 	# get a random point from NavigationRegion2D
-	_target_position = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
+	# NOTE: kept as a local variable; _target_position must only ever hold the
+	# safe direction produced by the avoidance callback, never a raw world position
+	var random_target_position : Vector3 = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
 	# we set the new target destination position
-	_navigation_agent.set_target_position(_target_position)
+	_navigation_agent.set_target_position(random_target_position)
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
