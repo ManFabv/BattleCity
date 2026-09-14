@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://EntityController/Scenes/ai_controller.tscn" id="7_adugg"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7_m5nrn"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="9_1qpgy"]
+[ext_resource type="Script" uid="uid://cgmb0bougnqhk" path="res://Health/Scripts/HealthStats/health_stats.gd" id="9_rae1h"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9_xtgfm"]
 [ext_resource type="Resource" uid="uid://bw7dodfdw0dt5" path="res://Health/Resources/HealthStats/enemy_health_stats.tres" id="10_1qpgy"]
 
@@ -70,6 +71,7 @@ neighbor_distance = 20.0
 unique_name_in_owner = true
 collision_layer = 4
 health_stats = ExtResource("10_1qpgy")
+_health_stats_levels = Array[ExtResource("9_rae1h")]([ExtResource("10_1qpgy")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1374745845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

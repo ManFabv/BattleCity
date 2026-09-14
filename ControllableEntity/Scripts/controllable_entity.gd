@@ -51,6 +51,18 @@ func _ready() -> void:
 	entity_stats_set.emit()
 
 
+func set_speed_level(level: int) -> void:
+	_entity_stats_manager.set_speed_level(level)
+
+
+func set_health_level(level: int) -> void:
+	_health.set_health_level(level)
+
+
+func set_weapon_level(level: int) -> void:
+	_weapon_system.change_weapon(level)
+
+
 func _process(_delta) -> void:
 	# we capture the input intention for the next physics step
 	_input_move_direction = _entity_controller.get_move_direction()

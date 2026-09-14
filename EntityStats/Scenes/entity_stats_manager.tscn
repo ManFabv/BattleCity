@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://blplj2x6q7w0u" path="res://EntityStats/Scripts/entity_stats_manager.gd" id="1_ccgp5"]
 [ext_resource type="Resource" uid="uid://brupxsi3wvt0x" path="res://EntityStats/Resources/Stats/enemy_normal_entity_stats.tres" id="2_i0orv"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="3_c7n5f"]
 
 [node name="EntityStatsManager" type="Node" unique_id=1299752098]
 script = ExtResource("1_ccgp5")
 _base_entity_stats = ExtResource("2_i0orv")
+_entity_stats_levels = Array[ExtResource("3_c7n5f")]([ExtResource("2_i0orv")])

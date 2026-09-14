@@ -6,6 +6,13 @@ signal _on_dead
 
 ## health stats for the entity
 @export var health_stats: HealthStats
+@export var _health_stats_levels: Array[HealthStats]
+
+var _health_level: int = 0:
+	get():
+		return _health_level
+	set(new_value):
+		_health_level = clampi(new_value, 0, _health_stats_levels.size() - 1)
 
 ## used to keep track of hits and heals to the entity
 var current_health : int:
@@ -23,7 +30,12 @@ var is_dead : bool = false:
 
 
 func _ready() -> void:
-	# we start the entity with the max health
+	set_health_level(0)
+
+
+func set_health_level(new_level: int) -> void:
+	_health_level = new_level
+	health_stats = _health_stats_levels[_health_level]
 	_initialize_max_health()
 
 
