@@ -1,8 +1,10 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-## This signal is emitted when the entity stats are set
+## emitted after the current level's stats are applied
 signal entity_stats_set
+## emitted when this entity runs out of health
+signal entity_died
 
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
@@ -14,12 +16,8 @@ signal entity_stats_set
 @export var _entity_controller : EntityController
 
 @export_group("Entity")
-## entity stats level (index in _entity_stats_levels)
-@export var _entity_stats_levels: Array[EntityStats]
-## health level (index in _health_levels)
-@export var _health_levels: Array[HealthStats]
-## weapon level (index in _weapon_levels)
-@export var _weapon_levels: Array[WeaponConfig]
+## one config per level; index 0 is the starting level
+@export var _entity_levels: Array[EntityLevelConfig]
 
 #where we are going to spawn the projectile
 @onready var _muzzle: Marker3D = %Muzzle
@@ -49,29 +47,23 @@ var entity_move_speed : float:
 
 
 func _ready() -> void:
-	set_entity_stats_level(0)
-	set_health_level(0)
-	set_weapon_level(0)
+	set_level(0)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
 	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed, tree_exited)
 	#we listen to the event signal when the menu is opened
 	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
-	# emit a signal to notify that the correct entity stats is set
+
+
+## applies speed, health and weapon for the given level in one call
+func set_level(level: int) -> void:
+	var entity_level: EntityLevelConfig = _entity_levels[level]
+	_entity_stats_manager.configure(entity_level.entity_stats)
+	_health.configure(entity_level.health_stats)
+	_weapon_system.change_weapon(entity_level.weapon_config)
+	# notify that the correct entity stats are now set
 	entity_stats_set.emit()
-
-
-func set_entity_stats_level(level: int) -> void:
-	_entity_stats_manager.configure(_entity_stats_levels[level])
-
-
-func set_health_level(level: int) -> void:
-	_health.configure(_health_levels[level])
-
-
-func set_weapon_level(level: int) -> void:
-	_weapon_system.change_weapon(_weapon_levels[level])
 
 
 func _process(_delta) -> void:
@@ -122,4 +114,5 @@ func _on_dead() -> void:
 	# TODO: we need a better implementation for this method
 	# like spawning particles or playing sounds before 
 	# removing the node
+	entity_died.emit()
 	queue_free()

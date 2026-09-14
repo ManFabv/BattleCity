@@ -8,12 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
-[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="10"]
-[ext_resource type="Resource" uid="uid://be8wiyfkwxngb" path="res://EntityStats/Resources/Stats/enemy_slow_entity_stats.tres" id="11"]
-[ext_resource type="Resource" uid="uid://dc1rtvt3myo2b" path="res://Health/Resources/HealthStats/enemy_health_3.tres" id="12"]
-[ext_resource type="Resource" uid="uid://cimsupd0bu2c5" path="res://Weapon/Resources/WeaponTypes/enemy_heavy_weapon_config.tres" id="13"]
-[ext_resource type="Script" uid="uid://cgmb0bougnqhk" path="res://Health/Scripts/HealthStats/health_stats.gd" id="14"]
-[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="15"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/entity_level_config.gd" id="10"]
+[ext_resource type="Resource" uid="uid://h2sewy6kqcjx" path="res://EntityLevel/Resources/enemy_heavy_entity_level_config.tres" id="11"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
 size = Vector3(1, 0.7, 1.65)
@@ -37,9 +33,7 @@ script = ExtResource("1")
 _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
-_entity_stats_levels = Array[ExtResource("10")]([ExtResource("11")])
-_health_levels = Array[ExtResource("14")]([ExtResource("12")])
-_weapon_levels = Array[ExtResource("15")]([ExtResource("13")])
+_entity_levels = Array[ExtResource("10")]([ExtResource("11")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1476669453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -87,5 +81,4 @@ _ai_controller = NodePath("../AiController")
 _navigation_agent = NodePath("../NavigationAgent3D")
 _weapon_system = NodePath("../WeaponSystem")
 
-[connection signal="entity_stats_set" from="." to="AiController" method="_on_enemy_entity_stats_set"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]
