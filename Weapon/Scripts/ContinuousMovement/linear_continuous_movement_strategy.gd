@@ -14,7 +14,6 @@ func initialize(origin: Node3D) -> void:
 	_direction = origin.global_transform.basis.z.normalized()
 
 
-## function responsible for handling any continuous movement like projectiles
-func update_movement(delta: float, transform_to_move: Transform3D) -> Transform3D:
-	transform_to_move.origin += _direction * continuous_movement_stats.max_speed * delta
-	return transform_to_move
+## function responsible for calculating the movement of projectiles
+func get_motion(delta: float) -> Vector3:
+	return _direction * continuous_movement_stats.max_speed * delta

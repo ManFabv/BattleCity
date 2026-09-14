@@ -1,5 +1,5 @@
 class_name Projectile
-extends Area3D
+extends CharacterBody3D
 
 
 ## Strategy responsible for moving the projectile
@@ -28,7 +28,10 @@ func fire(shoot_point: Marker3D, continuous_movement_scene: PackedScene) -> void
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	global_transform = _continuous_movement_strategy.update_movement(delta, global_transform)
+	var motion: Vector3 = _continuous_movement_strategy.get_motion(delta)
+	var collision := move_and_collide(motion)
+	if collision:
+		_destroy_projectile()
 
 
 ## here we check if the projectile left the screen to remove it
@@ -42,8 +45,3 @@ func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
 ## but we can spawn particles, play sound, etc
 func _destroy_projectile() -> void:
 	queue_free()
-
-
-func _on_body_entered(_body: Node3D) -> void:
-	#we destroy the projectile after it collides with anything
-	_destroy_projectile()
