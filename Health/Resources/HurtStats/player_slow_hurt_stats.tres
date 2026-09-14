@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_damage")
 damage = 1
-metadata/_custom_type_script = "res://Health/HurtStats/hurt_stats.gd"
+metadata/_custom_type_script = "uid://runlcy0x17cf"
