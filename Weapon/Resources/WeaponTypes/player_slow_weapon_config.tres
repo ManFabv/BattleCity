@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponConfig" format=3 uid="uid://cmj6v73vex2ou"]
+
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_slow_projectile.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://yu4hh6rt0ud1" path="res://Weapon/Scenes/ContinuousMovement/player_slow_linear_continuous_movement.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://ibbjgnvm0y07" path="res://Weapon/Scenes/ShootingCost/player_slow_timed_shooting_cost_strategy.tscn" id="5"]
+
+[resource]
+script = ExtResource("1")
+weapon_scene = ExtResource("2")
+projectile_scene = ExtResource("3")
+continuous_movement_scene = ExtResource("4")
+shooting_cost_strategy_scene = ExtResource("5")

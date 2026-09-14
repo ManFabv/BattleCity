@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://wu26eciwbaaq"]
+
+[ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Weapon/Scripts/WeaponTypes/normal_weapon.gd" id="1"]
+
+[node name="NormalWeapon" type="Node" unique_id=254992871]
+script = ExtResource("1")

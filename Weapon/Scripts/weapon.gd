@@ -2,30 +2,19 @@ extends Node
 class_name Weapon
 
 
-## the current shooting cost strategy scene
-@export var _shooting_cost_strategy_scene : PackedScene:
-	get():
-		return _shooting_cost_strategy_scene
-	set(new_value):
-		_shooting_cost_strategy_scene = new_value
-
-## projectile scene to instantiate
-@export var _projectile_scene : PackedScene:
-	get():
-		return _projectile_scene
-	set(new_value):
-		_projectile_scene = new_value
-
-## movement strategy scene injected into the projectile when fired
-@export var _continuous_movement_scene : PackedScene:
-	get():
-		return _continuous_movement_scene
-	set(new_value):
-		_continuous_movement_scene = new_value
+var _shooting_cost_strategy_scene : PackedScene
+var _projectile_scene : PackedScene
+var _continuous_movement_scene : PackedScene
 
 
 ## the shooting cost strategy instance
 var _current_shooting_cost_strategy : ShootingCostStrategy
+
+
+func configure(config: WeaponConfig) -> void:
+	_projectile_scene = config.projectile_scene
+	_continuous_movement_scene = config.continuous_movement_scene
+	_shooting_cost_strategy_scene = config.shooting_cost_strategy_scene
 
 
 ## the initialize the weapon when it is added to the scene
