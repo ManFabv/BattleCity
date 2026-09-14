@@ -15,13 +15,6 @@ extends Resource
 ## how fast the body will rotate
 @export_range(1, 100) var rotation_speed : float = 15
 
-
-@export_group("Non-Numeric Attributes")
-## if the entity can receive damage
-@export var is_invulnerable: bool = false
-## current weapon level
-@export var weapon_level_boost: int = 0
-
 #we are applying the gravity defined by the setting and the multiplier set by the inspector
 var gravity : float :
 	get():
