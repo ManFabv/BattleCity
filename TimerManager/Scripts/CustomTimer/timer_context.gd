@@ -9,8 +9,8 @@ enum TimerMode { ONE_SHOT, LOOP, MANUAL }
 
 
 @warning_ignore_start("unused_signal")
-## emitted to notify the timer to restart
-signal restart_requested
+## emitted to notify the timer to restart, optionally with a new duration
+signal restart_requested(new_duration: float)
 @warning_ignore_restore("unused_signal")
 
 ## duration left for the timer

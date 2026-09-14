@@ -54,8 +54,10 @@ func tick(delta: float) -> void:
 		_handle_no_time_left()
 
 
-## starts the timer
-func start() -> void:
+## starts the timer, optionally changing its duration
+func start(new_duration: float = -1.0) -> void:
+	if new_duration >= 0.0:
+		_duration = new_duration
 	reset()
 	_state = TimerState.RUNNING
 
