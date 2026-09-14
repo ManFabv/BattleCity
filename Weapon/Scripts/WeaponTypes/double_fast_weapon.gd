@@ -16,8 +16,8 @@ func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	on_projectile_spawned.emit(left_shot)
 	on_projectile_spawned.emit(right_shot)
 	# we fire the shot with a movement scene
-	left_shot.fire(muzzle, _continuous_movement_scene)
-	right_shot.fire(muzzle, _continuous_movement_scene)
+	left_shot.fire(muzzle, _projectile_config)
+	right_shot.fire(muzzle, _projectile_config)
 	# we offset the shots
 	var offset: Vector3 = muzzle.global_transform.basis.x * _shoot_distance_offset
 	left_shot.global_position -= offset

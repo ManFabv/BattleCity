@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://xlofvlpm7bbb"]
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
-[ext_resource type="Resource" uid="uid://dylg34g1shovl" path="res://Health/Resources/HurtStats/enemy_normal_hurt_stats.tres" id="2_oq121"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="4_qkl3l"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
@@ -11,7 +10,7 @@ radial_segments = 16
 rings = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2re41"]
-albedo_color = Color(0.7764706, 0.21176471, 0.40392157, 1)
+albedo_color = Color(1, 0.45, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
@@ -35,7 +34,6 @@ shape = SubResource("SphereShape3D_2re41")
 [node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("4_qkl3l")]
 unique_name_in_owner = true
 collision_mask = 2
-_damage_stats = ExtResource("2_oq121")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")

@@ -2,15 +2,7 @@ class_name EntityStatsManager
 extends Node
 
 @export_group("Stats")
-## base entity stats before any modification
-@export var _base_entity_stats : EntityStats
-@export var _entity_stats_levels: Array[EntityStats]
-
-var _speed_level: int = 0:
-	get():
-		return _speed_level
-	set(new_value):
-		_speed_level = clampi(new_value, 0, _entity_stats_levels.size() - 1)
+var _base_entity_stats : EntityStats
 
 ## a list of active runtime modifier instances for the current stats
 var _modifiers : Array[EntityStatsModifierInstance]
@@ -19,13 +11,8 @@ var _modifiers : Array[EntityStatsModifierInstance]
 var _current_stacked_entity_stats : EntityStats
 
 
-func _ready() -> void:
-	set_speed_level(0)
-
-
-func set_speed_level(new_level: int) -> void:
-	_speed_level = new_level
-	_base_entity_stats = _entity_stats_levels[_speed_level]
+func configure(new_entity_stats: EntityStats) -> void:
+	_base_entity_stats = new_entity_stats
 	_apply_modifiers()
 
 

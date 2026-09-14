@@ -5,7 +5,7 @@ extends Area3D
 signal _on_damage_taken
 
 ## damage that it's going to be applied
-@export var _damage_stats : DamageStats
+var _damage_stats : DamageStats
 
 
 ## to avoid having to connect this signal on
@@ -17,6 +17,10 @@ func _ready() -> void:
 ## we cache references
 func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
 	_on_damage_taken.connect(on_damage_taken)
+
+
+func configure(damage_stats: DamageStats) -> void:
+	_damage_stats = damage_stats
 
 
 ## if we collided with other body

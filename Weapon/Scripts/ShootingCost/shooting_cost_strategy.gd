@@ -2,6 +2,11 @@ extends Node
 class_name ShootingCostStrategy
 
 
+## here we initialize the strategy before use
+func configure(_config: ShootingCostConfig) -> void:
+	push_error("configure() should be implemented on inherited")
+
+
 ## this will tell us if the owner has the requisites for shooting
 func can_shot() -> bool:
 	push_error("_can_shot() should be implemented on inherited")

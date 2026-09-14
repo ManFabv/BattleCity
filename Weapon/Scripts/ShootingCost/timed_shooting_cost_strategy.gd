@@ -2,17 +2,17 @@ extends ShootingCostStrategy
 class_name TimedShootingCostStrategy
 
 ## how long it will wait between shots
-@export_range(0.0, 10.0) var _fire_rate : float = 1.0:
-	get():
-		return _fire_rate
-	set(new_value):
-		_fire_rate = max(new_value, 0.0) 
+var _fire_rate : float = 1.0
 
 
 ## here we cache if we can shoot or not based on the timer
 var _has_reached_timeout: bool = true
 ## here we cache the timer context reference so we can use it to restart the timer when we shoot
 var _timer_context: TimerContext
+
+
+func configure(config: ShootingCostConfig) -> void:
+	_fire_rate = config.fire_rate
 
 
 ## at the beginning we create a new timer

@@ -5,7 +5,9 @@ extends Resource
 @export var weapon_scene: PackedScene
 ## which projectile to fire
 @export var projectile_scene: PackedScene
-## which movement strategy this projectile uses
-@export var continuous_movement_scene: PackedScene
+## projectile configuration
+@export var projectile_config: ProjectileConfig
 ## which shooting cost strategy this weapon uses
 @export var shooting_cost_strategy_scene: PackedScene
+## shooting cost configuration
+@export var shooting_cost_config: ShootingCostConfig

@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dchvxywwfk1ql" path="res://Spawner/Scripts/enemy_spawner.gd" id="1_joxnu"]
 [ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="2_285v6"]
-[ext_resource type="PackedScene" uid="uid://beght3yhsbv2v" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="2_tk836"]
+[ext_resource type="PackedScene" uid="uid://uaqyetcgo8od" path="res://ControllableEntity/Scenes/controllable_enemy_slow.tscn" id="2_tk836"]
+[ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bp4vuuy27reqr" path="res://ControllableEntity/Scenes/controllable_enemy_heavy.tscn" id="4"]
 
 [node name="EnemySpawner" type="Node3D" unique_id=213432042]
 script = ExtResource("1_joxnu")
-_enemies = Array[PackedScene]([ExtResource("2_tk836")])
+_enemies = Array[PackedScene]([ExtResource("2_tk836"), ExtResource("3"), ExtResource("4")])
 _on_enemy_spawned = ExtResource("2_285v6")

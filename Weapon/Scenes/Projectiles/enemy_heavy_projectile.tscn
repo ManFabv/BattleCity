@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b1oousnfn2kqi"]
+
+[ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh"]
+radius = 0.125
+height = 0.25
+radial_segments = 16
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D"]
+radius = 0.127266
+
+[node name="ProjectileHeavyEnemy" type="CharacterBody3D" unique_id=533334127]
+top_level = true
+collision_layer = 512
+collision_mask = 3
+script = ExtResource("1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1986040061]
+cast_shadow = 0
+mesh = SubResource("SphereMesh")
+surface_material_override/0 = SubResource("StandardMaterial3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=622266625]
+shape = SubResource("SphereShape3D")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=111529385]
+
+[node name="Hurt" parent="." unique_id=2028530875 instance=ExtResource("2")]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=488687753]
+shape = SubResource("SphereShape3D")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
