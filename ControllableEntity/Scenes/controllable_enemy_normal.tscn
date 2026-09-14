@@ -3,13 +3,17 @@
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3"]
-[ext_resource type="Script" uid="uid://mb00b22h4paj" path="res://ControllableEntity/Scripts/Config/entity_level_config.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Weapon/Scenes/Systems/enemy_weapon_system.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://EntityController/Scenes/ai_controller.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
-[ext_resource type="Resource" uid="uid://n148b2gpr0hb" path="res://ControllableEntity/Resources/Config/enemy_normal_entity_level_0.tres" id="10"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="10"]
+[ext_resource type="Resource" uid="uid://brupxsi3wvt0x" path="res://EntityStats/Resources/Stats/enemy_normal_entity_stats.tres" id="11"]
+[ext_resource type="Resource" uid="uid://cgg4ekbeby5e4" path="res://Health/Resources/HealthStats/enemy_health_2.tres" id="12"]
+[ext_resource type="Resource" uid="uid://gw7fnpy1d4ay" path="res://Weapon/Resources/WeaponTypes/enemy_normal_weapon_config.tres" id="13"]
+[ext_resource type="Script" uid="uid://cgmb0bougnqhk" path="res://Health/Scripts/HealthStats/health_stats.gd" id="14"]
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="15"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
 size = Vector3(1, 0.7, 1.65)
@@ -33,7 +37,9 @@ script = ExtResource("1")
 _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
-_entity_levels = Array[ExtResource("4")]([ExtResource("10")])
+_speed_levels = Array[ExtResource("10")]([ExtResource("11")])
+_health_levels = Array[ExtResource("14")]([ExtResource("12")])
+_weapon_levels = Array[ExtResource("15")]([ExtResource("13")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=700678358]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

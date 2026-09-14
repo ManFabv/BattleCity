@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1_uvnfx"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
-[ext_resource type="Script" uid="uid://mb00b22h4paj" path="res://ControllableEntity/Scripts/Config/entity_level_config.gd" id="4_3gnxe"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
@@ -12,7 +11,12 @@
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Scripts/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
-[ext_resource type="Resource" uid="uid://drpreu6grgjat" path="res://ControllableEntity/Resources/Config/player_entity_level_0.tres" id="16"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="17"]
+[ext_resource type="Resource" uid="uid://bmrycrs0nxijg" path="res://EntityStats/Resources/Stats/player_slow_entity_stats.tres" id="18"]
+[ext_resource type="Script" uid="uid://cgmb0bougnqhk" path="res://Health/Scripts/HealthStats/health_stats.gd" id="19"]
+[ext_resource type="Resource" uid="uid://belptktwg6e07" path="res://Health/Resources/HealthStats/player_health_0.tres" id="20"]
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="21"]
+[ext_resource type="Resource" uid="uid://cmj6v73vex2ou" path="res://Weapon/Resources/WeaponTypes/player_slow_weapon_config.tres" id="22"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -36,7 +40,9 @@ script = ExtResource("1_uvnfx")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
-_entity_levels = Array[ExtResource("4_3gnxe")]([ExtResource("16")])
+_speed_levels = Array[ExtResource("17")]([ExtResource("18")])
+_health_levels = Array[ExtResource("19")]([ExtResource("20")])
+_weapon_levels = Array[ExtResource("21")]([ExtResource("22")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
