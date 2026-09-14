@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://uaqyetcgo8od"]
+
+[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3"]
+[ext_resource type="Script" uid="uid://mb00b22h4paj" path="res://ControllableEntity/Scripts/Config/entity_level_config.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Weapon/Scenes/Systems/enemy_weapon_system.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://EntityController/Scenes/ai_controller.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
+[ext_resource type="Resource" uid="uid://u38qbpfrgtd3" path="res://ControllableEntity/Resources/Config/enemy_slow_entity_level_0.tres" id="10"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D"]
+size = Vector3(1, 0.7, 1.65)
+
+[sub_resource type="BoxMesh" id="BoxMeshBody"]
+size = Vector3(0.8, 0.5, 1.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3DBody"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMeshTurret"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3DTurret"]
+albedo_color = Color(1, 1, 0, 1)
+
+[node name="EnemySlow" type="CharacterBody3D" unique_id=566770710 node_paths=PackedStringArray("_entity_controller")]
+collision_layer = 4
+collision_mask = 263
+script = ExtResource("1")
+_on_input_changed_event = ExtResource("2")
+_on_menu_opened_event = ExtResource("3")
+_entity_controller = NodePath("AiController")
+_entity_levels = Array[ExtResource("4")]([ExtResource("10")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1572452312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1154849203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
+mesh = SubResource("BoxMeshBody")
+surface_material_override/0 = SubResource("StandardMaterial3DBody")
+
+[node name="Turret" type="MeshInstance3D" parent="Body" unique_id=875187231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
+mesh = SubResource("BoxMeshTurret")
+surface_material_override/0 = SubResource("StandardMaterial3DTurret")
+
+[node name="Muzzle" type="Marker3D" parent="Body/Turret" unique_id=1226631406]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
+
+[node name="WeaponSystem" parent="." unique_id=822570833 instance=ExtResource("5")]
+unique_name_in_owner = true
+
+[node name="EntityStatsManager" parent="." unique_id=339780205 instance=ExtResource("7")]
+unique_name_in_owner = true
+
+[node name="AiController" parent="." unique_id=1659528357 node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("6")]
+_navigation_agent = NodePath("../NavigationAgent3D")
+owner_controllable_entity = NodePath("..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2133531164]
+avoidance_enabled = true
+radius = 1.2
+neighbor_distance = 20.0
+
+[node name="Health" parent="." unique_id=1122406318 instance=ExtResource("8")]
+unique_name_in_owner = true
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1218675793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+shape = SubResource("BoxShape3D")
+
+[node name="StateMachine" parent="." unique_id=96764280 node_paths=PackedStringArray("_ai_controller", "_navigation_agent", "_weapon_system") instance=ExtResource("9")]
+_ai_controller = NodePath("../AiController")
+_navigation_agent = NodePath("../NavigationAgent3D")
+_weapon_system = NodePath("../WeaponSystem")
+
+[connection signal="entity_stats_set" from="." to="AiController" method="_on_enemy_entity_stats_set"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]

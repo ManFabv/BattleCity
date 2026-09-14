@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EntityLevelConfig" format=3 uid="uid://drpreu6grgjat"]
 
 [ext_resource type="Script" uid="uid://mb00b22h4paj" path="res://ControllableEntity/Scripts/Config/entity_level_config.gd" id="1"]
-[ext_resource type="Resource" uid="uid://bpd3hyyqx573a" path="res://EntityStats/Resources/Stats/player_normal_entity_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://bmrycrs0nxijg" path="res://EntityStats/Resources/Stats/player_slow_entity_stats.tres" id="2"]
 [ext_resource type="Resource" uid="uid://dwu5glf012qkr" path="res://Health/Resources/HealthStats/player_health_stats.tres" id="3"]
-[ext_resource type="Resource" uid="uid://c0efxaqkxu8e0" path="res://Weapon/Resources/WeaponTypes/player_normal_weapon_config.tres" id="4"]
+[ext_resource type="Resource" uid="uid://cmj6v73vex2ou" path="res://Weapon/Resources/WeaponTypes/player_slow_weapon_config.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
