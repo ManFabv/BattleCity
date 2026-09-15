@@ -31,8 +31,3 @@ func change_weapon(config: WeaponConfig) -> void:
 	_current_weapon = config.weapon_scene.instantiate() as Weapon
 	_current_weapon.configure(config)
 	add_child(_current_weapon)
-
-
-## we connect the shot_fired signal to the provided callable, allowing external systems to react when a shot is fired
-func connect_on_shot_fired_signal(on_weapon_system_shot_fired : Callable) -> void:
-	shot_fired.connect(on_weapon_system_shot_fired)

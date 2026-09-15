@@ -78,9 +78,8 @@ unique_name_in_owner = true
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
 unique_name_in_owner = true
 
-[node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+[node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
-_owner_controllable_entity = NodePath("..")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
