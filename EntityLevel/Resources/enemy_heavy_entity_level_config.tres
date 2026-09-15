@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EntityLevelConfig" format=3 uid="uid://h2sewy6kqcjx"]
 
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/entity_level_config.gd" id="1"]
-[ext_resource type="Resource" uid="uid://be8wiyfkwxngb" path="res://EntityStats/Resources/Stats/enemy_slow_entity_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://be8wiyfkwxngb" path="res://EntityStats/Resources/enemy_slow_entity_stats.tres" id="2"]
 [ext_resource type="Resource" uid="uid://dc1rtvt3myo2b" path="res://Health/Resources/HealthStats/enemy_health_3.tres" id="3"]
 [ext_resource type="Resource" uid="uid://cimsupd0bu2c5" path="res://Weapon/Resources/WeaponTypes/enemy_heavy_weapon_config.tres" id="4"]
 
