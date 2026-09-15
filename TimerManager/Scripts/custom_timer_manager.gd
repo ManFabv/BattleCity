@@ -1,5 +1,5 @@
 extends Node
-class_name TimerManager
+class_name CustomTimerManager
 
 
 ## list of current created timers

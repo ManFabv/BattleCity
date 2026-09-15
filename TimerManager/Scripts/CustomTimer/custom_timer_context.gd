@@ -23,7 +23,7 @@ var on_owner_freed: Signal
 var mode: TimerMode = TimerMode.ONE_SHOT
 
 
-## request the TimerManager to create and start this timer
+## request the CustomTimerManager to create and start this timer
 static func request(timer_context: CustomTimerContext) -> void:
 	TIMER_REQUESTED.emit(timer_context)
 

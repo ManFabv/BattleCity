@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dol1eqgus2e2n" path="res://Weapon/Scripts/Projectiles/Config/projectile_config.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://yu4hh6rt0ud1" path="res://Weapon/Scenes/ContinuousMovement/player_slow_linear_continuous_movement.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://bao65otojahlo" path="res://Health/Resources/HurtStats/player_slow_hurt_stats.tres" id="3"]
-[ext_resource type="Resource" uid="uid://ctgqo3gcu23yi" path="res://Weapon/Resources/ContinuousMovement/Stats/player_slow_continuous_movement_stats.tres" id="4"]
+[ext_resource type="Resource" uid="uid://ctgqo3gcu23yi" path="res://Weapon/Resources/ContinuousMovement/player_slow_continuous_movement_stats.tres" id="4"]
 
 [resource]
 script = ExtResource("1")

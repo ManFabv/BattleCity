@@ -7,7 +7,7 @@ class_name GameManager
 
 func _ready() -> void:
 	# TODO: here we should instantiate any global system
-	var current_timer_manager : TimerManager = _timer_manager.instantiate() as TimerManager
+	var current_timer_manager : CustomTimerManager = _timer_manager.instantiate() as CustomTimerManager
 	add_child(current_timer_manager)
 	# TODO: we instantiate the initial screen until we
 	# have an scene manager
