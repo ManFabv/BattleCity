@@ -21,6 +21,9 @@ var _current_input_processor : InputInterface
 
 
 func _ready() -> void:
+	# Prevent input to get processed when not on focus
+	Input.ignore_joypad_on_unfocused_application = true
+	
 	# by default we use keyboard and mouse
 	_change_input_type(InputType.KEYBOARD_MOUSE)
 	# we subscribe to gamepad changed signal to update input type
