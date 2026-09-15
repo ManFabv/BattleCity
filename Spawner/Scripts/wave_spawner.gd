@@ -20,9 +20,10 @@ func _ready() -> void:
 		push_error("WaveSpawnerConfig arrays must have the same size")
 		return
 	
-	# create and start the timer for the first spawn
+	# create the timer for the first spawn, but don't start it automatically
+	# it will be started when allow_spawn() is called for the first time
 	var first_delay: float = _wave_config.spawn_delays[_current_step]
-	_timer_context = CustomTimerContext.create_manual(first_delay, _spawn_current_node, tree_exited)
+	_timer_context = CustomTimerContext.create_manual(first_delay, _spawn_current_node, tree_exited, false)
 	CustomTimerContext.request(_timer_context)
 
 

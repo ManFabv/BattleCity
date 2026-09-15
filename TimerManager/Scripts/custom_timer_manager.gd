@@ -39,8 +39,8 @@ func _on_timer_requested(timer_context: CustomTimerContext) -> void:
 	if is_instance_valid(timer_context):
 		# we create the timer
 		var timer : CustomTimer = CustomTimer.new(timer_context)
-		# we add the timer and start it
-		_add_and_start(timer)
+		# we add the timer and start it (respecting auto_start flag)
+		_add_and_start(timer, timer_context)
 		# we listen if the requester is freed
 		# when the requester leaves the tree, we drop this timer from the list
 		# we use bind so we can cache the timer reference
@@ -49,10 +49,11 @@ func _on_timer_requested(timer_context: CustomTimerContext) -> void:
 		timer_context.restart_requested.connect(timer.start)
 
 
-## we add the timer and we start it
-func _add_and_start(timer: CustomTimer) -> void:
+## we add the timer and we start it (only if auto_start is true)
+func _add_and_start(timer: CustomTimer, timer_context: CustomTimerContext) -> void:
 	_timers.append(timer)
-	timer.start()
+	if timer_context.auto_start:
+		timer.start()
 
 
 ## remove a timer that is no longer needed (owner destroyed or already gone)
