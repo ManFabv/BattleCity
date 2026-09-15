@@ -1,5 +1,5 @@
 extends RefCounted
-class_name TimerContext
+class_name CustomTimerContext
 
 ## it uses the uid of this file: res://EventBus/Resources/Events/on_timer_requested.tres
 const TIMER_REQUESTED: BaseEvent = preload("uid://bwcmravgyylyh")
@@ -24,7 +24,7 @@ var mode: TimerMode = TimerMode.ONE_SHOT
 
 
 ## request the TimerManager to create and start this timer
-static func request(timer_context: TimerContext) -> void:
+static func request(timer_context: CustomTimerContext) -> void:
 	TIMER_REQUESTED.emit(timer_context)
 
 
@@ -37,15 +37,15 @@ func _init(new_time: float, new_mode: TimerMode, new_timeout: Callable, new_on_o
 
 
 ## create a one shot timer, after timeout, it's ready to cleanup
-static func create_one_shot(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> TimerContext:
-	return TimerContext.new(_duration, TimerMode.ONE_SHOT, _timeout, _on_owner_freed)
+static func create_one_shot(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> CustomTimerContext:
+	return CustomTimerContext.new(_duration, TimerMode.ONE_SHOT, _timeout, _on_owner_freed)
 
 
 ## create a looping timer, it will restart automatically
-static func create_loop(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> TimerContext:
-	return TimerContext.new(_duration, TimerMode.LOOP, _timeout, _on_owner_freed)
+static func create_loop(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> CustomTimerContext:
+	return CustomTimerContext.new(_duration, TimerMode.LOOP, _timeout, _on_owner_freed)
 
 
 ## create a manual timer, the user will have to start it manually
-static func create_manual(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> TimerContext:
-	return TimerContext.new(_duration, TimerMode.MANUAL, _timeout, _on_owner_freed)
+static func create_manual(_duration: float, _timeout: Callable, _on_owner_freed: Signal) -> CustomTimerContext:
+	return CustomTimerContext.new(_duration, TimerMode.MANUAL, _timeout, _on_owner_freed)

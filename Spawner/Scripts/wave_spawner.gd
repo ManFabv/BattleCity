@@ -9,7 +9,7 @@ extends Node3D
 ## current step in the wave
 var _current_step: int = 0
 ## timer handling spawn delays
-var _timer_context: TimerContext
+var _timer_context: CustomTimerContext
 ## whether we are currently counting down before spawning
 var _is_counting_down: bool = false
 
@@ -22,8 +22,8 @@ func _ready() -> void:
 	
 	# create and start the timer for the first spawn
 	var first_delay: float = _wave_config.spawn_delays[_current_step]
-	_timer_context = TimerContext.create_manual(first_delay, _spawn_current_node, tree_exited)
-	TimerContext.request(_timer_context)
+	_timer_context = CustomTimerContext.create_manual(first_delay, _spawn_current_node, tree_exited)
+	CustomTimerContext.request(_timer_context)
 
 
 ## request to spawn the next node, returns true if slot was reserved
