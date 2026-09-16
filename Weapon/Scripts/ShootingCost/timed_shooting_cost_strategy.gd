@@ -8,7 +8,7 @@ var _fire_rate : float = 1.0
 ## here we cache if we can shoot or not based on the timer
 var _has_reached_timeout: bool = true
 ## here we cache the timer context reference so we can use it to restart the timer when we shoot
-var _timer_context: TimerContext
+var _timer_context: CustomTimerContext
 
 
 func configure(config: ShootingCostConfig) -> void:
@@ -17,8 +17,8 @@ func configure(config: ShootingCostConfig) -> void:
 
 ## at the beginning we create a new timer
 func _ready() -> void:
-	_timer_context = TimerContext.create_manual(_fire_rate, _on_timer_timeout, tree_exited)
-	TimerContext.request(_timer_context)
+	_timer_context = CustomTimerContext.create_manual(_fire_rate, _on_timer_timeout, tree_exited)
+	CustomTimerContext.request(_timer_context)
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot

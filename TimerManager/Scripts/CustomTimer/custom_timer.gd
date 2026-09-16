@@ -26,11 +26,11 @@ var _duration: float = 0.0:
 ## current timer state
 var _state: TimerState = TimerState.NEEDS_INIT
 ## timer mode (will apply different strategies when we reach the timeout)
-var _mode: TimerContext.TimerMode
+var _mode: CustomTimerContext.TimerMode
 
 
 ## we cache the timer values
-func _init(timer_context: TimerContext) -> void:
+func _init(timer_context: CustomTimerContext) -> void:
 	_duration = timer_context.duration
 	_mode = timer_context.mode
 	# we connect the timeout signal
@@ -114,11 +114,11 @@ func _stop_timer() -> void:
 func _handle_no_time_left() -> void:
 	match _mode:
 		# if it's looping, we need to restart the loop
-		TimerContext.TimerMode.LOOP:
+		CustomTimerContext.TimerMode.LOOP:
 			_restart_by_loop()
 		# if it's manual, we just stop the timer and wait for the user to start it again
-		TimerContext.TimerMode.MANUAL:
+		CustomTimerContext.TimerMode.MANUAL:
 			_stop_timer()
 		# if it's one shot, we prepare it for cleanup
-		TimerContext.TimerMode.ONE_SHOT:
+		CustomTimerContext.TimerMode.ONE_SHOT:
 			_prepare_for_cleanup()
