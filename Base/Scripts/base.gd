@@ -4,10 +4,6 @@ extends Node3D
 ## emitted when the base loses all its health
 signal base_destroyed
 
-@export_group("Events")
-## broadcasts this base so other systems (enemy AI, power-ups) can find it
-@export var _on_base_spawned : BaseEvent
-
 @export_group("Base")
 ## health stats for the base (only supports a single enemy shot)
 @export var _health_stats : HealthStats
@@ -19,8 +15,6 @@ signal base_destroyed
 func _ready() -> void:
 	_health.configure(_health_stats)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
-	# deferred so every subscriber has finished its own _ready() first, no matter the tree order
-	_on_base_spawned.emit.call_deferred(self)
 
 
 ## called every time the base takes a hit
