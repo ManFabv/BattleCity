@@ -25,6 +25,10 @@ shape = SubResource("BoxShape3D_1")
 mesh = SubResource("BoxMesh_1")
 surface_material_override/0 = SubResource("StandardMaterial3D_1")
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=1913275606]
+radius = 1.5
+height = 1.5
+
 [node name="Health" parent="." unique_id=184915631 instance=ExtResource("2")]
 unique_name_in_owner = true
 
