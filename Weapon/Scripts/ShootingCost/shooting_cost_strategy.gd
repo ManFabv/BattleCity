@@ -1,5 +1,5 @@
-extends Node
 class_name ShootingCostStrategy
+extends RefCounted
 
 
 ## here we initialize the strategy before use

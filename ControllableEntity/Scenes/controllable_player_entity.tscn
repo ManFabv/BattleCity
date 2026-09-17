@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Scripts/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
-[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/entity_level_config.gd" id="17"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="17"]
 [ext_resource type="Resource" uid="uid://bmie078l1q1lp" path="res://EntityLevel/Resources/player_slow_entity_level_config.tres" id="18"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]

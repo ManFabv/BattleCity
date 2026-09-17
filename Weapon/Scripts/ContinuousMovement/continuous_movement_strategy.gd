@@ -1,5 +1,5 @@
-extends Node
 class_name ContinuousMovementStrategy
+extends RefCounted
 
 
 ## here we setup the strategy before use

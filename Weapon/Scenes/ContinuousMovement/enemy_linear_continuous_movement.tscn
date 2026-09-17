@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://1aj4l46afq7t"]
-
-[ext_resource type="Script" uid="uid://c7d8ly51n4tiq" path="res://Weapon/Scripts/ContinuousMovement/linear_continuous_movement_strategy.gd" id="1"]
-
-[node name="LinearContinuousMovement" type="Node" unique_id=1638292182]
-script = ExtResource("1")
