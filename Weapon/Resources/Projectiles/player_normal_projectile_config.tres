@@ -1,12 +1,10 @@
 [gd_resource type="Resource" script_class="ProjectileConfig" format=3 uid="uid://qk80ikacc71l"]
 
 [ext_resource type="Script" uid="uid://dol1eqgus2e2n" path="res://Weapon/Scripts/Projectiles/Config/projectile_config.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://dgffnb650mdxy" path="res://Weapon/Scenes/ContinuousMovement/player_linear_continuous_movement.tscn" id="2"]
-[ext_resource type="Resource" uid="uid://bnadnqldwigma" path="res://Health/Resources/HurtStats/player_normal_hurt_stats.tres" id="3"]
-[ext_resource type="Resource" uid="uid://cq3x4gtauh43i" path="res://Weapon/Resources/ContinuousMovement/player_normal_continuous_movement_stats.tres" id="4"]
+[ext_resource type="Resource" uid="uid://bnadnqldwigma" path="res://Health/Resources/HurtStats/player_damage_2.tres" id="3"]
+[ext_resource type="Resource" uid="uid://cq3x4gtauh43i" path="res://Weapon/Resources/ContinuousMovement/player_projectile_normal_movement_stats.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
-continuous_movement_scene = ExtResource("2")
 continuous_movement_stats = ExtResource("4")
 damage_stats = ExtResource("3")

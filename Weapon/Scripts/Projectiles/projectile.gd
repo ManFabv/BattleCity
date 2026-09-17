@@ -20,10 +20,9 @@ func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
 	_hurt_entity.configure(projectile_config.damage_stats)
-	# instantiate the continuous movement node and attach it as a child
-	_continuous_movement_strategy = projectile_config.continuous_movement_scene.instantiate() as ContinuousMovementStrategy
+	# initialize the continuous movement strategy
+	_continuous_movement_strategy = LinearContinuousMovementStrategy.new()
 	_continuous_movement_strategy.configure(projectile_config.continuous_movement_stats)
-	add_child(_continuous_movement_strategy)
 	# we initialize the movement strategy
 	_continuous_movement_strategy.initialize(shoot_point)
 

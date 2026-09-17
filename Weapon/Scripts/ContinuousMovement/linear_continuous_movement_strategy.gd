@@ -1,5 +1,5 @@
-extends ContinuousMovementStrategy
 class_name LinearContinuousMovementStrategy
+extends ContinuousMovementStrategy
 
 var continuous_movement_stats: ContinuousMovementStats
 

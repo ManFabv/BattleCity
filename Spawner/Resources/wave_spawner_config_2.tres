@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WaveSpawnerConfig" format=3 uid="uid://cq15rjm6kk3qu"]
 
-[ext_resource type="Script" uid="uid://dpuoab087rmbk" path="res://Spawner/Scripts/wave_spawner_config.gd" id="1_o4tlg"]
+[ext_resource type="Script" uid="uid://dpuoab087rmbk" path="res://Spawner/Scripts/Config/wave_spawner_config.gd" id="1_o4tlg"]
 [ext_resource type="PackedScene" uid="uid://bp4vuuy27reqr" path="res://ControllableEntity/Scenes/controllable_enemy_heavy.tscn" id="2_yd6q7"]
 [ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="3_x5pmw"]
 [ext_resource type="PackedScene" uid="uid://uaqyetcgo8od" path="res://ControllableEntity/Scenes/controllable_enemy_slow.tscn" id="4_t1kap"]

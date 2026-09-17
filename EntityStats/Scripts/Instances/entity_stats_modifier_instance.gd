@@ -14,12 +14,6 @@ func _init(entity_stats_modifier: EntityStatsModifier) -> void:
 	_entity_stats_modifier = entity_stats_modifier
 
 
-## this method is meant for runtime setup for modifiers that need it
-func initialize(_owner_node: Node) -> void:
-	push_error("initialize() should be implemented on inherited")
-	pass
-
-
 ## we apply the modifier logic using the original _entity_stats_modifier
 func apply(stats: EntityStats) -> void:
 	_entity_stats_modifier.apply(stats)
