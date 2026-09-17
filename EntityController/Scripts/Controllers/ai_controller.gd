@@ -7,6 +7,10 @@ extends EntityController
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
 
+@export_group("Attack Detection")
+## max distance at which the player or base is considered a valid attack target
+@export var _detection_range : float = 12.0
+
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
 ## NOTE: this must stay a direction (not a world position); mixing the two caused
@@ -78,12 +82,44 @@ func set_attack_targets(player_target: Node3D, base_target: Node3D) -> void:
 
 ## moves toward the player instead of a random wander point
 func attack_player() -> void:
+	# the player may not have been assigned yet, or may have died since
+	if not is_instance_valid(_player_target):
+		return
 	_navigation_agent.set_target_position(_player_target.global_position)
 
 
 ## moves toward the base instead of a random wander point
 func attack_base() -> void:
+	# the base may not have been assigned yet, or may have been destroyed since
+	if not is_instance_valid(_base_target):
+		return
 	_navigation_agent.set_target_position(_base_target.global_position)
+
+
+## true if the player is close enough and in direct line of sight
+func can_attack_player() -> bool:
+	return _has_line_of_sight(_player_target)
+
+
+## true if the base is close enough and in direct line of sight
+func can_attack_base() -> bool:
+	return _has_line_of_sight(_base_target)
+
+
+## checks distance and raycasts toward the target to know if it's a valid attack target
+func _has_line_of_sight(target: Node3D) -> bool:
+	if not is_instance_valid(target):
+		return false
+	var origin : Vector3 = owner_controllable_entity.global_position
+	var target_position : Vector3 = target.global_position
+	if origin.distance_to(target_position) > _detection_range:
+		return false
+	var space_state : PhysicsDirectSpaceState3D = owner_controllable_entity.get_world_3d().direct_space_state
+	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, target_position)
+	query.exclude = [owner_controllable_entity]
+	var result : Dictionary = space_state.intersect_ray(query)
+	# no hit means a clear line, otherwise the hit must be the target itself
+	return result.is_empty() or result.collider == target
 
 
 # in order to get a random target position we need to set the region rid
