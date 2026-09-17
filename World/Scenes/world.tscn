@@ -8,6 +8,9 @@
 [ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/wave_spawner_config_1.tres" id="5_8j7up"]
 [ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/wave_spawner_config_2.tres" id="6_3h4jy"]
 [ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="7_owfks"]
+[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="8_base"]
+[ext_resource type="Resource" uid="uid://c8k2xrb0m1se4" path="res://EventBus/Resources/Events/on_base_spawned.tres" id="9_basev"]
+[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Base/Resources/base_health_stats.tres" id="10_basehp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -140,6 +143,11 @@ skeleton = NodePath("../..")
 
 [node name="Player01" parent="Players" unique_id=1358671113 instance=ExtResource("3_vadfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
+
+[node name="Base" parent="." unique_id=601915875 instance=ExtResource("8_base")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
+_on_base_spawned = ExtResource("9_basev")
+_health_stats = ExtResource("10_basehp")
 
 [node name="Containers" type="Node" parent="." unique_id=15635490]
 

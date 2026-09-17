@@ -32,7 +32,7 @@ shape = SubResource("SphereShape3D_2re41")
 
 [node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("4_qkl3l")]
 unique_name_in_owner = true
-collision_mask = 2
+collision_mask = 10
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")
