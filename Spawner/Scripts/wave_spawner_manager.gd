@@ -9,9 +9,9 @@ extends Node
 @export var _base_max_enemies: int = 3
 ## additional max enemies per player level
 @export var _extra_max_enemies_per_level: int = 1
+## tracks how many enemies are currently alive, independent of this manager
+@export var _enemy_alive_counter: EnemyAliveCounter
 
-## current count of alive enemies
-var _current_enemy_count: int = 0
 ## enemies that were allowed to spawn but have not spawned yet.
 ## needed so we don't over-notify spawn points while a countdown is running
 var _reserved_spawn_count: int = 0
@@ -28,6 +28,7 @@ func _ready() -> void:
 		_spawn_points_cached.append(spawn_point)
 	
 	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
+	_enemy_alive_counter.count_changed.connect(_on_enemy_count_changed)
 	_notify_spawn_points_if_room()
 
 
@@ -42,17 +43,12 @@ func _max_enemies() -> int:
 	return _base_max_enemies + _extra_max_enemies_per_level * _player_level
 
 
-## handle when a node spawns, increment count and listen for death
-func _on_node_spawned_handler(node: ControllableEntity) -> void:
-	_current_enemy_count += 1
-	# this node just used the slot that was reserved for it
+## handle when a node spawns: it just used the slot that was reserved for it
+func _on_node_spawned_handler(_node: Node) -> void:
 	_reserved_spawn_count = max(_reserved_spawn_count - 1, 0)
-	node.entity_died.connect(_on_node_died, CONNECT_ONE_SHOT)
 
 
-## handle when a node dies, decrement count and try to spawn more
-func _on_node_died() -> void:
-	_current_enemy_count -= 1
+func _on_enemy_count_changed(_new_count: int) -> void:
 	_notify_spawn_points_if_room()
 
 
@@ -61,7 +57,7 @@ func _on_node_died() -> void:
 ## can't both fill the same last free slot
 func _notify_spawn_points_if_room() -> void:
 	for spawn_point: WaveSpawner in _spawn_points_cached:
-		var available_room: int = _max_enemies() - _current_enemy_count - _reserved_spawn_count
+		var available_room: int = _max_enemies() - _enemy_alive_counter.current_count() - _reserved_spawn_count
 		if available_room <= 0:
 			return
 		if spawn_point.allow_spawn():
