@@ -1,0 +1,36 @@
+class_name Base
+extends Node3D
+
+## emitted when the base loses all its health
+signal base_destroyed
+
+@export_group("Events")
+## broadcasts this base so other systems (enemy AI, power-ups) can find it
+@export var _on_base_spawned : BaseEvent
+
+@export_group("Base")
+## health stats for the base (only supports a single enemy shot)
+@export var _health_stats : HealthStats
+
+## manages the health for the base, reusing the same component as ControllableEntity
+@onready var _health : Health = %Health
+
+
+func _ready() -> void:
+	_health.configure(_health_stats)
+	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
+	# we let interested systems know where the base is
+	_on_base_spawned.emit(self)
+
+
+## called every time the base takes a hit
+func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) -> void:
+	# TODO: this should be connected to the UI to show base health visually
+	pass
+
+
+## called when the base has no health left
+func _on_dead() -> void:
+	# TODO: level restart / player loses a life is out of scope here,
+	# wire this once that flow exists (there is no GameManager state for it yet)
+	base_destroyed.emit()
