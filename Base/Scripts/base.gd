@@ -19,8 +19,8 @@ signal base_destroyed
 func _ready() -> void:
 	_health.configure(_health_stats)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
-	# we let interested systems know where the base is
-	_on_base_spawned.emit(self)
+	# deferred so every subscriber has finished its own _ready() first, no matter the tree order
+	_on_base_spawned.emit.call_deferred(self)
 
 
 ## called every time the base takes a hit
