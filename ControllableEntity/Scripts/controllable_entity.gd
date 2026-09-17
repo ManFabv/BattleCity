@@ -109,6 +109,11 @@ func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> v
 	pass
 
 
+## generic accessor for this entity's controller
+func entity_controller() -> EntityController:
+	return _entity_controller
+
+
 ## called when the entity has no health
 func _on_dead() -> void:
 	# TODO: we need a better implementation for this method

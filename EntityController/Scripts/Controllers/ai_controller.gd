@@ -19,6 +19,10 @@ var _target_look_at : float
 var _region_rid : RID
 ## this will help us to know if we have already shot
 var _has_shot : bool = false
+## current target used when attacking the player instead of wandering
+var _player_target : Node3D
+## current target used when attacking the base instead of wandering
+var _base_target : Node3D
 
 
 func get_move_direction() -> Vector3:
@@ -64,6 +68,22 @@ func on_input_type_changed(_event_context: Variant = null) -> void:
 
 func on_menu_opened(_event_context: Variant = null) -> void:
 	pass # nothing for now
+
+
+## called once by EnemyTargetDispatcher right after this entity spawns
+func set_attack_targets(player_target: Node3D, base_target: Node3D) -> void:
+	_player_target = player_target
+	_base_target = base_target
+
+
+## moves toward the player instead of a random wander point
+func attack_player() -> void:
+	_navigation_agent.set_target_position(_player_target.global_position)
+
+
+## moves toward the base instead of a random wander point
+func attack_base() -> void:
+	_navigation_agent.set_target_position(_base_target.global_position)
 
 
 # in order to get a random target position we need to set the region rid
