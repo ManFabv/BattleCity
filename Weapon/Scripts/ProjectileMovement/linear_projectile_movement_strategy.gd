@@ -8,12 +8,8 @@ var projectile_movement_stats: ProjectileMovementStats
 var _direction : Vector3 = Vector3.FORWARD
 
 
-func configure(stats: ProjectileMovementStats) -> void:
+func configure(stats: ProjectileMovementStats, origin: Node3D) -> void:
 	projectile_movement_stats = stats
-
-
-## here we can setup the strategy before use
-func initialize(origin: Node3D) -> void:
 	# we take the origin (usually the shooting point) forward position
 	_direction = origin.global_transform.basis.z.normalized()
 

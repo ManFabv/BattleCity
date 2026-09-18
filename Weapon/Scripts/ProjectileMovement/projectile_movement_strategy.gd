@@ -3,13 +3,8 @@ extends RefCounted
 
 
 ## here we setup the strategy before use
-func configure(_stats: ProjectileMovementStats) -> void:
+func configure(_stats: ProjectileMovementStats, _origin: Node3D) -> void:
 	push_error("configure() should be implemented on inherited")
-
-
-## here we can setup the strategy before use
-func initialize(_origin: Node3D) -> void:
-	push_error("initialize() should be implemented on inherited")
 
 
 ## function responsible for calculating the movement of projectiles

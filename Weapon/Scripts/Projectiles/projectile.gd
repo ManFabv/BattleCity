@@ -22,9 +22,7 @@ func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
 	_hurt_entity.configure(projectile_config.damage_stats)
 	# initialize the projectile movement strategy
 	_projectile_movement_strategy = LinearProjectileMovementStrategy.new()
-	_projectile_movement_strategy.configure(projectile_config.projectile_movement_stats)
-	# we initialize the movement strategy
-	_projectile_movement_strategy.initialize(shoot_point)
+	_projectile_movement_strategy.configure(projectile_config.projectile_movement_stats, shoot_point)
 
 
 ## we move the projectile on the forward direction
