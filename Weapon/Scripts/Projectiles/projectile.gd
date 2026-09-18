@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 
 ## Strategy responsible for moving the projectile
-var _continuous_movement_strategy: ContinuousMovementStrategy
+var _projectile_movement_strategy: ProjectileMovementStrategy
 
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
@@ -20,16 +20,16 @@ func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
 	_hurt_entity.configure(projectile_config.damage_stats)
-	# initialize the continuous movement strategy
-	_continuous_movement_strategy = LinearContinuousMovementStrategy.new()
-	_continuous_movement_strategy.configure(projectile_config.continuous_movement_stats)
+	# initialize the projectile movement strategy
+	_projectile_movement_strategy = LinearProjectileMovementStrategy.new()
+	_projectile_movement_strategy.configure(projectile_config.projectile_movement_stats)
 	# we initialize the movement strategy
-	_continuous_movement_strategy.initialize(shoot_point)
+	_projectile_movement_strategy.initialize(shoot_point)
 
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	var motion: Vector3 = _continuous_movement_strategy.get_motion(delta)
+	var motion: Vector3 = _projectile_movement_strategy.get_motion(delta)
 	var collision := move_and_collide(motion)
 	if collision:
 		_destroy_projectile()

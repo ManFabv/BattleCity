@@ -1,5 +1,5 @@
 extends Resource
-class_name ContinuousMovementStats
+class_name ProjectileMovementStats
 
 ## movement max speed
 @export_range(0.0, 100.0) var max_speed : float = 10.0:

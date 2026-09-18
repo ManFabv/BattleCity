@@ -1,9 +1,9 @@
-class_name ContinuousMovementStrategy
+class_name ProjectileMovementStrategy
 extends RefCounted
 
 
 ## here we setup the strategy before use
-func configure(_stats: ContinuousMovementStats) -> void:
+func configure(_stats: ProjectileMovementStats) -> void:
 	push_error("configure() should be implemented on inherited")
 
 
