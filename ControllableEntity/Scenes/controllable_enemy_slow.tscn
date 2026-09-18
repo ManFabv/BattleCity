@@ -26,6 +26,9 @@ size = Vector3(0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3DTurret"]
 albedo_color = Color(1, 1, 0, 1)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_vision"]
+radius = 0.4
+
 [node name="EnemySlow" type="CharacterBody3D" unique_id=566770710 node_paths=PackedStringArray("_entity_controller")]
 collision_layer = 4
 collision_mask = 263
@@ -59,14 +62,18 @@ unique_name_in_owner = true
 [node name="EntityStatsManager" parent="." unique_id=339780205 instance=ExtResource("7")]
 unique_name_in_owner = true
 
-[node name="AiController" parent="." unique_id=1659528357 node_paths=PackedStringArray("_navigation_agent", "owner_controllable_entity") instance=ExtResource("6")]
+[node name="AiController" parent="." unique_id=1659528357 node_paths=PackedStringArray("_navigation_agent", "_vision_shape_cast", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
+_vision_shape_cast = NodePath("../VisionShapeCast3D")
 owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2133531164]
 avoidance_enabled = true
 radius = 1.2
 neighbor_distance = 20.0
+
+[node name="VisionShapeCast3D" type="ShapeCast3D" parent="." unique_id=2133531165]
+shape = SubResource("SphereShape3D_vision")
 
 [node name="Health" parent="." unique_id=1122406318 instance=ExtResource("8")]
 unique_name_in_owner = true

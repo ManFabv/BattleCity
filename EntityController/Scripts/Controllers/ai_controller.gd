@@ -10,6 +10,10 @@ extends EntityController
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target
 @export var _detection_range : float = 12.0
+## full vision cone width, centered on the entity's forward direction
+@export var _vision_angle_degrees : float = 90.0
+## used to sweep for obstacles between the entity and its target
+@export var _vision_shape_cast : ShapeCast3D
 
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
@@ -85,7 +89,7 @@ func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
 	if not is_instance_valid(_player_target):
 		return
-	_navigation_agent.set_target_position(_player_target.global_position)
+	_move_to_target(_player_target.global_position)
 
 
 ## moves toward the base instead of a random wander point
@@ -93,7 +97,12 @@ func attack_base() -> void:
 	# the base may not have been assigned yet, or may have been destroyed since
 	if not is_instance_valid(_base_target):
 		return
-	_navigation_agent.set_target_position(_base_target.global_position)
+	_move_to_target(_base_target.global_position)
+
+
+## shared by attack_player()/attack_base() to point the navigation agent at a world position
+func _move_to_target(target_position: Vector3) -> void:
+	_navigation_agent.set_target_position(target_position)
 
 
 ## true if the player is close enough and in direct line of sight
@@ -106,7 +115,7 @@ func can_attack_base() -> bool:
 	return _has_line_of_sight(_base_target)
 
 
-## checks distance and raycasts toward the target to know if it's a valid attack target
+## checks distance, vision cone and a shapecast sweep toward the target to know if it's a valid attack target
 func _has_line_of_sight(target: Node3D) -> bool:
 	if not is_instance_valid(target):
 		return false
@@ -114,16 +123,22 @@ func _has_line_of_sight(target: Node3D) -> bool:
 	var target_position : Vector3 = target.global_position
 	if origin.distance_to(target_position) > _detection_range:
 		return false
-	var space_state : PhysicsDirectSpaceState3D = owner_controllable_entity.get_world_3d().direct_space_state
-	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, target_position)
-	query.exclude = [owner_controllable_entity]
-	var result : Dictionary = space_state.intersect_ray(query)
-	# no hit means a clear line, otherwise the hit must be the target itself
-	return result.is_empty() or result.collider == target
+	# cheap cone check before the more expensive shapecast sweep
+	var direction_to_target : Vector3 = origin.direction_to(target_position)
+	var forward : Vector3 = -owner_controllable_entity.global_transform.basis.z
+	if forward.dot(direction_to_target) < cos(deg_to_rad(_vision_angle_degrees / 2)):
+		return false
+	_vision_shape_cast.target_position = _vision_shape_cast.to_local(target_position)
+	_vision_shape_cast.force_shapecast_update()
+	# no collisions means a clear line of sight
+	return _vision_shape_cast.get_collision_count() == 0
 
 
 # in order to get a random target position we need to set the region rid
 func _get_region_rid() -> void:
+	# we cache it once: recomputing forces a navigation map update every call
+	if _region_rid.is_valid():
+		return
 	# we take the navigation map rid
 	var map_rid : RID = _navigation_agent.get_navigation_map()
 	# we update the map to be able to get the map regions
@@ -134,7 +149,7 @@ func _get_region_rid() -> void:
 
 ## this will help us take a random point inside navigation mesh
 func set_random_target_position() -> void:
-	# everytime we set a new target position, we update the region rid
+	# everytime we set a new target position, we make sure the region rid is cached
 	_get_region_rid()
 	# get a random point from NavigationRegion2D
 	# NOTE: kept as a local variable; _target_position must only ever hold the

@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Base/Resources/base_health_stats.tres" id="10_basehp"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://Spawner/Scenes/enemy_alive_counter.tscn" id="11_counter"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://Spawner/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
-[ext_resource type="Resource" path="res://EventBus/Resources/Events/on_victory.tres" id="13_victory"]
+[ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://EventBus/Resources/Events/on_victory.tres" id="13_victory"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
