@@ -11,12 +11,8 @@ var _has_reached_timeout: bool = true
 var _timer_context: CustomTimerContext
 
 
-func configure(config: ShootingCostConfig) -> void:
+func configure(config: ShootingCostConfig, owner_node: Node) -> void:
 	_fire_rate = config.fire_rate
-
-
-## at the beginning we create a new timer
-func initialize(owner_node: Node) -> void:
 	_timer_context = CustomTimerContext.create_manual(_fire_rate, _on_timer_timeout, owner_node.tree_exited)
 	CustomTimerContext.request(_timer_context)
 

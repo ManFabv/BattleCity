@@ -2,8 +2,8 @@ extends Node
 class_name Weapon
 
 
+var _weapon_config : WeaponConfig
 var _shooting_cost_config : ShootingCostConfig
-var _projectile_scene : PackedScene
 var _projectile_config : ProjectileConfig
 
 
@@ -12,7 +12,7 @@ var _current_shooting_cost_strategy : ShootingCostStrategy
 
 
 func configure(config: WeaponConfig) -> void:
-	_projectile_scene = config.projectile_scene
+	_weapon_config = config
 	_projectile_config = config.projectile_config
 	_shooting_cost_config = config.shooting_cost_config
 
@@ -20,8 +20,7 @@ func configure(config: WeaponConfig) -> void:
 ## the initialize the weapon when it is added to the scene
 func _ready() -> void:
 	_current_shooting_cost_strategy = TimedShootingCostStrategy.new()
-	_current_shooting_cost_strategy.configure(_shooting_cost_config)
-	_current_shooting_cost_strategy.initialize(self)
+	_current_shooting_cost_strategy.configure(_shooting_cost_config, self)
 
 
 ## we update the weapon status

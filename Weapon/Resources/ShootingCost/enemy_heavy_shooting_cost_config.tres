@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ShootingCostConfig" format=3 uid="uid://dpx4f06ifsc88"]
+
+[ext_resource type="Script" uid="uid://d0c8w7pwn4r4c" path="res://Weapon/Scripts/ShootingCost/Config/shooting_cost_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+fire_rate = 5.0
