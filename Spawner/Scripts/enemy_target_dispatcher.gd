@@ -14,5 +14,5 @@ func _ready() -> void:
 
 
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
-	var ai_controller : AIController = enemy.entity_controller() as AIController
+	var ai_controller : AIController = enemy.entity_controller as AIController
 	ai_controller.set_attack_targets(_player, _base)

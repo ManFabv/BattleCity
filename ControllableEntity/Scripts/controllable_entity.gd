@@ -15,6 +15,11 @@ signal entity_died
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
+## generic accessor for this entity's controller
+var entity_controller : EntityController:
+	get():
+		return _entity_controller
+
 @export_group("Entity")
 ## one config per level; index 0 is the starting level
 @export var _entity_levels: Array[EntityLevelConfig]
@@ -109,9 +114,9 @@ func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> v
 	pass
 
 
-## generic accessor for this entity's controller
-func entity_controller() -> EntityController:
-	return _entity_controller
+## listeners are notified once, since the entity is freed right after dying
+func subscribe_to_death(on_death: Callable) -> void:
+	entity_died.connect(on_death, CONNECT_ONE_SHOT)
 
 
 ## called when the entity has no health

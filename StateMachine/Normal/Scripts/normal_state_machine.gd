@@ -32,7 +32,7 @@ var _is_attack_on_cooldown : bool = false
 ## we connect them here
 func _ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
-	_weapon_system.shot_fired.connect(_on_weapon_system_shot_fired)
+	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
 	_attack_cooldown_timer_context = CustomTimerContext.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
 	CustomTimerContext.request(_attack_cooldown_timer_context)
 

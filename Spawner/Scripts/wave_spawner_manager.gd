@@ -28,7 +28,7 @@ func _ready() -> void:
 		_spawn_points_cached.append(spawn_point)
 	
 	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
-	_enemy_alive_counter.count_changed.connect(_on_enemy_count_changed)
+	_enemy_alive_counter.subscribe_to_count_changed(_on_enemy_count_changed)
 	_notify_spawn_points_if_room()
 
 

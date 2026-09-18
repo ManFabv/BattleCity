@@ -25,6 +25,10 @@ func try_shot(has_shoot_pressed: bool, muzzle: Marker3D) -> void:
 		shot_fired.emit()
 
 
+func subscribe_to_shot_fired(on_shot_fired: Callable) -> void:
+	shot_fired.connect(on_shot_fired)
+
+
 func change_weapon(config: WeaponConfig) -> void:
 	if _current_weapon != null:
 		_current_weapon.release_weapon()
