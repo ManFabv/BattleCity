@@ -8,7 +8,9 @@ signal count_changed(current_count: int)
 @export var _on_enemy_spawned : BaseEvent
 
 ## how many enemies spawned through the event above are still alive
-var _current_count : int = 0
+var _current_count : int = 0:
+	set(new_value):
+		_current_count = max(new_value, 0)
 
 
 func _ready() -> void:

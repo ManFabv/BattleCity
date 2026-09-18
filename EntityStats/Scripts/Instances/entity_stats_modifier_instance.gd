@@ -14,6 +14,11 @@ func _init(entity_stats_modifier: EntityStatsModifier) -> void:
 	_entity_stats_modifier = entity_stats_modifier
 
 
+## base hook for runtime setup; overridden by modifiers that need one (ex: timed ones)
+func configure(_owner_node: Node) -> void:
+	pass
+
+
 ## we apply the modifier logic using the original _entity_stats_modifier
 func apply(stats: EntityStats) -> void:
 	_entity_stats_modifier.apply(stats)
