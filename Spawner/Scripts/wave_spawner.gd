@@ -47,8 +47,9 @@ func _spawn_current_node() -> void:
 	_is_counting_down = false
 	# instantiate the node for the current step
 	var node: ControllableEntity = _wave_config.current_node_scene().instantiate() as ControllableEntity
-	# position the node at the spawner location before notifying listeners
-	node.global_position = global_position
+	# _on_node_spawned parents the node (NodeContainer.add_child); global_position
+	# can only be set once the node is inside the tree
 	_on_node_spawned.emit(node)
+	node.global_position = global_position
 	# advance to the next step, no wrap: the wave is done once it runs out of steps
 	_wave_config.advance_index()
