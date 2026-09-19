@@ -31,6 +31,8 @@ var _has_shot : bool = false
 var _player_target : Node3D
 ## current target used when attacking the base instead of wandering
 var _base_target : Node3D
+## whichever of the two above is currently being attacked, if any; used to aim the look-at angle
+var _current_attack_target : Node3D
 
 
 func get_move_direction() -> Vector3:
@@ -48,8 +50,13 @@ func get_move_direction() -> Vector3:
 
 
 func get_look_at_angle() -> float:
+	# while attacking, aim straight at the target instead of following the
+	# avoidance movement direction (which isn't reliable for aiming)
+	if is_instance_valid(_current_attack_target):
+		var direction_to_target : Vector3 = owner_controllable_entity.global_position.direction_to(_current_attack_target.global_position)
+		_target_look_at = atan2(-direction_to_target.x, -direction_to_target.z)
 	# we are going to take the angle only if we don't reached target
-	if not _navigation_agent.is_target_reached():
+	elif not _navigation_agent.is_target_reached():
 		# we get the angle where we have to look at
 		_target_look_at = atan2(-_target_position.x, -_target_position.z)
 	# we return the wanted angle
@@ -94,6 +101,7 @@ func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
 	if not is_instance_valid(_player_target):
 		return
+	_current_attack_target = _player_target
 	_move_to_target(_player_target.global_position)
 
 
@@ -102,6 +110,7 @@ func attack_base() -> void:
 	# the base may not have been assigned yet, or may have been destroyed since
 	if not is_instance_valid(_base_target):
 		return
+	_current_attack_target = _base_target
 	_move_to_target(_base_target.global_position)
 
 
@@ -145,6 +154,8 @@ func _has_line_of_sight(target: Node3D) -> bool:
 
 ## this will help us take a random point inside navigation mesh
 func set_random_target_position() -> void:
+	# back to wandering, so the look-at angle should follow movement again
+	_current_attack_target = null
 	# get a random point from NavigationRegion2D
 	# NOTE: kept as a local variable; _target_position must only ever hold the
 	# safe direction produced by the avoidance callback, never a raw world position
