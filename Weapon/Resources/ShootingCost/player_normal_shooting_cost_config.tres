@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ShootingCostConfig" format=3 uid="uid://c3wshpr85up8b"]
+[gd_resource type="Resource" script_class="TimedShootingCostConfig" format=3 uid="uid://c3wshpr85up8b"]
 
-[ext_resource type="Script" uid="uid://d0c8w7pwn4r4c" path="res://Weapon/Scripts/ShootingCost/Config/shooting_cost_config.gd" id="1"]
+[ext_resource type="Script" uid="uid://ccj7ie33qp3rm" path="res://Weapon/Scripts/ShootingCost/Config/timed_shooting_cost_config.gd" id="1"]
 
 [resource]
 script = ExtResource("1")

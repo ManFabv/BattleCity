@@ -7,3 +7,9 @@ class_name ProjectileMovementStats
 		return max_speed
 	set(new_value):
 		max_speed = max(new_value, 0.0)
+
+
+## creates a projectile movement strategy instance matching this config
+func create_strategy() -> ProjectileMovementStrategy:
+	push_error("create_strategy() should be implemented on inherited classes")
+	return null

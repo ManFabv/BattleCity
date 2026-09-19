@@ -21,7 +21,7 @@ func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
 	global_position = shoot_point.global_position
 	_hurt_entity.configure(projectile_config.damage_stats)
 	# initialize the projectile movement strategy
-	_projectile_movement_strategy = LinearProjectileMovementStrategy.new()
+	_projectile_movement_strategy = projectile_config.projectile_movement_stats.create_strategy()
 	_projectile_movement_strategy.configure(projectile_config.projectile_movement_stats, shoot_point)
 
 

@@ -19,7 +19,7 @@ func configure(config: WeaponConfig) -> void:
 
 ## the initialize the weapon when it is added to the scene
 func _ready() -> void:
-	_current_shooting_cost_strategy = TimedShootingCostStrategy.new()
+	_current_shooting_cost_strategy = _shooting_cost_config.create_strategy()
 	_current_shooting_cost_strategy.configure(_shooting_cost_config, self)
 
 
