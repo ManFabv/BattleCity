@@ -11,6 +11,9 @@ extends Node
 @export var _base_max_enemies: int = 3
 ## tracks how many enemies are currently alive, independent of this manager
 @export var _enemy_alive_counter: EnemyAliveCounter
+## navigation region handed off to every spawned AIController, instead of
+## each one resolving its own region rid from the navigation map
+@export var _navigation_region: NavigationRegion3D
 
 ## enemies that were allowed to spawn but have not spawned yet.
 ## needed so we don't over-notify spawn points while a countdown is running
@@ -26,8 +29,18 @@ func _ready() -> void:
 
 
 ## handle when a node spawns: it just used the slot that was reserved for it
-func _on_node_spawned_handler(_node: Node) -> void:
+func _on_node_spawned_handler(node: ControllableEntity) -> void:
 	_reserved_spawn_count -= 1
+	_assign_navigation_region(node)
+
+
+## hands the shared navigation region rid to the spawned entity's AIController, if it has one
+func _assign_navigation_region(node: ControllableEntity) -> void:
+	if not is_instance_valid(node):
+		return
+	var entity_controller: EntityController = node.entity_controller
+	if entity_controller is AIController:
+		(entity_controller as AIController).set_navigation_region_rid(_navigation_region.get_rid())
 
 
 func _on_enemy_count_changed(_new_count: int) -> void:

@@ -22,8 +22,8 @@ extends EntityController
 var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
-## we need the navigation region RID to be able to get random target positions
-## inside the navigation region
+## navigation region RID used to get random target positions inside the
+## navigation region; handed to us by WaveSpawnerManager when we spawn
 var _region_rid : RID
 ## this will help us to know if we have already shot
 var _has_shot : bool = false
@@ -84,6 +84,11 @@ func set_attack_targets(player_target: Node3D, base_target: Node3D) -> void:
 	_base_target = base_target
 
 
+## called once by WaveSpawnerManager right after this entity spawns
+func set_navigation_region_rid(region_rid: RID) -> void:
+	_region_rid = region_rid
+
+
 ## moves toward the player instead of a random wander point
 func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
@@ -138,23 +143,8 @@ func _has_line_of_sight(target: Node3D) -> bool:
 	return _vision_shape_cast.get_collision_count() == 0
 
 
-# in order to get a random target position we need to set the region rid
-func _get_region_rid() -> void:
-	# we cache it once: recomputing forces a navigation map update every call
-	if _region_rid.is_valid():
-		return
-	# we take the navigation map rid
-	var map_rid : RID = _navigation_agent.get_navigation_map()
-	# we update the map to be able to get the map regions
-	NavigationServer3D.map_force_update(map_rid)
-	# we get the first map rid
-	_region_rid = NavigationServer3D.map_get_regions(map_rid)[0]
-
-
 ## this will help us take a random point inside navigation mesh
 func set_random_target_position() -> void:
-	# everytime we set a new target position, we make sure the region rid is cached
-	_get_region_rid()
 	# get a random point from NavigationRegion2D
 	# NOTE: kept as a local variable; _target_position must only ever hold the
 	# safe direction produced by the avoidance callback, never a raw world position

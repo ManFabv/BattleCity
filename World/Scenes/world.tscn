@@ -156,11 +156,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
 
 [node name="EnemyContainer" parent="Containers" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
 
-[node name="EnemyWaveSpawnerManager" parent="." unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_counter") instance=ExtResource("4_rqvg4")]
+[node name="EnemyWaveSpawnerManager" parent="." unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_counter", "_navigation_region") instance=ExtResource("4_rqvg4")]
 _on_node_spawned = ExtResource("7_owfks")
 _on_victory = ExtResource("13_victory")
 _spawn_points = [NodePath("EnemySpawner1"), NodePath("EnemySpawner2")]
 _enemy_alive_counter = NodePath("EnemyAliveCounter")
+_navigation_region = NodePath("../Navigation/NavigationRegion")
 
 [node name="EnemyAliveCounter" parent="EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_counter")]
 
