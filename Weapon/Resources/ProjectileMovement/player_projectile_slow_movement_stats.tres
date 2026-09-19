@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="LinearProjectileMovementStats" format=3 uid="uid://ctgqo3gcu23yi"]
+
+[ext_resource type="Script" uid="uid://p0md58jl8tid" path="res://Weapon/Scripts/ProjectileMovement/Stats/linear_projectile_movement_stats.gd" id="1_xqbub"]
+
+[resource]
+script = ExtResource("1_xqbub")
+max_speed = 8.0

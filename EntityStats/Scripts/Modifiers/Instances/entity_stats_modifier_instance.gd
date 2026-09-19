@@ -9,9 +9,14 @@ signal depleted(modifier: EntityStatsModifierInstance)
 var _entity_stats_modifier: EntityStatsModifier
 
 
-## when created, we cache the original modifier
+## we cache the original entity stats modifier during initialization
 func _init(entity_stats_modifier: EntityStatsModifier) -> void:
 	_entity_stats_modifier = entity_stats_modifier
+
+
+## base hook for runtime setup; overridden by modifiers that need one (ex: timed ones)
+func configure(_owner_node: Node) -> void:
+	push_error("configure() should be implemented on inherited classes")
 
 
 ## we apply the modifier logic using the original _entity_stats_modifier

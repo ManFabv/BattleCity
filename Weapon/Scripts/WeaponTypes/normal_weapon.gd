@@ -5,7 +5,7 @@ class_name NormalWeapon
 ## the weapon will handle the shot, instantiating the projectile and firing it
 func try_shot(muzzle: Marker3D, on_projectile_spawned: BaseEvent) -> void:
 	# we instantiate the projectile
-	var shot : Projectile = _projectile_scene.instantiate() as Projectile
+	var shot : Projectile = _weapon_config.projectile_scene.instantiate() as Projectile
 	# we make it top level to avoid any transform issues
 	shot.top_level = true
 	# we add the shot to the scene (after this ready function will be triggered)

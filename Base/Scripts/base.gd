@@ -25,6 +25,12 @@ func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) 
 
 ## called when the base has no health left
 func _on_dead() -> void:
+	destroy_base()
+
+
+## handles the visual destruction of the base and removes it from the tree
+func destroy_base() -> void:
 	# TODO: level restart / player loses a life is out of scope here,
 	# wire this once that flow exists (there is no GameManager state for it yet)
 	base_destroyed.emit()
+	queue_free()

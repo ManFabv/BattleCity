@@ -10,12 +10,6 @@ class_name NormalStateMachine
 @export var _weapon_system : WeaponSystem
 
 @export_group("Behavior")
-## relative chance of wandering after firing (no hace falta que sumen 1 ni 100)
-@export var _wander_weight : float = 1.0
-## relative chance of moving toward the player after firing
-@export var _attack_player_weight : float = 1.0
-## relative chance of moving toward the base after firing
-@export var _attack_base_weight : float = 1.0
 ## how long, after attacking, the entity is forced to wander before it can attack again
 @export var _attack_cooldown_seconds : float = 10.0
 
@@ -26,18 +20,21 @@ class_name NormalStateMachine
 var _attack_cooldown_timer_context : CustomTimerContext
 ## true while the entity is still cooling down from a previous attack
 var _is_attack_on_cooldown : bool = false
+## true while the upcoming shot is aimed at the player or the base instead of being a wander shot
+var _is_aiming_at_target : bool = false
 
 
 ## to avoid having to connect these signals on every entity,
 ## we connect them here
 func _ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
-	_weapon_system.shot_fired.connect(_on_weapon_system_shot_fired)
+	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
 	_attack_cooldown_timer_context = CustomTimerContext.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
 	CustomTimerContext.request(_attack_cooldown_timer_context)
 
 
 func _on_wander_state_entered() -> void:
+	_is_aiming_at_target = false
 	_ai_controller.set_random_target_position()
 
 
@@ -46,13 +43,13 @@ func _on_fire_state_entered() -> void:
 
 
 func _on_attack_player_state_entered() -> void:
+	_is_aiming_at_target = true
 	_ai_controller.attack_player()
-	_start_attack_cooldown()
 
 
 func _on_attack_base_state_entered() -> void:
+	_is_aiming_at_target = true
 	_ai_controller.attack_base()
-	_start_attack_cooldown()
 
 
 func _on_navigation_agent_3d_target_reached() -> void:
@@ -61,26 +58,22 @@ func _on_navigation_agent_3d_target_reached() -> void:
 
 func _on_weapon_system_shot_fired() -> void:
 	_ai_controller.stop_shooting()
-	state_chart.send_event(_pick_next_event())
+	state_chart.send_event(_next_event_after_shot())
 
 
-## simple weighted random pick between wandering and attacking one of the two targets
-## forces wander while the attack cooldown is active or no target is nearby/visible
-func _pick_next_event() -> StringName:
+## an aimed shot always (re)starts the cooldown and goes back to wandering; a wander shot
+## only looks for a target once the cooldown from a previous attack has ended
+func _next_event_after_shot() -> StringName:
+	if _is_aiming_at_target:
+		_start_attack_cooldown()
+		return &"wander_event"
 	if _is_attack_on_cooldown:
 		return &"wander_event"
-	# only weigh in attack options that are actually reachable right now
-	var player_weight : float = _attack_player_weight if _ai_controller.can_attack_player() else 0.0
-	var base_weight : float = _attack_base_weight if _ai_controller.can_attack_base() else 0.0
-	if player_weight <= 0.0 and base_weight <= 0.0:
-		return &"wander_event"
-	var total_weight : float = _wander_weight + player_weight + base_weight
-	var roll : float = randf() * total_weight
-	if roll < _wander_weight:
-		return &"wander_event"
-	elif roll < _wander_weight + player_weight:
+	if _ai_controller.can_attack_player():
 		return &"attack_player_event"
-	return &"attack_base_event"
+	if _ai_controller.can_attack_base():
+		return &"attack_base_event"
+	return &"wander_event"
 
 
 ## marks the entity as cooling down and (re)starts the cooldown timer

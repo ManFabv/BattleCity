@@ -6,7 +6,7 @@ var _timer_context: CustomTimerContext
 
 
 ## at the beginning we create a new timer for this specific runtime modifier instance
-func initialize(owner_node: Node) -> void:
+func configure(owner_node: Node) -> void:
 	var stat_modifier : TimedEntityStatsModifier = _entity_stats_modifier as TimedEntityStatsModifier
 	_timer_context = CustomTimerContext.create_one_shot(stat_modifier.duration, _on_timer_timeout, owner_node.tree_exited)
 	CustomTimerContext.request(_timer_context)

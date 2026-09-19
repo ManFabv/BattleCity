@@ -10,6 +10,10 @@ extends EntityController
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target
 @export var _detection_range : float = 12.0
+## full vision cone width, centered on the entity's forward direction
+@export var _vision_angle_degrees : float = 90.0
+## used to sweep for obstacles between the entity and its target
+@export var _vision_shape_cast : ShapeCast3D
 
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
@@ -18,8 +22,8 @@ extends EntityController
 var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
-## we need the navigation region RID to be able to get random target positions
-## inside the navigation region
+## navigation region RID used to get random target positions inside the
+## navigation region; handed to us by WaveSpawnerManager when we spawn
 var _region_rid : RID
 ## this will help us to know if we have already shot
 var _has_shot : bool = false
@@ -27,6 +31,8 @@ var _has_shot : bool = false
 var _player_target : Node3D
 ## current target used when attacking the base instead of wandering
 var _base_target : Node3D
+## whichever of the two above is currently being attacked, if any; used to aim the look-at angle
+var _current_attack_target : Node3D
 
 
 func get_move_direction() -> Vector3:
@@ -44,8 +50,13 @@ func get_move_direction() -> Vector3:
 
 
 func get_look_at_angle() -> float:
+	# while attacking, aim straight at the target instead of following the
+	# avoidance movement direction (which isn't reliable for aiming)
+	if is_instance_valid(_current_attack_target):
+		var direction_to_target : Vector3 = owner_controllable_entity.global_position.direction_to(_current_attack_target.global_position)
+		_target_look_at = atan2(-direction_to_target.x, -direction_to_target.z)
 	# we are going to take the angle only if we don't reached target
-	if not _navigation_agent.is_target_reached():
+	elif not _navigation_agent.is_target_reached():
 		# we get the angle where we have to look at
 		_target_look_at = atan2(-_target_position.x, -_target_position.z)
 	# we return the wanted angle
@@ -80,12 +91,18 @@ func set_attack_targets(player_target: Node3D, base_target: Node3D) -> void:
 	_base_target = base_target
 
 
+## called once by WaveSpawnerManager right after this entity spawns
+func set_navigation_region_rid(region_rid: RID) -> void:
+	_region_rid = region_rid
+
+
 ## moves toward the player instead of a random wander point
 func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
 	if not is_instance_valid(_player_target):
 		return
-	_navigation_agent.set_target_position(_player_target.global_position)
+	_current_attack_target = _player_target
+	_move_to_target(_player_target.global_position)
 
 
 ## moves toward the base instead of a random wander point
@@ -93,20 +110,30 @@ func attack_base() -> void:
 	# the base may not have been assigned yet, or may have been destroyed since
 	if not is_instance_valid(_base_target):
 		return
-	_navigation_agent.set_target_position(_base_target.global_position)
+	_current_attack_target = _base_target
+	_move_to_target(_base_target.global_position)
+
+
+## shared by attack_player()/attack_base() to point the navigation agent at a world position
+func _move_to_target(target_position: Vector3) -> void:
+	_navigation_agent.set_target_position(target_position)
 
 
 ## true if the player is close enough and in direct line of sight
 func can_attack_player() -> bool:
+	if not is_instance_valid(_player_target):
+		return false
 	return _has_line_of_sight(_player_target)
 
 
 ## true if the base is close enough and in direct line of sight
 func can_attack_base() -> bool:
+	if not is_instance_valid(_base_target):
+		return false
 	return _has_line_of_sight(_base_target)
 
 
-## checks distance and raycasts toward the target to know if it's a valid attack target
+## checks distance, vision cone and a shapecast sweep toward the target to know if it's a valid attack target
 func _has_line_of_sight(target: Node3D) -> bool:
 	if not is_instance_valid(target):
 		return false
@@ -114,28 +141,21 @@ func _has_line_of_sight(target: Node3D) -> bool:
 	var target_position : Vector3 = target.global_position
 	if origin.distance_to(target_position) > _detection_range:
 		return false
-	var space_state : PhysicsDirectSpaceState3D = owner_controllable_entity.get_world_3d().direct_space_state
-	var query : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, target_position)
-	query.exclude = [owner_controllable_entity]
-	var result : Dictionary = space_state.intersect_ray(query)
-	# no hit means a clear line, otherwise the hit must be the target itself
-	return result.is_empty() or result.collider == target
-
-
-# in order to get a random target position we need to set the region rid
-func _get_region_rid() -> void:
-	# we take the navigation map rid
-	var map_rid : RID = _navigation_agent.get_navigation_map()
-	# we update the map to be able to get the map regions
-	NavigationServer3D.map_force_update(map_rid)
-	# we get the first map rid
-	_region_rid = NavigationServer3D.map_get_regions(map_rid)[0]
+	# cheap cone check before the more expensive shapecast sweep
+	var direction_to_target : Vector3 = origin.direction_to(target_position)
+	var forward : Vector3 = -owner_controllable_entity.global_transform.basis.z
+	if forward.dot(direction_to_target) < cos(deg_to_rad(_vision_angle_degrees / 2)):
+		return false
+	_vision_shape_cast.target_position = _vision_shape_cast.to_local(target_position)
+	_vision_shape_cast.force_shapecast_update()
+	# no collisions means a clear line of sight
+	return _vision_shape_cast.get_collision_count() == 0
 
 
 ## this will help us take a random point inside navigation mesh
 func set_random_target_position() -> void:
-	# everytime we set a new target position, we update the region rid
-	_get_region_rid()
+	# back to wandering, so the look-at angle should follow movement again
+	_current_attack_target = null
 	# get a random point from NavigationRegion2D
 	# NOTE: kept as a local variable; _target_position must only ever hold the
 	# safe direction produced by the avoidance callback, never a raw world position

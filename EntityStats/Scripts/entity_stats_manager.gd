@@ -23,7 +23,7 @@ func add_modifier(new_modifier : EntityStatsModifier) -> void:
 	var modifier_instance : EntityStatsModifierInstance = new_modifier.create_instance() as EntityStatsModifierInstance
 	modifier_instance.depleted.connect(_modifier_depleted)
 	_modifiers.append(modifier_instance)
-	modifier_instance.initialize(self)
+	modifier_instance.configure(self)
 	_apply_modifiers()
 
 

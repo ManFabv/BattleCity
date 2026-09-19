@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dol1eqgus2e2n" path="res://Weapon/Scripts/Projectiles/Config/projectile_config.gd" id="1"]
 [ext_resource type="Resource" uid="uid://4a0fkjuwryjk" path="res://Health/Resources/HurtStats/enemy_damage_1.tres" id="3"]
-[ext_resource type="Resource" uid="uid://bpkdf1sse66nj" path="res://Weapon/Resources/ContinuousMovement/enemy_projectile_normal_movement.tres" id="4"]
+[ext_resource type="Resource" uid="uid://bpkdf1sse66nj" path="res://Weapon/Resources/ProjectileMovement/enemy_projectile_normal_movement.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
-continuous_movement_stats = ExtResource("4")
+projectile_movement_stats = ExtResource("4")
 damage_stats = ExtResource("3")

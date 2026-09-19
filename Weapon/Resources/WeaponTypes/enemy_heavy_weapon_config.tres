@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://b1oousnfn2kqi" path="res://Weapon/Scenes/Projectiles/enemy_heavy_projectile.tscn" id="3"]
 [ext_resource type="Resource" uid="uid://dxoe5aimcwe2b" path="res://Weapon/Resources/Projectiles/enemy_heavy_projectile_config.tres" id="6"]
-[ext_resource type="Resource" uid="uid://bqejgii4be0ih" path="res://Weapon/Resources/ShootingCost/enemy_slow_shooting_cost_config.tres" id="7"]
+[ext_resource type="Resource" uid="uid://dpx4f06ifsc88" path="res://Weapon/Resources/ShootingCost/enemy_heavy_shooting_cost_config.tres" id="7"]
 
 [resource]
 script = ExtResource("1")
