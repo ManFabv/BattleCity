@@ -39,6 +39,8 @@ func _on_wander_state_entered() -> void:
 
 
 func _on_fire_state_entered() -> void:
+	# we stop tracking the target so the entity holds its aim instead of still turning while it shoots
+	_ai_controller.stop_aiming()
 	_ai_controller.start_shooting()
 
 

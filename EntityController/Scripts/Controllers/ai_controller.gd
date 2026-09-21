@@ -108,6 +108,12 @@ func attack_base() -> void:
 	_current_attack_target = _base_target
 
 
+## freezes the look-at angle at whatever it was aiming when the shot is taken,
+## so the entity doesn't keep turning to follow the target while it fires
+func stop_aiming() -> void:
+	_current_attack_target = null
+
+
 ## true if the player is close enough and in direct line of sight
 func can_attack_player() -> bool:
 	if not is_instance_valid(_player_target):
