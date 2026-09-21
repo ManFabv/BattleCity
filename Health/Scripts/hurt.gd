@@ -1,7 +1,7 @@
 class_name Hurt
 extends Area3D
 
-## it´s going to be triggered when taking damage
+## it's going to be triggered when taking damage
 signal _on_damage_taken
 
 ## damage that it's going to be applied
