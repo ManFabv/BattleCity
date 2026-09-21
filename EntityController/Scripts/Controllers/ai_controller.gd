@@ -8,12 +8,8 @@ extends EntityController
 @export var _navigation_agent : NavigationAgent3D
 
 @export_group("Attack Detection")
-## max distance at which the player or base is considered a valid attack target
-@export var _detection_range : float = 12.0
-## full vision cone width, centered on the entity's forward direction
-@export var _vision_angle_degrees : float = 90.0
-## used to sweep for obstacles between the entity and its target
-@export var _vision_shape_cast : ShapeCast3D
+## used to check line of sight (range, vision cone and obstacles) toward attack targets
+@export var _attack_detector : TargetDetector
 
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
@@ -123,33 +119,14 @@ func _move_to_target(target_position: Vector3) -> void:
 func can_attack_player() -> bool:
 	if not is_instance_valid(_player_target):
 		return false
-	return _has_line_of_sight(_player_target)
+	return _attack_detector.has_line_of_sight(_player_target)
 
 
 ## true if the base is close enough and in direct line of sight
 func can_attack_base() -> bool:
 	if not is_instance_valid(_base_target):
 		return false
-	return _has_line_of_sight(_base_target)
-
-
-## checks distance, vision cone and a shapecast sweep toward the target to know if it's a valid attack target
-func _has_line_of_sight(target: Node3D) -> bool:
-	if not is_instance_valid(target):
-		return false
-	var origin : Vector3 = owner_controllable_entity.global_position
-	var target_position : Vector3 = target.global_position
-	if origin.distance_to(target_position) > _detection_range:
-		return false
-	# cheap cone check before the more expensive shapecast sweep
-	var direction_to_target : Vector3 = origin.direction_to(target_position)
-	var forward : Vector3 = -owner_controllable_entity.global_transform.basis.z
-	if forward.dot(direction_to_target) < cos(deg_to_rad(_vision_angle_degrees / 2)):
-		return false
-	_vision_shape_cast.target_position = _vision_shape_cast.to_local(target_position)
-	_vision_shape_cast.force_shapecast_update()
-	# no collisions means a clear line of sight
-	return _vision_shape_cast.get_collision_count() == 0
+	return _attack_detector.has_line_of_sight(_base_target)
 
 
 ## this will help us take a random point inside navigation mesh

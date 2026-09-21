@@ -61,6 +61,11 @@ func _ready() -> void:
 	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
 
 
+## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
+func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
+	_entity_stats_manager.add_modifier(modifier)
+
+
 ## applies speed, health and weapon for the given level in one call
 func set_level(level: int) -> void:
 	var entity_level: EntityLevelConfig = _entity_levels[level]

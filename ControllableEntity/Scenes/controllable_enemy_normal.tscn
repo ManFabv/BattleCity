@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="10"]
 [ext_resource type="Resource" uid="uid://cdsplxyvyi82r" path="res://EntityLevel/Resources/enemy_normal_entity_level_config.tres" id="11"]
+[ext_resource type="PackedScene" path="res://EntityController/Scenes/entity_vision_detector.tscn" id="12"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
 size = Vector3(1, 0.7, 1.65)
@@ -62,9 +63,9 @@ unique_name_in_owner = true
 [node name="EntityStatsManager" parent="." unique_id=838874006 instance=ExtResource("7")]
 unique_name_in_owner = true
 
-[node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_vision_shape_cast", "owner_controllable_entity") instance=ExtResource("6")]
+[node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
-_vision_shape_cast = NodePath("../VisionShapeCast3D")
+_attack_detector = NodePath("../AttackDetector")
 owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2063289975]
@@ -74,6 +75,10 @@ neighbor_distance = 20.0
 
 [node name="VisionShapeCast3D" type="ShapeCast3D" parent="." unique_id=2063289976]
 shape = SubResource("SphereShape3D_vision")
+
+[node name="AttackDetector" parent="." unique_id=1103963107 node_paths=PackedStringArray("_vision_shape_cast", "owner_controllable_entity") instance=ExtResource("12")]
+_vision_shape_cast = NodePath("../VisionShapeCast3D")
+owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=770466037 instance=ExtResource("8")]
 unique_name_in_owner = true

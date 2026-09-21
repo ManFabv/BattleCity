@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://yymqre1qxim7"]
+
+[ext_resource type="Script" uid="uid://cwdpui0c4irje" path="res://EntityController/Scripts/Detection/entity_vision_detector.gd" id="1_bgxde"]
+
+[node name="EntityVisionDetector" type="Node" unique_id=1193538198]
+script = ExtResource("1_bgxde")
