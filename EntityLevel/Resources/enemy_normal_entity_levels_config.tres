@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EntityLevelsConfig" format=3 uid="uid://b3n7q1w8k5x2m"]
+
+[ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels_config.gd" id="1"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="2"]
+[ext_resource type="Resource" uid="uid://cdsplxyvyi82r" path="res://EntityLevel/Resources/enemy_normal_entity_level_config.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+levels = Array[ExtResource("2")]([ExtResource("3")])

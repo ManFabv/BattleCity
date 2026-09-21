@@ -16,6 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/level_outcome_controller.tscn" id="14_outcome"]
 [ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://EventBus/Resources/Events/on_defeat.tres" id="15_defeat"]
 [ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="16_basedestroyed"]
+[ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://PowerUp/Scenes/star_power_up.tscn" id="17_star"]
+[ext_resource type="PackedScene" uid="uid://bqk3n5t8v2m4x" path="res://PowerUp/Scenes/tank_shield_power_up.tscn" id="18_shield"]
+[ext_resource type="PackedScene" uid="uid://dqk8w2p5narjy" path="res://PowerUp/Scenes/speed_power_up.tscn" id="19_speed"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -154,6 +157,17 @@ _health_stats = ExtResource("10_basehp")
 
 [node name="Player01" parent="Players" unique_id=1358671113 instance=ExtResource("3_vadfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
+
+[node name="PowerUps" type="Node" parent="." unique_id=987654321]
+
+[node name="StarPowerUp" parent="PowerUps" unique_id=987654322 instance=ExtResource("17_star")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, 2)
+
+[node name="TankShieldPowerUp" parent="PowerUps" unique_id=987654323 instance=ExtResource("18_shield")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
+
+[node name="SpeedPowerUp" parent="PowerUps" unique_id=987654324 instance=ExtResource("19_speed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3)
 
 [node name="Containers" type="Node" parent="." unique_id=15635490]
 
