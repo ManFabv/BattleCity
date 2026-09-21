@@ -119,15 +119,15 @@ func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> v
 	pass
 
 
-## listeners are notified once, since the entity is freed right after dying
-func subscribe_to_death(on_death: Callable) -> void:
-	entity_died.connect(on_death, CONNECT_ONE_SHOT)
-
-
 ## called when the entity has no health
 func _on_dead() -> void:
 	# TODO: we need a better implementation for this method
-	# like spawning particles or playing sounds before 
+	# like spawning particles or playing sounds before
 	# removing the node
 	entity_died.emit()
 	queue_free()
+
+
+## listeners are notified once, since the entity is freed right after dying
+func subscribe_to_death(on_death: Callable) -> void:
+	entity_died.connect(on_death, CONNECT_ONE_SHOT)
