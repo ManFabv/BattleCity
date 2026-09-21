@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
-[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="10"]
-[ext_resource type="Resource" uid="uid://h2sewy6kqcjx" path="res://EntityLevel/Resources/enemy_heavy_entity_level_config.tres" id="11"]
+[ext_resource type="Resource" uid="uid://cq2m8v4t6lap3" path="res://EntityLevel/Resources/enemy_heavy_entity_levels_config.tres" id="11"]
 [ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://EntityController/Scenes/entity_vision_detector.tscn" id="12"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
@@ -37,7 +36,7 @@ script = ExtResource("1")
 _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
-_entity_levels = Array[ExtResource("10")]([ExtResource("11")])
+_entity_levels = ExtResource("11")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1476669453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

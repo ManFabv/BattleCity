@@ -21,13 +21,8 @@ var entity_controller : EntityController:
 		return _entity_controller
 
 @export_group("Entity")
-## one config per level; index 0 is the starting level
-@export var _entity_levels: Array[EntityLevelConfig]
-
-## index of the currently applied level, kept in sync by set_level()
-var _current_level : int = 0:
-	set(new_value):
-		_current_level = min(new_value, _entity_levels.size() - 1)
+## per-level stats, health and weapon config
+@export var _entity_levels : EntityLevelsConfig
 
 #where we are going to spawn the projectile
 @onready var _muzzle: Marker3D = %Muzzle
@@ -71,10 +66,15 @@ func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
 	_entity_stats_manager.add_modifier(modifier)
 
 
+## used by the tank shield power-up
+func apply_shield(duration: float) -> void:
+	_health.activate_shield(duration)
+
+
 ## applies speed, health and weapon for the given level in one call
 func set_level(level: int) -> void:
-	_current_level = level
-	var entity_level: EntityLevelConfig = _entity_levels[level]
+	_entity_levels.current_index = level
+	var entity_level: EntityLevelConfig = _entity_levels.current_level()
 	_entity_stats_manager.configure(entity_level.entity_stats)
 	_health.configure(entity_level.health_stats)
 	_weapon_system.change_weapon(entity_level.weapon_config)
@@ -84,8 +84,7 @@ func set_level(level: int) -> void:
 
 ## advances to the next entity level, if there is one (used by the star power-up)
 func level_up() -> void:
-	var next_level : int = _current_level + 1
-	set_level(next_level)
+	set_level(_entity_levels.current_index + 1)
 
 
 func _process(_delta) -> void:

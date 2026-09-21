@@ -13,5 +13,5 @@ func _ready() -> void:
 
 
 ## the base ran out of health, so the level is lost
-func _on_base_destroyed_handler() -> void:
+func _on_base_destroyed_handler(_event_context: Variant = null) -> void:
 	_on_defeat.emit()
