@@ -31,13 +31,13 @@ delay_in_seconds = "1"
 script = ExtResource("4_ctv5m")
 to = NodePath("../../AttackPlayer")
 event = &"attack_player_event"
-delay_in_seconds = "0.0"
+delay_in_seconds = "1"
 
 [node name="TransitionToAttackBase" type="Node" parent="StateChart/RootCompoundState/Fire" unique_id=1478529306]
 script = ExtResource("4_ctv5m")
 to = NodePath("../../AttackBase")
 event = &"attack_base_event"
-delay_in_seconds = "0.0"
+delay_in_seconds = "1"
 
 [node name="Wander" type="Node" parent="StateChart/RootCompoundState" unique_id=2020642812]
 script = ExtResource("3_lf2qg")
