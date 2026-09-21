@@ -19,6 +19,9 @@
 [ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://PowerUp/Scenes/star_power_up.tscn" id="17_star"]
 [ext_resource type="PackedScene" uid="uid://bqk3n5t8v2m4x" path="res://PowerUp/Scenes/tank_shield_power_up.tscn" id="18_shield"]
 [ext_resource type="PackedScene" uid="uid://dqk8w2p5narjy" path="res://PowerUp/Scenes/speed_power_up.tscn" id="19_speed"]
+[ext_resource type="PackedScene" uid="uid://c4h7t6b2tawke" path="res://PowerUp/Scenes/base_shield_power_up.tscn" id="20_baseshield"]
+[ext_resource type="PackedScene" uid="uid://beq3lar5w0n2m" path="res://PowerUp/Scenes/grenade_power_up.tscn" id="21_grenade"]
+[ext_resource type="PackedScene" uid="uid://gwphhxbtcmsf" path="res://Spawner/Scenes/enemy_eliminator.tscn" id="22_eliminator"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -169,6 +172,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
 [node name="SpeedPowerUp" parent="PowerUps" unique_id=987654324 instance=ExtResource("19_speed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3)
 
+[node name="BaseShieldPowerUp" parent="PowerUps" unique_id=987654325 node_paths=PackedStringArray("_base") instance=ExtResource("20_baseshield")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, 3)
+_base = NodePath("../../Navigation/NavigationRegion/Base")
+
+[node name="GrenadePowerUp" parent="PowerUps" unique_id=987654326 instance=ExtResource("21_grenade")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
+
 [node name="Containers" type="Node" parent="." unique_id=15635490]
 
 [node name="ProjectileContainer" parent="Containers" unique_id=645560195 instance=ExtResource("3_3rhlx")]
@@ -183,6 +193,8 @@ _enemy_alive_counter = NodePath("EnemyAliveCounter")
 _navigation_region = NodePath("../Navigation/NavigationRegion")
 
 [node name="EnemyAliveCounter" parent="EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_counter")]
+
+[node name="EnemyEliminator" parent="EnemyWaveSpawnerManager" unique_id=2081209513 instance=ExtResource("22_eliminator")]
 
 [node name="EnemySpawner1" parent="EnemyWaveSpawnerManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c4h7t6b2tawke"]
+
+[ext_resource type="Script" uid="uid://dxrtq2v8mfscj" path="res://PowerUp/Scripts/base_shield_power_up.gd" id="1_base_shield"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_base_shield"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_base_shield"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_base_shield"]
+albedo_color = Color(0.184314, 0.803922, 0.752941, 1)
+
+[node name="BaseShieldPowerUp" type="Area3D" unique_id=1892374651]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_base_shield")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1892374652]
+shape = SubResource("BoxShape3D_base_shield")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1892374653]
+mesh = SubResource("BoxMesh_base_shield")
+surface_material_override/0 = SubResource("StandardMaterial3D_base_shield")

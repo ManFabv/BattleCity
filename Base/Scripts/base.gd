@@ -17,6 +17,11 @@ func _ready() -> void:
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 
 
+## used by the base shield power-up
+func apply_shield(duration: float) -> void:
+	_health.activate_shield(duration)
+
+
 ## called every time the base takes a hit
 func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) -> void:
 	# TODO: this should be connected to the UI to show base health visually
