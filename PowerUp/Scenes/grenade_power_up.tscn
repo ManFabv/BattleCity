@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://beq3lar5w0n2m"]
+
+[ext_resource type="Script" uid="uid://bmn8x4q1trhvw" path="res://PowerUp/Scripts/grenade_power_up.gd" id="1_grenade"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grenade"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_grenade"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade"]
+albedo_color = Color(0.298039, 0.6, 0.298039, 1)
+
+[node name="GrenadePowerUp" type="Area3D" unique_id=1892374661]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_grenade")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1892374662]
+shape = SubResource("BoxShape3D_grenade")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1892374663]
+mesh = SubResource("BoxMesh_grenade")
+surface_material_override/0 = SubResource("StandardMaterial3D_grenade")

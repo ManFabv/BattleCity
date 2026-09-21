@@ -87,6 +87,12 @@ func level_up() -> void:
 	set_level(_entity_levels.current_index + 1)
 
 
+## kills this entity immediately, same exit path as running out of health
+## (used by the grenade power-up)
+func eliminate() -> void:
+	_on_dead()
+
+
 func _process(_delta) -> void:
 	# we capture the input intention for the next physics step
 	_input_move_direction = _entity_controller.get_move_direction()
