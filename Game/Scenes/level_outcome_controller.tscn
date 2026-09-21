@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5vua24awli0v"]
+
+[ext_resource type="Script" uid="uid://cb1delu4bqa5m" path="res://Game/Scripts/level_outcome_controller.gd" id="1"]
+
+[node name="LevelOutcomeController" type="Node"]
+script = ExtResource("1")

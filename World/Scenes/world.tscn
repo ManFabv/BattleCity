@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://Spawner/Scenes/enemy_alive_counter.tscn" id="11_counter"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://Spawner/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
 [ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://EventBus/Resources/Events/on_victory.tres" id="13_victory"]
+[ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/level_outcome_controller.tscn" id="14_outcome"]
+[ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://EventBus/Resources/Events/on_defeat.tres" id="15_defeat"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -174,6 +176,10 @@ _on_node_spawned = ExtResource("7_owfks")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
 _wave_config = ExtResource("6_3h4jy")
 _on_node_spawned = ExtResource("7_owfks")
+
+[node name="LevelOutcomeController" parent="." node_paths=PackedStringArray("_base") instance=ExtResource("14_outcome")]
+_base = NodePath("../Navigation/NavigationRegion/Base")
+_on_defeat = ExtResource("15_defeat")
 
 [node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base", "_player") instance=ExtResource("12_dispatcher")]
 _on_enemy_spawned = ExtResource("7_owfks")
