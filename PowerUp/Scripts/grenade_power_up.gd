@@ -1,8 +1,8 @@
 class_name GrenadePowerUp
 extends Area3D
 
-## container holding every currently spawned enemy, wired manually in the level
-@export var _enemy_container : NodeContainer
+## event requesting every currently alive enemy to be eliminated
+@export var _on_eliminate_all_enemies : BaseEvent
 
 
 func _ready() -> void:
@@ -10,7 +10,5 @@ func _ready() -> void:
 
 
 func _on_body_entered(_body: ControllableEntity) -> void:
-	# duplicate() because eliminate() below removes each enemy from this same array
-	for enemy: ControllableEntity in _enemy_container.get_children().duplicate():
-		enemy.eliminate()
+	_on_eliminate_all_enemies.emit()
 	queue_free()

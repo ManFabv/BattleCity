@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://beq3lar5w0n2m"]
 
 [ext_resource type="Script" uid="uid://bmn8x4q1trhvw" path="res://PowerUp/Scripts/grenade_power_up.gd" id="1_grenade"]
+[ext_resource type="Resource" uid="uid://83e8qmbrwb6y" path="res://EventBus/Resources/Events/on_eliminate_all_enemies.tres" id="2_eliminate"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_grenade"]
 size = Vector3(0.6, 0.6, 0.6)
@@ -15,6 +16,7 @@ albedo_color = Color(0.298039, 0.6, 0.298039, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_grenade")
+_on_eliminate_all_enemies = ExtResource("2_eliminate")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1892374662]
 shape = SubResource("BoxShape3D_grenade")
