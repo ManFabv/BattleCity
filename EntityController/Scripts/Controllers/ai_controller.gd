@@ -92,27 +92,20 @@ func set_navigation_region_rid(region_rid: RID) -> void:
 	_region_rid = region_rid
 
 
-## moves toward the player instead of a random wander point
+## aims at the player instead of wandering; the entity holds its ground and looks at it
 func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
 	if not is_instance_valid(_player_target):
 		return
 	_current_attack_target = _player_target
-	_move_to_target(_player_target.global_position)
 
 
-## moves toward the base instead of a random wander point
+## aims at the base instead of wandering; the entity holds its ground and looks at it
 func attack_base() -> void:
 	# the base may not have been assigned yet, or may have been destroyed since
 	if not is_instance_valid(_base_target):
 		return
 	_current_attack_target = _base_target
-	_move_to_target(_base_target.global_position)
-
-
-## shared by attack_player()/attack_base() to point the navigation agent at a world position
-func _move_to_target(target_position: Vector3) -> void:
-	_navigation_agent.set_target_position(target_position)
 
 
 ## true if the player is close enough and in direct line of sight

@@ -54,7 +54,6 @@ script = ExtResource("3_lf2qg")
 [node name="TransitionToFire" type="Node" parent="StateChart/RootCompoundState/AttackPlayer" unique_id=1478529302]
 script = ExtResource("4_ctv5m")
 to = NodePath("../../Fire")
-event = &"fire_event"
 delay_in_seconds = "1"
 
 [node name="AttackBase" type="Node" parent="StateChart/RootCompoundState" unique_id=1478529303]
@@ -63,7 +62,6 @@ script = ExtResource("3_lf2qg")
 [node name="TransitionToFire" type="Node" parent="StateChart/RootCompoundState/AttackBase" unique_id=1478529304]
 script = ExtResource("4_ctv5m")
 to = NodePath("../../Fire")
-event = &"fire_event"
 delay_in_seconds = "1"
 
 [connection signal="state_entered" from="StateChart/RootCompoundState/Fire" to="." method="_on_fire_state_entered"]

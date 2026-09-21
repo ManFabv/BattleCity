@@ -4,8 +4,6 @@ extends TargetDetector
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target
 @export var _detection_range : float = 12.0
-## full vision cone width, centered on the entity's forward direction
-@export var _vision_angle_degrees : float = 90.0
 ## used to sweep for obstacles between the entity and its target
 @export var _vision_shape_cast : ShapeCast3D
 
