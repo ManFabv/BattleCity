@@ -6,6 +6,19 @@ extends Camera3D
 ## we just use this height to calculate the intersection of the camera ray 
 ## with this plane)
 @export var _gameplay_plane_y_position : float = 0.0
+## the tank this camera is currently mounted next to; used only to
+## detach the camera before that tank is freed, so the view survives
+@export var _owner_entity : ControllableEntity
+
+
+func _ready() -> void:
+	_owner_entity.subscribe_to_death(_on_owner_entity_died)
+
+
+## reparents the camera to the level root so it isn't freed along with the tank
+func _on_owner_entity_died() -> void:
+	reparent(get_tree().current_scene)
+
 
 ## this will convert a 2D point to 3D
 func get_world_position_from_point(point: Vector2) -> Vector3:
