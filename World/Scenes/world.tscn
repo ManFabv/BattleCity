@@ -177,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
 _wave_config = ExtResource("6_3h4jy")
 _on_node_spawned = ExtResource("7_owfks")
 
-[node name="LevelOutcomeController" parent="." node_paths=PackedStringArray("_base") instance=ExtResource("14_outcome")]
+[node name="LevelOutcomeController" parent="." unique_id=561437413 node_paths=PackedStringArray("_base") instance=ExtResource("14_outcome")]
 _base = NodePath("../Navigation/NavigationRegion/Base")
 _on_defeat = ExtResource("15_defeat")
 

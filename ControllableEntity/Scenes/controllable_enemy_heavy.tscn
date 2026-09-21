@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="10"]
 [ext_resource type="Resource" uid="uid://h2sewy6kqcjx" path="res://EntityLevel/Resources/enemy_heavy_entity_level_config.tres" id="11"]
-[ext_resource type="PackedScene" path="res://EntityController/Scenes/entity_vision_detector.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://EntityController/Scenes/entity_vision_detector.tscn" id="12"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
 size = Vector3(1, 0.7, 1.65)

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cb1delu4bqa5m" path="res://Game/Scripts/level_outcome_controller.gd" id="1"]
 
-[node name="LevelOutcomeController" type="Node"]
+[node name="LevelOutcomeController" type="Node" unique_id=1230938134]
 script = ExtResource("1")
