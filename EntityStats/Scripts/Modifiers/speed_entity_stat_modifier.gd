@@ -7,7 +7,7 @@ extends TimedEntityStatsModifier
 
 ## We create a new instance of the modifier to be applied to the current stats
 func create_instance() -> EntityStatsModifierInstance:
-	return SpeedEntityStatModifierInstance.new(self)
+	return TimedEntityStatsModifierInstance.new(self) as EntityStatsModifierInstance
 
 
 # We modify the recalculated stats in place.

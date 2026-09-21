@@ -61,6 +61,11 @@ func _ready() -> void:
 	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
 
 
+## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
+func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
+	_entity_stats_manager.add_modifier(modifier)
+
+
 ## applies speed, health and weapon for the given level in one call
 func set_level(level: int) -> void:
 	var entity_level: EntityLevelConfig = _entity_levels[level]
@@ -114,15 +119,15 @@ func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> v
 	pass
 
 
-## listeners are notified once, since the entity is freed right after dying
-func subscribe_to_death(on_death: Callable) -> void:
-	entity_died.connect(on_death, CONNECT_ONE_SHOT)
-
-
 ## called when the entity has no health
 func _on_dead() -> void:
 	# TODO: we need a better implementation for this method
-	# like spawning particles or playing sounds before 
+	# like spawning particles or playing sounds before
 	# removing the node
 	entity_died.emit()
 	queue_free()
+
+
+## listeners are notified once, since the entity is freed right after dying
+func subscribe_to_death(on_death: Callable) -> void:
+	entity_died.connect(on_death, CONNECT_ONE_SHOT)

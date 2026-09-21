@@ -2,7 +2,7 @@ class_name Base
 extends Node3D
 
 ## emitted when the base loses all its health
-signal base_destroyed
+@export var _on_base_destroyed : BaseEvent
 
 @export_group("Base")
 ## health stats for the base (only supports a single enemy shot)
@@ -32,5 +32,5 @@ func _on_dead() -> void:
 func destroy_base() -> void:
 	# TODO: level restart / player loses a life is out of scope here,
 	# wire this once that flow exists (there is no GameManager state for it yet)
-	base_destroyed.emit()
+	_on_base_destroyed.emit()
 	queue_free()

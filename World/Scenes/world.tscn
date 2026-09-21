@@ -9,10 +9,13 @@
 [ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/wave_spawner_config_2.tres" id="6_3h4jy"]
 [ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="7_owfks"]
 [ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="8_base"]
-[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Base/Resources/base_health_stats.tres" id="10_basehp"]
+[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Health/Resources/HealthStats/base_health_stats.tres" id="10_basehp"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://Spawner/Scenes/enemy_alive_counter.tscn" id="11_counter"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://Spawner/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
 [ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://EventBus/Resources/Events/on_victory.tres" id="13_victory"]
+[ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/level_outcome_controller.tscn" id="14_outcome"]
+[ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://EventBus/Resources/Events/on_defeat.tres" id="15_defeat"]
+[ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="16_basedestroyed"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -73,6 +76,7 @@ navigation_mesh = SubResource("NavigationMesh_e2bkl")
 
 [node name="Floor" type="StaticBody3D" parent="Navigation/NavigationRegion" unique_id=798486507]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+collision_layer = 32
 collision_mask = 775
 
 [node name="CollisionShape" type="CollisionShape3D" parent="Navigation/NavigationRegion/Floor" unique_id=230454027]
@@ -143,6 +147,7 @@ skeleton = NodePath("../..")
 
 [node name="Base" parent="Navigation/NavigationRegion" unique_id=601915875 instance=ExtResource("8_base")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
+_on_base_destroyed = ExtResource("16_basedestroyed")
 _health_stats = ExtResource("10_basehp")
 
 [node name="Players" type="Node" parent="." unique_id=297298887]
@@ -174,6 +179,10 @@ _on_node_spawned = ExtResource("7_owfks")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
 _wave_config = ExtResource("6_3h4jy")
 _on_node_spawned = ExtResource("7_owfks")
+
+[node name="LevelOutcomeController" parent="." unique_id=561437413 instance=ExtResource("14_outcome")]
+_on_base_destroyed = ExtResource("16_basedestroyed")
+_on_defeat = ExtResource("15_defeat")
 
 [node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base", "_player") instance=ExtResource("12_dispatcher")]
 _on_enemy_spawned = ExtResource("7_owfks")
