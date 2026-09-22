@@ -27,6 +27,8 @@
 [ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://EventBus/Resources/Events/on_player_spawned.tres" id="26_playerspawned"]
 [ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="27_outoflives"]
 [ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/player_config.tres" id="28_playerconfig"]
+[ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="30_menuopened"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -161,6 +163,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 _on_base_destroyed = ExtResource("16_basedestroyed")
 _health_stats = ExtResource("10_basehp")
 
+[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base") instance=ExtResource("12_dispatcher")]
+_on_enemy_spawned = ExtResource("7_owfks")
+_on_player_spawned = ExtResource("26_playerspawned")
+_base = NodePath("../Navigation/NavigationRegion/Base")
+
 [node name="Players" parent="." unique_id=297298887 instance=ExtResource("23_playercontainer")]
 
 [node name="PlayerCamera" parent="." unique_id=297298889 instance=ExtResource("24_playercamera")]
@@ -225,7 +232,5 @@ _on_player_out_of_lives = ExtResource("27_outoflives")
 _on_victory = ExtResource("13_victory")
 _on_defeat = ExtResource("15_defeat")
 
-[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base") instance=ExtResource("12_dispatcher")]
-_on_enemy_spawned = ExtResource("7_owfks")
-_on_player_spawned = ExtResource("26_playerspawned")
-_base = NodePath("../Navigation/NavigationRegion/Base")
+[node name="GamePauseController" parent="." unique_id=1230938136 instance=ExtResource("29_pausecontroller")]
+_on_menu_opened_event = ExtResource("30_menuopened")
