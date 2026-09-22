@@ -5,10 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://xlofvlpm7bbb" path="res://Weapon/Scenes/Projectiles/enemy_normal_projectile.tscn" id="3"]
 [ext_resource type="Resource" uid="uid://ccidrckm15ny0" path="res://Weapon/Resources/Projectiles/enemy_normal_projectile_config.tres" id="6"]
 [ext_resource type="Resource" uid="uid://ovtvrrmglkrx" path="res://Weapon/Resources/ShootingCost/enemy_normal_shooting_cost_config.tres" id="7"]
+[ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="8"]
 
 [resource]
 script = ExtResource("1")
 weapon_scene = ExtResource("2")
+weapon_mesh_scene = ExtResource("8")
 projectile_scene = ExtResource("3")
 projectile_config = ExtResource("6")
 shooting_cost_config = ExtResource("7")

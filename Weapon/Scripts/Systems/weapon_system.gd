@@ -1,5 +1,8 @@
 class_name WeaponSystem
-extends Node
+extends Node3D
+## extends Node3D (instead of Node) so the equipped Weapon's mesh, mounted below it,
+## follows this entity's transform -- a Node3D parented under a plain Node ignores
+## everything above that plain Node and renders using its local transform as if top-level.
 
 ## called after we just shoot
 signal shot_fired
@@ -19,9 +22,9 @@ func _process(delta: float) -> void:
 
 
 ## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
-func try_shot(has_shoot_pressed: bool, muzzle: Marker3D) -> void:
+func try_shot(has_shoot_pressed: bool) -> void:
 	if has_shoot_pressed and _current_weapon.can_shot():
-		_current_weapon.try_shot(muzzle, _on_projectile_spawned)
+		_current_weapon.try_shot(_on_projectile_spawned)
 		shot_fired.emit()
 
 
