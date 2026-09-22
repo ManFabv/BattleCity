@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bm0o8lxhv8cmv"]
+
+[ext_resource type="Script" uid="uid://puqdbt7caklc" path="res://Game/Scripts/game_pause_controller.gd" id="1"]
+
+[node name="GamePauseController" type="Node" unique_id=1230938135]
+script = ExtResource("1")
