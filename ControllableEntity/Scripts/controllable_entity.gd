@@ -32,6 +32,10 @@ var entity_controller : EntityController:
 @onready var _entity_stats_manager : EntityStatsManager = %EntityStatsManager
 ## manages the health for the entity
 @onready var _health : Health = %Health
+## the tank's hull mesh
+@onready var _body : MeshInstance3D = %Body
+## the tank's turret mesh
+@onready var _turret : MeshInstance3D = %Turret
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
@@ -78,8 +82,22 @@ func set_level(level: int) -> void:
 	_entity_stats_manager.configure(entity_level.entity_stats)
 	_health.configure(entity_level.health_stats)
 	_weapon_system.change_weapon(entity_level.weapon_config)
+	_apply_entity_color(entity_level.entity_color)
 	# notify that the correct entity stats are now set
 	entity_stats_set.emit()
+
+
+## tints the body and turret; duplicates the material first since it's a sub-resource
+## shared by every instance of this scene (same reasoning as EntityStatsManager._apply_modifiers())
+func _apply_entity_color(color: Color) -> void:
+	_tint_mesh(_body, color)
+	_tint_mesh(_turret, color)
+
+
+func _tint_mesh(mesh_instance: MeshInstance3D, color: Color) -> void:
+	var material : StandardMaterial3D = (mesh_instance.get_surface_override_material(0) as StandardMaterial3D).duplicate()
+	material.albedo_color = color
+	mesh_instance.set_surface_override_material(0, material)
 
 
 ## advances to the next entity level, if there is one (used by the star power-up)
