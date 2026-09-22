@@ -12,5 +12,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(_body: ControllableEntity) -> void:
-	_base.apply_shield(_shield_duration)
+	# the base may have already been destroyed while this power-up was still in the level
+	if is_instance_valid(_base):
+		_base.apply_shield(_shield_duration)
 	queue_free()
