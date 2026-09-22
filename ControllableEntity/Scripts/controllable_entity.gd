@@ -87,6 +87,13 @@ func level_up() -> void:
 	set_level(_entity_levels.current_index + 1)
 
 
+## resets weapon and entity stats back to the starting level,
+## clearing any active stat modifiers (e.g. after the player dies)
+func reset_stats() -> void:
+	_entity_stats_manager.clear_modifiers()
+	set_level(0)
+
+
 ## kills this entity immediately, same exit path as running out of health
 ## (used by the grenade power-up)
 func eliminate() -> void:

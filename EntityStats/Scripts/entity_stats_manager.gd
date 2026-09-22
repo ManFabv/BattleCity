@@ -54,3 +54,11 @@ func entity_stats() -> EntityStats:
 ## when we deplete a modifier, we remove it from the list
 func _modifier_depleted(modifier: EntityStatsModifierInstance) -> void:
 	remove_modifier(modifier)
+
+
+## removes every active modifier at once; used when resetting stats (e.g. player death)
+func clear_modifiers() -> void:
+	for modifier: EntityStatsModifierInstance in _modifiers:
+		modifier.depleted.disconnect(_modifier_depleted)
+	_modifiers.clear()
+	_apply_modifiers()
