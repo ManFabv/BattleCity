@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dwt62qx867bb3"]
 
 [ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Container/Scenes/projectile_container.tscn" id="3_3rhlx"]
-[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/Scenes/controllable_player_entity.tscn" id="3_vadfg"]
 [ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://Container/Scenes/enemy_container.tscn" id="3_yw7h8"]
 [ext_resource type="PackedScene" uid="uid://c7uff7l2ctva8" path="res://Spawner/Scenes/wave_spawner.tscn" id="4_fdxdb"]
 [ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/wave_spawner_manager.tscn" id="4_rqvg4"]
@@ -22,6 +21,12 @@
 [ext_resource type="PackedScene" uid="uid://c4h7t6b2tawke" path="res://PowerUp/Scenes/base_shield_power_up.tscn" id="20_baseshield"]
 [ext_resource type="PackedScene" uid="uid://beq3lar5w0n2m" path="res://PowerUp/Scenes/grenade_power_up.tscn" id="21_grenade"]
 [ext_resource type="PackedScene" uid="uid://gwphhxbtcmsf" path="res://Spawner/Scenes/enemy_eliminator.tscn" id="22_eliminator"]
+[ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
+[ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
+[ext_resource type="PackedScene" uid="uid://pxiy3vqqmlpq" path="res://Spawner/Scenes/player_spawn_point.tscn" id="25_spawnpoint"]
+[ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://EventBus/Resources/Events/on_player_spawned.tres" id="26_playerspawned"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="27_outoflives"]
+[ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/player_config.tres" id="28_playerconfig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -156,10 +161,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 _on_base_destroyed = ExtResource("16_basedestroyed")
 _health_stats = ExtResource("10_basehp")
 
-[node name="Players" type="Node" parent="." unique_id=297298887]
+[node name="Players" parent="." unique_id=297298887 instance=ExtResource("23_playercontainer")]
 
-[node name="Player01" parent="Players" unique_id=1358671113 instance=ExtResource("3_vadfg")]
+[node name="PlayerCamera" parent="." unique_id=297298889 instance=ExtResource("24_playercamera")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
+
+[node name="PlayerSpawnPoint" parent="." unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
+_on_player_spawned = ExtResource("26_playerspawned")
+_on_player_out_of_lives = ExtResource("27_outoflives")
+_player_camera = NodePath("../PlayerCamera")
+_player_config = ExtResource("28_playerconfig")
 
 [node name="PowerUps" type="Node" parent="." unique_id=987654321]
 
@@ -208,9 +221,11 @@ _on_node_spawned = ExtResource("7_owfks")
 
 [node name="LevelOutcomeController" parent="." unique_id=561437413 instance=ExtResource("14_outcome")]
 _on_base_destroyed = ExtResource("16_basedestroyed")
+_on_player_out_of_lives = ExtResource("27_outoflives")
+_on_victory = ExtResource("13_victory")
 _on_defeat = ExtResource("15_defeat")
 
-[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base", "_player") instance=ExtResource("12_dispatcher")]
+[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base") instance=ExtResource("12_dispatcher")]
 _on_enemy_spawned = ExtResource("7_owfks")
+_on_player_spawned = ExtResource("26_playerspawned")
 _base = NodePath("../Navigation/NavigationRegion/Base")
-_player = NodePath("../Players/Player01")

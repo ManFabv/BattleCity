@@ -11,10 +11,16 @@ var _fire_primary_name : String
 var _open_ui_menu_name : String
 
 @export_group("References")
-## player camera
-@export var _player_camera : PlayerCamera
 ## player
 @export var _player : ControllableEntity
+
+## player camera, injected by PlayerSpawnPoint (via PlayerController) after this player spawns
+var _player_camera : PlayerCamera
+
+
+## injected right after this player's controller is spawned
+func set_camera(camera: PlayerCamera) -> void:
+	_player_camera = camera
 
 
 func _ready() -> void:

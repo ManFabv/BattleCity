@@ -14,6 +14,11 @@ func on_menu_opened(_event_context: Variant = null) -> void:
 	print("MENU OPENED")
 
 
+## injected right after this player is spawned by PlayerSpawnPoint
+func set_camera(camera: PlayerCamera) -> void:
+	_input_manager.set_camera(camera)
+
+
 func get_move_direction() -> Vector3:
 	# this can be processed on another class by AI
 	var move_input : Vector2 = _process_move_input()

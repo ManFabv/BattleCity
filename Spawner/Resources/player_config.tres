@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerConfig" format=3 uid="uid://cqek2bnnvsx00"]
+
+[ext_resource type="Script" uid="uid://p7iydvt3jqvp" path="res://Spawner/Scripts/Config/player_config.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/Scenes/controllable_player_entity.tscn" id="2"]
+
+[resource]
+script = ExtResource("1")
+player_scene = ExtResource("2")
