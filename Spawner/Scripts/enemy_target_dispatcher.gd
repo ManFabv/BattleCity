@@ -27,7 +27,7 @@ func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
 		var ai_controller : AIController = entity_controller as AIController
 		_tracked_enemies.append(ai_controller)
 		enemy.entity_died.connect(_on_tracked_enemy_died.bind(ai_controller), CONNECT_ONE_SHOT)
-		ai_controller.set_attack_targets(_player_target, _base)
+		ai_controller.set_attack_targets(_player_target, _current_base_target())
 
 
 func _on_tracked_enemy_died(ai_controller: AIController) -> void:
@@ -47,4 +47,10 @@ func _on_player_died_handler() -> void:
 
 func _broadcast_player_target() -> void:
 	for ai_controller : AIController in _tracked_enemies:
-		ai_controller.set_attack_targets(_player_target, _base)
+		ai_controller.set_attack_targets(_player_target, _current_base_target())
+
+
+## _base is a fixed scene reference; once the base is destroyed (defeat), it becomes
+## a freed object instead of null, so we resolve it here before handing it out
+func _current_base_target() -> Node3D:
+	return _base if is_instance_valid(_base) else null
