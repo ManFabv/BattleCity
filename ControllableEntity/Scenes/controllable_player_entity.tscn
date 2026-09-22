@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2_odrml"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
-[ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="4_sfijf"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
 [ext_resource type="PackedScene" uid="uid://dh0t6qdmefsv8" path="res://Weapon/Scenes/Systems/player_weapon_system.tscn" id="8_t6wpt"]
@@ -55,18 +54,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_uvnfx")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.499033)
 
-[node name="PlayerCamera" parent="." unique_id=166363893 node_paths=PackedStringArray("_owner_entity") instance=ExtResource("4_sfijf")]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
-_owner_entity = NodePath("..")
-
 [node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
 _keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
 _game_pad_processor = NodePath("GamePadProcessor")
 
-[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" unique_id=740792287 node_paths=PackedStringArray("_player_camera", "_player")]
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" unique_id=740792287 node_paths=PackedStringArray("_player")]
 script = ExtResource("10_t6wpt")
-_player_camera = NodePath("../../PlayerCamera")
 _player = NodePath("../..")
 
 [node name="GamePadProcessor" type="Node" parent="InputManager" unique_id=904701735]
