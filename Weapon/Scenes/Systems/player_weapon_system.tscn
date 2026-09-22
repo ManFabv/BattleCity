@@ -3,6 +3,6 @@
 [ext_resource type="Script" uid="uid://befq5lr3d6qb1" path="res://Weapon/Scripts/Systems/weapon_system.gd" id="1_h1tie"]
 [ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://EventBus/Resources/Events/on_projectile_spawned.tres" id="3_srfyk"]
 
-[node name="WeaponSystem" type="Node" unique_id=523735498]
+[node name="WeaponSystem" type="Node3D" unique_id=523735498]
 script = ExtResource("1_h1tie")
 _on_projectile_spawned = ExtResource("3_srfyk")

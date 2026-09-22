@@ -24,8 +24,6 @@ var entity_controller : EntityController:
 ## per-level stats, health and weapon config
 @export var _entity_levels : EntityLevelsConfig
 
-#where we are going to spawn the projectile
-@onready var _muzzle: Marker3D = %Muzzle
 #system that will handle all the shooting logic
 @onready var _weapon_system: WeaponSystem = %WeaponSystem
 ## manages the entity stats and its modifiers
@@ -137,7 +135,7 @@ func _physics_process(delta) -> void:
 	# we calculate the angle for the current position to view to the desired point
 	var look_at_angle : float = lerp_angle(rotation.y, _input_look_at_angle, _entity_stats.rotation_speed * delta)
 	# we get if the player pressed shot input
-	_weapon_system.try_shot(_input_has_shot, _muzzle)
+	_weapon_system.try_shot(_input_has_shot)
 	# we update the velocity according to the calculated movement
 	velocity = _move_velocity
 	# we rotate accordingly
