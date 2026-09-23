@@ -121,6 +121,9 @@ func _process(_delta) -> void:
 	_input_move_direction = _entity_controller.get_move_direction()
 	_input_look_at_angle = _entity_controller.get_look_at_angle()
 	_input_has_shot = _entity_controller.is_shot_pressed()
+	# eliminate the entity if it fell below the level's death Z position
+	if _check_vertical_death():
+		eliminate()
 
 
 func _physics_process(delta) -> void:
@@ -151,6 +154,11 @@ func _process_gravity() -> float:
 		applied_gravity = _move_velocity.y - _entity_stats.gravity
 	# we return the correct gravity
 	return applied_gravity
+
+
+## if we are falling from the ground, we make sure to trigger a dead
+func _check_vertical_death() -> bool:
+	return global_position.y < _entity_stats.death_vertical_position
 
 
 ## called everytime the health changes, healing or damaging

@@ -171,18 +171,11 @@ _on_enemy_spawned = ExtResource("7_owfks")
 _on_player_spawned = ExtResource("26_playerspawned")
 _base = NodePath("../Navigation/NavigationRegion/Base")
 
-[node name="Players" parent="." unique_id=297298887 instance=ExtResource("23_playercontainer")]
+[node name="Cameras" type="Node" parent="." unique_id=1513031556]
 
-[node name="PlayerCamera" parent="." unique_id=297298889 instance=ExtResource("24_playercamera")]
+[node name="PlayerCamera" parent="Cameras" unique_id=297298889 instance=ExtResource("24_playercamera")]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
-
-[node name="PlayerSpawnPoint" parent="." unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
-_on_player_spawned = ExtResource("26_playerspawned")
-_on_player_out_of_lives = ExtResource("27_outoflives")
-_player_camera = NodePath("../PlayerCamera")
-_player_config = ExtResource("28_playerconfig")
 
 [node name="PowerUps" type="Node" parent="." unique_id=987654321]
 
@@ -208,23 +201,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
 
 [node name="EnemyContainer" parent="Containers" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
 
-[node name="EnemyWaveSpawnerManager" parent="." unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_counter", "_navigation_region") instance=ExtResource("4_rqvg4")]
+[node name="Players" parent="Containers" unique_id=297298887 instance=ExtResource("23_playercontainer")]
+
+[node name="Spawners" type="Node" parent="." unique_id=608565377]
+
+[node name="PlayerSpawnPoint" parent="Spawners" unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 4.61255)
+_on_player_spawned = ExtResource("26_playerspawned")
+_on_player_out_of_lives = ExtResource("27_outoflives")
+_player_camera = NodePath("../../Cameras/PlayerCamera")
+_player_config = ExtResource("28_playerconfig")
+
+[node name="EnemyWaveSpawnerManager" parent="Spawners" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_counter", "_navigation_region") instance=ExtResource("4_rqvg4")]
 _on_node_spawned = ExtResource("7_owfks")
 _on_victory = ExtResource("13_victory")
 _spawn_points = [NodePath("EnemySpawner1"), NodePath("EnemySpawner2")]
 _enemy_alive_counter = NodePath("EnemyAliveCounter")
-_navigation_region = NodePath("../Navigation/NavigationRegion")
+_navigation_region = NodePath("../../Navigation/NavigationRegion")
 
-[node name="EnemyAliveCounter" parent="EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_counter")]
+[node name="EnemyAliveCounter" parent="Spawners/EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_counter")]
 
-[node name="EnemyEliminator" parent="EnemyWaveSpawnerManager" unique_id=2081209513 instance=ExtResource("22_eliminator")]
+[node name="EnemyEliminator" parent="Spawners/EnemyWaveSpawnerManager" unique_id=2081209513 instance=ExtResource("22_eliminator")]
 
-[node name="EnemySpawner1" parent="EnemyWaveSpawnerManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawner1" parent="Spawners/EnemyWaveSpawnerManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
 _wave_config = ExtResource("5_8j7up")
 _on_node_spawned = ExtResource("7_owfks")
 
-[node name="EnemySpawner2" parent="EnemyWaveSpawnerManager" unique_id=1865266614 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawner2" parent="Spawners/EnemyWaveSpawnerManager" unique_id=1865266614 instance=ExtResource("4_fdxdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
 _wave_config = ExtResource("6_3h4jy")
 _on_node_spawned = ExtResource("7_owfks")
