@@ -31,7 +31,11 @@ func _physics_process(delta: float) -> void:
 
 
 ## we hit solid world geometry (World/Floor/LevelBlocks): destroy the projectile
-func _on_body_entered(_body: Node3D) -> void:
+## if we hit the level's block grid, resolve the destructible block at that cell first
+func _on_body_entered(body: Node3D) -> void:
+	var level_grid := body as LevelGrid
+	if level_grid:
+		level_grid.resolve_hit(global_position)
 	_destroy_projectile()
 
 
