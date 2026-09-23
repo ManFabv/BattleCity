@@ -13,6 +13,8 @@ var _projectile_movement_strategy: ProjectileMovementStrategy
 ## every node, we connect it here
 func _ready() -> void:
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
+	# shape-level signal, needed so LevelGrid hits resolve the exact cell hit
+	body_shape_entered.connect(_on_body_shape_entered)
 
 
 ## we fire the projectile and fire it, setting the position and movement strategy
@@ -31,12 +33,17 @@ func _physics_process(delta: float) -> void:
 
 
 ## we hit solid world geometry (World/Floor/LevelBlocks): destroy the projectile
-## if we hit the level's block grid, resolve the destructible block at that cell first
-func _on_body_entered(body: Node3D) -> void:
+func _on_body_entered(_body: Node3D) -> void:
+	_destroy_projectile()
+
+
+## if we hit the level's block grid, resolve the destructible block at the exact
+## shape we hit -- asking the physics server which cell that shape belongs to,
+## instead of guessing a cell from our own position
+func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
 	var level_grid := body as LevelGrid
 	if level_grid:
-		level_grid.resolve_hit(global_position)
-	_destroy_projectile()
+		level_grid.resolve_hit_from_shape(body_rid, body_shape_index)
 
 
 ## here we check if the projectile left the screen to remove it
