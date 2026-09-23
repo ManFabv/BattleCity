@@ -8,6 +8,6 @@ func configure(_stats: ProjectileMovementStats, _origin: Node3D) -> void:
 
 
 ## function responsible for calculating the movement of projectiles
-func get_motion(_delta: float) -> Vector3:
-	push_error("get_motion() should be implemented on inherited")
-	return Vector3.ZERO
+func move(_transform: Transform3D, _delta: float) -> Transform3D:
+	push_error("move() should be implemented on inherited")
+	return _transform

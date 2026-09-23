@@ -15,7 +15,7 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D"]
 radius = 0.127266
 
-[node name="ProjectileHeavyEnemy" type="CharacterBody3D" unique_id=533334127]
+[node name="ProjectileHeavyEnemy" type="Area3D" unique_id=533334127]
 top_level = true
 collision_layer = 512
 script = ExtResource("1")
@@ -37,4 +37,5 @@ collision_mask = 10
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=488687753]
 shape = SubResource("SphereShape3D")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

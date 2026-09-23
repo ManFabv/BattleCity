@@ -1,5 +1,5 @@
 class_name Projectile
-extends CharacterBody3D
+extends Area3D
 
 
 ## Strategy responsible for moving the projectile
@@ -27,10 +27,12 @@ func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
 
 ## we move the projectile on the forward direction
 func _physics_process(delta: float) -> void:
-	var motion: Vector3 = _projectile_movement_strategy.get_motion(delta)
-	var collision := move_and_collide(motion)
-	if collision:
-		_destroy_projectile()
+	global_transform = _projectile_movement_strategy.move(global_transform, delta)
+
+
+## we hit solid world geometry (World/Floor/LevelBlocks): destroy the projectile
+func _on_body_entered(_body: Node3D) -> void:
+	_destroy_projectile()
 
 
 ## here we check if the projectile left the screen to remove it
