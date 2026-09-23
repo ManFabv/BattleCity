@@ -15,5 +15,6 @@ func configure(stats: ProjectileMovementStats, origin: Node3D) -> void:
 
 
 ## function responsible for calculating the movement of projectiles
-func get_motion(delta: float) -> Vector3:
-	return _direction * projectile_movement_stats.max_speed * delta
+func move(transform: Transform3D, delta: float) -> Transform3D:
+	transform.origin += _direction * projectile_movement_stats.max_speed * delta
+	return transform
