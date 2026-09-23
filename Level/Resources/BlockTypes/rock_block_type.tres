@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BlockType" format=3 uid="uid://dfdq18iqbyoi3"]
+
+[ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://Level/Scripts/block_type.gd" id="1_syy4j"]
+
+[resource]
+script = ExtResource("1_syy4j")
+is_solid = true
