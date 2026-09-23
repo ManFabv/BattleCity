@@ -27,3 +27,23 @@ collision_layer = 64
 data = {
 "cells": PackedInt32Array(9, 0, 2, 10, 0, 2, 11, 0, 2)
 }
+
+[node name="BaseWallObstacle" type="NavigationObstacle3D" parent="." unique_id=1565063222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 8.5)
+radius = 5.0
+height = 1.5
+
+[node name="RockWallObstacle" type="NavigationObstacle3D" parent="." unique_id=643692370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 0.5)
+radius = 1.8
+height = 1.5
+
+[node name="BrickWallObstacle" type="NavigationObstacle3D" parent="." unique_id=1575084082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, -1.5)
+radius = 1.8
+height = 1.5
+
+[node name="WaterPatchObstacle" type="NavigationObstacle3D" parent="." unique_id=2116958625]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 0.5)
+radius = 1.8
+height = 1.5
