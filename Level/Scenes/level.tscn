@@ -3,14 +3,17 @@
 [ext_resource type="MeshLibrary" uid="uid://drj2key8ftm0i" path="res://Level/Resources/level_blocks_mesh_library.tres" id="1_t1qoq"]
 [ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://Level/Scripts/block_type.gd" id="2_blocktype"]
 [ext_resource type="Script" uid="uid://cfrxrf8weu2ua" path="res://Level/Scripts/level_grid.gd" id="2_grid"]
-[ext_resource type="Resource" uid="uid://bw3ka5oxr7np0" path="res://Level/Resources/BlockTypes/brick_block_type.tres" id="3_rock"]
-[ext_resource type="Resource" uid="uid://dfdq18iqbyoi3" path="res://Level/Resources/BlockTypes/rock_block_type.tres" id="4_brick"]
-[ext_resource type="Resource" uid="uid://na6vd7u8rkgm" path="res://Level/Resources/BlockTypes/vegetation_block_type.tres" id="5_water"]
-[ext_resource type="Resource" uid="uid://b80e4y3fj34vx" path="res://Level/Resources/BlockTypes/water_block_type.tres" id="6_vegetation"]
+[ext_resource type="Resource" uid="uid://dfdq18iqbyoi3" path="res://Level/Resources/BlockTypes/rock_block_type.tres" id="3_rock"]
+[ext_resource type="Resource" uid="uid://bw3ka5oxr7np0" path="res://Level/Resources/BlockTypes/brick_block_type.tres" id="4_brick"]
+[ext_resource type="Resource" uid="uid://b80e4y3fj34vx" path="res://Level/Resources/BlockTypes/water_block_type.tres" id="5_water"]
+[ext_resource type="Resource" uid="uid://na6vd7u8rkgm" path="res://Level/Resources/BlockTypes/vegetation_block_type.tres" id="6_vegetation"]
 
 [node name="LevelBlocks" type="GridMap" unique_id=534809353]
 mesh_library = ExtResource("1_t1qoq")
 cell_size = Vector3(1, 1, 1)
 collision_layer = 16
+data = {
+"cells": PackedInt32Array(65531, 5, 1, 65531, 6, 1, 65531, 7, 1, 65531, 8, 1, 65531, 9, 1, 65531, 10, 1, 65531, 11, 1, 65532, 5, 1, 65532, 11, 1, 65533, 11, 1, 65534, 11, 1, 65535, 11, 1, 0, 5, 1, 0, 11, 1, 1, 5, 1, 1, 6, 1, 1, 7, 1, 1, 8, 1, 1, 9, 1, 1, 10, 1, 1, 11, 1, 65524, 0, 0, 65524, 65534, 1, 65525, 0, 0, 65525, 65534, 1, 65526, 0, 0, 65526, 65534, 1, 9, 0, 2, 9, 65534, 3, 10, 0, 2, 10, 65534, 3, 11, 0, 2, 11, 65534, 3)
+}
 script = ExtResource("2_grid")
 block_types = Array[ExtResource("2_blocktype")]([ExtResource("3_rock"), ExtResource("4_brick"), ExtResource("5_water"), ExtResource("6_vegetation")])
