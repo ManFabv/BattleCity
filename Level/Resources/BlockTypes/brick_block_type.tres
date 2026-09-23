@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BlockType" format=3 uid="uid://bw3ka5oxr7np0"]
+
+[ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://Level/Scripts/block_type.gd" id="1_nhq8p"]
+
+[resource]
+script = ExtResource("1_nhq8p")
+is_destructible = true
+is_solid = true
+gridmap_item_id = 1
