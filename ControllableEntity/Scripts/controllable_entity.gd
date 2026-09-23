@@ -121,6 +121,9 @@ func _process(_delta) -> void:
 	_input_move_direction = _entity_controller.get_move_direction()
 	_input_look_at_angle = _entity_controller.get_look_at_angle()
 	_input_has_shot = _entity_controller.is_shot_pressed()
+	# eliminate the entity if it fell below the level's death Z position
+	if _check_vertical_death():
+		eliminate()
 
 
 func _physics_process(delta) -> void:
@@ -128,9 +131,6 @@ func _physics_process(delta) -> void:
 	var target_velocity : Vector3 = _input_move_direction * entity_move_speed
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
-	# eliminate the entity if it fell below the level's death Z position
-	if _check_z_death():
-		eliminate()
 	# we are incrementing the velocity to make it match the desired velocity
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _entity_stats.move_damping * delta)
 	_move_velocity.y += applied_gravity * delta
@@ -156,7 +156,8 @@ func _process_gravity() -> float:
 	return applied_gravity
 
 
-func _check_z_death() -> bool:
+## if we are falling from the ground, we make sure to trigger a dead
+func _check_vertical_death() -> bool:
 	return global_position.y < _entity_stats.death_vertical_position
 
 
