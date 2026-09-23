@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_5unru")
-is_solid = true
 gridmap_item_id = 2

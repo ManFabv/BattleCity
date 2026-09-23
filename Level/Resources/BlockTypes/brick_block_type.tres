@@ -5,5 +5,4 @@
 [resource]
 script = ExtResource("1_nhq8p")
 is_destructible = true
-is_solid = true
 gridmap_item_id = 1
