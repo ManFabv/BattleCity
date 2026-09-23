@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://duohrtg45dkra"]
+
+[ext_resource type="MeshLibrary" uid="uid://cphipeh3y63kb" path="res://Level/Resources/level_blocks_mesh_library.tres" id="1_t1qoq"]
+
+[node name="LevelBlocks" type="GridMap" unique_id=534809353]
+mesh_library = ExtResource("1_t1qoq")
+cell_size = Vector3(1, 1, 1)
+collision_layer = 8
