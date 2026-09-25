@@ -10,7 +10,7 @@ size = Vector3(0.6, 0.6, 0.6)
 size = Vector3(0.6, 0.6, 0.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_base_shield"]
-albedo_color = Color(0.184314, 0.803922, 0.752941, 1)
+albedo_color = Color(0.78961724, 0.15162495, 0.6085504, 1)
 
 [node name="BaseShieldPowerUp" type="Area3D" unique_id=1892374651]
 collision_layer = 0

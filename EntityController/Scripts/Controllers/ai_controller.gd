@@ -146,7 +146,7 @@ func can_attack_base() -> bool:
 func set_random_target_position() -> void:
 	# back to wandering, so the look-at angle should follow movement again
 	_current_attack_target = null
-	# get a random point from NavigationRegion2D
+	# get a random point from the navigation region
 	# NOTE: kept as a local variable; _target_position must only ever hold the
 	# safe direction produced by the avoidance callback, never a raw world position
 	var random_target_position : Vector3 = _pick_valid_wander_target()
