@@ -10,6 +10,9 @@ extends EntityController
 @export var _wander_target_attempts : int = 3
 ## max distance between the end of the path and the random point to consider it reachable
 @export var _wander_target_reach_tolerance : float = 0.5
+## if a wander target isn't reached within this time, we give up on it and pick another one;
+## covers geometry the pathfinding didn't account for (ex: another entity blocking the way)
+@export var _wander_timeout_seconds : float = 15.0
 
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
@@ -33,6 +36,13 @@ var _player_target : Node3D
 var _base_target : Node3D
 ## whichever of the two above is currently being attacked, if any; used to aim the look-at angle
 var _current_attack_target : Node3D
+## timer context used to give up on a wander target that takes too long to reach
+var _wander_timeout_timer_context : CustomTimerContext
+
+
+func _ready() -> void:
+	_wander_timeout_timer_context = CustomTimerContext.create_manual(_wander_timeout_seconds, _on_wander_timeout, tree_exited, false)
+	CustomTimerContext.request(_wander_timeout_timer_context)
 
 
 func get_move_direction() -> Vector3:
@@ -142,6 +152,8 @@ func set_random_target_position() -> void:
 	var random_target_position : Vector3 = _pick_valid_wander_target()
 	# we set the new target destination position
 	_navigation_agent.set_target_position(random_target_position)
+	# give this target _wander_timeout_seconds to be reached before we give up on it
+	_wander_timeout_timer_context.restart_requested.emit(_wander_timeout_seconds)
 
 
 ## picks a random point inside the navigation region and only returns it if a real
@@ -162,6 +174,13 @@ func _pick_valid_wander_target() -> Vector3:
 	# no valid candidate: the entity targets its own position, reaches it right away
 	# and the wander cycle asks for a new target later
 	return origin
+
+
+## a stray timeout can still fire after the target was already reached (ex: while attacking);
+## in that case is_target_reached() is true and we have nothing to give up on
+func _on_wander_timeout() -> void:
+	if not _navigation_agent.is_target_reached():
+		set_random_target_position()
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:

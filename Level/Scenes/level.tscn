@@ -25,7 +25,7 @@ mesh_library = ExtResource("1_gkbcx")
 cell_size = Vector3(1, 1, 1)
 collision_layer = 64
 data = {
-"cells": PackedInt32Array(9, 0, 2, 10, 0, 2, 11, 0, 2, 65532, 6, 1, 65532, 7, 1, 65532, 8, 1, 65532, 9, 1, 65532, 10, 1, 65533, 10, 1, 65534, 10, 1, 65535, 10, 1, 0, 10, 1)
+"cells": PackedInt32Array(9, 0, 2, 10, 0, 2, 11, 0, 2, 65532, 10, 1, 65533, 10, 1, 65534, 10, 1, 65535, 10, 1, 0, 10, 1)
 }
 
 [node name="BaseWallObstacle" type="NavigationObstacle3D" parent="." unique_id=1565063222]
