@@ -20,12 +20,6 @@ size = Vector3(0.8, 0.5, 1.2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3DBody"]
 albedo_color = Color(1, 1, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMeshTurret"]
-size = Vector3(0.2, 0.2, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3DTurret"]
-albedo_color = Color(1, 1, 0, 1)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_vision"]
 radius = 0.4
 
@@ -47,12 +41,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMeshBody")
 surface_material_override/0 = SubResource("StandardMaterial3DBody")
-
-[node name="Turret" type="MeshInstance3D" parent="Body" unique_id=875187231]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -0.567)
-mesh = SubResource("BoxMeshTurret")
-surface_material_override/0 = SubResource("StandardMaterial3DTurret")
 
 [node name="WeaponSystem" parent="." unique_id=822570833 instance=ExtResource("5")]
 unique_name_in_owner = true
