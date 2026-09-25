@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c4h7t6b2tawke"]
 
 [ext_resource type="Script" uid="uid://dxrtq2v8mfscj" path="res://PowerUp/Scripts/base_shield_power_up.gd" id="1_base_shield"]
+[ext_resource type="PackedScene" uid="uid://b4qcnitx65kka" path="res://Upgrade/Scenes/base_shield.tscn" id="2_shieldscene"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_base_shield"]
 size = Vector3(0.6, 0.6, 0.6)
@@ -15,6 +16,7 @@ albedo_color = Color(0.184314, 0.803922, 0.752941, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_base_shield")
+_shield_scene = ExtResource("2_shieldscene")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1892374652]
 shape = SubResource("BoxShape3D_base_shield")

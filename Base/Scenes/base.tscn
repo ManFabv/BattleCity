@@ -29,6 +29,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1")
 radius = 1.5
 height = 1.5
 
+[node name="UpgradeAttachPoint" type="Marker3D" parent="." unique_id=555100005]
+unique_name_in_owner = true
+
 [node name="Health" parent="." unique_id=184915631 instance=ExtResource("2")]
 unique_name_in_owner = true
 

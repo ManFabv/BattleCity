@@ -22,10 +22,6 @@ var is_dead : bool = false:
 		return current_health == 0
 
 
-## true while a shield power-up is active; damage is ignored during this time
-var _is_shielded : bool = false
-
-
 func configure(new_health_stats: HealthStats) -> void:
 	health_stats = new_health_stats
 	_initialize_max_health()
@@ -45,8 +41,8 @@ func subscribe_to_health_signals(on_health_changed : Callable, on_dead : Callabl
 
 ## here we take damage and emit the corresponding signal if player is dead
 func take_damage(damage_stats : DamageStats) -> void:
-	# if the entity is already dead or shielded we don't want to take more damage nor emit the signal
-	if is_dead or _is_shielded:
+	# if the entity is already dead we don't want to take more damage nor emit the signal
+	if is_dead:
 		return
 	# we update the current health substracting the damage
 	current_health -= damage_stats.damage
@@ -74,14 +70,3 @@ func _emit_health_changed_signal() -> void:
 func _emit_dead_signal() -> void:
 	# we notify that this entity is dead
 	_on_dead.emit()
-
-
-## activates a temporary shield that ignores incoming damage
-func activate_shield(duration: float) -> void:
-	_is_shielded = true
-	var timer_context : CustomTimerContext = CustomTimerContext.create_one_shot(duration, _deactivate_shield, tree_exited)
-	CustomTimerContext.request(timer_context)
-
-
-func _deactivate_shield() -> void:
-	_is_shielded = false

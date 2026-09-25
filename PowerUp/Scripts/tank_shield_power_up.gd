@@ -1,9 +1,9 @@
 class_name TankShieldPowerUp
 extends Pickable
 
-## how long the tank becomes immune to damage
-@export_range(0.0, 60.0) var _shield_duration : float = 5.0
+## shield scene attached to the tank on pickup
+@export var _shield_scene : PackedScene
 
 
 func _apply_pickup(picker: ControllableEntity) -> void:
-	picker.apply_shield(_shield_duration)
+	picker.attach_upgrade(_shield_scene.instantiate() as Shield)
