@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b4qcnitx65kka"]
+
+[ext_resource type="Script" uid="uid://b3jvqla635dfj" path="res://Upgrade/Scripts/shield.gd" id="1_shield"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_base"]
+radius = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_particle"]
+size = Vector3(0.12, 0.12, 0.12)
+
+[node name="BaseShield" type="Area3D" unique_id=17067643 node_paths=PackedStringArray("_orbit_particles")]
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+script = ExtResource("1_shield")
+_orbit_particles = NodePath("OrbitParticles")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1543895890]
+shape = SubResource("SphereShape3D_base")
+
+[node name="OrbitParticles" type="CPUParticles3D" parent="." unique_id=817684632]
+amount = 12
+lifetime = 2.0
+local_coords = true
+mesh = SubResource("BoxMesh_particle")
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 1.8
+emission_ring_inner_radius = 1.7
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, 0)

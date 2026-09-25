@@ -32,6 +32,8 @@ var entity_controller : EntityController:
 @onready var _health : Health = %Health
 ## the tank's hull mesh
 @onready var _body : MeshInstance3D = %Body
+## where attachable upgrades (ex: shields) are parented, so they follow this entity
+@onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
 
 #calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
@@ -66,9 +68,10 @@ func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
 	_entity_stats_manager.add_modifier(modifier)
 
 
-## used by the tank shield power-up
-func apply_shield(duration: float) -> void:
-	_health.activate_shield(duration)
+## public entry point so external systems (ex: pickups) can attach an upgrade to this entity;
+## the upgrade manages its own lifetime and is freed together with the entity
+func attach_upgrade(upgrade: Node3D) -> void:
+	_upgrade_attach_point.add_child(upgrade)
 
 
 ## applies speed, health and weapon for the given level in one call

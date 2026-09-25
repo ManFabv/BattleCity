@@ -40,6 +40,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMesh_uvnfx")
 surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
 
+[node name="UpgradeAttachPoint" type="Marker3D" parent="." unique_id=555100001]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+
 [node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
 _keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
 _game_pad_processor = NodePath("GamePadProcessor")

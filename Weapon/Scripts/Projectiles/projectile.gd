@@ -51,6 +51,11 @@ func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, 
 		level_grid.resolve_hit_from_shape(body_rid, body_shape_index)
 
 
+## called by a shield that intercepts this projectile
+func intercept() -> void:
+	_destroy_projectile()
+
+
 ## here we check if the projectile left the screen to remove it
 ## this is done using the VisibleOnScreenNotifier3D node
 func _on_visible_on_screen_notifier_3d_screen_exited() -> void:

@@ -10,6 +10,8 @@ extends Node3D
 
 ## manages the health for the base, reusing the same component as ControllableEntity
 @onready var _health : Health = %Health
+## where attachable upgrades (ex: shields) are parented, so they follow the base
+@onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
 
 
 func _ready() -> void:
@@ -17,9 +19,10 @@ func _ready() -> void:
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 
 
-## used by the base shield power-up
-func apply_shield(duration: float) -> void:
-	_health.activate_shield(duration)
+## public entry point so external systems (ex: pickups) can attach an upgrade to this entity;
+## the upgrade manages its own lifetime and is freed together with the base
+func attach_upgrade(upgrade: Node3D) -> void:
+	_upgrade_attach_point.add_child(upgrade)
 
 
 ## called every time the base takes a hit
