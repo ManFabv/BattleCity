@@ -28,6 +28,7 @@ var _is_aiming_at_target : bool = false
 ## we connect them here
 func _ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
+	_ai_controller.wander_timed_out.connect(_on_ai_controller_wander_timed_out)
 	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
 	_attack_cooldown_timer_context = CustomTimerContext.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
 	CustomTimerContext.request(_attack_cooldown_timer_context)
@@ -55,6 +56,12 @@ func _on_attack_base_state_entered() -> void:
 
 
 func _on_navigation_agent_3d_target_reached() -> void:
+	state_chart.send_event("fire_event")
+
+
+## the AIController gave up on the current wander target (timeout): behave the same as
+## reaching it, so the entity doesn't stay wandering forever
+func _on_ai_controller_wander_timed_out() -> void:
 	state_chart.send_event("fire_event")
 
 

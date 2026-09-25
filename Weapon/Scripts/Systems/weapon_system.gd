@@ -7,7 +7,6 @@ extends Node3D
 ## called after we just shoot
 signal shot_fired
 
-## Weapons are ordered by progression level: index 0 is the base weapon.
 ## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
 

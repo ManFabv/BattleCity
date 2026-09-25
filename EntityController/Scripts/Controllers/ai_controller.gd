@@ -10,9 +10,14 @@ extends EntityController
 @export var _wander_target_attempts : int = 3
 ## max distance between the end of the path and the random point to consider it reachable
 @export var _wander_target_reach_tolerance : float = 0.5
-## if a wander target isn't reached within this time, we give up on it and pick another one;
-## covers geometry the pathfinding didn't account for (ex: another entity blocking the way)
-@export var _wander_timeout_seconds : float = 15.0
+## multiplies the expected travel time (path length / move speed) to get the
+## actual timeout for the current wander target; covers geometry the pathfinding
+## didn't account for (ex: another entity blocking the way)
+@export var _wander_timeout_slack : float = 1.5
+
+## emitted when the current wander target isn't reached before its timeout;
+## the state machine reacts to this the same way it reacts to reaching the target
+signal wander_timed_out
 
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
@@ -38,10 +43,12 @@ var _base_target : Node3D
 var _current_attack_target : Node3D
 ## timer context used to give up on a wander target that takes too long to reach
 var _wander_timeout_timer_context : CustomTimerContext
+## length of the last validated path to the current wander target, used to size its timeout
+var _wander_target_path_length : float = 0.0
 
 
 func _ready() -> void:
-	_wander_timeout_timer_context = CustomTimerContext.create_manual(_wander_timeout_seconds, _on_wander_timeout, tree_exited, false)
+	_wander_timeout_timer_context = CustomTimerContext.create_manual(0.0, _on_wander_timeout, tree_exited, false)
 	CustomTimerContext.request(_wander_timeout_timer_context)
 
 
@@ -152,13 +159,16 @@ func set_random_target_position() -> void:
 	var random_target_position : Vector3 = _pick_valid_wander_target()
 	# we set the new target destination position
 	_navigation_agent.set_target_position(random_target_position)
-	# give this target _wander_timeout_seconds to be reached before we give up on it
-	_wander_timeout_timer_context.restart_requested.emit(_wander_timeout_seconds)
+	# size the timeout to how long this specific path should take this entity,
+	# with slack for detours avoidance may take around other entities
+	var timeout_seconds : float = (_wander_target_path_length / owner_controllable_entity.entity_move_speed) * _wander_timeout_slack
+	_wander_timeout_timer_context.restart_requested.emit(timeout_seconds)
 
 
-## picks a random point inside the navigation region and only returns it if a real
-## path exists from the entity's current position; a few attempts are enough
-## because most random points are already reachable
+## picks a random point on the navigation map and only returns it if a real path exists
+## from the entity's current position; a few attempts are enough because most random
+## points are already reachable. Stores the validated path's length in
+## _wander_target_path_length, used by set_random_target_position() to size the timeout
 func _pick_valid_wander_target() -> Vector3:
 	var origin : Vector3 = owner_controllable_entity.global_position
 	var navigation_map : RID = _navigation_agent.get_navigation_map()
@@ -170,17 +180,29 @@ func _pick_valid_wander_target() -> Vector3:
 		# when the point is unreachable the server still returns a path, but it ends
 		# at the closest reachable point instead of at the candidate
 		if path.size() > 0 and path[path.size() - 1].distance_to(candidate) <= _wander_target_reach_tolerance:
+			_wander_target_path_length = _compute_path_length(path)
 			return candidate
 	# no valid candidate: the entity targets its own position, reaches it right away
 	# and the wander cycle asks for a new target later
+	_wander_target_path_length = 0.0
 	return origin
 
 
+## sums the distance between consecutive points of a navigation path
+func _compute_path_length(path: PackedVector3Array) -> float:
+	var length : float = 0.0
+	for i : int in range(1, path.size()):
+		length += path[i - 1].distance_to(path[i])
+	return length
+
+
 ## a stray timeout can still fire after the target was already reached (ex: while attacking);
-## in that case is_target_reached() is true and we have nothing to give up on
+## in that case is_target_reached() is true and there's nothing to give up on
 func _on_wander_timeout() -> void:
 	if not _navigation_agent.is_target_reached():
-		set_random_target_position()
+		# give up on the current wander target: let the state machine move on to Fire,
+		# the same as if we had reached it, instead of retrying wander forever
+		wander_timed_out.emit()
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
