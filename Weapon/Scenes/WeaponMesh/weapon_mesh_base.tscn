@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://c12jtmnb4tpuw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_barrel"]
-size = Vector3(0.15, 0.15, 0.4)
+size = Vector3(0.2, 0.2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_barrel"]
 
 [node name="WeaponMesh" type="MeshInstance3D" unique_id=1005048347]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.605377, -1.066033)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.605377, -0.567)
 mesh = SubResource("BoxMesh_barrel")
 surface_material_override/0 = SubResource("StandardMaterial3D_barrel")
 
 [node name="Muzzle" type="Marker3D" parent="." unique_id=1801826187]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.499)

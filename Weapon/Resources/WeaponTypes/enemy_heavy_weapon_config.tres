@@ -11,6 +11,7 @@
 script = ExtResource("1")
 weapon_scene = ExtResource("2")
 weapon_mesh_scene = ExtResource("8")
+weapon_color = Color(1, 0, 0, 1)
 projectile_scene = ExtResource("3")
 projectile_config = ExtResource("6")
 shooting_cost_config = ExtResource("7")
