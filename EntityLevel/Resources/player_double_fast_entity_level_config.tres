@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EntityLevelConfig" format=3 uid="uid://ciws5xr2uyl37"]
+
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bmrycrs0nxijg" path="res://EntityStats/Resources/player_slow_entity_stats.tres" id="2"]
+[ext_resource type="Resource" uid="uid://belptktwg6e07" path="res://Health/Resources/HealthStats/player_health_0.tres" id="3"]
+[ext_resource type="Resource" uid="uid://ckd2soxr4g608" path="res://Weapon/Resources/WeaponTypes/player_double_fast_weapon_config.tres" id="4"]
+
+[resource]
+script = ExtResource("1")
+entity_stats = ExtResource("2")
+health_stats = ExtResource("3")
+weapon_config = ExtResource("4")
+entity_color = Color(0.369416, 0.491491, 0.25504, 1)

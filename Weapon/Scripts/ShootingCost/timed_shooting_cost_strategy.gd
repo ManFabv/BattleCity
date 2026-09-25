@@ -11,10 +11,10 @@ var _has_reached_timeout: bool = true
 var _timer_context: CustomTimerContext
 
 
-func configure(config: ShootingCostConfig, owner_node: Node) -> void:
+func configure(config: ShootingCostConfig, owner_node: Node, on_timer_requested: BaseEvent) -> void:
 	_fire_rate = config.fire_rate
 	_timer_context = CustomTimerContext.create_manual(_fire_rate, _on_timer_timeout, owner_node.tree_exited)
-	CustomTimerContext.request(_timer_context)
+	on_timer_requested.emit(_timer_context)
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot

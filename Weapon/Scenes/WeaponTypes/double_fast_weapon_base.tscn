@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://ddwfo3aypyf76"]
 
 [ext_resource type="Script" uid="uid://bs376r8siu1oi" path="res://Weapon/Scripts/WeaponTypes/double_fast_weapon.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
 
 [node name="DoubleFastWeapon" type="Node3D" unique_id=1184496234]
 script = ExtResource("1")
+_on_timer_requested = ExtResource("2_evbus")

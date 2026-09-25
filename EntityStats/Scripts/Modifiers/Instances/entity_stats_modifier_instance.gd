@@ -15,7 +15,7 @@ func _init(entity_stats_modifier: EntityStatsModifier) -> void:
 
 
 ## base hook for runtime setup; overridden by modifiers that need one (ex: timed ones)
-func configure(_owner_node: Node) -> void:
+func configure(_owner_node: Node, _on_timer_requested: BaseEvent) -> void:
 	push_error("configure() should be implemented on inherited classes")
 
 

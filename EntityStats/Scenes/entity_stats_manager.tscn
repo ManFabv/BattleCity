@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cjcbxwooxbpas"]
 
 [ext_resource type="Script" uid="uid://blplj2x6q7w0u" path="res://EntityStats/Scripts/entity_stats_manager.gd" id="1_ccgp5"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
 
 [node name="EntityStatsManager" type="Node" unique_id=1299752098]
 script = ExtResource("1_ccgp5")
+_on_timer_requested = ExtResource("2_evbus")

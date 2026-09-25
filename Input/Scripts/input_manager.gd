@@ -39,15 +39,15 @@ func _on_joy_connection_changed(_device_id, connected):
 		_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
-## TODO: this is only a fast way to quit the game
-## we should implement a better way to quit the game using a UI
+## this node's process_mode is set to Always (in input_manager.tscn) so it keeps
+## receiving input while the game is paused, letting escape toggle the pause back off
+## TODO: this only toggles get_tree().paused (see GamePauseController); we should
+## show a proper pause menu UI instead, with its own resume/quit options
 func _unhandled_input(_event):
-	# if the player wants to open the menu
+	# if the player wants to open or close the menu
 	if _current_input_processor.is_open_menu_pressed():
-		# we trigger the event
+		# we trigger the event so pause-aware systems react
 		_on_menu_opened_event.emit()
-		## TODO: this is only temporal, we need to open a UI menu
-		get_tree().quit()
 
 
 # we get the input of the player to see what controller is the player using

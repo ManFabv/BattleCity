@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels_config.gd" id="1"]
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/entity_level_config.gd" id="2"]
 [ext_resource type="Resource" uid="uid://bmie078l1q1lp" path="res://EntityLevel/Resources/player_slow_entity_level_config.tres" id="3"]
+[ext_resource type="Resource" uid="uid://drjnoi6q1784a" path="res://EntityLevel/Resources/player_normal_entity_level_config.tres" id="4"]
+[ext_resource type="Resource" uid="uid://ciws5xr2uyl37" path="res://EntityLevel/Resources/player_double_fast_entity_level_config.tres" id="5"]
 
 [resource]
 script = ExtResource("1")
-levels = Array[ExtResource("2")]([ExtResource("3")])
+levels = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5")])

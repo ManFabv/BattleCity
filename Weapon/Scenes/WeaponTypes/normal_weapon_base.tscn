@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://wu26eciwbaaq"]
 
 [ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Weapon/Scripts/WeaponTypes/normal_weapon.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
 
 [node name="NormalWeapon" type="Node3D" unique_id=254992871]
 script = ExtResource("1")
+_on_timer_requested = ExtResource("2_evbus")

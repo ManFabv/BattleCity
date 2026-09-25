@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dqvh0awm4m1mp"]
 
 [ext_resource type="Script" uid="uid://c4htid3yy7hev" path="res://EntityController/Scripts/Controllers/ai_controller.gd" id="1_bgxde"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
 
 [node name="AiController" type="Node" unique_id=878842665]
 script = ExtResource("1_bgxde")
+_on_timer_requested = ExtResource("2_evbus")

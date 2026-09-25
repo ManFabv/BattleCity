@@ -28,18 +28,23 @@ func _on_player_out_of_lives_handler(_event_context: Variant = null) -> void:
 	_on_defeat.emit()
 
 
-## every wave is cleared and no enemies remain: stop gameplay. The UI and the
-## scene manager (out of scope here) should subscribe to _on_victory directly
-## instead of going through this controller, keeping this decoupled from any
-## scene reference
+## every wave is cleared and no enemies remain: stop gameplay and restart.
+## TODO: replace this reload with the levels system / level manager once it exists,
+## so a victory advances to the next level instead of restarting the current one
 func _on_victory_handler(_event_context: Variant = null) -> void:
 	get_tree().paused = true
+	await get_tree().create_timer(1.0).timeout
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 
 ## the level is lost (base destroyed or player out of lives): restart the
 ## current level from scratch so enemy counters, spawners, power-ups and
 ## player lives all start clean. There is no separate game-over flow yet
 ## (out of scope, see #315), so any defeat condition just restarts
+## TODO: replace this reload with the levels system / level manager once it exists
 func _on_defeat_handler(_event_context: Variant = null) -> void:
+	get_tree().paused = true
+	await get_tree().create_timer(1.0).timeout
 	get_tree().paused = false
 	get_tree().reload_current_scene()

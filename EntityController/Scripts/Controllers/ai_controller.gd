@@ -23,6 +23,9 @@ signal wander_timed_out
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
 @export var _attack_detector : TargetDetector
 
+## the event used to request the wander target timeout timer
+@export var _on_timer_requested : BaseEvent
+
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
 ## NOTE: this must stay a direction (not a world position); mixing the two caused
@@ -49,7 +52,7 @@ var _wander_target_path_length : float = 0.0
 
 func _ready() -> void:
 	_wander_timeout_timer_context = CustomTimerContext.create_manual(0.0, _on_wander_timeout, tree_exited, false)
-	CustomTimerContext.request(_wander_timeout_timer_context)
+	_on_timer_requested.emit(_wander_timeout_timer_context)
 
 
 func get_move_direction() -> Vector3:

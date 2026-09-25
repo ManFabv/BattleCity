@@ -9,6 +9,8 @@ extends Node3D
 @export var _player_camera : PlayerCamera
 ## how long to wait after death before spawning the next life
 @export var _respawn_delay : float = 2.0
+## the event used to request the respawn delay timer
+@export var _on_timer_requested : BaseEvent
 ## which scene to instantiate, how many lives, and the starting entity/game level
 @export var _player_config : PlayerConfig
 
@@ -45,4 +47,4 @@ func _on_player_died() -> void:
 		_on_player_out_of_lives.emit()
 		return
 	var timer_context : CustomTimerContext = CustomTimerContext.create_one_shot(_respawn_delay, _spawn_player, tree_exited)
-	CustomTimerContext.request(timer_context)
+	_on_timer_requested.emit(timer_context)

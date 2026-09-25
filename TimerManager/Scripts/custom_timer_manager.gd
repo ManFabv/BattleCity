@@ -2,6 +2,9 @@ extends Node
 class_name CustomTimerManager
 
 
+## the event other nodes use to request a timer
+@export var _on_timer_requested : BaseEvent
+
 ## list of current created timers
 var _timers : Array[CustomTimer]
 
@@ -9,7 +12,7 @@ var _timers : Array[CustomTimer]
 ## at the begining we subscribe to the event
 func _ready() -> void:
 	# We start listening to the event
-	CustomTimerContext.TIMER_REQUESTED.subscribe(_on_timer_requested, tree_exited)
+	_on_timer_requested.subscribe(_on_timer_requested_handler, tree_exited)
 
 
 ## we process all the timers and we remove the not needed ones
@@ -34,7 +37,7 @@ func _process(delta: float) -> void:
 
 
 ## method called for the other nodes when they need a timer
-func _on_timer_requested(timer_context: CustomTimerContext) -> void:
+func _on_timer_requested_handler(timer_context: CustomTimerContext) -> void:
 	# if the instance is valid
 	if is_instance_valid(timer_context):
 		# we create the timer

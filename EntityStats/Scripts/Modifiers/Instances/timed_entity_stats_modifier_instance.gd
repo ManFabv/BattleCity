@@ -6,10 +6,10 @@ var _timer_context: CustomTimerContext
 
 
 ## at the beginning we create a new timer for this specific runtime modifier instance
-func configure(owner_node: Node) -> void:
+func configure(owner_node: Node, on_timer_requested: BaseEvent) -> void:
 	var stat_modifier : TimedEntityStatsModifier = _entity_stats_modifier as TimedEntityStatsModifier
 	_timer_context = CustomTimerContext.create_one_shot(stat_modifier.duration, _on_timer_timeout, owner_node.tree_exited)
-	CustomTimerContext.request(_timer_context)
+	on_timer_requested.emit(_timer_context)
 
 
 ## this method is called when the timer reaches its timeout

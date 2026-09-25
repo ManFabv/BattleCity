@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c7uff7l2ctva8"]
 
 [ext_resource type="Script" uid="uid://dchvxywwfk1ql" path="res://Spawner/Scripts/wave_spawner.gd" id="1_u7l35"]
+[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
 
 [node name="WaveSpawner" type="Node3D" unique_id=213432042]
 script = ExtResource("1_u7l35")
+_on_timer_requested = ExtResource("2_evbus")
