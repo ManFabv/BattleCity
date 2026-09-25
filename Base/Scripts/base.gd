@@ -36,9 +36,9 @@ func _on_dead() -> void:
 	destroy_base()
 
 
-## handles the visual destruction of the base and removes it from the tree
+## handles the visual destruction of the base and removes it from the tree;
+## restarting the level is handled by whoever subscribes to on_base_destroyed
+## (see LevelOutcomeController), keeping this script decoupled from that flow
 func destroy_base() -> void:
-	# TODO: level restart / player loses a life is out of scope here,
-	# wire this once that flow exists (there is no GameManager state for it yet)
 	_on_base_destroyed.emit()
 	queue_free()
