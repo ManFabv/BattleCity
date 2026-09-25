@@ -5,6 +5,8 @@ extends Node3D
 @export var _wave_config: WaveSpawnerConfig
 ## event emitted when a node is spawned
 @export var _on_node_spawned: BaseEvent
+## the event used to request the spawn delay timer
+@export var _on_timer_requested: BaseEvent
 
 ## timer handling spawn delays
 var _timer_context: CustomTimerContext
@@ -26,7 +28,7 @@ func _ready() -> void:
 	# it will be started when allow_spawn() is called for the first time
 	var first_delay: float = _wave_config.current_delay()
 	_timer_context = CustomTimerContext.create_manual(first_delay, _spawn_current_node, tree_exited, false)
-	CustomTimerContext.request(_timer_context)
+	_on_timer_requested.emit(_timer_context)
 
 
 ## request to spawn the next node, returns true if slot was reserved

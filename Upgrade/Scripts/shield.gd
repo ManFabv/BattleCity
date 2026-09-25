@@ -8,12 +8,14 @@ extends Area3D
 @export var _orbit_particles : CPUParticles3D
 ## how fast the particles orbit, in radians per second
 @export var _orbit_speed : float = 2.0
+## the event used to request the timer that removes this shield after _duration
+@export var _on_timer_requested : BaseEvent
 
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	var timer_context : CustomTimerContext = CustomTimerContext.create_one_shot(_duration, queue_free, tree_exited)
-	CustomTimerContext.request(timer_context)
+	_on_timer_requested.emit(timer_context)
 
 
 func _process(delta: float) -> void:

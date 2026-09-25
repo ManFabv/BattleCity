@@ -25,7 +25,8 @@ func configure(damage_stats: DamageStats) -> void:
 
 ## if we collided with other body
 func _on_area_entered(_body: Health) -> void:
-	# if the body is not a Health component, we ignore it
+	# the collision_mask already filters this to Health components; here we just
+	# make sure the body hasn't been freed
 	if is_instance_valid(_body):
 		# we take damage when the body has a health component
 		_body.take_damage(_damage_stats)
