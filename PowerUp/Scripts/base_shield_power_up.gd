@@ -1,5 +1,5 @@
 class_name BaseShieldPowerUp
-extends Area3D
+extends Pickable
 
 ## how long the base becomes immune to damage
 @export_range(0.0, 60.0) var _shield_duration : float = 5.0
@@ -7,12 +7,7 @@ extends Area3D
 @export var _base : Base
 
 
-func _ready() -> void:
-	body_entered.connect(_on_body_entered)
-
-
-func _on_body_entered(_body: ControllableEntity) -> void:
+func _apply_pickup(_picker: ControllableEntity) -> void:
 	# the base may have already been destroyed while this power-up was still in the level
 	if is_instance_valid(_base):
 		_base.apply_shield(_shield_duration)
-	queue_free()
