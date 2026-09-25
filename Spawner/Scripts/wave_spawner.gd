@@ -13,6 +13,10 @@ var _is_counting_down: bool = false
 
 
 func _ready() -> void:
+	# _wave_config is a shared Resource cached by path: without this, restarting
+	# the level after a defeat would resume with the previous run's index
+	# instead of starting the wave over
+	_wave_config.reset_index()
 	# we check if the wave config arrays have the same size
 	if _wave_config.spawn_delays.size() != _wave_config.node_scenes.size():
 		push_error("WaveSpawnerConfig arrays must have the same size")
