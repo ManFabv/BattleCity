@@ -6,6 +6,10 @@ extends EntityController
 ## this is the component used to make an AI entity to
 ## navigate through the world
 @export var _navigation_agent : NavigationAgent3D
+## how many random points we try before giving up on finding a reachable wander target
+@export var _wander_target_attempts : int = 3
+## max distance between the end of the path and the random point to consider it reachable
+@export var _wander_target_reach_tolerance : float = 0.5
 
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
@@ -135,9 +139,29 @@ func set_random_target_position() -> void:
 	# get a random point from NavigationRegion2D
 	# NOTE: kept as a local variable; _target_position must only ever hold the
 	# safe direction produced by the avoidance callback, never a raw world position
-	var random_target_position : Vector3 = NavigationServer3D.region_get_random_point(_region_rid, 1, false)
+	var random_target_position : Vector3 = _pick_valid_wander_target()
 	# we set the new target destination position
 	_navigation_agent.set_target_position(random_target_position)
+
+
+## picks a random point inside the navigation region and only returns it if a real
+## path exists from the entity's current position; a few attempts are enough
+## because most random points are already reachable
+func _pick_valid_wander_target() -> Vector3:
+	var origin : Vector3 = owner_controllable_entity.global_position
+	var navigation_map : RID = _navigation_agent.get_navigation_map()
+	for i : int in range(_wander_target_attempts):
+		var candidate : Vector3 = NavigationServer3D.region_get_random_point(_region_rid, _navigation_agent.navigation_layers, false)
+		var path : PackedVector3Array = NavigationServer3D.map_get_path(
+			navigation_map, origin, candidate, true, _navigation_agent.navigation_layers
+		)
+		# when the point is unreachable the server still returns a path, but it ends
+		# at the closest reachable point instead of at the candidate
+		if path.size() > 0 and path[path.size() - 1].distance_to(candidate) <= _wander_target_reach_tolerance:
+			return candidate
+	# no valid candidate: the entity targets its own position, reaches it right away
+	# and the wander cycle asks for a new target later
+	return origin
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
