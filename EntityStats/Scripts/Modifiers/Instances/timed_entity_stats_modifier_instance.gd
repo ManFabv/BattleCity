@@ -2,14 +2,13 @@ class_name TimedEntityStatsModifierInstance
 extends EntityStatsModifierInstance
 
 ## here we keep the runtime timer for the current active modifier instance
-var _timer_context: CustomTimerContext
+var _timer: CustomTimer
 
 
 ## at the beginning we create a new timer for this specific runtime modifier instance
-func configure(owner_node: Node, on_timer_requested: BaseEvent) -> void:
+func configure(owner_node: Node, timer_manager: TimerManagerResource) -> void:
 	var stat_modifier : TimedEntityStatsModifier = _entity_stats_modifier as TimedEntityStatsModifier
-	_timer_context = CustomTimerContext.create_one_shot(stat_modifier.duration, _on_timer_timeout, owner_node.tree_exited)
-	on_timer_requested.emit(_timer_context)
+	_timer = timer_manager.create_one_shot(stat_modifier.duration, _on_timer_timeout, owner_node.tree_exited)
 
 
 ## this method is called when the timer reaches its timeout

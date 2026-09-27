@@ -23,8 +23,8 @@ signal wander_timed_out
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
 @export var _attack_detector : TargetDetector
 
-## the event used to request the wander target timeout timer
-@export var _on_timer_requested : BaseEvent
+## the shared timer manager used to request the wander target timeout timer
+@export var _timer_manager : TimerManagerResource
 
 
 ## safe movement direction, computed asynchronously by the avoidance callback.
@@ -44,15 +44,14 @@ var _player_target : Node3D
 var _base_target : Node3D
 ## whichever of the two above is currently being attacked, if any; used to aim the look-at angle
 var _current_attack_target : Node3D
-## timer context used to give up on a wander target that takes too long to reach
-var _wander_timeout_timer_context : CustomTimerContext
+## timer used to give up on a wander target that takes too long to reach
+var _wander_timeout_timer : CustomTimer
 ## length of the last validated path to the current wander target, used to size its timeout
 var _wander_target_path_length : float = 0.0
 
 
 func _ready() -> void:
-	_wander_timeout_timer_context = CustomTimerContext.create_manual(0.0, _on_wander_timeout, tree_exited, false)
-	_on_timer_requested.emit(_wander_timeout_timer_context)
+	_wander_timeout_timer = _timer_manager.create_manual(0.0, _on_wander_timeout, tree_exited, false)
 
 
 func get_move_direction() -> Vector3:
@@ -165,7 +164,7 @@ func set_random_target_position() -> void:
 	# size the timeout to how long this specific path should take this entity,
 	# with slack for detours avoidance may take around other entities
 	var timeout_seconds : float = (_wander_target_path_length / owner_controllable_entity.entity_move_speed) * _wander_timeout_slack
-	_wander_timeout_timer_context.restart_requested.emit(timeout_seconds)
+	_wander_timeout_timer.start(timeout_seconds)
 
 
 ## picks a random point on the navigation map and only returns it if a real path exists

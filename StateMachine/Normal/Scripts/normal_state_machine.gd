@@ -13,14 +13,14 @@ class_name NormalStateMachine
 ## how long, after attacking, the entity is forced to wander before it can attack again
 @export var _attack_cooldown_seconds : float = 10.0
 
-## the event used to request the attack cooldown timer
-@export var _on_timer_requested : BaseEvent
+## the shared timer manager used to request the attack cooldown timer
+@export var _timer_manager : TimerManagerResource
 
 ## the entity state chart for triggering state events
 @onready var state_chart: StateChart = %"StateChart"
 
-## timer context used to keep track of the post-attack cooldown
-var _attack_cooldown_timer_context : CustomTimerContext
+## timer used to keep track of the post-attack cooldown
+var _attack_cooldown_timer : CustomTimer
 ## true while the entity is still cooling down from a previous attack
 var _is_attack_on_cooldown : bool = false
 ## true while the upcoming shot is aimed at the player or the base instead of being a wander shot
@@ -33,8 +33,7 @@ func _ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
 	_ai_controller.wander_timed_out.connect(_on_ai_controller_wander_timed_out)
 	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
-	_attack_cooldown_timer_context = CustomTimerContext.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
-	_on_timer_requested.emit(_attack_cooldown_timer_context)
+	_attack_cooldown_timer = _timer_manager.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
 
 
 func _on_wander_state_entered() -> void:
@@ -91,7 +90,7 @@ func _next_event_after_shot() -> StringName:
 ## marks the entity as cooling down and (re)starts the cooldown timer
 func _start_attack_cooldown() -> void:
 	_is_attack_on_cooldown = true
-	_attack_cooldown_timer_context.restart_requested.emit(_attack_cooldown_seconds)
+	_attack_cooldown_timer.start(_attack_cooldown_seconds)
 
 
 ## called when the post-attack cooldown timer times out

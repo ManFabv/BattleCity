@@ -1,8 +1,8 @@
 class_name EntityStatsManager
 extends Node
 
-## the event used to request timers needed by timed modifier instances
-@export var _on_timer_requested : BaseEvent
+## the shared timer manager used to request timers needed by timed modifier instances
+@export var _timer_manager : TimerManagerResource
 
 @export_group("Stats")
 var _base_entity_stats : EntityStats
@@ -26,7 +26,7 @@ func add_modifier(new_modifier : EntityStatsModifier) -> void:
 	var modifier_instance : EntityStatsModifierInstance = new_modifier.create_instance() as EntityStatsModifierInstance
 	modifier_instance.depleted.connect(_modifier_depleted)
 	_modifiers.append(modifier_instance)
-	modifier_instance.configure(self, _on_timer_requested)
+	modifier_instance.configure(self, _timer_manager)
 	_apply_modifiers()
 
 

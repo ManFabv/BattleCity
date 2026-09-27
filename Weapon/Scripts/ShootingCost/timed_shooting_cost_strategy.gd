@@ -7,14 +7,13 @@ var _fire_rate : float = 1.0
 
 ## here we cache if we can shoot or not based on the timer
 var _has_reached_timeout: bool = true
-## here we cache the timer context reference so we can use it to restart the timer when we shoot
-var _timer_context: CustomTimerContext
+## here we cache the timer reference so we can use it to restart the timer when we shoot
+var _timer: CustomTimer
 
 
-func configure(config: ShootingCostConfig, owner_node: Node, on_timer_requested: BaseEvent) -> void:
+func configure(config: ShootingCostConfig, owner_node: Node, timer_manager: TimerManagerResource) -> void:
 	_fire_rate = config.fire_rate
-	_timer_context = CustomTimerContext.create_manual(_fire_rate, _on_timer_timeout, owner_node.tree_exited)
-	on_timer_requested.emit(_timer_context)
+	_timer = timer_manager.create_manual(_fire_rate, _on_timer_timeout, owner_node.tree_exited)
 
 
 ## this will check for the fire rate time to tell us if it's able to shoot
@@ -25,7 +24,7 @@ func can_shot() -> bool:
 		_has_reached_timeout = false
 		# we manually restart because the timer is manual, we don't want to restart it on the timeout
 		# this way the timer will only restart when we actually shoot avoiding timing issues
-		_timer_context.restart_requested.emit()
+		_timer.start()
 		# we say that we can shoot
 		return true
 	# is not ready to shoot

@@ -2,8 +2,8 @@ extends Node3D
 class_name Weapon
 
 
-## the event used to request timers needed by this weapon's shooting cost strategy
-@export var _on_timer_requested : BaseEvent
+## the shared timer manager used to request timers needed by this weapon's shooting cost strategy
+@export var _timer_manager : TimerManagerResource
 
 var _weapon_config : WeaponConfig
 var _shooting_cost_config : ShootingCostConfig
@@ -29,7 +29,7 @@ func configure(config: WeaponConfig) -> void:
 ## the initialize the weapon when it is added to the scene
 func _ready() -> void:
 	_current_shooting_cost_strategy = _shooting_cost_config.create_strategy()
-	_current_shooting_cost_strategy.configure(_shooting_cost_config, self, _on_timer_requested)
+	_current_shooting_cost_strategy.configure(_shooting_cost_config, self, _timer_manager)
 
 
 ## instantiates this weapon's visual mesh, tints it and takes its muzzle from it

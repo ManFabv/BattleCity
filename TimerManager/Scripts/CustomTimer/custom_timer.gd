@@ -4,6 +4,9 @@ class_name CustomTimer
 ## we use this enumeration to manage the timer state
 enum TimerState { NEEDS_INIT, INITED, RUNNING, PAUSED, READY_TO_CLEANUP }
 
+## we will have different modes for the timer, one shot, loop and manual
+enum TimerMode { ONE_SHOT, LOOP, MANUAL }
+
 ## signal emitted when the timer finishes a loop/time left
 signal timeout
 
@@ -26,15 +29,15 @@ var _duration: float = 0.0:
 ## current timer state
 var _state: TimerState = TimerState.NEEDS_INIT
 ## timer mode (will apply different strategies when we reach the timeout)
-var _mode: CustomTimerContext.TimerMode
+var _mode: TimerMode
 
 
 ## we cache the timer values
-func _init(timer_context: CustomTimerContext) -> void:
-	_duration = timer_context.duration
-	_mode = timer_context.mode
+func _init(duration: float, mode: TimerMode, on_timeout: Callable) -> void:
+	_duration = duration
+	_mode = mode
 	# we connect the timeout signal
-	timeout.connect(timer_context.timeout)
+	timeout.connect(on_timeout)
 	# we init the timer
 	reset()
 
@@ -105,6 +108,12 @@ func _prepare_for_cleanup() -> void:
 	_state = TimerState.READY_TO_CLEANUP
 
 
+## marks the timer for removal; the manager drops it on its next tick
+## (never erase it from the list directly, it could be mid-iteration)
+func cancel() -> void:
+	_prepare_for_cleanup()
+
+
 ## we stop the timer momentarily
 func _stop_timer() -> void:
 	stop()
@@ -114,11 +123,11 @@ func _stop_timer() -> void:
 func _handle_no_time_left() -> void:
 	match _mode:
 		# if it's looping, we need to restart the loop
-		CustomTimerContext.TimerMode.LOOP:
+		TimerMode.LOOP:
 			_restart_by_loop()
 		# if it's manual, we just stop the timer and wait for the user to start it again
-		CustomTimerContext.TimerMode.MANUAL:
+		TimerMode.MANUAL:
 			_stop_timer()
 		# if it's one shot, we prepare it for cleanup
-		CustomTimerContext.TimerMode.ONE_SHOT:
+		TimerMode.ONE_SHOT:
 			_prepare_for_cleanup()
