@@ -36,7 +36,9 @@ func _physics_process(delta: float) -> void:
 	global_transform = _projectile_movement_strategy.move(global_transform, delta)
 
 
-## we hit solid world geometry (World/Floor/LevelBlocks): destroy the projectile
+## we hit solid world geometry: destroy the projectile
+## exception to the typed-handler rule: this mask mixes StaticBody3D (World)
+## and GridMap (LevelBlocks), so Node3D is the nearest common base type
 func _on_body_entered(_body: Node3D) -> void:
 	_destroy_projectile()
 
@@ -44,6 +46,8 @@ func _on_body_entered(_body: Node3D) -> void:
 ## if we hit the level's block grid, resolve the destructible block at the exact
 ## shape we hit -- asking the physics server which cell that shape belongs to,
 ## instead of guessing a cell from our own position
+## exception to the typed-handler rule: same mixed mask as _on_body_entered above,
+## so we cast only here where LevelGrid-specific behavior is actually needed
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
 	var level_grid := body as LevelGrid
 	if level_grid and not _has_hit_level_grid:
