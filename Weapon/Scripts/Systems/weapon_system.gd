@@ -32,7 +32,7 @@ func subscribe_to_shot_fired(on_shot_fired: Callable) -> void:
 
 
 func change_weapon(config: WeaponConfig) -> void:
-	if _current_weapon != null:
+	if is_instance_valid(_current_weapon):
 		_current_weapon.release_weapon()
 	_current_weapon = config.weapon_scene.instantiate() as Weapon
 	_current_weapon.configure(config)

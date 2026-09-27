@@ -2,12 +2,12 @@ extends Node3D
 class_name GameManager
 
 @export var _initial_scene: PackedScene
-@export var _timer_manager: PackedScene
+@export var _timer_manager_scene: PackedScene
 
 
 func _ready() -> void:
 	# TODO: here we should instantiate any global system
-	var current_timer_manager : CustomTimerManager = _timer_manager.instantiate() as CustomTimerManager
+	var current_timer_manager : CustomTimerManager = _timer_manager_scene.instantiate() as CustomTimerManager
 	add_child(current_timer_manager)
 	# TODO: we instantiate the initial screen until we
 	# have an scene manager

@@ -7,4 +7,4 @@
 [node name="Game" type="Node3D" unique_id=624028641]
 script = ExtResource("1_0648w")
 _initial_scene = ExtResource("2_0648w")
-_timer_manager = ExtResource("3_xa23u")
+_timer_manager_scene = ExtResource("3_xa23u")

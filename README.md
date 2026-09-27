@@ -1,6 +1,6 @@
 # UNL PVJ3 Actividad 5 Final en Godot Engine #
-**Version del documento 0.0.3**
-**12/09/2026**
+**Version del documento 0.0.4**
+**27/09/2026**
 
 ## Itch.io ##
 [Battle City UNL](https://manfabv.itch.io/battle-city-unl)
@@ -72,6 +72,8 @@ Cada nivel contara con un listado de power-ups que podran aparecer aleatoriament
 * Escudo: para el tanque con limite de tiempo
 * Escudo: para la base con limite de tiempo
 * Eliminar: todos los enemigos actualmente en el nivel
+* Estrella: sube de nivel al tanque (mejora sus stats, vida y arma)
+* Velocidad: aplica un modificador que aumenta la velocidad del tanque
 
 ## Objetivos ##
 El jugador debera defender su base (un objeto fijo en el mapa) de las sucesivas oleadas de enemigos que iran apareciendo el nivel hasta superar todos los niveles.
