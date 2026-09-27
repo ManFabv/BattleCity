@@ -2,8 +2,8 @@ class_name EntityStatsModifier
 extends Resource
 
 
-## We create a new instance of the modifier to be applied to the current stats
-func create_instance() -> EntityStatsModifierInstance:
+## We create the runtime node that applies this modifier to the current stats
+func create_instance() -> StatModifierNode:
 	push_error("create_instance() should be implemented on inherited classes")
 	return null
 
