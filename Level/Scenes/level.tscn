@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://bw3ka5oxr7np0" path="res://Level/Resources/BlockTypes/brick_block_type.tres" id="5_myshy"]
 [ext_resource type="Resource" uid="uid://b80e4y3fj34vx" path="res://Level/Resources/BlockTypes/water_block_type.tres" id="6_yt1rg"]
 [ext_resource type="Resource" uid="uid://na6vd7u8rkgm" path="res://Level/Resources/BlockTypes/vegetation_block_type.tres" id="7_klvne"]
-[ext_resource type="Resource" path="res://EventBus/Resources/Events/on_block_destroyed.tres" id="8_blockdestroyed"]
+[ext_resource type="Resource" uid="uid://daggla0oo7wn4" path="res://EventBus/Resources/Events/on_block_destroyed.tres" id="8_blockdestroyed"]
 
 [node name="Level" type="Node3D" unique_id=631901111]
 
