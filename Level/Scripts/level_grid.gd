@@ -3,6 +3,8 @@ extends GridMap
 
 ## block types placed on this grid, matched to cells by gridmap_item_id
 @export var block_types: Array[BlockType] = []
+## event emitted whenever a destructible block is removed from this grid
+@export var _on_block_destroyed : BaseEvent
 
 
 ## resolves a hit on this grid's physics body by asking the physics server which
@@ -16,3 +18,4 @@ func resolve_hit_from_shape(body_rid: RID, body_shape_index: int) -> void:
 	for block_type in block_types:
 		if block_type.gridmap_item_id == item and block_type.is_destructible:
 			set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
+			_on_block_destroyed.emit(cell)

@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bw3ka5oxr7np0" path="res://Level/Resources/BlockTypes/brick_block_type.tres" id="5_myshy"]
 [ext_resource type="Resource" uid="uid://b80e4y3fj34vx" path="res://Level/Resources/BlockTypes/water_block_type.tres" id="6_yt1rg"]
 [ext_resource type="Resource" uid="uid://na6vd7u8rkgm" path="res://Level/Resources/BlockTypes/vegetation_block_type.tres" id="7_klvne"]
+[ext_resource type="Resource" path="res://EventBus/Resources/Events/on_block_destroyed.tres" id="8_blockdestroyed"]
 
 [node name="Level" type="Node3D" unique_id=631901111]
 
@@ -20,6 +21,7 @@ data = {
 }
 script = ExtResource("2_fpcow")
 block_types = Array[ExtResource("3_0dpks")]([ExtResource("4_ftc7u"), ExtResource("5_myshy"), ExtResource("6_yt1rg"), ExtResource("7_klvne")])
+_on_block_destroyed = ExtResource("8_blockdestroyed")
 
 [node name="LevelWaterBlocks" type="GridMap" parent="." unique_id=262356385]
 mesh_library = ExtResource("1_gkbcx")
