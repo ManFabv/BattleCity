@@ -91,7 +91,7 @@ navigation_mesh = SubResource("NavigationMesh_e2bkl")
 [node name="Floor" type="StaticBody3D" parent="Navigation/NavigationRegion" unique_id=798486507]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 32
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape3D" parent="Navigation/NavigationRegion/Floor" unique_id=230454027]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194702, 0, 0)
@@ -106,7 +106,7 @@ skeleton = NodePath("../../../..")
 
 [node name="Prop1" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" unique_id=1549059202]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.732019, 1, -9.777541)
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop1" unique_id=762764896]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
@@ -117,7 +117,7 @@ skeleton = NodePath("../..")
 
 [node name="Prop2" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" unique_id=1556113742]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7680855, 1, -9.160876)
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop2" unique_id=390393976]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
@@ -128,7 +128,7 @@ skeleton = NodePath("../..")
 
 [node name="Prop3" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" unique_id=622407685]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.916717)
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop3" unique_id=1488067711]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
@@ -139,7 +139,7 @@ skeleton = NodePath("../..")
 
 [node name="Prop4" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" unique_id=468190196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.625225, 1, 9.484417)
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop4" unique_id=1697326503]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")
@@ -150,7 +150,7 @@ skeleton = NodePath("../..")
 
 [node name="Prop5" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" unique_id=764690419]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.073521, 1, 9.564598)
-collision_mask = 775
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop5" unique_id=703023856]
 shape = SubResource("ConvexPolygonShape3D_e2bkl")

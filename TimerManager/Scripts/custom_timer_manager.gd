@@ -1,64 +1,9 @@
 extends Node
 class_name CustomTimerManager
 
-
-## the event other nodes use to request a timer
-@export var _on_timer_requested : BaseEvent
-
-## list of current created timers
-var _timers : Array[CustomTimer]
+## the shared timer list this node drives every frame
+@export var _timer_manager : TimerManagerResource
 
 
-## at the begining we subscribe to the event
-func _ready() -> void:
-	# We start listening to the event
-	_on_timer_requested.subscribe(_on_timer_requested_handler, tree_exited)
-
-
-## we process all the timers and we remove the not needed ones
 func _process(delta: float) -> void:
-	# we take the amount of timers
-	var timers_count : int = _timers.size()
-	# if we don't have any timer we return earlier
-	if timers_count <= 0:
-		return
-	# we made a reverse loop so we can remove timers safely
-	for i in range(timers_count - 1, -1, -1):
-		# we cache the current timer
-		var timer : CustomTimer = _timers[i]
-		# we tick the timer
-		timer.tick(delta)
-		# if it's ready to be removed, we remove it
-		# It won't crash because of the reverse loop
-		if timer.is_ready_for_cleanup():
-			# because the timer is ref counted, removing them from
-			# the array should be enough so the engine removes it
-			_timers.remove_at(i)
-
-
-## method called for the other nodes when they need a timer
-func _on_timer_requested_handler(timer_context: CustomTimerContext) -> void:
-	# if the instance is valid
-	if is_instance_valid(timer_context):
-		# we create the timer
-		var timer : CustomTimer = CustomTimer.new(timer_context)
-		# we add the timer and start it (respecting auto_start flag)
-		_add_and_start(timer, timer_context)
-		# we listen if the requester is freed
-		# when the requester leaves the tree, we drop this timer from the list
-		# we use bind so we can cache the timer reference
-		timer_context.on_owner_freed.connect(_remove_timer_requested.bind(timer), CONNECT_ONE_SHOT)
-		# we connect the restart signal
-		timer_context.restart_requested.connect(timer.start)
-
-
-## we add the timer and we start it (only if auto_start is true)
-func _add_and_start(timer: CustomTimer, timer_context: CustomTimerContext) -> void:
-	_timers.append(timer)
-	if timer_context.auto_start:
-		timer.start()
-
-
-## remove a timer that is no longer needed (owner destroyed or already gone)
-func _remove_timer_requested(timer: CustomTimer) -> void:
-	_timers.erase(timer)
+	_timer_manager.tick(delta)

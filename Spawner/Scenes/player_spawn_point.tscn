@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://pxiy3vqqmlpq"]
 
 [ext_resource type="Script" uid="uid://bfp5cqbodkk3i" path="res://Spawner/Scripts/player_spawn_point.gd" id="1"]
-[ext_resource type="Resource" uid="uid://bwcmravgyylyh" path="res://EventBus/Resources/Events/on_timer_requested.tres" id="2_evbus"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
 
 [node name="PlayerSpawnPoint" type="Node3D" unique_id=1580826191]
 script = ExtResource("1")
-_on_timer_requested = ExtResource("2_evbus")
+_timer_manager = ExtResource("2_timerres")

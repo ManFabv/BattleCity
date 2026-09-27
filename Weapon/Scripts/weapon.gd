@@ -2,8 +2,8 @@ extends Node3D
 class_name Weapon
 
 
-## the event used to request timers needed by this weapon's shooting cost strategy
-@export var _on_timer_requested : BaseEvent
+## the shared timer manager used to request timers needed by this weapon's shooting cost strategy
+@export var _timer_manager : TimerManagerResource
 
 var _weapon_config : WeaponConfig
 var _shooting_cost_config : ShootingCostConfig
@@ -14,7 +14,7 @@ var _projectile_config : ProjectileConfig
 var _current_shooting_cost_strategy : ShootingCostStrategy
 
 ## this weapon's visual mesh, carrying its own muzzle
-var _weapon_mesh : Node3D
+var _weapon_mesh : WeaponMesh
 ## where this weapon's projectiles spawn from; taken from the weapon mesh above
 var _muzzle : Marker3D
 
@@ -29,24 +29,23 @@ func configure(config: WeaponConfig) -> void:
 ## the initialize the weapon when it is added to the scene
 func _ready() -> void:
 	_current_shooting_cost_strategy = _shooting_cost_config.create_strategy()
-	_current_shooting_cost_strategy.configure(_shooting_cost_config, self, _on_timer_requested)
+	_current_shooting_cost_strategy.configure(_shooting_cost_config, self, _timer_manager)
 
 
 ## instantiates this weapon's visual mesh, tints it and takes its muzzle from it
 func _mount_weapon_mesh(config: WeaponConfig) -> void:
-	_weapon_mesh = config.weapon_mesh_scene.instantiate() as Node3D
+	_weapon_mesh = config.weapon_mesh_scene.instantiate() as WeaponMesh
 	add_child(_weapon_mesh)
-	_muzzle = _weapon_mesh.get_node("%Muzzle") as Marker3D
+	_muzzle = _weapon_mesh.muzzle
 	_tint_weapon_mesh(config.weapon_color)
 
 
 ## duplicates the material first since it's a sub-resource shared by every
 ## instance of weapon_mesh_scene (same reasoning as EntityLevelConfig.entity_color)
 func _tint_weapon_mesh(color: Color) -> void:
-	var mesh_instance : MeshInstance3D = _weapon_mesh as MeshInstance3D
-	var material : StandardMaterial3D = (mesh_instance.get_surface_override_material(0) as StandardMaterial3D).duplicate()
+	var material : StandardMaterial3D = (_weapon_mesh.get_surface_override_material(0) as StandardMaterial3D).duplicate()
 	material.albedo_color = color
-	mesh_instance.set_surface_override_material(0, material)
+	_weapon_mesh.set_surface_override_material(0, material)
 
 
 ## we update the weapon status

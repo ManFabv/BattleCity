@@ -24,11 +24,8 @@ func configure(damage_stats: DamageStats) -> void:
 
 
 ## if we collided with other body
-func _on_area_entered(_body: Health) -> void:
-	# the collision_mask already filters this to Health components; here we just
-	# make sure the body hasn't been freed
-	if is_instance_valid(_body):
-		# we take damage when the body has a health component
-		_body.take_damage(_damage_stats)
-		# we notify that we collide with something
-		_on_damage_taken.emit()
+func _on_area_entered(health: Health) -> void:
+	# we take damage when the body has a health component
+	health.take_damage(_damage_stats)
+	# we notify that we collide with something
+	_on_damage_taken.emit()

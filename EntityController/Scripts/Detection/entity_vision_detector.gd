@@ -6,6 +6,13 @@ extends TargetDetector
 @export var _detection_range : float = 12.0
 ## used to sweep for obstacles between the entity and its target
 @export var _vision_shape_cast : ShapeCast3D
+## layers that block line of sight (defaults to World + LevelBlocks)
+@export_flags_3d_physics var _vision_blocking_mask : int = 17
+
+
+func _ready() -> void:
+	_vision_shape_cast.collision_mask = _vision_blocking_mask
+	_vision_shape_cast.enabled = false
 
 
 ## checks distance and a shapecast sweep toward the target to know if it's a valid attack target

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="TimerManagerResource" format=3 uid="uid://b4ya0a88y8e7p"]
+
+[ext_resource type="Script" uid="uid://dlqpj3xefrd6f" path="res://TimerManager/Scripts/timer_manager_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
