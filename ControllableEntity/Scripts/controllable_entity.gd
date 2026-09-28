@@ -15,11 +15,6 @@ signal entity_died
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
-## generic accessor for this entity's controller
-var entity_controller : EntityController:
-	get():
-		return _entity_controller
-
 @export_group("Entity")
 ## per-level stats, health and weapon config
 @export var _entity_levels : EntityLevelsConfig
@@ -42,6 +37,11 @@ var _input_move_direction : Vector3 = Vector3.ZERO
 var _input_look_at_angle : float = 0.0
 var _input_has_shot : bool = false
 
+## index of the currently applied level, kept per instance because the levels config is a shared Resource
+var current_level_index : int = 0:
+	set(new_value):
+		current_level_index = clampi(new_value, 0, _entity_levels.last_index())
+
 # the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
@@ -52,9 +52,14 @@ var entity_move_speed : float:
 	get():
 		return _entity_stats.move_speed
 
+## generic accessor for this entity's controller
+var entity_controller : EntityController:
+	get():
+		return _entity_controller
+
 
 func _ready() -> void:
-	set_level(0)
+	set_level(current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -76,8 +81,8 @@ func attach_upgrade(upgrade: Node3D) -> void:
 
 ## applies speed, health and weapon for the given level in one call
 func set_level(level: int) -> void:
-	_entity_levels.current_index = level
-	var entity_level: EntityLevelConfig = _entity_levels.current_level()
+	current_level_index = level
+	var entity_level: EntityLevelConfig = _entity_levels.level_at(current_level_index)
 	_entity_stats_manager.configure(entity_level.entity_stats)
 	_health.configure(entity_level.health_stats)
 	_weapon_system.change_weapon(entity_level.weapon_config)
@@ -86,12 +91,14 @@ func set_level(level: int) -> void:
 	entity_stats_set.emit()
 
 
-## tints the body; duplicates the material first since it's a sub-resource
-## shared by every instance of this scene (same reasoning as EntityStatsManager._apply_modifiers())
+## tints the body through the shared tint function (see _tint_mesh)
 func _apply_entity_color(color: Color) -> void:
 	_tint_mesh(_body, color)
 
 
+## NOTE: accepted exception to avoiding .duplicate() (see instructions): the first call duplicates the material
+## sub-resource shared by every instance of this scene, later calls duplicate this entity's own copy. Keeping
+## the duplicate inside this single function means any future mesh that goes through it is covered automatically
 func _tint_mesh(mesh_instance: MeshInstance3D, color: Color) -> void:
 	var material : StandardMaterial3D = (mesh_instance.get_surface_override_material(0) as StandardMaterial3D).duplicate()
 	material.albedo_color = color
@@ -100,7 +107,10 @@ func _tint_mesh(mesh_instance: MeshInstance3D, color: Color) -> void:
 
 ## advances to the next entity level, if there is one (used by the star power-up)
 func level_up() -> void:
-	set_level(_entity_levels.current_index + 1)
+	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
+	if current_level_index >= _entity_levels.last_index():
+		return
+	set_level(current_level_index + 1)
 
 
 ## resets weapon and entity stats back to the starting level,
