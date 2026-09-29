@@ -5,6 +5,7 @@ extends Camera3D
 ## (imaginary means that we don't have a physical plane in the world,
 ## we just use this height to calculate the intersection of the camera ray
 ## with this plane)
+@export_group("Raycast config")
 @export var _gameplay_plane_y_position : float = 0.0
 
 
