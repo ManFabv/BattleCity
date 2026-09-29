@@ -30,9 +30,9 @@ signal entity_died
 ## where attachable upgrades (ex: shields) are parented, so they follow this entity
 @onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
 
-#calculated velocity by input
+## calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
-#input intention captured during the render frame
+##input intention captured during the render frame
 var _input_move_direction : Vector3 = Vector3.ZERO
 var _input_look_at_angle : float = 0.0
 var _input_has_shot : bool = false
@@ -42,17 +42,17 @@ var current_level_index : int = 0:
 	set(new_value):
 		current_level_index = clampi(new_value, 0, _entity_levels.last_index())
 
-# the entity stats shorthand access
+## the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
 		return _entity_stats_manager.entity_stats()
 
-# the entity move speed shorthand access
+## the entity move speed shorthand access
 var entity_move_speed : float:
 	get():
 		return _entity_stats.move_speed
 
-## generic accessor for this entity's controller
+## the entity controller shorthand access
 var entity_controller : EntityController:
 	get():
 		return _entity_controller
