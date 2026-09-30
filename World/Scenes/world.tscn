@@ -206,6 +206,19 @@ _base = NodePath("../../Navigation/NavigationRegion/Base")
 [node name="GrenadePowerUp" parent="PowerUps" unique_id=987654326 instance=ExtResource("21_grenade")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
 
+[node name="TankShieldPowerUp2" parent="PowerUps" unique_id=987654328 instance=ExtResource("18_shield")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4)
+
+[node name="SpeedPowerUp2" parent="PowerUps" unique_id=987654329 instance=ExtResource("19_speed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -5)
+
+[node name="BaseShieldPowerUp2" parent="PowerUps" unique_id=987654330 node_paths=PackedStringArray("_base") instance=ExtResource("20_baseshield")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, -4)
+_base = NodePath("../../Navigation/NavigationRegion/Base")
+
+[node name="GrenadePowerUp2" parent="PowerUps" unique_id=987654331 instance=ExtResource("21_grenade")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
+
 [node name="Containers" type="Node" parent="." unique_id=15635490]
 
 [node name="ProjectileContainer" parent="Containers" unique_id=645560195 instance=ExtResource("3_3rhlx")]

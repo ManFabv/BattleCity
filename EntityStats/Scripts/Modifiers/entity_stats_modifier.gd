@@ -2,9 +2,9 @@ class_name EntityStatsModifier
 extends Resource
 
 
-## We create the runtime node that applies this modifier to the current stats
-func create_instance() -> StatModifierNode:
-	push_error("create_instance() should be implemented on inherited classes")
+## We create the runtime applier for this modifier
+func create_new_applier(_on_depleted: Callable, _owner_exited: Signal) -> EntityStatsModifierApplier:
+	push_error("create_new_applier() should be implemented on inherited classes")
 	return null
 
 

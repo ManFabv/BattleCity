@@ -49,7 +49,7 @@ var _current_level_index : int = 0:
 ## the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
-		return _entity_stats_manager.entity_stats()
+		return _entity_stats_manager.resulting_entity_stats()
 
 
 func _ready() -> void:
