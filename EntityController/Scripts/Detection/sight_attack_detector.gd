@@ -18,8 +18,11 @@ func has_line_of_sight(target: Node3D) -> bool:
 	# as a quick filter, if the target is out of range we exit early
 	if not _is_target_in_range(target_position):
 		return false
-	# we now check if the shapecast is colliding with something
-	return _is_shape_cast_colliding(target_position)
+	# we now check if the shapecast is colliding with something that blocks the line of sight
+	if _is_shape_cast_colliding(target_position):
+		return false
+	# if we get here, there isn't any collision blocking the line of sight
+	return true
 
 
 ## true if the given world position is within the detection range of the owner entity
@@ -54,6 +57,7 @@ func _check_shape_cast_colliders() -> bool:
 		# we get the shape ID
 		var collider_shape_id : int = _vision_shape_cast.get_collider_shape(i)
 		# we check if this grid map block is actually blocking and return the result
-		return level_grid.blocks_projectiles_at_shape(collider_rid, collider_shape_id)
+		if level_grid.blocks_projectiles_at_shape(collider_rid, collider_shape_id):
+			return true
 	# if we get to here, there isn't any collisions blocking the line of sight
 	return false
