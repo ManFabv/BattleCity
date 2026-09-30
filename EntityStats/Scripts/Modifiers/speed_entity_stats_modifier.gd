@@ -1,4 +1,4 @@
-class_name SpeedEntityStatModifier
+class_name SpeedEntityStatsModifier
 extends TimedEntityStatsModifier
 
 ## how much the speed will be multiplied by when this modifier is applied
