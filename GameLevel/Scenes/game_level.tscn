@@ -11,7 +11,7 @@
 
 [node name="Level" type="Node3D" unique_id=631901111]
 
-[node name="LevelBlocks" type="GridMap" parent="." unique_id=1059575894]
+[node name="LevelBlocksGridMap" type="GridMap" parent="." unique_id=1059575894]
 mesh_library = ExtResource("1_6wsgj")
 cell_size = Vector3(1, 1, 1)
 collision_layer = 16
@@ -23,7 +23,7 @@ script = ExtResource("2_6wsgj")
 block_types = Array[ExtResource("3_6wsgj")]([ExtResource("4_o1wib"), ExtResource("5_kbery"), ExtResource("6_actae"), ExtResource("7_or3ds")])
 _on_block_destroyed = ExtResource("8_5gr3i")
 
-[node name="LevelWaterBlocks" type="GridMap" parent="." unique_id=262356385]
+[node name="LevelWaterBlocksGridMap" type="GridMap" parent="." unique_id=262356385]
 mesh_library = ExtResource("1_6wsgj")
 cell_size = Vector3(1, 1, 1)
 collision_layer = 64
