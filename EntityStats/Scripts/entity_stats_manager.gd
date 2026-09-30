@@ -1,15 +1,17 @@
 class_name EntityStatsManager
 extends Node
 
+## base entity stats (modifiers will be applied on top of this)
 var _base_entity_stats : EntityStats
 
-## a list of active runtime modifier nodes for the current stats
+## a list of active modifiers for the current stats
 var _modifiers : Array[StatModifierNode]
 
 ## we are going to work over this copy to not affect the real resource
 var _current_stacked_entity_stats : EntityStats
 
 
+## we cache the entity stats and apply any modifiers
 func configure(new_entity_stats: EntityStats) -> void:
 	_base_entity_stats = new_entity_stats
 	_apply_modifiers()
