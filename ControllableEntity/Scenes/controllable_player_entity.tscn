@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://c8bqk1t3q7v5f" path="res://EntityLevel/Resources/player_entity_levels_config.tres" id="18"]
+[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
+[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -18,30 +20,26 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tugb3"]
-albedo_color = Color(0.369416, 0.491491, 0.25504, 1)
-
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller")]
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point")]
 collision_layer = 2
 collision_mask = 119
 script = ExtResource("1_uvnfx")
 _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
+_upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_levels = ExtResource("18")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=90287670]
+[node name="TintableMeshBody" parent="." unique_id=90287670 instance=ExtResource("tinted_mesh")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMesh_uvnfx")
-surface_material_override/0 = SubResource("StandardMaterial3D_tugb3")
 
-[node name="UpgradeAttachPoint" type="Marker3D" parent="." unique_id=555100001]
-unique_name_in_owner = true
+[node name="UpgradeAttachPoint" parent="." unique_id=555100001 instance=ExtResource("upgrade_attach_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 
 [node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]

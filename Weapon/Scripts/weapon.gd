@@ -37,15 +37,7 @@ func _mount_weapon_mesh(config: WeaponConfig) -> void:
 	_weapon_mesh = config.weapon_mesh_scene.instantiate() as WeaponMesh
 	add_child(_weapon_mesh)
 	_muzzle = _weapon_mesh.muzzle
-	_tint_weapon_mesh(config.weapon_color)
-
-
-## duplicates the material first since it's a sub-resource shared by every
-## instance of weapon_mesh_scene (same reasoning as EntityLevelConfig.entity_color)
-func _tint_weapon_mesh(color: Color) -> void:
-	var material : StandardMaterial3D = (_weapon_mesh.get_surface_override_material(0) as StandardMaterial3D).duplicate()
-	material.albedo_color = color
-	_weapon_mesh.set_surface_override_material(0, material)
+	_weapon_mesh.apply_color(config.weapon_color)
 
 
 ## we update the weapon status

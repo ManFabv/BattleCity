@@ -11,4 +11,4 @@ func try_shot(on_projectile_spawned: BaseEvent) -> void:
 	# we add the shot to the scene (after this ready function will be triggered)
 	on_projectile_spawned.emit(shot)
 	# we fire the shot with a movement scene
-	shot.fire(_muzzle, _projectile_config)
+	shot.fire(_muzzle, _projectile_config, _weapon_config.weapon_color)

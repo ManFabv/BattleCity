@@ -11,6 +11,8 @@ var _has_hit_level_grid: bool = false
 
 # reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
+## the projectile mesh, tinted with the color of the weapon that fires it
+@onready var _mesh: TintedMesh = %TintedMesh
 
 
 ## to avoid having to connect this signal on
@@ -22,7 +24,8 @@ func _ready() -> void:
 
 
 ## we fire the projectile and fire it, setting the position and movement strategy
-func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig) -> void:
+func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig, color: Color) -> void:
+	_mesh.apply_color(color)
 	# we set the position to be at the muzzle
 	global_position = shoot_point.global_position
 	_hurt_entity.configure(projectile_config.damage_stats)

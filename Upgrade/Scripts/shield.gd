@@ -2,7 +2,7 @@ class_name Shield
 extends Area3D
 
 ## how long the shield stays attached before removing itself
-@export_range(0.0, 60.0) var _duration : float = 5.0
+@export_range(0.1, 60.0) var _duration : float = 5.0
 ## particles orbiting the shielded entity; CPUParticles3D instead of GPUParticles3D because the
 ## project's Compatibility renderer pays a shader-compile hitch on a GPU particle material's first use
 @export var _orbit_particles : CPUParticles3D

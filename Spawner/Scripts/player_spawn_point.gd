@@ -28,12 +28,12 @@ func _ready() -> void:
 func _spawn_player() -> void:
 	var player : ControllableEntity = _player_config.player_scene.instantiate() as ControllableEntity
 	# the level must be set before emitting the event: the container parents the player there and _ready() applies it
-	player.current_level_index = _player_config.initial_entity_level if _is_first_spawn else 0
+	player.set_initial_level(_player_config.initial_entity_level if _is_first_spawn else 0)
 	_is_first_spawn = false
 	_on_player_spawned.emit(player)
 	player.global_position = global_position
 	player.entity_died.connect(_on_player_died, CONNECT_ONE_SHOT)
-	var entity_controller : EntityController = player.entity_controller
+	var entity_controller : EntityController = player.get_entity_controller()
 	if entity_controller is PlayerController:
 		(entity_controller as PlayerController).set_camera(_player_camera)
 

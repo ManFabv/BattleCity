@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bmwysfba733ec"]
+
+[ext_resource type="Script" uid="uid://y5u7tfqj0qa4" path="res://TintedMesh/Scripts/tinted_mesh.gd" id="1"]
+
+[node name="TintedMesh" type="MeshInstance3D" unique_id=151101274]
+script = ExtResource("1")

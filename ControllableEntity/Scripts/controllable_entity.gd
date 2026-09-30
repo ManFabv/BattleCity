@@ -1,8 +1,8 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-## emitted after the current level's stats are applied
-signal entity_stats_set
+## emitted after the configuration of the current level is applied (stats, health, weapon and color)
+signal entity_configured_for_level
 ## emitted when this entity runs out of health
 signal entity_died
 
@@ -15,51 +15,45 @@ signal entity_died
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
+@export_group("Upgrades")
+## where attachable upgrades (ex: shields) are parented, so they follow this entity
+@export var _upgrade_attach_point : UpgradeAttachPoint
+
 @export_group("Entity")
 ## per-level stats, health and weapon config
-@export var _entity_levels : EntityLevelsConfig
+@export var _entity_levels : EntityLevels
 
-#system that will handle all the shooting logic
+## system that will handle all the shooting logic
 @onready var _weapon_system: WeaponSystem = %WeaponSystem
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = %EntityStatsManager
 ## manages the health for the entity
 @onready var _health : Health = %Health
-## the tank's hull mesh
-@onready var _body : MeshInstance3D = %Body
-## where attachable upgrades (ex: shields) are parented, so they follow this entity
-@onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
+## the tank's body mesh
+@onready var _tintable_body_mesh : TintedMesh = %TintableMeshBody
 
-#calculated velocity by input
+## calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
-#input intention captured during the render frame
+## input intention captured during the process method
 var _input_move_direction : Vector3 = Vector3.ZERO
+## look at intention captured during the process method
 var _input_look_at_angle : float = 0.0
+## shooting intention captured during the process method
 var _input_has_shot : bool = false
 
-## index of the currently applied level, kept per instance because the levels config is a shared Resource
-var current_level_index : int = 0:
+## index of the currently applied level
+var _current_level_index : int = 0:
 	set(new_value):
-		current_level_index = clampi(new_value, 0, _entity_levels.last_index())
+		_current_level_index = clampi(new_value, 0, _entity_levels.last_index())
 
-# the entity stats shorthand access
+## the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
 		return _entity_stats_manager.entity_stats()
 
-# the entity move speed shorthand access
-var entity_move_speed : float:
-	get():
-		return _entity_stats.move_speed
-
-## generic accessor for this entity's controller
-var entity_controller : EntityController:
-	get():
-		return _entity_controller
-
 
 func _ready() -> void:
-	set_level(current_level_index)
+	configure_entity_for_level(_current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -68,77 +62,16 @@ func _ready() -> void:
 	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
 
 
-## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
-func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
-	_entity_stats_manager.add_modifier(modifier)
-
-
-## public entry point so external systems (ex: pickups) can attach an upgrade to this entity;
-## the upgrade manages its own lifetime and is freed together with the entity
-func attach_upgrade(upgrade: Node3D) -> void:
-	_upgrade_attach_point.add_child(upgrade)
-
-
-## applies speed, health and weapon for the given level in one call
-func set_level(level: int) -> void:
-	current_level_index = level
-	var entity_level: EntityLevelConfig = _entity_levels.level_at(current_level_index)
-	_entity_stats_manager.configure(entity_level.entity_stats)
-	_health.configure(entity_level.health_stats)
-	_weapon_system.change_weapon(entity_level.weapon_config)
-	_apply_entity_color(entity_level.entity_color)
-	# notify that the correct entity stats are now set
-	entity_stats_set.emit()
-
-
-## tints the body through the shared tint function (see _tint_mesh)
-func _apply_entity_color(color: Color) -> void:
-	_tint_mesh(_body, color)
-
-
-## NOTE: accepted exception to avoiding .duplicate() (see instructions): the first call duplicates the material
-## sub-resource shared by every instance of this scene, later calls duplicate this entity's own copy. Keeping
-## the duplicate inside this single function means any future mesh that goes through it is covered automatically
-func _tint_mesh(mesh_instance: MeshInstance3D, color: Color) -> void:
-	var material : StandardMaterial3D = (mesh_instance.get_surface_override_material(0) as StandardMaterial3D).duplicate()
-	material.albedo_color = color
-	mesh_instance.set_surface_override_material(0, material)
-
-
-## advances to the next entity level, if there is one (used by the star power-up)
-func level_up() -> void:
-	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
-	if current_level_index >= _entity_levels.last_index():
-		return
-	set_level(current_level_index + 1)
-
-
-## resets weapon and entity stats back to the starting level,
-## clearing any active stat modifiers (e.g. after the player dies)
-func reset_stats() -> void:
-	_entity_stats_manager.clear_modifiers()
-	set_level(0)
-
-
-## kills this entity immediately, same exit path as running out of health
-## (used by the grenade power-up)
-func eliminate() -> void:
-	_on_dead()
-
-
 func _process(_delta) -> void:
 	# we capture the input intention for the next physics step
 	_input_move_direction = _entity_controller.get_move_direction()
 	_input_look_at_angle = _entity_controller.get_look_at_angle()
 	_input_has_shot = _entity_controller.is_shot_pressed()
-	# eliminate the entity if it fell below the level's death Z position
-	if _check_vertical_death():
-		eliminate()
 
 
 func _physics_process(delta) -> void:
 	# we calculate a desired velocity
-	var target_velocity : Vector3 = _input_move_direction * entity_move_speed
+	var target_velocity : Vector3 = _input_move_direction * get_entity_move_speed()
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
@@ -155,6 +88,8 @@ func _physics_process(delta) -> void:
 	rotation.y = look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
+	# eliminate the entity if it fell below the level's death Z position
+	check_vertical_death()
 
 
 func _process_gravity() -> float:
@@ -167,8 +102,10 @@ func _process_gravity() -> float:
 
 
 ## if we are falling from the ground, we make sure to trigger a dead
-func _check_vertical_death() -> bool:
-	return global_position.y < _entity_stats.death_vertical_position
+func check_vertical_death() -> void:
+	if global_position.y < _entity_stats.death_vertical_position:
+		# eliminate the entity if it fell below the level's death Z position
+		eliminate()
 
 
 ## called everytime the health changes, healing or damaging
@@ -189,3 +126,68 @@ func _on_dead() -> void:
 ## listeners are notified once, since the entity is freed right after dying
 func subscribe_to_death(on_death: Callable) -> void:
 	entity_died.connect(on_death, CONNECT_ONE_SHOT)
+
+
+## listeners are notified every time the level stats are applied
+func subscribe_to_configured_for_level(on_configured_for_level: Callable) -> void:
+	entity_configured_for_level.connect(on_configured_for_level)
+
+
+## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
+func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
+	_entity_stats_manager.add_modifier(modifier)
+
+
+## public entry point so external systems (ex: pickups) can attach an upgrade to this entity
+func attach_upgrade(upgrade: Node3D) -> void:
+	_upgrade_attach_point.attach_upgrade(upgrade)
+
+
+## sets the level this entity starts with; only stores the index
+func set_initial_level(level: int) -> void:
+	_current_level_index = level
+
+
+## applies speed, health and weapon for the given level in one call
+func configure_entity_for_level(level: int) -> void:
+	# we update the current level index
+	_current_level_index = level
+	# we cache the entity level config
+	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
+	## we setup the stats manager
+	_entity_stats_manager.configure(entity_level_config.entity_stats)
+	## we setup the health
+	_health.configure(entity_level_config.health_stats)
+	## we setup the weapon system
+	_weapon_system.change_weapon(entity_level_config.weapon_config)
+	## we setup the entity color
+	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
+	# we notify that the correct entity configuration was made
+	entity_configured_for_level.emit()
+
+
+## advances to the next entity level, if there is one
+func level_up() -> void:
+	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
+	if not _is_at_max_level():
+		configure_entity_for_level(_current_level_index + 1)
+
+
+## kills this entity and triggers the signal for that
+func eliminate() -> void:
+	_on_dead()
+
+
+## the entity move speed shorthand access
+func get_entity_move_speed() -> float:
+	return _entity_stats.move_speed
+
+
+## the entity controller shorthand access
+func get_entity_controller() -> EntityController:
+	return _entity_controller
+
+
+## we check if we are at the max level for this entity
+func _is_at_max_level() -> bool:
+	return _current_level_index >= _entity_levels.last_index()
