@@ -47,7 +47,7 @@ func _ready() -> void:
 			_on_wander_timeout, 
 			tree_exited, 
 			false)
-	owner_controllable_entity.subscribe_to_stats_set(_on_enemy_entity_stats_set)
+	owner_controllable_entity.subscribe_to_configured_for_level(_on_entity_configured_for_level)
 
 
 func get_move_direction() -> Vector3:
@@ -182,7 +182,7 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	_target_position = safe_velocity.normalized()
 
 
-func _on_enemy_entity_stats_set() -> void:
+func _on_entity_configured_for_level() -> void:
 	# to avoid issues, we set the agent max avoidance speed equal to
 	# the entity movement speed
 	_navigation_agent.max_speed = owner_controllable_entity.get_entity_move_speed()

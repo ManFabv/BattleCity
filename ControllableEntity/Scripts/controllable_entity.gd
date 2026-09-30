@@ -1,8 +1,8 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-## emitted after the current level's stats are applied
-signal entity_stats_set
+## emitted after the configuration of the current level is applied (stats, health, weapon and color)
+signal entity_configured_for_level
 ## emitted when this entity runs out of health
 signal entity_died
 
@@ -53,7 +53,7 @@ var _entity_stats : EntityStats:
 
 
 func _ready() -> void:
-	set_level(_current_level_index)
+	configure_entity_for_level(_current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -129,8 +129,8 @@ func subscribe_to_death(on_death: Callable) -> void:
 
 
 ## listeners are notified every time the level stats are applied
-func subscribe_to_stats_set(on_stats_set: Callable) -> void:
-	entity_stats_set.connect(on_stats_set)
+func subscribe_to_configured_for_level(on_configured_for_level: Callable) -> void:
+	entity_configured_for_level.connect(on_configured_for_level)
 
 
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
@@ -149,22 +149,28 @@ func set_initial_level(level: int) -> void:
 
 
 ## applies speed, health and weapon for the given level in one call
-func set_level(level: int) -> void:
+func configure_entity_for_level(level: int) -> void:
+	# we update the current level index
 	_current_level_index = level
-	var entity_level: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
-	_entity_stats_manager.configure(entity_level.entity_stats)
-	_health.configure(entity_level.health_stats)
-	_weapon_system.change_weapon(entity_level.weapon_config)
-	_tintable_body_mesh.apply_color(entity_level.entity_color)
-	# notify that the correct entity stats are now set
-	entity_stats_set.emit()
+	# we cache the entity level config
+	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
+	## we setup the stats manager
+	_entity_stats_manager.configure(entity_level_config.entity_stats)
+	## we setup the health
+	_health.configure(entity_level_config.health_stats)
+	## we setup the weapon system
+	_weapon_system.change_weapon(entity_level_config.weapon_config)
+	## we setup the entity color
+	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
+	# we notify that the correct entity configuration was made
+	entity_configured_for_level.emit()
 
 
 ## advances to the next entity level, if there is one
 func level_up() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
 	if not _is_at_max_level():
-		set_level(_current_level_index + 1)
+		configure_entity_for_level(_current_level_index + 1)
 
 
 ## kills this entity and triggers the signal for that

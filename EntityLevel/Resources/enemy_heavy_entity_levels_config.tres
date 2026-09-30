@@ -6,4 +6,4 @@
 
 [resource]
 script = ExtResource("1")
-levels = Array[ExtResource("2")]([ExtResource("3")])
+_level_configs = Array[ExtResource("2")]([ExtResource("3")])
