@@ -13,7 +13,7 @@ signal entity_died
 @export_group("Controller")
 ## this will give us the reference to the needed implementation
 ## which will make this entity move
-@export var _entity_controller : EntityController
+@export var _entity_controller : EntityControllerInterface
 
 @export_group("Upgrades")
 ## where attachable upgrades (ex: shields) are parented, so they follow this entity
@@ -134,7 +134,7 @@ func subscribe_to_configured_for_level(on_configured_for_level: Callable) -> voi
 
 
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
-func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
+func apply_stat_modifier(modifier: EntityStatsModifierInterface) -> void:
 	_entity_stats_manager.add_modifier(modifier)
 
 
@@ -184,7 +184,7 @@ func get_entity_move_speed() -> float:
 
 
 ## the entity controller shorthand access
-func get_entity_controller() -> EntityController:
+func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
 
 

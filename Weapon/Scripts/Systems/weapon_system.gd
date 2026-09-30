@@ -12,7 +12,7 @@ signal shot_fired
 
 
 ## current equipped weapon
-var _current_weapon : Weapon
+var _current_weapon : WeaponInterface
 
 
 func _process(delta: float) -> void:
@@ -34,6 +34,6 @@ func subscribe_to_shot_fired(on_shot_fired: Callable) -> void:
 func change_weapon(config: WeaponConfig) -> void:
 	if is_instance_valid(_current_weapon):
 		_current_weapon.release_weapon()
-	_current_weapon = config.weapon_scene.instantiate() as Weapon
+	_current_weapon = config.weapon_scene.instantiate() as WeaponInterface
 	_current_weapon.configure(config)
 	add_child(_current_weapon)

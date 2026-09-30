@@ -34,27 +34,26 @@ func _ready() -> void:
 	_open_ui_menu_name = "open_ui_menu"
 
 
-# called when we are going to start using this input
+## called when we are going to start using this input
 func enter_input_type() -> void:
 	pass #TODO: here we can change cursor GUI
 
 
-# called when we are going to stop using this input and change to another
+## called when we are going to stop using this input and change to another
 func exit_input_type() -> void:
 	pass #TODO: here we can change cursor GUI
 
 
-# here we get the input according to their input axis
+## here we get the input according to their input axis
 func get_input_movement() -> Vector2:
 	# we get the input of the keyboard
 	var move_input : Vector2 = Input.get_vector(
-		_move_left_name, _move_right_name, _move_up_name, _move_down_name
-		)
+		_move_left_name, _move_right_name, _move_up_name, _move_down_name)
 	# we return the input value
 	return move_input
 
 
-# here we need to calculate where to look according to mouse position
+## here we need to calculate where to look according to mouse position
 func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
@@ -66,7 +65,7 @@ func get_look_at() -> Vector2:
 	return Vector2(world_pos.x, world_pos.z)
 
 
-# we check if the player wants to open the menu
+## we check if the player wants to open the menu
 func is_open_menu_pressed() -> bool:
 	return Input.is_action_just_pressed(_open_ui_menu_name)
 

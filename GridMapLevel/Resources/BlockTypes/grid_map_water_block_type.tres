@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GridMapBlockType" format=3 uid="uid://b80e4y3fj34vx"]
+
+[ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://GridMapLevel/Scripts/grid_map_block_type.gd" id="1_5unru"]
+
+[resource]
+script = ExtResource("1_5unru")
+blocks_projectiles = false
+gridmap_item_id = 2

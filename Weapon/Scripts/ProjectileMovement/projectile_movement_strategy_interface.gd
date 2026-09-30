@@ -1,9 +1,9 @@
-class_name ProjectileMovementStrategy
+class_name ProjectileMovementStrategyInterface
 extends RefCounted
 
 
 ## here we setup the strategy before use
-func configure(_stats: ProjectileMovementStats, _origin: Node3D) -> void:
+func configure(_stats: ProjectileMovementStatsInterface, _origin: Node3D) -> void:
 	push_error("configure() should be implemented on inherited")
 
 

@@ -1,8 +1,8 @@
 class_name SpeedPowerUp
-extends Pickable
+extends PickableInterface
 
 ## the stat modifier applied to the tank on pickup
-@export var _speed_modifier : EntityStatsModifier
+@export var _speed_modifier : EntityStatsModifierInterface
 
 
 func _apply_pickup(picker: ControllableEntity) -> void:

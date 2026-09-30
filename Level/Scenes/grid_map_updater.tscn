@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://fsxgcqmd3col"]
-
-[ext_resource type="Script" uid="uid://cyxhv4k52wtj" path="res://Level/Scripts/grid_map_updater.gd" id="1_updater"]
-
-[node name="GridMapUpdater" type="Node" unique_id=1112847361]
-script = ExtResource("1_updater")

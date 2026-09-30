@@ -1,8 +1,8 @@
 class_name InputManager
 extends Node
 
-# we are going to use this enum to keep track of the current user controller type
-# if it's keyboard and mouse, or gamepad
+## we are going to use this enum to keep track of the current user controller type
+## if it's keyboard and mouse, or gamepad
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, NOT_SET }
 
 @export_group("Events")
@@ -23,15 +23,14 @@ var _current_input_processor : InputInterface
 func _ready() -> void:
 	# Prevent input to get processed when not on focus
 	Input.ignore_joypad_on_unfocused_application = true
-	
 	# by default we use keyboard and mouse
 	_change_input_type(InputType.KEYBOARD_MOUSE)
 	# we subscribe to gamepad changed signal to update input type
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
 
-# here we check if the gamepad was connected or disconnected and we
-# update the input type accordingly
+## here we check if the gamepad was connected or disconnected and we
+## update the input type accordingly
 func _on_joy_connection_changed(_device_id, connected):
 	if connected:
 		_change_input_type(InputType.GAMEPAD)
@@ -50,7 +49,7 @@ func _unhandled_input(_event):
 		_on_menu_opened_event.emit()
 
 
-# we get the input of the player to see what controller is the player using
+## we get the input of the player to see what controller is the player using
 func _input(event: InputEvent) -> void:
 	# if it's mouse or keyboard used
 	if event is InputEventMouseMotion or event is InputEventMouseButton or event is InputEventKey:
@@ -72,12 +71,13 @@ func _change_input_type(new_input_type: InputType) -> void:
 		_current_input_processor.exit_input_type()
 	# we update the current input type
 	_last_input = new_input_type
-	if _last_input == InputType.KEYBOARD_MOUSE:
-		_current_input_processor = _keyboard_mouse_processor
-	elif _last_input == InputType.GAMEPAD:
-		_current_input_processor = _game_pad_processor
-	else: # defaults to keyboard
-		_current_input_processor = _keyboard_mouse_processor
+	match _last_input:
+		InputType.GAMEPAD:
+			_current_input_processor = _game_pad_processor
+		InputType.KEYBOARD_MOUSE:
+			_current_input_processor = _keyboard_mouse_processor
+		_: # default to keyboard
+			_current_input_processor = _keyboard_mouse_processor
 	# we call the method for start using this input type
 	_current_input_processor.enter_input_type()
 	# we trigger the signal that the type changed
@@ -97,6 +97,5 @@ func is_shot_pressed() -> bool:
 
 
 ## injected right after this player's controller is spawned; forwarded to whichever
-## processor needs it (today only keyboard+mouse, for the mouse-to-world raycast)
 func set_camera(camera: PlayerCamera) -> void:
 	_keyboard_mouse_processor.set_camera(camera)

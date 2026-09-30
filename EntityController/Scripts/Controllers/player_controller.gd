@@ -1,5 +1,5 @@
 class_name PlayerController
-extends EntityController
+extends EntityControllerInterface
 
 @export_group("Controllers")
 ## reference to the input manager

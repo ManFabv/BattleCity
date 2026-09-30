@@ -1,5 +1,5 @@
 extends Resource
-class_name ProjectileMovementStats
+class_name ProjectileMovementStatsInterface
 
 ## movement max speed
 @export_range(0.0, 100.0) var max_speed : float = 10.0:
@@ -10,6 +10,6 @@ class_name ProjectileMovementStats
 
 
 ## creates a projectile movement strategy instance matching this config
-func create_strategy() -> ProjectileMovementStrategy:
+func create_strategy() -> ProjectileMovementStrategyInterface:
 	push_error("create_strategy() should be implemented on inherited classes")
 	return null

@@ -4,11 +4,11 @@ extends Node
 
 
 func enter_input_type() -> void:
-	push_error("get_input_movement() should be implemented on inherited classes")
+	push_error("enter_input_type() should be implemented on inherited classes")
 
 
 func exit_input_type() -> void:
-	push_error("get_input_movement() should be implemented on inherited classes")
+	push_error("exit_input_type() should be implemented on inherited classes")
 
 
 func get_input_movement() -> Vector2:

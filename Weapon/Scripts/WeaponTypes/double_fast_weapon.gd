@@ -1,5 +1,5 @@
 class_name DoubleFastWeapon
-extends Weapon
+extends WeaponInterface
 
 @export_range(0.1, 10.0) var _shoot_distance_offset: float = 0.2
 

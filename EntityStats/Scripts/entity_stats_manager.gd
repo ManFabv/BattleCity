@@ -20,7 +20,7 @@ func configure(new_entity_stats: EntityStats) -> void:
 ## we add the modifier applier and we reapply the others left
 ## NOTE: that this implementation probably won't work if the have a modifier that is
 ## increasing or decreasing its modified value because we reapply the modifiers again
-func add_modifier(new_entity_stats_modifier: EntityStatsModifier) -> void:
+func add_modifier(new_entity_stats_modifier: EntityStatsModifierInterface) -> void:
 	# we cache the actual instance that will apply the modification
 	var applier : EntityStatsModifierApplier = new_entity_stats_modifier.create_new_applier(
 			_modifier_depleted, 

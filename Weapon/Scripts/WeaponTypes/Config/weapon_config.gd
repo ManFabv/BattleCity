@@ -14,4 +14,4 @@ extends Resource
 ## projectile configuration
 @export var projectile_config: ProjectileConfig
 ## shooting cost configuration
-@export var shooting_cost_config: ShootingCostConfig
+@export var shooting_cost_config: ShootingCostConfigInterface

@@ -1,5 +1,5 @@
 class_name BaseShieldPowerUp
-extends Pickable
+extends PickableInterface
 
 ## shield scene attached to the base on pickup
 @export var _shield_scene : PackedScene
