@@ -1,8 +1,9 @@
-class_name EntityLevelsConfig
+class_name EntityLevels
 extends Resource
 
 ## one config per level; index 0 is the starting level
 @export var levels : Array[EntityLevelConfig]
+
 
 ## config for the given level index, clamped to the available levels
 func level_at(index: int) -> EntityLevelConfig:

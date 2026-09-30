@@ -21,7 +21,7 @@ signal entity_died
 
 @export_group("Entity")
 ## per-level stats, health and weapon config
-@export var _entity_levels : EntityLevelsConfig
+@export var _entity_levels : EntityLevels
 
 ## system that will handle all the shooting logic
 @onready var _weapon_system: WeaponSystem = %WeaponSystem
