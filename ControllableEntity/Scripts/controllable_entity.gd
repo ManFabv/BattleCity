@@ -189,3 +189,8 @@ func _on_dead() -> void:
 ## listeners are notified once, since the entity is freed right after dying
 func subscribe_to_death(on_death: Callable) -> void:
 	entity_died.connect(on_death, CONNECT_ONE_SHOT)
+
+
+## listeners are notified every time the level stats are applied
+func subscribe_to_stats_set(on_stats_set: Callable) -> void:
+	entity_stats_set.connect(on_stats_set)

@@ -11,7 +11,7 @@ extends Node
 ## every AIController currently alive, kept up to date on player spawn/death
 var _tracked_enemies : Array[AIController] = []
 ## current player instance, or null while there's no player alive
-var _player_target : Node3D
+var _player_target : ControllableEntity
 
 
 func _ready() -> void:
@@ -52,5 +52,5 @@ func _broadcast_player_target() -> void:
 
 ## _base is a fixed scene reference; once the base is destroyed (defeat), it becomes
 ## a freed object instead of null, so we resolve it here before handing it out
-func _current_base_target() -> Node3D:
+func _current_base_target() -> Base:
 	return _base if is_instance_valid(_base) else null
