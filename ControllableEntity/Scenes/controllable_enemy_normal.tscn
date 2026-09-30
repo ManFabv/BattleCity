@@ -44,6 +44,7 @@ unique_name_in_owner = true
 
 [node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
+_wander_timeout = 9.5
 _attack_detector = NodePath("../SightAttackDetector")
 owner_controllable_entity = NodePath("..")
 

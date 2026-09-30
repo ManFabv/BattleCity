@@ -14,6 +14,7 @@ collision_layer = 0
 collision_mask = 512
 monitorable = false
 script = ExtResource("1_shield")
+_duration = 10.0
 _orbit_particles = NodePath("OrbitParticles")
 _timer_manager = ExtResource("2_timerres")
 

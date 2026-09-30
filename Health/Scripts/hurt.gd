@@ -8,19 +8,19 @@ signal _on_damage_taken
 var _damage_stats : DamageStats
 
 
-## to avoid having to connect this signal on
-## every node, we connect it here
+## to avoid having to connect this signal on every node, we connect it here
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 
 ## we cache references
-func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
-	_on_damage_taken.connect(on_damage_taken)
-
-
 func configure(damage_stats: DamageStats) -> void:
 	_damage_stats = damage_stats
+
+
+## we subscribe to damage signal
+func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
+	_on_damage_taken.connect(on_damage_taken)
 
 
 ## if we collided with other body

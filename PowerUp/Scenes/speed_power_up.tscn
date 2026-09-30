@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqk8w2p5narjy"]
 
 [ext_resource type="Script" uid="uid://bk240c8vf2mek" path="res://PowerUp/Scripts/speed_power_up.gd" id="1_speed"]
-[ext_resource type="Resource" uid="uid://cckytcyauscc6" path="res://EntityStats/Resources/Modifiers/speed_entity_stat_modifier.tres" id="2_speed_mod"]
+[ext_resource type="Resource" uid="uid://cckytcyauscc6" path="res://EntityStats/Resources/Modifiers/speed_entity_stats_modifier.tres" id="2_speed_mod"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_speed"]
 size = Vector3(0.6, 0.6, 0.6)

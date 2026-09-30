@@ -7,4 +7,5 @@ extends Resource
 	get():
 		return damage
 	set(new_value):
+		# we prevent negative values
 		damage = max(new_value, 0)

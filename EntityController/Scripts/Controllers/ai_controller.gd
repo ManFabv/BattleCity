@@ -171,8 +171,10 @@ func _get_random_wander_target() -> Vector3:
 ## in that case is_target_reached() is true and there's nothing to give up on
 func _on_wander_timeout() -> void:
 	if not _navigation_agent.is_target_reached():
-		# give up on the current wander target: let the state machine move on to next state,
-		# the same as if we had reached it, instead of retrying wander forever
+		# give up on the current wander target by clamping it to where we are, so the entity
+		# stops moving exactly as if it had reached it, and let the state machine move on
+		# to the next state instead of retrying wander forever
+		_navigation_agent.set_target_position(owner_controllable_entity.global_position)
 		wander_timed_out.emit()
 
 
