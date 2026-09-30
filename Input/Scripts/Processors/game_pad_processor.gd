@@ -35,12 +35,12 @@ func _ready() -> void:
 	_open_ui_menu_name = "open_ui_menu"
 
 
-# called when we are going to start using this input
+## called when we are going to start using this input
 func enter_input_type() -> void:
 	pass #TODO: here we can change cursor GUI
 
 
-# called when we are going to stop using this input and change to another
+## called when we are going to stop using this input and change to another
 func exit_input_type() -> void:
 	pass #TODO: here we can change cursor GUI
 
@@ -49,13 +49,12 @@ func exit_input_type() -> void:
 func get_input_movement() -> Vector2:
 	# we get the input of joystick
 	var move_input : Vector2 = Input.get_vector(
-		_move_left_name, _move_right_name, _move_up_name, _move_down_name
-		)
+		_move_left_name, _move_right_name, _move_up_name, _move_down_name)
 	# we return the input value
 	return move_input
 
 
-# here we need to calculate where to look according to right stick
+## here we need to calculate where to look according to right stick
 func get_look_at() -> Vector2:
 	# we get the input of the right stick of the gamepad
 	var move_input : Vector2 = Input.get_vector(
