@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgpwyjcpjpung" path="res://Base/Scripts/base.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1"]
 size = Vector3(2, 1.5, 2)
@@ -12,8 +13,9 @@ size = Vector3(1.8, 1.4, 1.8)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
 albedo_color = Color(0.752941, 0.752941, 0.752941, 1)
 
-[node name="Base" type="Node3D" unique_id=59400926]
+[node name="Base" type="Node3D" unique_id=59400926 node_paths=PackedStringArray("_upgrade_attach_point")]
 script = ExtResource("1")
+_upgrade_attach_point = NodePath("UpgradeAttachPoint")
 
 [node name="Body" type="StaticBody3D" parent="." unique_id=801766690]
 collision_layer = 774
@@ -29,8 +31,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_1")
 radius = 1.5
 height = 1.5
 
-[node name="UpgradeAttachPoint" type="Marker3D" parent="." unique_id=555100005]
-unique_name_in_owner = true
+[node name="UpgradeAttachPoint" parent="." unique_id=555100005 instance=ExtResource("upgrade_attach_point")]
 
 [node name="Health" parent="." unique_id=184915631 instance=ExtResource("2")]
 unique_name_in_owner = true

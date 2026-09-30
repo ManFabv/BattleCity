@@ -15,51 +15,45 @@ signal entity_died
 ## which will make this entity move
 @export var _entity_controller : EntityController
 
+@export_group("Upgrades")
+## where attachable upgrades (ex: shields) are parented, so they follow this entity
+@export var _upgrade_attach_point : UpgradeAttachPoint
+
 @export_group("Entity")
 ## per-level stats, health and weapon config
 @export var _entity_levels : EntityLevelsConfig
 
-#system that will handle all the shooting logic
+## system that will handle all the shooting logic
 @onready var _weapon_system: WeaponSystem = %WeaponSystem
 ## manages the entity stats and its modifiers
 @onready var _entity_stats_manager : EntityStatsManager = %EntityStatsManager
 ## manages the health for the entity
 @onready var _health : Health = %Health
-## the tank's hull mesh
+## the tank's body mesh
 @onready var _body : MeshInstance3D = %Body
-## where attachable upgrades (ex: shields) are parented, so they follow this entity
-@onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
 
 ## calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO
-##input intention captured during the render frame
+## input intention captured during the process method
 var _input_move_direction : Vector3 = Vector3.ZERO
+## look at intention captured during the process method
 var _input_look_at_angle : float = 0.0
+## shooting intention captured during the process method
 var _input_has_shot : bool = false
 
-## index of the currently applied level, kept per instance because the levels config is a shared Resource
-var current_level_index : int = 0:
+## index of the currently applied level
+var _current_level_index : int = 0:
 	set(new_value):
-		current_level_index = clampi(new_value, 0, _entity_levels.last_index())
+		_current_level_index = clampi(new_value, 0, _entity_levels.last_index())
 
 ## the entity stats shorthand access
 var _entity_stats : EntityStats:
 	get():
 		return _entity_stats_manager.entity_stats()
 
-## the entity move speed shorthand access
-var entity_move_speed : float:
-	get():
-		return _entity_stats.move_speed
-
-## the entity controller shorthand access
-var entity_controller : EntityController:
-	get():
-		return _entity_controller
-
 
 func _ready() -> void:
-	set_level(current_level_index)
+	set_level(_current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -76,13 +70,19 @@ func apply_stat_modifier(modifier: EntityStatsModifier) -> void:
 ## public entry point so external systems (ex: pickups) can attach an upgrade to this entity;
 ## the upgrade manages its own lifetime and is freed together with the entity
 func attach_upgrade(upgrade: Node3D) -> void:
-	_upgrade_attach_point.add_child(upgrade)
+	_upgrade_attach_point.attach_upgrade(upgrade)
+
+
+## sets the level this entity starts with; only stores the index, _ready() is the one applying it,
+## so it must be called before the entity enters the tree (use set_level() afterwards)
+func set_initial_level(level: int) -> void:
+	_current_level_index = level
 
 
 ## applies speed, health and weapon for the given level in one call
 func set_level(level: int) -> void:
-	current_level_index = level
-	var entity_level: EntityLevelConfig = _entity_levels.level_at(current_level_index)
+	_current_level_index = level
+	var entity_level: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
 	_entity_stats_manager.configure(entity_level.entity_stats)
 	_health.configure(entity_level.health_stats)
 	_weapon_system.change_weapon(entity_level.weapon_config)
@@ -108,9 +108,9 @@ func _tint_mesh(mesh_instance: MeshInstance3D, color: Color) -> void:
 ## advances to the next entity level, if there is one (used by the star power-up)
 func level_up() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
-	if current_level_index >= _entity_levels.last_index():
+	if _current_level_index >= _entity_levels.last_index():
 		return
-	set_level(current_level_index + 1)
+	set_level(_current_level_index + 1)
 
 
 ## resets weapon and entity stats back to the starting level,
@@ -138,7 +138,7 @@ func _process(_delta) -> void:
 
 func _physics_process(delta) -> void:
 	# we calculate a desired velocity
-	var target_velocity : Vector3 = _input_move_direction * entity_move_speed
+	var target_velocity : Vector3 = _input_move_direction * get_entity_move_speed()
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
@@ -194,3 +194,13 @@ func subscribe_to_death(on_death: Callable) -> void:
 ## listeners are notified every time the level stats are applied
 func subscribe_to_stats_set(on_stats_set: Callable) -> void:
 	entity_stats_set.connect(on_stats_set)
+
+
+## the entity move speed shorthand access
+func get_entity_move_speed() -> float:
+	return _entity_stats.move_speed
+
+
+## the entity controller shorthand access
+func get_entity_controller() -> EntityController:
+	return _entity_controller

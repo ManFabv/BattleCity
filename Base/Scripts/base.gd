@@ -1,17 +1,20 @@
 class_name Base
 extends Node3D
 
+@export_group("Signals")
 ## emitted when the base loses all its health
 @export var _on_base_destroyed : BaseEvent
 
 @export_group("Base")
 ## health stats for the base (only supports a single enemy shot)
 @export var _health_stats : HealthStats
+
 @export_group("References")
+## where attachable upgrades (ex: shields) are parented, so they are placed correctly
+@export var _upgrade_attach_point : UpgradeAttachPoint
+
 ## manages the health for the base, reusing the same component as ControllableEntity
 @onready var _health : Health = %Health
-## where attachable upgrades (ex: shields) are parented, so they follow the base
-@onready var _upgrade_attach_point : Marker3D = %UpgradeAttachPoint
 
 
 ## we configure the health of the base
@@ -22,9 +25,8 @@ func _ready() -> void:
 
 ## public entry point for pickups can attach an upgrade to the base (shield)
 func attach_upgrade(upgrade: Node3D) -> void:
-	if is_instance_valid(upgrade):
-		## the upgrade manages its own lifetime and is freed together with the base
-		_upgrade_attach_point.add_child(upgrade)
+	# the upgrade manages its own lifetime and is freed together with the base
+	_upgrade_attach_point.attach_upgrade(upgrade)
 
 
 ## called every time the base takes a hit

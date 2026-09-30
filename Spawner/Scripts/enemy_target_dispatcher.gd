@@ -22,7 +22,7 @@ func _ready() -> void:
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
 	if not is_instance_valid(enemy):
 		return
-	var entity_controller : EntityController = enemy.entity_controller
+	var entity_controller : EntityController = enemy.get_entity_controller()
 	if entity_controller is AIController:
 		var ai_controller : AIController = entity_controller as AIController
 		_tracked_enemies.append(ai_controller)
