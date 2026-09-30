@@ -63,7 +63,9 @@ radius = 1.2
 neighbor_distance = 20.0
 
 [node name="VisionShapeCast3D" type="ShapeCast3D" parent="." unique_id=2063289976]
+enabled = false
 shape = SubResource("SphereShape3D_vision")
+collision_mask = 17
 
 [node name="AttackDetector" parent="." unique_id=1103963107 node_paths=PackedStringArray("_vision_shape_cast", "owner_controllable_entity") instance=ExtResource("12")]
 _vision_shape_cast = NodePath("../VisionShapeCast3D")
