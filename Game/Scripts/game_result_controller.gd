@@ -1,4 +1,4 @@
-class_name LevelOutcomeController
+class_name GameResultController
 extends Node
 
 ## event emitted when the base is destroyed
@@ -11,6 +11,7 @@ extends Node
 @export var _on_defeat : BaseEvent
 
 
+## we subscribe to the different signals that we need to be aware of
 func _ready() -> void:
 	_on_base_destroyed.subscribe(_on_base_destroyed_handler, tree_exited)
 	_on_player_out_of_lives.subscribe(_on_player_out_of_lives_handler, tree_exited)

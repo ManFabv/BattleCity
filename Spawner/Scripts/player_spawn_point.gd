@@ -3,7 +3,7 @@ extends Node3D
 
 ## emitted right after instantiate(), before this new player is parented
 @export var _on_player_spawned : BaseEvent
-## emitted when the player has no lives left (consumed by LevelOutcomeController)
+## emitted when the player has no lives left (consumed by LevelResultController)
 @export var _on_player_out_of_lives : BaseEvent
 ## the camera used for mouse aiming, wired manually since it's static in the level
 @export var _player_camera : PlayerCamera

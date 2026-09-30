@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://Spawner/Scenes/enemy_alive_counter.tscn" id="11_counter"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://Spawner/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
 [ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://EventBus/Resources/Events/on_victory.tres" id="13_victory"]
-[ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/level_outcome_controller.tscn" id="14_outcome"]
+[ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/game_result_controller.tscn" id="14_outcome"]
 [ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://EventBus/Resources/Events/on_defeat.tres" id="15_defeat"]
 [ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="16_basedestroyed"]
 [ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://PowerUp/Scenes/star_power_up.tscn" id="17_star"]
@@ -257,7 +257,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.578964, 0, -6.66182)
 _wave_config = ExtResource("6_3h4jy")
 _on_node_spawned = ExtResource("7_owfks")
 
-[node name="LevelOutcomeController" parent="." unique_id=561437413 instance=ExtResource("14_outcome")]
+[node name="LevelResultController" parent="." unique_id=561437413 instance=ExtResource("14_outcome")]
 _on_base_destroyed = ExtResource("16_basedestroyed")
 _on_player_out_of_lives = ExtResource("27_outoflives")
 _on_victory = ExtResource("13_victory")
