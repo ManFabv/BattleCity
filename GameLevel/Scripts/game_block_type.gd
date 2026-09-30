@@ -1,4 +1,4 @@
-class_name BlockType
+class_name GameBlockType
 extends Resource
 
 ## whether this block can be removed when hit

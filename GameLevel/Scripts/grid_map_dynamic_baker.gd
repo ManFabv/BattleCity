@@ -1,4 +1,4 @@
-class_name GridMapUpdater
+class_name GridMapDynamicBaker
 extends Node
 
 ## how many destroyed blocks accumulate before we trigger a rebake

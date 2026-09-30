@@ -19,7 +19,7 @@ var _has_hit_level_grid: bool = false
 ## every node, we connect it here
 func _ready() -> void:
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
-	# shape-level signal, needed so LevelGrid hits resolve the exact cell hit
+	# shape-level signal, needed so GameLevelGrid hits resolve the exact cell hit
 	body_shape_entered.connect(_on_body_shape_entered)
 
 
@@ -50,9 +50,9 @@ func _on_body_entered(_body: Node3D) -> void:
 ## shape we hit -- asking the physics server which cell that shape belongs to,
 ## instead of guessing a cell from our own position
 ## exception to the typed-handler rule: same mixed mask as _on_body_entered above,
-## so we cast only here where LevelGrid-specific behavior is actually needed
+## so we cast only here where GameLevelGrid-specific behavior is actually needed
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
-	var level_grid := body as LevelGrid
+	var level_grid := body as GameLevelGrid
 	if level_grid and not _has_hit_level_grid:
 		_has_hit_level_grid = true
 		level_grid.resolve_hit_from_shape(body_rid, body_shape_index)

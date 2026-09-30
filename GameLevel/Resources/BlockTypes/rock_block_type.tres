@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GameBlockType" format=3 uid="uid://dfdq18iqbyoi3"]
+
+[ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://GameLevel/Scripts/game_block_type.gd" id="1_syy4j"]
+
+[resource]
+script = ExtResource("1_syy4j")
