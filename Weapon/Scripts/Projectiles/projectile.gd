@@ -42,11 +42,14 @@ func _physics_process(delta: float) -> void:
 ## we hit solid world geometry: destroy the projectile
 ## exception to the typed-handler rule: this mask mixes StaticBody3D (World)
 ## and GridMap (LevelBlocks), so Node3D is the nearest common base type
-func _on_body_entered(_body: Node3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
+	# level grid hits are resolved per cell in _on_body_shape_entered
+	if body is GameLevelGrid:
+		return
 	_destroy_projectile()
 
 
-## if we hit the level's block grid, resolve the destructible block at the exact
+## if we hit the level's block grid, resolve the block at the exact
 ## shape we hit -- asking the physics server which cell that shape belongs to,
 ## instead of guessing a cell from our own position
 ## exception to the typed-handler rule: same mixed mask as _on_body_entered above,
@@ -54,8 +57,10 @@ func _on_body_entered(_body: Node3D) -> void:
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
 	var level_grid := body as GameLevelGrid
 	if level_grid and not _has_hit_level_grid:
-		_has_hit_level_grid = true
-		level_grid.resolve_hit_from_shape(body_rid, body_shape_index)
+		# blocks that don't stop projectiles (water) let the shot fly over them
+		if level_grid.resolve_hit_from_shape(body_rid, body_shape_index):
+			_has_hit_level_grid = true
+			_destroy_projectile()
 
 
 ## called by a shield that intercepts this projectile

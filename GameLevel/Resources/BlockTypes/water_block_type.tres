@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_5unru")
+blocks_projectiles = false
 gridmap_item_id = 2
