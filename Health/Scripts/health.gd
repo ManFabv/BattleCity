@@ -23,7 +23,9 @@ var is_dead : bool = false:
 
 
 func configure(new_health_stats: HealthStats) -> void:
+	# we cache the stats
 	health_stats = new_health_stats
+	# we set the initial max health
 	_initialize_max_health()
 
 
