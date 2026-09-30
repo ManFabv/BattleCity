@@ -1,8 +1,8 @@
-class_name GameLevelGrid
+class_name GridMapLevelBlocks
 extends GridMap
 
 ## block types placed on this grid, matched to cells by gridmap_item_id
-@export var block_types: Array[GameBlockType] = []
+@export var block_types: Array[GridMapBlockType] = []
 ## event emitted whenever a destructible block is removed from this grid
 @export var _on_block_destroyed : BaseEvent
 

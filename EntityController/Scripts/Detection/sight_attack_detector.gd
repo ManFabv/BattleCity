@@ -44,11 +44,11 @@ func _is_shape_cast_colliding(target_position: Vector3) -> bool:
 func _check_shape_cast_colliders() -> bool:
 	for i in range(_vision_shape_cast.get_collision_count()):
 		# if we are not colliding with a grid map we continue to next collider
-		if _vision_shape_cast.get_collider(i) is not GameLevelGrid:
+		if _vision_shape_cast.get_collider(i) is not GridMapLevelBlocks:
 			# anything that is not the level grid (world geometry) always blocks
 			return true
 		# we get the grid map
-		var level_grid : GameLevelGrid = _vision_shape_cast.get_collider(i) as GameLevelGrid
+		var level_grid : GridMapLevelBlocks = _vision_shape_cast.get_collider(i) as GridMapLevelBlocks
 		# we get the RID
 		var collider_rid : RID = _vision_shape_cast.get_collider_rid(i)
 		# we get the shape ID

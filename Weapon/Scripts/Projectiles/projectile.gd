@@ -19,7 +19,7 @@ var _has_hit_level_grid: bool = false
 ## every node, we connect it here
 func _ready() -> void:
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
-	# shape-level signal, needed so GameLevelGrid hits resolve the exact cell hit
+	# shape-level signal, needed so GridMapLevelBlocks hits resolve the exact cell hit
 	body_shape_entered.connect(_on_body_shape_entered)
 
 
@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 ## and GridMap (LevelBlocks), so Node3D is the nearest common base type
 func _on_body_entered(body: Node3D) -> void:
 	# level grid hits are resolved per cell in _on_body_shape_entered
-	if body is GameLevelGrid:
+	if body is GridMapLevelBlocks:
 		return
 	_destroy_projectile()
 
@@ -53,9 +53,9 @@ func _on_body_entered(body: Node3D) -> void:
 ## shape we hit -- asking the physics server which cell that shape belongs to,
 ## instead of guessing a cell from our own position
 ## exception to the typed-handler rule: same mixed mask as _on_body_entered above,
-## so we cast only here where GameLevelGrid-specific behavior is actually needed
+## so we cast only here where GridMapLevelBlocks-specific behavior is actually needed
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
-	var level_grid := body as GameLevelGrid
+	var level_grid := body as GridMapLevelBlocks
 	if level_grid and not _has_hit_level_grid:
 		# blocks that don't stop projectiles (water) let the shot fly over them
 		if level_grid.resolve_hit_from_shape(body_rid, body_shape_index):

@@ -1,4 +1,4 @@
-class_name GameBlockType
+class_name GridMapBlockType
 extends Resource
 
 ## whether this block can be removed when hit
