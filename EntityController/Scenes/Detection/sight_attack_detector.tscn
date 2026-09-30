@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://yymqre1qxim7"]
+
+[ext_resource type="Script" uid="uid://cwdpui0c4irje" path="res://EntityController/Scripts/Detection/sight_attack_detector.gd" id="1_bgxde"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vision"]
+radius = 0.4
+
+[node name="SightAttackDetector" type="Node3D" unique_id=1193538198 node_paths=PackedStringArray("_vision_shape_cast")]
+script = ExtResource("1_bgxde")
+_vision_shape_cast = NodePath("VisionShapeCast3D")
+
+[node name="VisionShapeCast3D" type="ShapeCast3D" parent="." unique_id=1193538199]
+enabled = false
+shape = SubResource("SphereShape3D_vision")
+collision_mask = 17

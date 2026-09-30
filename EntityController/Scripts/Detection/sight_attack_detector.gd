@@ -1,4 +1,4 @@
-class_name EntityVisionDetector
+class_name SightAttackDetector
 extends TargetDetector
 
 @export_group("Attack Detection")

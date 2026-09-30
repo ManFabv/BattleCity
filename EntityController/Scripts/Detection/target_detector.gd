@@ -1,5 +1,5 @@
 class_name TargetDetector
-extends Node
+extends Node3D
 
 @export_group("References")
 ## who is the entity we are checking detection for
