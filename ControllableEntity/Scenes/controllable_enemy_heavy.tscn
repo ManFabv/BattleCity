@@ -44,6 +44,7 @@ unique_name_in_owner = true
 
 [node name="AiController" parent="." unique_id=1361543218 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
+_wander_timeout = 8.0
 _attack_detector = NodePath("../SightAttackDetector")
 owner_controllable_entity = NodePath("..")
 
@@ -67,5 +68,6 @@ shape = SubResource("BoxShape3D")
 _ai_controller = NodePath("../AiController")
 _navigation_agent = NodePath("../NavigationAgent3D")
 _weapon_system = NodePath("../WeaponSystem")
+_attack_cooldown_seconds = 8.0
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]
