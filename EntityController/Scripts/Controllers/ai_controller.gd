@@ -1,5 +1,5 @@
 class_name AIController
-extends EntityController
+extends EntityControllerInterface
 
 ## emitted when the current wander target isn't reached before its timeout;
 ## the state machine reacts to this the same way it reacts to reaching the target
@@ -14,7 +14,7 @@ signal wander_timed_out
 
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
-@export var _attack_detector : TargetDetector
+@export var _attack_detector : TargetDetectorInterface
 
 @export_group("Timer")
 ## the shared timer manager used to request the wander target timeout timer

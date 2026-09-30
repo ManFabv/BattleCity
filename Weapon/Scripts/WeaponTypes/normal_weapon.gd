@@ -1,4 +1,4 @@
-extends Weapon
+extends WeaponInterface
 class_name NormalWeapon
 
 

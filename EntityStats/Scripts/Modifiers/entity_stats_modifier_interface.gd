@@ -1,4 +1,4 @@
-class_name EntityStatsModifier
+class_name EntityStatsModifierInterface
 extends Resource
 
 ## how much time this stats modifier will be applied

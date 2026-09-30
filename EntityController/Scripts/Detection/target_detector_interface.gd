@@ -1,4 +1,4 @@
-class_name TargetDetector
+class_name TargetDetectorInterface
 extends Node3D
 
 @export_group("References")

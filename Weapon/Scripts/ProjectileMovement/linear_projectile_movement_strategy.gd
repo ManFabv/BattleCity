@@ -1,14 +1,14 @@
 class_name LinearProjectileMovementStrategy
-extends ProjectileMovementStrategy
+extends ProjectileMovementStrategyInterface
 
-var projectile_movement_stats: ProjectileMovementStats
+var projectile_movement_stats: ProjectileMovementStatsInterface
 
 
 ## direction where the projectile is moving
 var _direction : Vector3 = Vector3.FORWARD
 
 
-func configure(stats: ProjectileMovementStats, origin: Node3D) -> void:
+func configure(stats: ProjectileMovementStatsInterface, origin: Node3D) -> void:
 	projectile_movement_stats = stats
 	# we take the origin (usually the shooting point) forward position
 	_direction = origin.global_transform.basis.z.normalized()

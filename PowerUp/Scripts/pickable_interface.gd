@@ -1,4 +1,4 @@
-class_name Pickable
+class_name PickableInterface
 extends Area3D
 
 

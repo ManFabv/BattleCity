@@ -33,7 +33,7 @@ func _spawn_player() -> void:
 	_on_player_spawned.emit(player)
 	player.global_position = global_position
 	player.entity_died.connect(_on_player_died, CONNECT_ONE_SHOT)
-	var entity_controller : EntityController = player.get_entity_controller()
+	var entity_controller : EntityControllerInterface = player.get_entity_controller()
 	if entity_controller is PlayerController:
 		(entity_controller as PlayerController).set_camera(_player_camera)
 

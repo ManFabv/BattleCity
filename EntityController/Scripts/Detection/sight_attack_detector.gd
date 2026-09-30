@@ -1,5 +1,5 @@
 class_name SightAttackDetector
-extends TargetDetector
+extends TargetDetectorInterface
 
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target

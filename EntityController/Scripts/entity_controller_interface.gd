@@ -1,4 +1,4 @@
-class_name EntityController
+class_name EntityControllerInterface
 extends Node
 
 @export_group("References")

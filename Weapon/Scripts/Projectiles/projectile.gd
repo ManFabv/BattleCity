@@ -3,7 +3,7 @@ extends Area3D
 
 
 ## Strategy responsible for moving the projectile
-var _projectile_movement_strategy: ProjectileMovementStrategy
+var _projectile_movement_strategy: ProjectileMovementStrategyInterface
 
 ## true once this projectile resolved a hit on the level grid, so a shot touching
 ## two cells at once (e.g. on the seam between them) only breaks one

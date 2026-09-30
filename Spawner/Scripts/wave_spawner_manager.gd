@@ -38,7 +38,7 @@ func _on_node_spawned_handler(node: ControllableEntity) -> void:
 func _assign_navigation_region(node: ControllableEntity) -> void:
 	if not is_instance_valid(node):
 		return
-	var entity_controller: EntityController = node.get_entity_controller()
+	var entity_controller: EntityControllerInterface = node.get_entity_controller()
 	if entity_controller is AIController:
 		(entity_controller as AIController).set_navigation_region_rid(_navigation_region.get_rid())
 

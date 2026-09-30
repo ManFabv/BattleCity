@@ -1,17 +1,17 @@
 extends Node3D
-class_name Weapon
+class_name WeaponInterface
 
 
 ## the shared timer manager used to request timers needed by this weapon's shooting cost strategy
 @export var _timer_manager : TimerManagerResource
 
 var _weapon_config : WeaponConfig
-var _shooting_cost_config : ShootingCostConfig
+var _shooting_cost_config : ShootingCostConfigInterface
 var _projectile_config : ProjectileConfig
 
 
 ## the shooting cost strategy instance
-var _current_shooting_cost_strategy : ShootingCostStrategy
+var _current_shooting_cost_strategy : ShootingCostStrategyInterface
 
 ## this weapon's visual mesh, carrying its own muzzle
 var _weapon_mesh : WeaponMesh
