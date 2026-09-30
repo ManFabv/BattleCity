@@ -11,7 +11,7 @@ class_name NormalStateMachine
 
 @export_group("Behavior")
 ## how long, after attacking, the entity is forced to wander before it can attack again
-@export var _attack_cooldown_seconds : float = 10.0
+@export_range(0.1, 60.0) var _attack_cooldown_seconds : float = 10.0
 
 ## the shared timer manager used to request the attack cooldown timer
 @export var _timer_manager : TimerManagerResource
