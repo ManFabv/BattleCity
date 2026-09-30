@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="4_qkl3l"]
+[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
 radius = 0.125
 height = 0.25
 radial_segments = 16
 rings = 16
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2re41"]
-albedo_color = Color(1, 0.45, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
@@ -21,10 +19,10 @@ collision_layer = 512
 collision_mask = 17
 script = ExtResource("1_gmg2w")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1454117825]
+[node name="TintedMesh" parent="." unique_id=1454117825 instance=ExtResource("tinted_mesh")]
+unique_name_in_owner = true
 cast_shadow = 0
 mesh = SubResource("SphereMesh_1bece")
-surface_material_override/0 = SubResource("StandardMaterial3D_2re41")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=130583393]
 shape = SubResource("SphereShape3D_2re41")
