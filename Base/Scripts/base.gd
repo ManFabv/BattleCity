@@ -1,7 +1,7 @@
 class_name Base
 extends Node3D
 
-@export_group("Signals")
+@export_group("Events")
 ## emitted when the base loses all its health
 @export var _on_base_destroyed : BaseEvent
 ## requests the base to attach a shield (emitted by the base shield power-up)

@@ -1,10 +1,12 @@
 class_name GridMapLevelBlocks
 extends GridMap
 
-## block types placed on this grid, matched to MeshLibrary items by item_name
-@export var _block_types_in_grid_map : Array[GridMapBlockType] = []
+@export_group("Events")
 ## event emitted whenever a destructible block is removed from this grid
 @export var _on_block_destroyed : BaseEvent
+@export_group("Config")
+## block types placed on this grid, matched to MeshLibrary items by item_name
+@export var _block_types_in_grid_map : Array[GridMapBlockType] = []
 
 ## Maps the MeshLibrary item id to a block type. This is a shorthand dictionary
 var _block_type_by_item_id_dictionary : Dictionary[int, GridMapBlockType] = {}

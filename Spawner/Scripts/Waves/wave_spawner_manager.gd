@@ -1,19 +1,22 @@
 class_name WaveSpawnerManager
 extends Node
 
+@export_group("Events")
 ## event emitted when a node is spawned
 @export var _on_node_spawned: BaseEvent
 ## event emitted once, when every spawn point has spawned all its enemies
 @export var _on_all_waves_finished: BaseEvent
 ## event we listen to in order to know when the alive enemies count changes
 @export var _on_enemy_count_changed: BaseEvent
+@export_group("References")
 ## spawn points managed by this manager
 @export var _spawn_points: Array[WaveSpawner]
-## base maximum enemies allowed at the same time
-@export_range(1, 20) var _base_max_enemies: int = 3
 ## navigation region handed off to every spawned AIController, instead of
 ## each one resolving its own region rid from the navigation map
 @export var _navigation_region: NavigationRegion3D
+@export_group("Config")
+## base maximum enemies allowed at the same time
+@export_range(1, 20) var _base_max_enemies: int = 3
 
 ## enemies currently alive, kept up to date by the enemy count changed event
 var _enemies_alive_count: int = 0

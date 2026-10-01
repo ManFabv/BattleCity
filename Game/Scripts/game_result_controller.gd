@@ -1,6 +1,7 @@
 class_name GameResultController
 extends Node
 
+@export_group("Events")
 ## event emitted when the base is destroyed
 @export var _on_base_destroyed : BaseEvent
 ## event emitted when the player runs out of lives

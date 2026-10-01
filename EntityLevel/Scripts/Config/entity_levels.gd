@@ -1,6 +1,7 @@
 class_name EntityLevels
 extends Resource
 
+@export_group("Config")
 ## one config per level; index 0 is the starting level
 @export var _level_configs : Array[EntityLevelConfig]
 

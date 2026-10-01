@@ -1,6 +1,7 @@
 class_name BaseLevelConfig
 extends Resource
 
+@export_group("Config")
 ## health stats for this level
 @export var health_stats : HealthStats
 ## color applied to the base mesh at this level

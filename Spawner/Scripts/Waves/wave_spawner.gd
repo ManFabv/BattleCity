@@ -1,12 +1,15 @@
 class_name WaveSpawner
 extends Node3D
 
-## wave configuration with the spawns (delay and node scene) to run
-@export var _wave_config: WaveSpawnerConfig
+@export_group("Events")
 ## event emitted when a node is spawned
 @export var _on_node_spawned: BaseEvent
+@export_group("References")
 ## the shared timer manager used to request the spawn delay timer
 @export var _timer_manager: TimerManagerResource
+@export_group("Config")
+## wave configuration with the spawns (delay and node scene) to run
+@export var _wave_config: WaveSpawnerConfig
 
 ## timer handling spawn delays
 var _timer: CustomTimer

@@ -1,6 +1,7 @@
 class_name EnemyAliveTracker
 extends Node
 
+@export_group("Events")
 ## event we listen to in order to track newly spawned enemies
 @export var _on_enemy_spawned : BaseEvent
 ## event emitted whenever the alive count changes, with the current count as context

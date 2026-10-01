@@ -1,6 +1,7 @@
 class_name WaveSpawnerConfig
 extends Resource
 
+@export_group("Config")
 ## one config per spawn; index 0 is the first spawn
 @export var _spawn_configs : Array[WaveSpawnConfig]
 

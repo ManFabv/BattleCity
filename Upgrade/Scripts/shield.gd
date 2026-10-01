@@ -1,15 +1,17 @@
 class_name Shield
 extends Area3D
 
-## how long the shield stays attached before removing itself
-@export_range(0.1, 60.0) var _duration : float = 5.0
+@export_group("References")
 ## particles orbiting the shielded entity; CPUParticles3D instead of GPUParticles3D because the
 ## project's Compatibility renderer pays a shader-compile hitch on a GPU particle material's first use
 @export var _orbit_particles : CPUParticles3D
-## how fast the particles orbit, in radians per second
-@export_range(0.1, 20.0) var _orbit_speed : float = 2.0
 ## the shared timer manager used to request the timer that removes this shield after _duration
 @export var _timer_manager : TimerManagerResource
+@export_group("Config")
+## how long the shield stays attached before removing itself
+@export_range(0.1, 60.0) var _duration : float = 5.0
+## how fast the particles orbit, in radians per second
+@export_range(0.1, 20.0) var _orbit_speed : float = 2.0
 
 
 func _ready() -> void:

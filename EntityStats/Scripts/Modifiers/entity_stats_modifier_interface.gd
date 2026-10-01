@@ -1,10 +1,12 @@
 class_name EntityStatsModifierInterface
 extends Resource
 
-## how much time this stats modifier will be applied
-@export_range(0.1, 60.0) var duration : float = 3.0
+@export_group("References")
 ## shared timer manager used by the applier to count this duration
 @export var timer_manager : TimerManagerResource
+@export_group("Config")
+## how much time this stats modifier will be applied
+@export_range(0.1, 60.0) var duration : float = 3.0
 
 
 ## We create the runtime applier for this modifier

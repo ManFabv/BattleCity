@@ -17,8 +17,8 @@ albedo_color = Color(0.78961724, 0.15162495, 0.6085504, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_base_shield")
-_shield_scene = ExtResource("2_shieldscene")
 _on_base_shield_requested = ExtResource("3_baseshield")
+_shield_scene = ExtResource("2_shieldscene")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1892374652]
 shape = SubResource("BoxShape3D_base_shield")

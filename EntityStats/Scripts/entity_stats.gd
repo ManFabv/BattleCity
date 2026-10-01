@@ -19,7 +19,7 @@ extends Resource
 ## if the entity's vertical position drops below this value, it's eliminated (e.g. knocked off the arena)
 @export_range(-100, 100) var death_vertical_position : float = -10.0
 
-#we are applying the gravity defined by the setting and the multiplier set by the inspector
+## we are applying the gravity defined by the setting and the multiplier set by the inspector
 var gravity : float :
 	get():
 		return _project_settings_gravity * gravity_modifier

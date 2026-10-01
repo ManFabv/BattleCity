@@ -1,6 +1,7 @@
 class_name EnemyEliminatorApplier
 extends Node
 
+@export_group("Events")
 ## event we listen to in order to track newly spawned enemies
 @export var _on_enemy_spawned : BaseEvent
 ## event we listen to in order to eliminate every currently tracked enemy (used by the grenade power-up)

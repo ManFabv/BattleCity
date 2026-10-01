@@ -1,6 +1,7 @@
 class_name ShootingCostConfigInterface
 extends Resource
 
+@export_group("Config")
 ## how many seconds the weapon waits between shots
 @export_range(0.1, 10.0) var fire_rate: float = 1.0
 

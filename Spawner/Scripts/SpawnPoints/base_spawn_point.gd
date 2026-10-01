@@ -1,8 +1,10 @@
 class_name BaseSpawnPoint
 extends Node3D
 
+@export_group("Events")
 ## emitted right after instantiate(), before the new base is parented (consumed by BaseContainer)
 @export var _on_base_spawned : BaseEvent
+@export_group("Config")
 ## which base to spawn (scene to instantiate)
 @export var _base_config : BaseConfig
 
