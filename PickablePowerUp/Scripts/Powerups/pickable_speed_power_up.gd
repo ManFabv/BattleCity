@@ -1,5 +1,5 @@
-class_name SpeedPowerUp
-extends PickableInterface
+class_name PickableSpeedPowerUp
+extends PickablePowerUpInterface
 
 ## the stat modifier applied to the tank on pickup
 @export var _speed_modifier : EntityStatsModifierInterface

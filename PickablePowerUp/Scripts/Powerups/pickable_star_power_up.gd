@@ -1,5 +1,5 @@
-class_name StarPowerUp
-extends PickableInterface
+class_name PickableStarPowerUp
+extends PickablePowerUpInterface
 
 
 ## the star upgrades the tank to its next entity level (stats, health and weapon)

@@ -1,15 +1,17 @@
-class_name PickableInterface
+class_name PickablePowerUpInterface
 extends Area3D
 
 
+## to avoid forgetting to connect the signal, we connect it here
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 
 ## whoever picks it up gets the effect applied and the pickable is consumed
 func _on_body_entered(body: ControllableEntity) -> void:
-	_apply_pickup(body)
-	queue_free()
+	if is_instance_valid(body):
+		_apply_pickup(body)
+		queue_free()
 
 
 ## every power-up implements its own effect here

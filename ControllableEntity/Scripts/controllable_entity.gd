@@ -53,7 +53,7 @@ var _entity_stats : EntityStats:
 
 
 func _ready() -> void:
-	configure_entity_for_level(_current_level_index)
+	_configure_entity_for_level(_current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	#we listen to the input type changed signal on input manager
@@ -89,7 +89,7 @@ func _physics_process(delta) -> void:
 	# we move the object with that velocity
 	move_and_slide()
 	# eliminate the entity if it fell below the level's death Z position
-	check_vertical_death()
+	_check_vertical_death()
 
 
 func _process_gravity() -> float:
@@ -102,7 +102,7 @@ func _process_gravity() -> float:
 
 
 ## if we are falling from the ground, we make sure to trigger a dead
-func check_vertical_death() -> void:
+func _check_vertical_death() -> void:
 	if global_position.y < _entity_stats.death_vertical_position:
 		# eliminate the entity if it fell below the level's death Z position
 		eliminate()
@@ -121,6 +121,29 @@ func _on_dead() -> void:
 	# removing the node
 	entity_died.emit()
 	queue_free()
+
+
+## applies speed, health and weapon for the given level in one call
+func _configure_entity_for_level(level: int) -> void:
+	# we update the current level index
+	_current_level_index = level
+	# we cache the entity level config
+	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
+	## we setup the stats manager
+	_entity_stats_manager.configure(entity_level_config.entity_stats)
+	## we setup the health
+	_health.configure(entity_level_config.health_stats)
+	## we setup the weapon system
+	_weapon_system.change_weapon(entity_level_config.weapon_config)
+	## we setup the entity color
+	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
+	# we notify that the correct entity configuration was made
+	entity_configured_for_level.emit()
+
+
+## we check if we are at the max level for this entity
+func _is_at_max_level() -> bool:
+	return _current_level_index >= _entity_levels.last_index()
 
 
 ## listeners are notified once, since the entity is freed right after dying
@@ -148,29 +171,11 @@ func set_initial_level(level: int) -> void:
 	_current_level_index = level
 
 
-## applies speed, health and weapon for the given level in one call
-func configure_entity_for_level(level: int) -> void:
-	# we update the current level index
-	_current_level_index = level
-	# we cache the entity level config
-	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
-	## we setup the stats manager
-	_entity_stats_manager.configure(entity_level_config.entity_stats)
-	## we setup the health
-	_health.configure(entity_level_config.health_stats)
-	## we setup the weapon system
-	_weapon_system.change_weapon(entity_level_config.weapon_config)
-	## we setup the entity color
-	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
-	# we notify that the correct entity configuration was made
-	entity_configured_for_level.emit()
-
-
 ## advances to the next entity level, if there is one
 func level_up() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
 	if not _is_at_max_level():
-		configure_entity_for_level(_current_level_index + 1)
+		_configure_entity_for_level(_current_level_index + 1)
 
 
 ## kills this entity and triggers the signal for that
@@ -186,8 +191,3 @@ func get_entity_move_speed() -> float:
 ## the entity controller shorthand access
 func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
-
-
-## we check if we are at the max level for this entity
-func _is_at_max_level() -> bool:
-	return _current_level_index >= _entity_levels.last_index()

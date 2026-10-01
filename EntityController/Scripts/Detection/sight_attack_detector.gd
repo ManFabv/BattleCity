@@ -9,7 +9,7 @@ extends TargetDetectorInterface
 
 
 ## checks distance and a shapecast sweep toward the target to know if it's a valid attack target
-func has_line_of_sight(target: Node3D) -> bool:
+func has_detected_target(target: Node3D) -> bool:
 	# if the target is not valid, we return that we don't have a line of sight
 	if not is_instance_valid(target):
 		return false
