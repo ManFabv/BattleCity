@@ -11,12 +11,12 @@ extends Node
 @export var _spawn_points: Array[WaveSpawner]
 ## base maximum enemies allowed at the same time
 @export var _base_max_enemies: int = 3
-## tracks how many enemies are currently alive, independent of this manager
-@export var _enemy_alive_tracker: EnemyAliveTracker
 ## navigation region handed off to every spawned AIController, instead of
 ## each one resolving its own region rid from the navigation map
 @export var _navigation_region: NavigationRegion3D
 
+## enemies currently alive, kept up to date by the enemy count changed event
+var _enemies_alive_count: int = 0
 ## enemies that were allowed to spawn but have not spawned yet.
 ## needed so we don't over-notify spawn points while a countdown is running
 var _reserved_spawn_count: int = 0:
@@ -49,7 +49,8 @@ func _assign_navigation_region(node: ControllableEntity) -> void:
 		(entity_controller as AIController).set_navigation_region_rid(_navigation_region_rid)
 
 
-func _on_enemy_count_changed_handler(_new_count: int) -> void:
+func _on_enemy_count_changed_handler(new_count: int) -> void:
+	_enemies_alive_count = new_count
 	# deferred because the count can change while a spawn point is still inside its spawn timer
 	# callback, where its timer still reports running and it would reject the request
 	_notify_spawn_points_if_room.call_deferred()
@@ -60,7 +61,7 @@ func _on_enemy_count_changed_handler(_new_count: int) -> void:
 ## can't both fill the same last free slot
 func _notify_spawn_points_if_room() -> void:
 	for spawn_point: WaveSpawner in _spawn_points:
-		var available_room: int = _base_max_enemies - _enemy_alive_tracker.get_enemies_alive_count() - _reserved_spawn_count
+		var available_room: int = _base_max_enemies - _enemies_alive_count - _reserved_spawn_count
 		if available_room <= 0:
 			return
 		if spawn_point.allow_spawn():

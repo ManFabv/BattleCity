@@ -199,9 +199,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
 
-[node name="EnemyWaveSpawnerManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_tracker", "_navigation_region") instance=ExtResource("4_rqvg4")]
+[node name="EnemyWaveSpawnerManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_navigation_region") instance=ExtResource("4_rqvg4")]
 _spawn_points = [NodePath("EnemySpawner1"), NodePath("EnemySpawner2")]
-_enemy_alive_tracker = NodePath("EnemyAliveTracker")
 _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
 [node name="EnemyAliveTracker" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_tracker")]
