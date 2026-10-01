@@ -1,4 +1,4 @@
-class_name WaveSpawnerConfig
+class_name WaveConfig
 extends Resource
 
 @export_group("Config")

@@ -9,7 +9,7 @@ extends Node3D
 @export var _timer_manager: TimerManagerResource
 @export_group("Config")
 ## wave configuration with the spawns (delay and node scene) to run
-@export var _wave_config: WaveSpawnerConfig
+@export var _wave_config: WaveConfig
 
 ## timer handling spawn delays
 var _timer: CustomTimer

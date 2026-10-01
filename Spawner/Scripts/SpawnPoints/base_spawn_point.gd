@@ -6,7 +6,7 @@ extends Node3D
 @export var _on_base_spawned : BaseEvent
 @export_group("Config")
 ## which base to spawn (scene to instantiate)
-@export var _base_config : BaseConfig
+@export var _base_spawn_point_config : BaseSpawnPointConfig
 
 
 ## at the beginning we spawn the base
@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _spawn_base() -> void:
 	# we instantiate the base scene
-	var base : Base = _base_config.base_scene.instantiate() as Base
+	var base : Base = _base_spawn_point_config.base_scene.instantiate() as Base
 	# we notify that the base is spawned
 	_on_base_spawned.emit(base)
 	# we assign it to the spawner position

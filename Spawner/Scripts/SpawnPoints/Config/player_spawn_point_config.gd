@@ -1,4 +1,4 @@
-class_name PlayerConfig
+class_name PlayerSpawnPointConfig
 extends Resource
 
 @export_group("References")

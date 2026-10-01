@@ -15,7 +15,7 @@ extends Node3D
 ## how long to wait after death before spawning the next life
 @export_range(0.1, 10.0) var _respawn_delay : float = 2.0
 ## which scene to instantiate, how many lives, and the starting entity/game level
-@export var _player_config : PlayerConfig
+@export var _player_spawn_point_config : PlayerSpawnPointConfig
 
 var _remaining_lives : int
 ## true only for the very first life of the run; every respawn after a death is false.
@@ -24,15 +24,15 @@ var _is_first_spawn : bool = true
 
 
 func _ready() -> void:
-	_remaining_lives = _player_config.starting_lives
+	_remaining_lives = _player_spawn_point_config.starting_lives
 	# deferred so every listener is subscribed no matter where this node sits in the tree
 	_spawn_player.call_deferred()
 
 
 func _spawn_player() -> void:
-	var player : ControllableEntity = _player_config.player_scene.instantiate() as ControllableEntity
+	var player : ControllableEntity = _player_spawn_point_config.player_scene.instantiate() as ControllableEntity
 	# the level must be set before emitting the event: the container parents the player there and _ready() applies it
-	player.set_initial_level(_player_config.initial_entity_level if _is_first_spawn else 0)
+	player.set_initial_level(_player_spawn_point_config.initial_entity_level if _is_first_spawn else 0)
 	_is_first_spawn = false
 	_on_player_spawned.emit(player)
 	player.global_position = global_position

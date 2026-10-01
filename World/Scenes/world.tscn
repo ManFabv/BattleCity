@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://Container/Scenes/enemy_container.tscn" id="3_yw7h8"]
 [ext_resource type="PackedScene" uid="uid://c7uff7l2ctva8" path="res://Spawner/Scenes/Waves/wave_spawner.tscn" id="4_fdxdb"]
 [ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/Waves/wave_spawner_manager.tscn" id="4_rqvg4"]
-[ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Waves/wave_spawner_config_1.tres" id="5_8j7up"]
-[ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Waves/wave_spawner_config_2.tres" id="6_3h4jy"]
+[ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Levels/TestLevel/Waves/wave_config_1.tres" id="5_8j7up"]
+[ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Levels/TestLevel/Waves/wave_config_2.tres" id="6_3h4jy"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://EnemyTracking/Scenes/enemy_alive_tracker.tscn" id="11_tracker"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://EnemyTracking/Scenes/enemy_target_applier.tscn" id="12_applier"]
@@ -19,12 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
 [ext_resource type="PackedScene" uid="uid://pxiy3vqqmlpq" path="res://Spawner/Scenes/SpawnPoints/player_spawn_point.tscn" id="25_spawnpoint"]
-[ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/SpawnPoints/player_config.tres" id="28_playerconfig"]
+[ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/Levels/TestLevel/SpawnPoints/player_spawn_point_config.tres" id="28_playerconfig"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://f3sepoxkci87" path="res://Spawner/Scenes/SpawnPoints/base_spawn_point.tscn" id="34_basespawnpoint"]
-[ext_resource type="Resource" uid="uid://c8basecfg2r7t" path="res://Spawner/Resources/SpawnPoints/base_config.tres" id="35_baseconfig"]
+[ext_resource type="Resource" uid="uid://c8basecfg2r7t" path="res://Spawner/Resources/Levels/TestLevel/SpawnPoints/base_spawn_point_config.tres" id="35_baseconfig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -230,7 +230,7 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 [node name="PlayerSpawnPoint" parent="Player" unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
 _player_camera = NodePath("../PlayerCamera")
-_player_config = ExtResource("28_playerconfig")
+_player_spawn_point_config = ExtResource("28_playerconfig")
 
 [node name="Base" type="Node" parent="." unique_id=700000004]
 
@@ -238,7 +238,7 @@ _player_config = ExtResource("28_playerconfig")
 
 [node name="BaseSpawnPoint" parent="Base" unique_id=601915875 instance=ExtResource("34_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
-_base_config = ExtResource("35_baseconfig")
+_base_spawn_point_config = ExtResource("35_baseconfig")
 
 [node name="Game" type="Node" parent="." unique_id=700000005]
 

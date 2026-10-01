@@ -1,4 +1,4 @@
-class_name BaseConfig
+class_name BaseSpawnPointConfig
 extends Resource
 
 @export_group("References")
