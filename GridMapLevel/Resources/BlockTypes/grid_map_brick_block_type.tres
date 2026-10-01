@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_nhq8p")
+item_name = &"Brick"
 is_destructible = true
-gridmap_item_id = 1

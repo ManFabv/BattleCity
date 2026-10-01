@@ -18,11 +18,11 @@ func has_line_of_sight(target: Node3D) -> bool:
 	# as a quick filter, if the target is out of range we exit early
 	if not _is_target_in_range(target_position):
 		return false
-	# we now check if the shapecast is colliding with something that blocks the line of sight
-	if _is_shape_cast_colliding(target_position):
-		return false
-	# if we get here, there isn't any collision blocking the line of sight
-	return true
+	# we now check if the shapecast isn't colliding with something that blocks the line of sight
+	if not _is_shape_cast_colliding(target_position):
+		return true
+	# if we get here, there is a collision blocking the line of sight
+	return false
 
 
 ## true if the given world position is within the detection range of the owner entity
@@ -39,25 +39,5 @@ func _is_shape_cast_colliding(target_position: Vector3) -> bool:
 	_vision_shape_cast.target_position = _vision_shape_cast.to_local(target_position)
 	# we update to see if there any collision
 	_vision_shape_cast.force_shapecast_update()
-	# we check if we are collision with the grid map
-	return _check_shape_cast_colliders()
-
-
-## true if any shapecast collision blocks the line of sight, except level blocks that shots fly over (water)
-func _check_shape_cast_colliders() -> bool:
-	for i in range(_vision_shape_cast.get_collision_count()):
-		# if we are not colliding with a grid map we continue to next collider
-		if _vision_shape_cast.get_collider(i) is not GridMapLevelBlocks:
-			# anything that is not the level grid (world geometry) always blocks
-			return true
-		# we get the grid map
-		var level_grid : GridMapLevelBlocks = _vision_shape_cast.get_collider(i) as GridMapLevelBlocks
-		# we get the RID
-		var collider_rid : RID = _vision_shape_cast.get_collider_rid(i)
-		# we get the shape ID
-		var collider_shape_id : int = _vision_shape_cast.get_collider_shape(i)
-		# we check if this grid map block is actually blocking and return the result
-		if level_grid.blocks_projectiles_at_shape(collider_rid, collider_shape_id):
-			return true
-	# if we get to here, there isn't any collisions blocking the line of sight
-	return false
+	# the mask only includes things that block sight, so any collision blocks it
+	return _vision_shape_cast.is_colliding()
