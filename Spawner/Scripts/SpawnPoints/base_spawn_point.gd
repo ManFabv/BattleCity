@@ -1,5 +1,5 @@
 class_name BaseSpawnPoint
-extends Node3D
+extends SpawnPointInterface
 
 @export_group("Events")
 ## emitted right after instantiate(), before the new base is parented (consumed by BaseContainer)
@@ -12,10 +12,10 @@ extends Node3D
 ## at the beginning we spawn the base
 func _ready() -> void:
 	# deferred so every listener is subscribed no matter where this node sits in the tree
-	_spawn_base.call_deferred()
+	spawn.call_deferred()
 
 
-func _spawn_base() -> void:
+func spawn() -> void:
 	# we instantiate the base scene
 	var base : Base = _base_spawn_point_config.base_scene.instantiate() as Base
 	# we notify that the base is spawned

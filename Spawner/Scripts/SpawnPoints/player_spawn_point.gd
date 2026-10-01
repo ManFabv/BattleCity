@@ -1,5 +1,5 @@
 class_name PlayerSpawnPoint
-extends Node3D
+extends SpawnPointInterface
 
 @export_group("Events")
 ## emitted right after instantiate(), before this new player is parented
@@ -26,10 +26,10 @@ var _is_first_spawn : bool = true
 func _ready() -> void:
 	_remaining_lives = _player_spawn_point_config.starting_lives
 	# deferred so every listener is subscribed no matter where this node sits in the tree
-	_spawn_player.call_deferred()
+	spawn.call_deferred()
 
 
-func _spawn_player() -> void:
+func spawn() -> void:
 	var player : ControllableEntity = _player_spawn_point_config.player_scene.instantiate() as ControllableEntity
 	# the level must be set before emitting the event: the container parents the player there and _ready() applies it
 	player.set_initial_level(_player_spawn_point_config.initial_entity_level if _is_first_spawn else 0)
@@ -47,4 +47,4 @@ func _on_player_died() -> void:
 	if _remaining_lives <= 0:
 		_on_player_out_of_lives.emit()
 		return
-	_timer_manager.create_one_shot(_respawn_delay, _spawn_player, tree_exited)
+	_timer_manager.create_one_shot(_respawn_delay, spawn, tree_exited)
