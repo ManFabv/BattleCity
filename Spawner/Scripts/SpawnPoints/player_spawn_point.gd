@@ -8,7 +8,7 @@ extends Node3D
 ## the camera used for mouse aiming, wired manually since it's static in the level
 @export var _player_camera : PlayerCamera
 ## how long to wait after death before spawning the next life
-@export var _respawn_delay : float = 2.0
+@export_range(0.1, 10.0) var _respawn_delay : float = 2.0
 ## the shared timer manager used to request the respawn delay timer
 @export var _timer_manager : TimerManagerResource
 ## which scene to instantiate, how many lives, and the starting entity/game level

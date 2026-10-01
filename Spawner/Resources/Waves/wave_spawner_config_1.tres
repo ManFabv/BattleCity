@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dpuoab087rmbk" path="res://Spawner/Scripts/Waves/Config/wave_spawner_config.gd" id="1_ak3dt"]
 [ext_resource type="Script" uid="uid://caigedgx00la6" path="res://Spawner/Scripts/Waves/Config/Spawns/wave_spawn_config.gd" id="2_spawn"]
-[ext_resource type="Resource" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_1_normal_wave_spawn_config.tres" id="3_spawn"]
-[ext_resource type="Resource" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_2_normal_wave_spawn_config.tres" id="4_spawn"]
-[ext_resource type="Resource" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_3_slow_wave_spawn_config.tres" id="5_spawn"]
+[ext_resource type="Resource" uid="uid://xkqwe4jeka51" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_1_normal_wave_spawn_config.tres" id="3_spawn"]
+[ext_resource type="Resource" uid="uid://bykfchlqg1gm7" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_2_normal_wave_spawn_config.tres" id="4_spawn"]
+[ext_resource type="Resource" uid="uid://ildmjmieo6it" path="res://Spawner/Resources/Waves/Spawns/wave_1_spawn_3_slow_wave_spawn_config.tres" id="5_spawn"]
 
 [resource]
 script = ExtResource("1_ak3dt")

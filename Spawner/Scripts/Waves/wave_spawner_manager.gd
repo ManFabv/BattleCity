@@ -10,7 +10,7 @@ extends Node
 ## spawn points managed by this manager
 @export var _spawn_points: Array[WaveSpawner]
 ## base maximum enemies allowed at the same time
-@export var _base_max_enemies: int = 3
+@export_range(1, 20) var _base_max_enemies: int = 3
 ## navigation region handed off to every spawned AIController, instead of
 ## each one resolving its own region rid from the navigation map
 @export var _navigation_region: NavigationRegion3D

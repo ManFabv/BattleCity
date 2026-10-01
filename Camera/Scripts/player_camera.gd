@@ -2,7 +2,7 @@ class_name PlayerCamera
 extends Camera3D
 
 ## how far any ray from the camera will be
-@export_range(0, 1000) var _world_position_ray_length : float = 1000
+@export_range(0.1, 1000) var _world_position_ray_length : float = 1000
 
 # we use this to trigger a raycast and convert a 2D point to world 3D
 @onready var _ray_cast_3d: RayCast3D = %RayCast3D
