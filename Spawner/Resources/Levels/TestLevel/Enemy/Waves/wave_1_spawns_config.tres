@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveSpawns" format=3 uid="uid://y00y1llc0cuh"]
+
+[ext_resource type="Script" uid="uid://dpuoab087rmbk" path="res://Spawner/Scripts/Waves/Config/wave_spawns.gd" id="1_ak3dt"]
+[ext_resource type="Script" uid="uid://caigedgx00la6" path="res://Spawner/Scripts/Waves/Config/Spawns/wave_spawn_config.gd" id="1_c85hv"]
+[ext_resource type="Resource" uid="uid://xkqwe4jeka51" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/Spawns/wave_1_spawn_1_normal_wave_spawn_config.tres" id="3_spawn"]
+[ext_resource type="Resource" uid="uid://bykfchlqg1gm7" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/Spawns/wave_1_spawn_2_normal_wave_spawn_config.tres" id="4_spawn"]
+[ext_resource type="Resource" uid="uid://ildmjmieo6it" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/Spawns/wave_1_spawn_3_slow_wave_spawn_config.tres" id="5_spawn"]
+
+[resource]
+script = ExtResource("1_ak3dt")
+_spawn_configs = Array[ExtResource("1_c85hv")]([ExtResource("3_spawn"), ExtResource("4_spawn"), ExtResource("5_spawn")])

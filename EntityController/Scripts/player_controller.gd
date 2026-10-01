@@ -14,7 +14,7 @@ func on_menu_opened(_event_context: Variant = null) -> void:
 	print("MENU OPENED")
 
 
-## injected right after this player is spawned by PlayerSpawnPoint
+## injected by PlayerCameraApplier right after this player is spawned
 func set_camera(camera: PlayerCamera) -> void:
 	_input_manager.set_camera(camera)
 

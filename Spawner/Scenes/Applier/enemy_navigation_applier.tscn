@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dfoiv8221bunb"]
+
+[ext_resource type="Script" uid="uid://b30l666nksomy" path="res://Spawner/Scripts/Applier/enemy_navigation_applier.gd" id="1"]
+[ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="ev_on_enemy_spawned"]
+
+[node name="EnemyNavigationApplier" type="Node" unique_id=819732185]
+script = ExtResource("1")
+_on_spawned = ExtResource("ev_on_enemy_spawned")

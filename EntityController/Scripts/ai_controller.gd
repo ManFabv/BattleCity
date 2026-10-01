@@ -26,7 +26,7 @@ var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
 ## navigation region RID used to get random target positions inside the
-## navigation region; handed to us by EnemySpawnManager when we spawn
+## navigation region; handed to us by EnemyNavigationApplier when we spawn
 var _region_rid : RID
 ## this will help us to know if we have already shot
 var _has_shot : bool = false
@@ -107,7 +107,7 @@ func set_attack_targets(player_target: ControllableEntity, base_target: Base) ->
 	_base_target = base_target
 
 
-## called once by EnemySpawnManager right after this entity spawns
+## called once by EnemyNavigationApplier right after this entity spawns
 func set_navigation_region_rid(region_rid: RID) -> void:
 	_region_rid = region_rid
 

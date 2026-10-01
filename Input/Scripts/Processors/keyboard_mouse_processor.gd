@@ -14,7 +14,7 @@ var _open_ui_menu_name : String
 ## player
 @export var _player : ControllableEntity
 
-## player camera, injected by PlayerSpawnPoint (via PlayerController) after this player spawns
+## player camera, injected by PlayerCameraApplier (via PlayerController) after this player spawns
 var _player_camera : PlayerCamera
 
 
