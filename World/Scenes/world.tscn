@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://f3sepoxkci87" path="res://Spawner/Scenes/SpawnPoints/base_spawn_point.tscn" id="34_basespawnpoint"]
+[ext_resource type="Resource" uid="uid://c8basecfg2r7t" path="res://Spawner/Resources/SpawnPoints/base_config.tres" id="35_baseconfig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -238,6 +239,7 @@ _player_config = ExtResource("28_playerconfig")
 
 [node name="BaseSpawnPoint" parent="Base" unique_id=601915875 instance=ExtResource("34_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
+_base_config = ExtResource("35_baseconfig")
 
 [node name="Game" type="Node" parent="." unique_id=700000005]
 
