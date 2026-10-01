@@ -9,9 +9,3 @@ extends Resource
 ## of the run; every life after a death always restarts this at level 0,
 ## regardless of this value
 @export var initial_entity_level : int = 0
-## which game level/stage the player starts the run on. Unlike initial_entity_level,
-## this is NOT reset by losing a life -- only a full run restart resets it.
-## NOTE: no stage/level-progression system exists yet; this field only holds the
-## starting value for whenever that system is built (separate ticket). Nothing
-## reads or advances it today.
-@export var initial_game_level : int = 0

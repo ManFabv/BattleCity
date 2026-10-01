@@ -16,7 +16,7 @@ extends Node3D
 
 var _remaining_lives : int
 ## true only for the very first life of the run; every respawn after a death is false.
-## only affects entity level -- initial_game_level is untouched by respawns.
+## only affects entity level.
 var _is_first_spawn : bool = true
 
 

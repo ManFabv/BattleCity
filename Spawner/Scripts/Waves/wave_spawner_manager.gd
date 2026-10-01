@@ -24,9 +24,12 @@ var _reserved_spawn_count: int = 0:
 		_reserved_spawn_count = max(new_value, 0)
 ## true once the all waves finished event was emitted, so it's only emitted once
 var _has_finished_all_waves: bool = false
+## rid of the shared navigation region, cached once
+var _navigation_region_rid: RID
 
 
 func _ready() -> void:
+	_navigation_region_rid = _navigation_region.get_rid()
 	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
 	_on_enemy_count_changed.subscribe(_on_enemy_count_changed_handler, tree_exited)
 	_notify_spawn_points_if_room()
@@ -36,22 +39,20 @@ func _ready() -> void:
 func _on_node_spawned_handler(node: ControllableEntity) -> void:
 	_reserved_spawn_count -= 1
 	_assign_navigation_region(node)
-	# deferred because the spawn point advances its wave right after emitting the spawn event,
-	# so right now the spawn that just happened still counts as pending
-	_check_all_waves_finished.call_deferred()
+	_check_all_waves_finished()
 
 
 ## hands the shared navigation region rid to the spawned entity's AIController, if it has one
 func _assign_navigation_region(node: ControllableEntity) -> void:
-	if not is_instance_valid(node):
-		return
 	var entity_controller: EntityControllerInterface = node.get_entity_controller()
 	if entity_controller is AIController:
-		(entity_controller as AIController).set_navigation_region_rid(_navigation_region.get_rid())
+		(entity_controller as AIController).set_navigation_region_rid(_navigation_region_rid)
 
 
 func _on_enemy_count_changed_handler(_new_count: int) -> void:
-	_notify_spawn_points_if_room()
+	# deferred because the count can change while a spawn point is still inside its spawn timer
+	# callback, where its timer still reports running and it would reject the request
+	_notify_spawn_points_if_room.call_deferred()
 
 
 ## notifies only as many spawn points as there is real room for.
