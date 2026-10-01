@@ -8,17 +8,22 @@ extends Node3D
 @export_group("Base")
 ## health stats for the base (only supports a single enemy shot)
 @export var _health_stats : HealthStats
+## color used to tint the base mesh
+@export var _base_color : Color = Color(0.752941, 0.752941, 0.752941, 1)
 
 @export_group("References")
 ## where attachable upgrades (ex: shields) are parented, so they are placed correctly
 @export var _upgrade_attach_point : UpgradeAttachPoint
 
+## the base body mesh
+@onready var _mesh : TintedMesh = %TintedMesh
 ## manages the health for the base, reusing the same component as ControllableEntity
 @onready var _health : Health = %Health
 
 
 ## we configure the health of the base
 func _ready() -> void:
+	_mesh.apply_color(_base_color)
 	_health.configure(_health_stats)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 
