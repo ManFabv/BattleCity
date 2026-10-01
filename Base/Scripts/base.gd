@@ -61,3 +61,8 @@ func destroy_base() -> void:
 	# we emit the event so the listeners know that the base is destroyed
 	_on_base_destroyed.emit()
 	queue_free()
+
+
+## listeners are notified when the base is destroyed, and they are unsubscribed once the base is freed
+func subscribe_to_base_destroyed(on_destroyed: Callable) -> void:
+	_on_base_destroyed.subscribe(on_destroyed, tree_exited)
