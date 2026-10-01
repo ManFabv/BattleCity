@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Container/Scenes/projectile_container.tscn" id="3_3rhlx"]
 [ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://Container/Scenes/enemy_container.tscn" id="3_yw7h8"]
-[ext_resource type="PackedScene" uid="uid://c7uff7l2ctva8" path="res://Spawner/Scenes/Enemy/wave_spawner.tscn" id="4_fdxdb"]
-[ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/Enemy/wave_spawner_manager.tscn" id="4_rqvg4"]
+[ext_resource type="PackedScene" uid="uid://c7uff7l2ctva8" path="res://Spawner/Scenes/Enemy/enemy_spawn_point.tscn" id="4_fdxdb"]
+[ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/Enemy/enemy_spawn_manager.tscn" id="4_rqvg4"]
 [ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_config_1.tres" id="5_8j7up"]
 [ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_config_2.tres" id="6_3h4jy"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
@@ -202,19 +202,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
 
-[node name="EnemyWaveSpawnerManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_navigation_region") instance=ExtResource("4_rqvg4")]
-_spawn_points = [NodePath("EnemySpawner1"), NodePath("EnemySpawner2")]
+[node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_navigation_region") instance=ExtResource("4_rqvg4")]
+_spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
 _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
-[node name="EnemyAliveTracker" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_tracker")]
+[node name="EnemyAliveTracker" parent="Enemies/EnemySpawnManager" unique_id=2081209512 instance=ExtResource("11_tracker")]
 
-[node name="EnemyEliminatorApplier" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
+[node name="EnemyEliminatorApplier" parent="Enemies/EnemySpawnManager" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
 
-[node name="EnemySpawner1" parent="Enemies/EnemyWaveSpawnerManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2138977, 0, -7.374027)
 _wave_config = ExtResource("5_8j7up")
 
-[node name="EnemySpawner2" parent="Enemies/EnemyWaveSpawnerManager" unique_id=1865266614 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" unique_id=1865266614 instance=ExtResource("4_fdxdb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.578964, 0, -6.66182)
 _wave_config = ExtResource("6_3h4jy")
 

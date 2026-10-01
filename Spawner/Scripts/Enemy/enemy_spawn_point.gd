@@ -1,5 +1,5 @@
-class_name WaveSpawner
-extends Node3D
+class_name EnemySpawnPoint
+extends SpawnPointInterface
 
 @export_group("Events")
 ## event emitted when a node is spawned
@@ -21,7 +21,7 @@ func _ready() -> void:
 	# create the timer for the first spawn, but don't start it automatically
 	# it will be started when allow_spawn() is called for the first time
 	var first_delay: float = _wave_config.spawn_at(_current_index).spawn_delay
-	_timer = _timer_manager.create_manual(first_delay, _spawn_current_node, tree_exited, false)
+	_timer = _timer_manager.create_manual(first_delay, spawn, tree_exited, false)
 
 
 ## request to spawn the next node, returns true if slot was reserved
@@ -39,7 +39,7 @@ func is_finished() -> bool:
 
 
 ## spawn the node at current step and move to next step
-func _spawn_current_node() -> void:
+func spawn() -> void:
 	# instantiate the node for the current step
 	var node: ControllableEntity = _wave_config.spawn_at(_current_index).node_scene.instantiate() as ControllableEntity
 	# advance to the next step before emitting, no wrap: the wave is done once it runs out of steps

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bcqbaursusu71"]
 
-[ext_resource type="Script" uid="uid://c4ip65abagso3" path="res://Spawner/Scripts/Enemy/wave_spawner_manager.gd" id="1_0bnap"]
+[ext_resource type="Script" uid="uid://c4ip65abagso3" path="res://Spawner/Scripts/Enemy/enemy_spawn_manager.gd" id="1_0bnap"]
 [ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_waves_finished.tres" id="ev_on_all_waves_finished"]
 [ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="ev_on_enemy_count_changed"]
 [ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="ev_on_enemy_spawned"]
 
-[node name="WaveSpawnerManager" type="Node" unique_id=1309938727]
+[node name="EnemySpawnManager" type="Node" unique_id=1309938727]
 script = ExtResource("1_0bnap")
 _on_node_spawned = ExtResource("ev_on_enemy_spawned")
 _on_all_waves_finished = ExtResource("ev_on_all_waves_finished")

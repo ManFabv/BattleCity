@@ -1,4 +1,4 @@
-class_name WaveSpawnerManager
+class_name EnemySpawnManager
 extends Node
 
 @export_group("Events")
@@ -10,7 +10,7 @@ extends Node
 @export var _on_enemy_count_changed: BaseEvent
 @export_group("References")
 ## spawn points managed by this manager
-@export var _spawn_points: Array[WaveSpawner]
+@export var _spawn_points: Array[EnemySpawnPoint]
 ## navigation region handed off to every spawned AIController, instead of
 ## each one resolving its own region rid from the navigation map
 @export var _navigation_region: NavigationRegion3D
@@ -59,7 +59,7 @@ func _on_enemy_count_changed_handler(new_count: int) -> void:
 ## each accepted notification reserves a slot, so two spawn points
 ## can't both fill the same last free slot
 func _notify_spawn_points_if_room() -> void:
-	for spawn_point: WaveSpawner in _spawn_points:
+	for spawn_point: EnemySpawnPoint in _spawn_points:
 		var available_room: int = _base_max_enemies - _enemies_alive_count - _reserved_spawn_count
 		if available_room <= 0:
 			return
@@ -69,7 +69,7 @@ func _notify_spawn_points_if_room() -> void:
 
 ## notifies once that there is nothing left to spawn, whoever listens decides what that means
 func _check_all_waves_finished() -> void:
-	for spawn_point: WaveSpawner in _spawn_points:
+	for spawn_point: EnemySpawnPoint in _spawn_points:
 		if not spawn_point.is_finished():
 			return
 	_on_all_waves_finished.emit()
