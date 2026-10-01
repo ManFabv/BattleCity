@@ -136,14 +136,14 @@ func stop_aiming() -> void:
 func can_attack_player() -> bool:
 	if not is_instance_valid(_player_target):
 		return false
-	return _attack_detector.has_line_of_sight(_player_target)
+	return _attack_detector.has_detected_target(_player_target)
 
 
 ## true if the base is close enough and in direct line of sight
 func can_attack_base() -> bool:
 	if not is_instance_valid(_base_target):
 		return false
-	return _attack_detector.has_line_of_sight(_base_target)
+	return _attack_detector.has_detected_target(_base_target)
 
 
 ## this will help us take a random point inside navigation mesh

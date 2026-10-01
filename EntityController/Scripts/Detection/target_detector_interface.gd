@@ -6,6 +6,6 @@ extends Node3D
 @export var owner_controllable_entity : ControllableEntity
 
 
-func has_line_of_sight(_target: Node3D) -> bool:
+func has_detected_target(_target: Node3D) -> bool:
 	push_error("has_line_of_sight() should be implemented on inherited classes")
 	return false
