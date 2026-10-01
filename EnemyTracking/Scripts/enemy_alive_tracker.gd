@@ -1,11 +1,10 @@
 class_name EnemyAliveTracker
 extends Node
 
-## emitted whenever the alive count changes, so listeners can react without polling
-signal count_changed(current_count: int)
-
 ## event we listen to in order to track newly spawned enemies
 @export var _on_enemy_spawned : BaseEvent
+## event emitted whenever the alive count changes, with the current count as context
+@export var _on_enemy_count_changed : BaseEvent
 
 ## how many enemies spawned through the event above are still alive
 var _enemies_alive_count : int = 0:
@@ -23,18 +22,19 @@ func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
 	if is_instance_valid(enemy):
 		_enemies_alive_count += 1
 		enemy.subscribe_to_death(_on_enemy_died)
-		count_changed.emit(_enemies_alive_count)
+		_on_enemy_count_changed.emit(_enemies_alive_count)
 
 
 ## we decrement the alive count and notify that the count changed
 func _on_enemy_died() -> void:
 	_enemies_alive_count -= 1
-	count_changed.emit(_enemies_alive_count)
+	_on_enemy_count_changed.emit(_enemies_alive_count)
 
 
+## how many enemies are currently alive
+## note that is not the same that the player won because we can
+## have zero enemies on screen but the spawners could have more waves availables
+## to spawn
 func get_enemies_alive_count() -> int:
 	return _enemies_alive_count
 
-
-func subscribe_to_count_changed(on_count_changed: Callable) -> void:
-	count_changed.connect(on_count_changed)

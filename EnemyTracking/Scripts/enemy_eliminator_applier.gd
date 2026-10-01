@@ -1,4 +1,4 @@
-class_name EnemyEliminator
+class_name EnemyEliminatorApplier
 extends Node
 
 ## event we listen to in order to track newly spawned enemies

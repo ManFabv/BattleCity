@@ -3,8 +3,10 @@ extends Node
 
 ## event emitted when a node is spawned
 @export var _on_node_spawned: BaseEvent
-## event emitted once every wave is finished and no enemies are left alive
-@export var _on_victory: BaseEvent
+## event emitted once, when every spawn point has spawned all its enemies
+@export var _on_all_waves_finished: BaseEvent
+## event we listen to in order to know when the alive enemies count changes
+@export var _on_enemy_count_changed: BaseEvent
 ## spawn points managed by this manager
 @export var _spawn_points: Array[WaveSpawner]
 ## base maximum enemies allowed at the same time
@@ -20,11 +22,13 @@ extends Node
 var _reserved_spawn_count: int = 0:
 	set(new_value):
 		_reserved_spawn_count = max(new_value, 0)
+## true once the all waves finished event was emitted, so it's only emitted once
+var _has_finished_all_waves: bool = false
 
 
 func _ready() -> void:
 	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
-	_enemy_alive_tracker.subscribe_to_count_changed(_on_enemy_count_changed)
+	_on_enemy_count_changed.subscribe(_on_enemy_count_changed_handler, tree_exited)
 	_notify_spawn_points_if_room()
 
 
@@ -32,6 +36,9 @@ func _ready() -> void:
 func _on_node_spawned_handler(node: ControllableEntity) -> void:
 	_reserved_spawn_count -= 1
 	_assign_navigation_region(node)
+	# deferred because the spawn point advances its wave right after emitting the spawn event,
+	# so right now the spawn that just happened still counts as pending
+	_check_all_waves_finished.call_deferred()
 
 
 ## hands the shared navigation region rid to the spawned entity's AIController, if it has one
@@ -43,9 +50,8 @@ func _assign_navigation_region(node: ControllableEntity) -> void:
 		(entity_controller as AIController).set_navigation_region_rid(_navigation_region.get_rid())
 
 
-func _on_enemy_count_changed(_new_count: int) -> void:
+func _on_enemy_count_changed_handler(_new_count: int) -> void:
 	_notify_spawn_points_if_room()
-	_check_victory()
 
 
 ## notifies only as many spawn points as there is real room for.
@@ -60,11 +66,12 @@ func _notify_spawn_points_if_room() -> void:
 			_reserved_spawn_count += 1
 
 
-## the game is won once every wave is done and no enemies are left alive
-func _check_victory() -> void:
-	if _enemy_alive_tracker.get_enemies_alive_count() > 0:
+## notifies once that there is nothing left to spawn, whoever listens decides what that means
+func _check_all_waves_finished() -> void:
+	if _has_finished_all_waves:
 		return
 	for spawn_point: WaveSpawner in _spawn_points:
 		if not spawn_point.is_finished():
 			return
-	_on_victory.emit()
+	_has_finished_all_waves = true
+	_on_all_waves_finished.emit()
