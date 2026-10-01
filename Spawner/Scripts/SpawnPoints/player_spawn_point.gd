@@ -19,11 +19,10 @@ extends SpawnPointInterface
 
 var _remaining_lives : int
 
-
+## the interface spawns the first player
 func _ready() -> void:
+	super._ready()
 	_remaining_lives = _player_spawn_point_config.starting_lives
-	# deferred so every listener is subscribed no matter where this node sits in the tree
-	spawn.call_deferred()
 
 
 func spawn() -> void:
