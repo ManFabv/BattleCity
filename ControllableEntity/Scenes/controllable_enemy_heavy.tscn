@@ -73,6 +73,5 @@ shape = SubResource("BoxShape3D")
 _ai_controller = NodePath("../AiController")
 _navigation_agent = NodePath("../NavigationAgent3D")
 _weapon_system = NodePath("../WeaponSystem")
-_attack_cooldown_seconds = 8.0
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]
