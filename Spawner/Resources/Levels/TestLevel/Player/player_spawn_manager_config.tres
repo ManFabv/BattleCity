@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="PlayerSpawnManagerConfig" format=3 uid="uid://nksu0b4ydiyy"]
+
+[ext_resource type="Script" uid="uid://cyciwn1x1e3o5" path="res://Spawner/Scripts/Player/Config/player_spawn_manager_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")

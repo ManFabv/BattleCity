@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerSpawnPointConfig" format=3 uid="uid://cqek2bnnvsx00"]
 
-[ext_resource type="Script" uid="uid://p7iydvt3jqvp" path="res://Spawner/Scripts/SpawnPoints/Config/player_spawn_point_config.gd" id="1"]
+[ext_resource type="Script" uid="uid://p7iydvt3jqvp" path="res://Spawner/Scripts/Player/Config/player_spawn_point_config.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/Scenes/controllable_player_entity.tscn" id="2"]
 
 [resource]

@@ -1,10 +1,6 @@
+## this is only an interface for the different spawn points
 class_name SpawnPointInterface
 extends Node3D
-
-
-func _ready() -> void:
-	# deferred so every listener is subscribed no matter where this node sits in the tree
-	spawn.call_deferred()
 
 
 func spawn() -> void:

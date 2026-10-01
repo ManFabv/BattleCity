@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c7uff7l2ctva8"]
 
-[ext_resource type="Script" uid="uid://dchvxywwfk1ql" path="res://Spawner/Scripts/Waves/wave_spawner.gd" id="1_u7l35"]
+[ext_resource type="Script" uid="uid://dchvxywwfk1ql" path="res://Spawner/Scripts/Enemy/wave_spawner.gd" id="1_u7l35"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
 [ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="ev_on_enemy_spawned"]
 

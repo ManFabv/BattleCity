@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WaveSpawnConfig" format=3 uid="uid://xkqwe4jeka51"]
 
 [ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="2"]
-[ext_resource type="Script" uid="uid://caigedgx00la6" path="res://Spawner/Scripts/Waves/Config/wave_spawn_config.gd" id="2_f82sg"]
+[ext_resource type="Script" uid="uid://caigedgx00la6" path="res://Spawner/Scripts/Enemy/Config/wave_spawn_config.gd" id="2_f82sg"]
 
 [resource]
 script = ExtResource("2_f82sg")
