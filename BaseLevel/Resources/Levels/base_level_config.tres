@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BaseLevelConfig" format=3 uid="uid://c2baselvl0k8d"]
+
+[ext_resource type="Script" uid="uid://dbaselvlcfg5h" path="res://BaseLevel/Scripts/Config/Levels/base_level_config.gd" id="1"]
+[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Health/Resources/HealthStats/base_health_stats.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+health_stats = ExtResource("2")

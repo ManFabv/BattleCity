@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dgpwyjcpjpung" path="res://Base/Scripts/base.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="2"]
+[ext_resource type="Resource" uid="uid://ve7com1me6a" path="res://BaseLevel/Resources/base_levels_config.tres" id="base_levels"]
 [ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="ev_on_base_destroyed"]
 [ext_resource type="Resource" uid="uid://mvona3h4a2bs" path="res://EventBus/Resources/Events/on_base_shield_requested.tres" id="ev_on_base_shield_requested"]
-[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Health/Resources/HealthStats/base_health_stats.tres" id="health_stats"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
@@ -18,7 +18,7 @@ size = Vector3(1.8, 1.4, 1.8)
 script = ExtResource("1")
 _on_base_destroyed = ExtResource("ev_on_base_destroyed")
 _on_base_shield_requested = ExtResource("ev_on_base_shield_requested")
-_health_stats = ExtResource("health_stats")
+_base_levels = ExtResource("base_levels")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 
 [node name="Body" type="StaticBody3D" parent="." unique_id=801766690]

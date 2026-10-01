@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://f3sepoxkci87"]
 
 [ext_resource type="Script" uid="uid://m3fhtnha5apk" path="res://Spawner/Scripts/SpawnPoints/base_spawn_point.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="base_scene"]
 [ext_resource type="Resource" uid="uid://l8rvmkak5kgl" path="res://EventBus/Resources/Events/on_base_spawned.tres" id="ev_on_base_spawned"]
 
 [node name="BaseSpawnPoint" type="Node3D" unique_id=1580826192]
 script = ExtResource("1")
 _on_base_spawned = ExtResource("ev_on_base_spawned")
-_base_scene = ExtResource("base_scene")
