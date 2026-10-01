@@ -37,4 +37,3 @@ func _on_enemy_died() -> void:
 ## to spawn
 func get_enemies_alive_count() -> int:
 	return _enemies_alive_count
-

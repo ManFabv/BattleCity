@@ -28,14 +28,15 @@ func _ready() -> void:
 
 ## when an enemy is spawned we cached them and set their base and player as targets
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
-	var ai_controller : AIController = enemy.get_entity_controller() as AIController
-	if is_instance_valid(ai_controller):
-		# we add the new enemy to the tracked list so we can update their targets
-		_tracked_enemies.append(ai_controller)
-		# we want to listen when an enemy is destroyed so we stop tracking it
-		enemy.subscribe_to_death(_on_tracked_enemy_died.bind(ai_controller))
-		# because it's a recently spawned enemy, we need to setup its target base and player
-		_apply_attack_targets(ai_controller)
+	if is_instance_valid(enemy):
+		var ai_controller : AIController = enemy.get_entity_controller() as AIController
+		if is_instance_valid(ai_controller):
+			# we add the new enemy to the tracked list so we can update their targets
+			_tracked_enemies.append(ai_controller)
+			# we want to listen when an enemy is destroyed so we stop tracking it
+			enemy.subscribe_to_death(_on_tracked_enemy_died.bind(ai_controller))
+			# because it's a recently spawned enemy, we need to setup its target base and player
+			_apply_attack_targets(ai_controller)
 
 
 ## when a player is spawned we cached it and update the enemies to the new player node target
