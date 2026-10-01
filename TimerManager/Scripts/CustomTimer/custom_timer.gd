@@ -87,6 +87,11 @@ func is_ready_for_cleanup() -> bool:
 
 
 ## we say if the timer is running
+func is_running() -> bool:
+	return _state == TimerState.RUNNING
+
+
+## we say if the timer is not running
 func _is_not_running() -> bool:
 	return _state != TimerState.RUNNING
 

@@ -1,16 +1,19 @@
 class_name WeaponConfig
 extends Resource
 
+@export_group("Scenes")
 ## which scene to instantiate when this weapon is equipped
 @export var weapon_scene: PackedScene
+## which projectile to fire
+@export var projectile_scene: PackedScene
+@export_group("Visuals")
 ## which scene to instantiate as this weapon's visual mesh, mounted as a child of the
 ## Weapon node. REQUIRED: root must use the WeaponMesh script (extends MeshInstance3D)
 ## with its muzzle export assigned -- that Muzzle is where this weapon's projectiles spawn from.
 @export var weapon_mesh_scene: PackedScene
 ## color applied to the weapon mesh above
 @export var weapon_color: Color = Color.WHITE
-## which projectile to fire
-@export var projectile_scene: PackedScene
+@export_group("Config")
 ## projectile configuration
 @export var projectile_config: ProjectileConfig
 ## shooting cost configuration

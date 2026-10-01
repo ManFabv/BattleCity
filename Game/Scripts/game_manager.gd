@@ -1,9 +1,9 @@
 extends Node3D
 class_name GameManager
 
+@export_group("Scenes")
 ## the first scene that we want to instantiate
 @export var _initial_scene: PackedScene
-
 ## the scene that will handle the timers in the scene
 @export var _timer_manager_scene: PackedScene
 

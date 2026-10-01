@@ -1,6 +1,7 @@
 class_name PickableTankShieldPowerUp
 extends PickablePowerUpInterface
 
+@export_group("References")
 ## shield scene attached to the tank on pickup
 @export var _shield_scene : PackedScene
 

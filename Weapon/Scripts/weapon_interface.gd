@@ -2,6 +2,7 @@ extends Node3D
 class_name WeaponInterface
 
 
+@export_group("References")
 ## the shared timer manager used to request timers needed by this weapon's shooting cost strategy
 @export var _timer_manager : TimerManagerResource
 

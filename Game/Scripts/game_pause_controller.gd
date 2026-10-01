@@ -1,6 +1,7 @@
 class_name GamePauseController
 extends Node
 
+@export_group("Events")
 ## event we listen to in order to know when the menu opens
 @export var _on_menu_opened_event : BaseEvent
 

@@ -3,7 +3,7 @@ class_name NodeContainer
 
 ## we are going to listen this event so we can parent the nodes
 ## to this object avoiding to remove nodes when their owners are removed
-@export_group("Signals")
+@export_group("Events")
 @export var _on_node_spawned: BaseEvent
 
 

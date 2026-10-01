@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://pxiy3vqqmlpq"]
+
+[ext_resource type="Script" uid="uid://bfp5cqbodkk3i" path="res://Spawner/Scripts/SpawnPoints/player_spawn_point.gd" id="1"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="ev_on_player_out_of_lives"]
+[ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://EventBus/Resources/Events/on_player_spawned.tres" id="ev_on_player_spawned"]
+
+[node name="PlayerSpawnPoint" type="Node3D" unique_id=1580826191]
+script = ExtResource("1")
+_on_player_spawned = ExtResource("ev_on_player_spawned")
+_on_player_out_of_lives = ExtResource("ev_on_player_out_of_lives")
+_timer_manager = ExtResource("2_timerres")

@@ -7,7 +7,7 @@ extends Node
 @export_group("References")
 ## reference to the navigation region that we want to rebake
 @export var _navigation_region : NavigationRegion3D
-@export_group("Signals")
+@export_group("Events")
 ## we listen this to count destroyed blocks
 @export var _on_block_destroyed : BaseEvent
 

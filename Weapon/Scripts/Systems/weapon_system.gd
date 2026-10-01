@@ -7,6 +7,7 @@ extends Node3D
 ## called after we just shoot
 signal shot_fired
 
+@export_group("Events")
 ## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
 

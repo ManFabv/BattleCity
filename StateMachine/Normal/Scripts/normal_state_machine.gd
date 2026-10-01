@@ -9,20 +9,9 @@ class_name NormalStateMachine
 ## the weapon system that reports when a shot was fired
 @export var _weapon_system : WeaponSystem
 
-@export_group("Behavior")
-## how long, after attacking, the entity is forced to wander before it can attack again
-@export_range(0.1, 60.0) var _attack_cooldown_seconds : float = 10.0
-
-## the shared timer manager used to request the attack cooldown timer
-@export var _timer_manager : TimerManagerResource
-
 ## the entity state chart for triggering state events
 @onready var state_chart: StateChart = %"StateChart"
 
-## timer used to keep track of the post-attack cooldown
-var _attack_cooldown_timer : CustomTimer
-## true while the entity is still cooling down from a previous attack
-var _is_attack_on_cooldown : bool = false
 ## true while the upcoming shot is aimed at the player or the base instead of being a wander shot
 var _is_aiming_at_target : bool = false
 
@@ -33,7 +22,6 @@ func _ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
 	_ai_controller.wander_timed_out.connect(_on_ai_controller_wander_timed_out)
 	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
-	_attack_cooldown_timer = _timer_manager.create_manual(_attack_cooldown_seconds, _on_attack_cooldown_timeout, tree_exited, false)
 
 
 func _on_wander_state_entered() -> void:
@@ -72,13 +60,9 @@ func _on_weapon_system_shot_fired() -> void:
 	state_chart.send_event(_next_event_after_shot())
 
 
-## an aimed shot always (re)starts the cooldown and goes back to wandering; a wander shot
-## only looks for a target once the cooldown from a previous attack has ended
+## an aimed shot always goes back to wandering; a wander shot looks for a target to attack
 func _next_event_after_shot() -> StringName:
 	if _is_aiming_at_target:
-		_start_attack_cooldown()
-		return &"wander_event"
-	if _is_attack_on_cooldown:
 		return &"wander_event"
 	if _ai_controller.can_attack_player():
 		return &"attack_player_event"
@@ -86,13 +70,3 @@ func _next_event_after_shot() -> StringName:
 		return &"attack_base_event"
 	return &"wander_event"
 
-
-## marks the entity as cooling down and (re)starts the cooldown timer
-func _start_attack_cooldown() -> void:
-	_is_attack_on_cooldown = true
-	_attack_cooldown_timer.start(_attack_cooldown_seconds)
-
-
-## called when the post-attack cooldown timer times out
-func _on_attack_cooldown_timeout() -> void:
-	_is_attack_on_cooldown = false
