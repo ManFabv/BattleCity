@@ -1,7 +1,7 @@
 class_name WaveSpawner
 extends Node3D
 
-## wave configuration with spawn delays and node scenes
+## wave configuration with the spawns (delay and node scene) to run
 @export var _wave_config: WaveSpawnerConfig
 ## event emitted when a node is spawned
 @export var _on_node_spawned: BaseEvent
@@ -10,19 +10,14 @@ extends Node3D
 
 ## timer handling spawn delays
 var _timer: CustomTimer
-## current step in the wave; once it reaches node_scenes.size() the wave is finished
+## current spawn in the wave; once it passes the last spawn the wave is finished
 var _current_index: int = 0
 
 
 func _ready() -> void:
-	# we check if the wave config arrays have the same size
-	if _wave_config.spawn_delays.size() != _wave_config.node_scenes.size():
-		push_error("WaveSpawnerConfig arrays must have the same size")
-		return
-	
 	# create the timer for the first spawn, but don't start it automatically
 	# it will be started when allow_spawn() is called for the first time
-	var first_delay: float = _wave_config.spawn_delays[_current_index]
+	var first_delay: float = _wave_config.spawn_at(_current_index).spawn_delay
 	_timer = _timer_manager.create_manual(first_delay, _spawn_current_node, tree_exited, false)
 
 
@@ -31,19 +26,19 @@ func allow_spawn() -> bool:
 	if _timer.is_running() or is_finished():
 		return false
 	# restart timer with the delay for current step
-	_timer.start(_wave_config.spawn_delays[_current_index])
+	_timer.start(_wave_config.spawn_at(_current_index).spawn_delay)
 	return true
 
 
 ## true once this spawner has already spawned every node in its wave
 func is_finished() -> bool:
-	return _current_index >= _wave_config.node_scenes.size()
+	return _current_index > _wave_config.last_index()
 
 
 ## spawn the node at current step and move to next step
 func _spawn_current_node() -> void:
 	# instantiate the node for the current step
-	var node: ControllableEntity = _wave_config.node_scenes[_current_index].instantiate() as ControllableEntity
+	var node: ControllableEntity = _wave_config.spawn_at(_current_index).node_scene.instantiate() as ControllableEntity
 	# advance to the next step before emitting, no wrap: the wave is done once it runs out of steps
 	_current_index += 1
 	# _on_node_spawned parents the node (NodeContainer.add_child); global_position
