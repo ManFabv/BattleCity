@@ -6,9 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/wave_spawner_manager.tscn" id="4_rqvg4"]
 [ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/wave_spawner_config_1.tres" id="5_8j7up"]
 [ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/wave_spawner_config_2.tres" id="6_3h4jy"]
-[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="8_base"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
-[ext_resource type="Resource" uid="uid://dk3fyt2vqx6np" path="res://Health/Resources/HealthStats/base_health_stats.tres" id="10_basehp"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://Spawner/Scenes/enemy_alive_counter.tscn" id="11_counter"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://Spawner/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
 [ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/game_result_controller.tscn" id="14_outcome"]
@@ -24,6 +22,8 @@
 [ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/player_config.tres" id="28_playerconfig"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
+[ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
+[ext_resource type="PackedScene" uid="uid://f3sepoxkci87" path="res://Spawner/Scenes/base_spawn_point.tscn" id="34_basespawnpoint"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -155,17 +155,12 @@ shape = SubResource("ConvexPolygonShape3D_e2bkl")
 mesh = SubResource("CylinderMesh_t1gg8")
 skeleton = NodePath("../..")
 
-[node name="Base" parent="Navigation/NavigationRegion" unique_id=601915875 instance=ExtResource("8_base")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
-_health_stats = ExtResource("10_basehp")
-
 [node name="Level" parent="Navigation/NavigationRegion" unique_id=1932757374 instance=ExtResource("9_level")]
 
 [node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("32_gridmapupdater")]
 _navigation_region = NodePath("../NavigationRegion")
 
-[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 node_paths=PackedStringArray("_base") instance=ExtResource("12_dispatcher")]
-_base = NodePath("../Navigation/NavigationRegion/Base")
+[node name="EnemyTargetDispatcher" parent="." unique_id=1356891942 instance=ExtResource("12_dispatcher")]
 
 [node name="Cameras" type="Node" parent="." unique_id=1513031556]
 
@@ -187,9 +182,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
 [node name="SpeedPowerUp" parent="PowerUps" unique_id=987654324 instance=ExtResource("19_speed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3)
 
-[node name="BaseShieldPowerUp" parent="PowerUps" unique_id=987654325 node_paths=PackedStringArray("_base") instance=ExtResource("20_baseshield")]
+[node name="BaseShieldPowerUp" parent="PowerUps" unique_id=987654325 instance=ExtResource("20_baseshield")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, 3)
-_base = NodePath("../../Navigation/NavigationRegion/Base")
 
 [node name="GrenadePowerUp" parent="PowerUps" unique_id=987654326 instance=ExtResource("21_grenade")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, 3)
@@ -200,9 +194,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4)
 [node name="SpeedPowerUp2" parent="PowerUps" unique_id=987654329 instance=ExtResource("19_speed")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -5)
 
-[node name="BaseShieldPowerUp2" parent="PowerUps" unique_id=987654330 node_paths=PackedStringArray("_base") instance=ExtResource("20_baseshield")]
+[node name="BaseShieldPowerUp2" parent="PowerUps" unique_id=987654330 instance=ExtResource("20_baseshield")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.5, -4)
-_base = NodePath("../../Navigation/NavigationRegion/Base")
 
 [node name="GrenadePowerUp2" parent="PowerUps" unique_id=987654331 instance=ExtResource("21_grenade")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
@@ -213,9 +206,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyContainer" parent="Containers" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
 
-[node name="Players" parent="Containers" unique_id=297298887 instance=ExtResource("23_playercontainer")]
+[node name="PlayerContainer" parent="Containers" unique_id=297298887 instance=ExtResource("23_playercontainer")]
+
+[node name="BaseContainer" parent="Containers" unique_id=601915876 instance=ExtResource("33_basecontainer")]
 
 [node name="Spawners" type="Node" parent="." unique_id=608565377]
+
+[node name="BaseSpawnPoint" parent="Spawners" unique_id=601915875 instance=ExtResource("34_basespawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 
 [node name="PlayerSpawnPoint" parent="Spawners" unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)

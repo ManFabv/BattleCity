@@ -5,18 +5,21 @@ extends Node
 @export var _on_enemy_spawned : BaseEvent
 ## event we listen to in order to know the current player instance
 @export var _on_player_spawned : BaseEvent
-## the base, wired manually since it's static in the level
-@export var _base : Base
+## event we listen to in order to know the current base instance
+@export var _on_base_spawned : BaseEvent
 
 ## every AIController currently alive, kept up to date on player spawn/death
 var _tracked_enemies : Array[AIController] = []
 ## current player instance, or null while there's no player alive
 var _player_target : ControllableEntity
+## current base instance, set when the base spawns
+var _base : Base
 
 
 func _ready() -> void:
 	_on_enemy_spawned.subscribe(_on_enemy_spawned_handler, tree_exited)
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
+	_on_base_spawned.subscribe(_on_base_spawned_handler, tree_exited)
 
 
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
@@ -40,6 +43,11 @@ func _on_player_spawned_handler(player: ControllableEntity) -> void:
 	_broadcast_player_target()
 
 
+func _on_base_spawned_handler(base: Base) -> void:
+	if is_instance_valid(base):
+		_base = base
+
+
 func _on_player_died_handler() -> void:
 	_player_target = null
 	_broadcast_player_target()
@@ -50,7 +58,7 @@ func _broadcast_player_target() -> void:
 		ai_controller.set_attack_targets(_player_target, _current_base_target())
 
 
-## _base is a fixed scene reference; once the base is destroyed (defeat), it becomes
-## a freed object instead of null, so we resolve it here before handing it out
+## once the base is destroyed (defeat), _base becomes a freed object instead of null,
+## so we resolve it here before handing it out
 func _current_base_target() -> Base:
 	return _base if is_instance_valid(_base) else null
