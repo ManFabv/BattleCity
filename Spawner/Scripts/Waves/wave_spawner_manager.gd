@@ -22,11 +22,7 @@ extends Node
 var _enemies_alive_count: int = 0
 ## enemies that were allowed to spawn but have not spawned yet.
 ## needed so we don't over-notify spawn points while a countdown is running
-var _reserved_spawn_count: int = 0:
-	set(new_value):
-		_reserved_spawn_count = max(new_value, 0)
-## true once the all waves finished event was emitted, so it's only emitted once
-var _has_finished_all_waves: bool = false
+var _reserved_spawn_count: int = 0
 ## rid of the shared navigation region, cached once
 var _navigation_region_rid: RID
 
@@ -73,10 +69,7 @@ func _notify_spawn_points_if_room() -> void:
 
 ## notifies once that there is nothing left to spawn, whoever listens decides what that means
 func _check_all_waves_finished() -> void:
-	if _has_finished_all_waves:
-		return
 	for spawn_point: WaveSpawner in _spawn_points:
 		if not spawn_point.is_finished():
 			return
-	_has_finished_all_waves = true
 	_on_all_waves_finished.emit()

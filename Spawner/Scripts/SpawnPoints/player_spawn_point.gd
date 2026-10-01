@@ -18,9 +18,6 @@ extends SpawnPointInterface
 @export var _player_spawn_point_config : PlayerSpawnPointConfig
 
 var _remaining_lives : int
-## true only for the very first life of the run; every respawn after a death is false.
-## only affects entity level.
-var _is_first_spawn : bool = true
 
 
 func _ready() -> void:
@@ -32,8 +29,9 @@ func _ready() -> void:
 func spawn() -> void:
 	var player : ControllableEntity = _player_spawn_point_config.player_scene.instantiate() as ControllableEntity
 	# the level must be set before emitting the event: the container parents the player there and _ready() applies it
-	player.set_initial_level(_player_spawn_point_config.initial_entity_level if _is_first_spawn else 0)
-	_is_first_spawn = false
+	# only the very first life of the run (no death yet) uses the initial entity level
+	var is_first_spawn : bool = _remaining_lives == _player_spawn_point_config.starting_lives
+	player.set_initial_level(_player_spawn_point_config.initial_entity_level if is_first_spawn else 0)
 	_on_player_spawned.emit(player)
 	player.global_position = global_position
 	player.entity_died.connect(_on_player_died, CONNECT_ONE_SHOT)

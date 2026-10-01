@@ -6,10 +6,9 @@ extends Resource
 @export var _spawn_configs : Array[WaveSpawnConfig]
 
 
-## config for the given spawn index, clamped to the available spawns
+## config for the given spawn index
 func spawn_at(index: int) -> WaveSpawnConfig:
-	var clamped_index : int = clampi(index, 0, last_index())
-	return _spawn_configs[clamped_index]
+	return _spawn_configs[index]
 
 
 ## index of the last spawn
