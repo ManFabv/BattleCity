@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1")
-fire_rate = 5.0
+fire_rate = 4.0
