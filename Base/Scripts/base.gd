@@ -4,6 +4,8 @@ extends Node3D
 @export_group("Signals")
 ## emitted when the base loses all its health
 @export var _on_base_destroyed : BaseEvent
+## requests the base to attach a shield (emitted by the base shield power-up)
+@export var _on_base_shield_requested : BaseEvent
 
 @export_group("Base")
 ## health stats for the base (only supports a single enemy shot)
@@ -26,12 +28,20 @@ func _ready() -> void:
 	_mesh.apply_color(_base_color)
 	_health.configure(_health_stats)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
+	_on_base_shield_requested.subscribe(_on_base_shield_requested_handler, tree_exited)
 
 
 ## public entry point for pickups can attach an upgrade to the base (shield)
 func attach_upgrade(upgrade: Node3D) -> void:
 	# the upgrade manages its own lifetime and is freed together with the base
 	_upgrade_attach_point.attach_upgrade(upgrade)
+
+
+## the shield is instantiated here, so nothing is left orphaned if the base is already gone
+func _on_base_shield_requested_handler(shield_scene: PackedScene) -> void:
+	if is_instance_valid(shield_scene):
+		var shield : Shield = shield_scene.instantiate() as Shield
+		attach_upgrade(shield)
 
 
 ## called every time the base takes a hit

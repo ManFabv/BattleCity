@@ -9,7 +9,8 @@ extends Node3D
 
 ## at the beginning we spawn the base
 func _ready() -> void:
-	_spawn_base()
+	# deferred so every listener is subscribed no matter where this node sits in the tree
+	_spawn_base.call_deferred()
 
 
 func _spawn_base() -> void:

@@ -22,7 +22,8 @@ var _is_first_spawn : bool = true
 
 func _ready() -> void:
 	_remaining_lives = _player_config.starting_lives
-	_spawn_player()
+	# deferred so every listener is subscribed no matter where this node sits in the tree
+	_spawn_player.call_deferred()
 
 
 func _spawn_player() -> void:
