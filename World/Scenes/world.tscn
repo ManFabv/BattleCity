@@ -7,8 +7,8 @@
 [ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Waves/wave_spawner_config_1.tres" id="5_8j7up"]
 [ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Waves/wave_spawner_config_2.tres" id="6_3h4jy"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
-[ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://EnemyTracking/Scenes/enemy_alive_counter.tscn" id="11_counter"]
-[ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://EnemyTracking/Scenes/enemy_target_dispatcher.tscn" id="12_dispatcher"]
+[ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://EnemyTracking/Scenes/enemy_alive_tracker.tscn" id="11_tracker"]
+[ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://EnemyTracking/Scenes/enemy_target_applier.tscn" id="12_applier"]
 [ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/game_result_controller.tscn" id="14_outcome"]
 [ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://PickablePowerUp/Scenes/pickable_star_power_up.tscn" id="17_star"]
 [ext_resource type="PackedScene" uid="uid://bqk3n5t8v2m4x" path="res://PickablePowerUp/Scenes/pickable_tank_shield_power_up.tscn" id="18_shield"]
@@ -196,14 +196,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyContainer" parent="Enemies" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
 
-[node name="EnemyTargetDispatcher" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_dispatcher")]
+[node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
 
-[node name="EnemyWaveSpawnerManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_counter", "_navigation_region") instance=ExtResource("4_rqvg4")]
+[node name="EnemyWaveSpawnerManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_enemy_alive_tracker", "_navigation_region") instance=ExtResource("4_rqvg4")]
 _spawn_points = [NodePath("EnemySpawner1"), NodePath("EnemySpawner2")]
-_enemy_alive_counter = NodePath("EnemyAliveCounter")
+_enemy_alive_tracker = NodePath("EnemyAliveTracker")
 _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
-[node name="EnemyAliveCounter" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_counter")]
+[node name="EnemyAliveTracker" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209512 instance=ExtResource("11_tracker")]
 
 [node name="EnemyEliminator" parent="Enemies/EnemyWaveSpawnerManager" unique_id=2081209513 instance=ExtResource("22_eliminator")]
 

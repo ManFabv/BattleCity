@@ -101,7 +101,7 @@ func on_menu_opened(_event_context: Variant = null) -> void:
 	pass # nothing for now
 
 
-## called once by EnemyTargetDispatcher right after this entity spawns
+## called once by EnemyTargetApplier right after this entity spawns
 func set_attack_targets(player_target: ControllableEntity, base_target: Base) -> void:
 	_player_target = player_target
 	_base_target = base_target

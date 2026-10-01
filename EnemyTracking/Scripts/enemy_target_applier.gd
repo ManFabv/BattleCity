@@ -1,5 +1,7 @@
-class_name EnemyTargetDispatcher
+class_name EnemyTargetApplier
 extends Node
+## applies the current player and base as attack targets to every alive enemy AI controller,
+## both when an enemy spawns and whenever the player changes
 
 ## event we listen to in order to know when a new enemy needs its attack targets
 @export var _on_enemy_spawned : BaseEvent

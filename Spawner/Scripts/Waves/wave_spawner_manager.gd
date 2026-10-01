@@ -10,7 +10,7 @@ extends Node
 ## base maximum enemies allowed at the same time
 @export var _base_max_enemies: int = 3
 ## tracks how many enemies are currently alive, independent of this manager
-@export var _enemy_alive_counter: EnemyAliveCounter
+@export var _enemy_alive_tracker: EnemyAliveTracker
 ## navigation region handed off to every spawned AIController, instead of
 ## each one resolving its own region rid from the navigation map
 @export var _navigation_region: NavigationRegion3D
@@ -24,7 +24,7 @@ var _reserved_spawn_count: int = 0:
 
 func _ready() -> void:
 	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
-	_enemy_alive_counter.subscribe_to_count_changed(_on_enemy_count_changed)
+	_enemy_alive_tracker.subscribe_to_count_changed(_on_enemy_count_changed)
 	_notify_spawn_points_if_room()
 
 
@@ -53,7 +53,7 @@ func _on_enemy_count_changed(_new_count: int) -> void:
 ## can't both fill the same last free slot
 func _notify_spawn_points_if_room() -> void:
 	for spawn_point: WaveSpawner in _spawn_points:
-		var available_room: int = _base_max_enemies - _enemy_alive_counter.current_count() - _reserved_spawn_count
+		var available_room: int = _base_max_enemies - _enemy_alive_tracker.get_enemies_alive_count() - _reserved_spawn_count
 		if available_room <= 0:
 			return
 		if spawn_point.allow_spawn():
@@ -62,7 +62,7 @@ func _notify_spawn_points_if_room() -> void:
 
 ## the game is won once every wave is done and no enemies are left alive
 func _check_victory() -> void:
-	if _enemy_alive_counter.current_count() > 0:
+	if _enemy_alive_tracker.get_enemies_alive_count() > 0:
 		return
 	for spawn_point: WaveSpawner in _spawn_points:
 		if not spawn_point.is_finished():
