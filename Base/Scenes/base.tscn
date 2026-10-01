@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dgpwyjcpjpung" path="res://Base/Scripts/base.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="2"]
+[ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="ev_on_base_destroyed"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1"]
@@ -15,6 +16,7 @@ albedo_color = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="Base" type="Node3D" unique_id=59400926 node_paths=PackedStringArray("_upgrade_attach_point")]
 script = ExtResource("1")
+_on_base_destroyed = ExtResource("ev_on_base_destroyed")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 
 [node name="Body" type="StaticBody3D" parent="." unique_id=801766690]

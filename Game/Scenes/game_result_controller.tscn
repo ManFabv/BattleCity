@@ -1,6 +1,14 @@
 [gd_scene format=3 uid="uid://c5vua24awli0v"]
 
 [ext_resource type="Script" uid="uid://cb1delu4bqa5m" path="res://Game/Scripts/game_result_controller.gd" id="1"]
+[ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="ev_on_base_destroyed"]
+[ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://EventBus/Resources/Events/on_defeat.tres" id="ev_on_defeat"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="ev_on_player_out_of_lives"]
+[ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://EventBus/Resources/Events/on_victory.tres" id="ev_on_victory"]
 
 [node name="LevelResultController" type="Node" unique_id=1230938134]
 script = ExtResource("1")
+_on_base_destroyed = ExtResource("ev_on_base_destroyed")
+_on_player_out_of_lives = ExtResource("ev_on_player_out_of_lives")
+_on_victory = ExtResource("ev_on_victory")
+_on_defeat = ExtResource("ev_on_defeat")
