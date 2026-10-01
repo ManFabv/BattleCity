@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqxjw6b0h1t8f"]
 
-[ext_resource type="Script" uid="uid://doneq5nhgxcgd" path="res://PowerUp/Scripts/star_power_up.gd" id="1_star"]
+[ext_resource type="Script" uid="uid://doneq5nhgxcgd" path="res://PickablePowerUp/Scripts/Powerups/pickable_star_power_up.gd" id="1_star"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_star"]
 size = Vector3(0.6, 0.6, 0.6)
@@ -11,7 +11,7 @@ size = Vector3(0.6, 0.6, 0.6)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_star"]
 albedo_color = Color(0.945098, 0.85098, 0.176471, 1)
 
-[node name="StarPowerUp" type="Area3D" unique_id=658202279]
+[node name="PickableStarPowerUp" type="Area3D" unique_id=658202279]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_star")

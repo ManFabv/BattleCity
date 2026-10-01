@@ -1,5 +1,5 @@
-class_name GrenadePowerUp
-extends PickableInterface
+class_name PickableGrenadePowerUp
+extends PickablePowerUpInterface
 
 ## event requesting every currently alive enemy to be eliminated
 @export var _on_eliminate_all_enemies : BaseEvent
