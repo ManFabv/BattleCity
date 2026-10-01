@@ -1,0 +1,16 @@
+[gd_resource type="MeshLibrary" format=3 uid="uid://dsflk43tfpre4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjbra"]
+albedo_color = Color(0.25, 0.55, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wk72w"]
+material = SubResource("StandardMaterial3D_wjbra")
+
+[resource]
+item/0/name = "Vegetation"
+item/0/mesh = SubResource("BoxMesh_wk72w")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/mesh_cast_shadow = 1
+item/0/shapes = []
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
