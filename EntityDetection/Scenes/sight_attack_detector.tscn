@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://yymqre1qxim7"]
 
-[ext_resource type="Script" uid="uid://cwdpui0c4irje" path="res://EntityController/Scripts/Detection/sight_attack_detector.gd" id="1_bgxde"]
+[ext_resource type="Script" uid="uid://cwdpui0c4irje" path="res://EntityDetection/Scripts/sight_attack_detector.gd" id="1_bgxde"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vision"]
 radius = 0.4
