@@ -3,7 +3,7 @@ extends RefCounted
 
 
 ## here we initialize the strategy before use
-func configure(_config: ShootingCostConfigInterface, _owner_node: Node, _timer_manager: TimerManagerResource) -> void:
+func configure(_config: ShootingCostConfig, _owner_node: Node, _timer_manager: TimerManagerResource) -> void:
 	push_error("configure() should be implemented on inherited")
 
 

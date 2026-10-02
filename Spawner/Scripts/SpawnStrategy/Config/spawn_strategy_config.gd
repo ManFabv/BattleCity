@@ -1,4 +1,4 @@
-class_name SpawnStrategyConfigInterface
+class_name SpawnStrategyConfig
 extends Resource
 
 

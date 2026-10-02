@@ -1,5 +1,5 @@
 class_name OnceBasedSpawnStrategyConfig
-extends SpawnStrategyConfigInterface
+extends SpawnStrategyConfig
 
 @export_group("References")
 ## the scene_to_spawn to instantiate once on the first spawn point

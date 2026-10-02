@@ -1,4 +1,4 @@
-class_name ShootingCostConfigInterface
+class_name ShootingCostConfig
 extends Resource
 
 @export_group("Config")

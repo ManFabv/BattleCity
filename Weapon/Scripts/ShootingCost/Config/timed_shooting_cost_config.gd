@@ -1,5 +1,5 @@
 class_name TimedShootingCostConfig
-extends ShootingCostConfigInterface
+extends ShootingCostConfig
 
 
 ## creates the timed shooting cost strategy that uses this config's fire rate

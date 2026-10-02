@@ -11,7 +11,7 @@ var _has_reached_timeout: bool = true
 var _timer: CustomTimer
 
 
-func configure(config: ShootingCostConfigInterface, owner_node: Node, timer_manager: TimerManagerResource) -> void:
+func configure(config: ShootingCostConfig, owner_node: Node, timer_manager: TimerManagerResource) -> void:
 	_fire_rate = config.fire_rate
 	_timer = timer_manager.create_manual(_fire_rate, _on_timer_timeout, owner_node.tree_exited)
 
