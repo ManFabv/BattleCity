@@ -2,10 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Container/Scenes/projectile_container.tscn" id="3_3rhlx"]
 [ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://Container/Scenes/enemy_container.tscn" id="3_yw7h8"]
-[ext_resource type="PackedScene" uid="uid://c7uff7l2ctva8" path="res://Spawner/Scenes/Enemy/enemy_spawn_point.tscn" id="4_fdxdb"]
-[ext_resource type="PackedScene" uid="uid://bcqbaursusu71" path="res://Spawner/Scenes/Enemy/enemy_spawn_manager.tscn" id="4_rqvg4"]
-[ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_config_1.tres" id="5_8j7up"]
-[ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_config_2.tres" id="6_3h4jy"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://EnemyTracking/Scenes/enemy_alive_tracker.tscn" id="11_tracker"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://EnemyTracking/Scenes/enemy_target_applier.tscn" id="12_applier"]
@@ -18,16 +14,20 @@
 [ext_resource type="PackedScene" uid="uid://gwphhxbtcmsf" path="res://EnemyTracking/Scenes/enemy_eliminator_applier.tscn" id="22_eliminator_applier"]
 [ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
-[ext_resource type="PackedScene" uid="uid://pxiy3vqqmlpq" path="res://Spawner/Scenes/Player/player_spawn_point.tscn" id="25_spawnpoint"]
-[ext_resource type="Resource" uid="uid://cqek2bnnvsx00" path="res://Spawner/Resources/Levels/TestLevel/Player/player_spawn_point_config.tres" id="28_playerconfig"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
-[ext_resource type="PackedScene" uid="uid://f3sepoxkci87" path="res://Spawner/Scenes/Base/base_spawn_point.tscn" id="34_basespawnpoint"]
-[ext_resource type="Resource" uid="uid://c8basecfg2r7t" path="res://Spawner/Resources/Levels/TestLevel/Base/base_spawn_point_config.tres" id="35_baseconfig"]
-[ext_resource type="PackedScene" uid="uid://r52ofss8mybi" path="res://Spawner/Scenes/Player/player_spawn_manager.tscn" id="36_playerspawnmanager"]
-[ext_resource type="Resource" uid="uid://nksu0b4ydiyy" path="res://Spawner/Resources/Levels/TestLevel/Player/player_spawn_manager_config.tres" id="37_playermanagerconfig"]
-[ext_resource type="PackedScene" uid="uid://kxrjbvbatrob" path="res://Spawner/Scenes/Base/base_spawn_manager.tscn" id="38_basespawnmanager"]
+[ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
+[ext_resource type="PackedScene" uid="uid://dp2kuvi7dycrs" path="res://Spawner/Scenes/Applier/player_camera_applier.tscn" id="42_cameraapplier"]
+[ext_resource type="PackedScene" uid="uid://dfoiv8221bunb" path="res://Spawner/Scenes/Applier/enemy_navigation_applier.tscn" id="43_navapplier"]
+[ext_resource type="Resource" uid="uid://bl8te3fsf5nqj" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_based_spawn_strategy_config.tres" id="44_wavestrategy"]
+[ext_resource type="Resource" uid="uid://dklojtirojybx" path="res://Spawner/Resources/Levels/TestLevel/Player/lives_based_spawn_strategy_config.tres" id="45_livesstrategy"]
+[ext_resource type="Resource" uid="uid://ci1bcagik1k14" path="res://Spawner/Resources/Levels/TestLevel/Base/once_based_spawn_strategy_config.tres" id="46_oncestrategy"]
+[ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://Spawner/Scenes/SpawnPoint/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
+[ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
+[ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
+[ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/wave_1_spawns_config.tres" id="50_waveconfig1"]
+[ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/wave_2_spawns_config.tres" id="51_waveconfig2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -202,21 +202,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
 
-[node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points", "_navigation_region") instance=ExtResource("4_rqvg4")]
-_spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
+[node name="EnemyNavigationApplier" parent="Enemies" unique_id=1309938728 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("43_navapplier")]
 _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
-[node name="EnemyAliveTracker" parent="Enemies/EnemySpawnManager" unique_id=2081209512 instance=ExtResource("11_tracker")]
+[node name="EnemyAliveTracker" parent="Enemies" unique_id=2081209512 instance=ExtResource("11_tracker")]
 
-[node name="EnemyEliminatorApplier" parent="Enemies/EnemySpawnManager" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
+[node name="EnemyEliminatorApplier" parent="Enemies" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
 
-[node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
+_spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
+_strategy_config = ExtResource("44_wavestrategy")
+
+[node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2138977, 0, -7.374027)
-_wave_config = ExtResource("5_8j7up")
+wave_spawns = ExtResource("50_waveconfig1")
 
-[node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" unique_id=1865266614 instance=ExtResource("4_fdxdb")]
+[node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" unique_id=1865266614 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.578964, 0, -6.66182)
-_wave_config = ExtResource("6_3h4jy")
+wave_spawns = ExtResource("51_waveconfig2")
 
 [node name="Projectiles" type="Node" parent="." unique_id=700000002]
 
@@ -230,25 +233,26 @@ _wave_config = ExtResource("6_3h4jy")
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
 
-[node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_point") instance=ExtResource("36_playerspawnmanager")]
-_spawn_point = NodePath("PlayerSpawnPoint")
-_player_spawn_manager_config = ExtResource("37_playermanagerconfig")
+[node name="PlayerCameraApplier" parent="Player" unique_id=297298891 node_paths=PackedStringArray("_player_camera") instance=ExtResource("42_cameraapplier")]
+_player_camera = NodePath("../PlayerCamera")
 
-[node name="PlayerSpawnPoint" parent="Player/PlayerSpawnManager" unique_id=297298890 node_paths=PackedStringArray("_player_camera") instance=ExtResource("25_spawnpoint")]
+[node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
+_spawn_points = [NodePath("PlayerSpawnPoint")]
+_strategy_config = ExtResource("45_livesstrategy")
+
+[node name="PlayerSpawnPoint" parent="Player/PlayerSpawnManager" unique_id=297298890 instance=ExtResource("48_playerspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
-_player_camera = NodePath("../../PlayerCamera")
-_player_spawn_point_config = ExtResource("28_playerconfig")
 
 [node name="Base" type="Node" parent="." unique_id=700000004]
 
 [node name="BaseContainer" parent="Base" unique_id=601915876 instance=ExtResource("33_basecontainer")]
 
-[node name="BaseSpawnManager" parent="Base" unique_id=1979519489 node_paths=PackedStringArray("_spawn_point") instance=ExtResource("38_basespawnmanager")]
-_spawn_point = NodePath("BaseSpawnPoint")
+[node name="BaseSpawnManager" parent="Base" unique_id=1979519489 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
+_spawn_points = [NodePath("BaseSpawnPoint")]
+_strategy_config = ExtResource("46_oncestrategy")
 
-[node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" unique_id=601915875 instance=ExtResource("34_basespawnpoint")]
+[node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
-_base_spawn_point_config = ExtResource("35_baseconfig")
 
 [node name="Game" type="Node" parent="." unique_id=700000005]
 

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WaveSpawnConfig" format=3 uid="uid://cdeyx1cn8loj2"]
+
+[ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="2"]
+[ext_resource type="Script" uid="uid://caigedgx00la6" path="res://Spawner/Scripts/Waves/Config/Spawns/wave_spawn_config.gd" id="2_10tpo"]
+
+[resource]
+script = ExtResource("2_10tpo")
+spawn_delay = 2.5
+scene_to_spawn = ExtResource("2")

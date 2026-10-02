@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="OnceBasedSpawnStrategyConfig" format=3 uid="uid://ci1bcagik1k14"]
+
+[ext_resource type="Script" uid="uid://c2w31bd4a4ikv" path="res://Spawner/Scripts/SpawnStrategy/Config/once_based_spawn_strategy_config.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="2"]
+
+[resource]
+script = ExtResource("1")
+scene_to_spawn = ExtResource("2")

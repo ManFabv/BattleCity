@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://2l3v13pllwmv"]
+
+[ext_resource type="PackedScene" uid="uid://c7nxe8h6r2vw0" path="res://Spawner/Scenes/SpawnPoint/spawn_point.tscn" id="1"]
+[ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://EventBus/Resources/Events/on_player_spawned.tres" id="2"]
+
+[node name="PlayerSpawnPoint" unique_id=2068805698 instance=ExtResource("1")]
+_on_spawned = ExtResource("2")

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://clarxhdin7fnj"]
+
+[ext_resource type="Script" uid="uid://dmra4ae4dk6x5" path="res://Spawner/Scripts/SpawnPoint/wave_spawn_point.gd" id="1_ctre4"]
+[ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://EventBus/Resources/Events/on_enemy_spawned.tres" id="2_yjc02"]
+
+[node name="EnemySpawnPoint" type="Node3D" unique_id=2087427250]
+script = ExtResource("1_ctre4")
+_on_spawned = ExtResource("2_yjc02")
