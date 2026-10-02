@@ -7,7 +7,7 @@ class_name WeaponInterface
 @export var _timer_manager : TimerManagerResource
 
 var _weapon_config : WeaponConfig
-var _shooting_cost_config : ShootingCostConfigInterface
+var _shooting_cost_config : ShootingCostConfig
 var _projectile_config : ProjectileConfig
 
 

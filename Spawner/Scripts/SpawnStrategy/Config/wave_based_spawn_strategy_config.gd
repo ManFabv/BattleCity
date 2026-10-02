@@ -1,5 +1,5 @@
 class_name WaveBasedSpawnStrategyConfig
-extends SpawnStrategyConfigInterface
+extends SpawnStrategyConfig
 
 @export_group("Events")
 ## event we listen to in order to know when the count of spawned nodes alive changes

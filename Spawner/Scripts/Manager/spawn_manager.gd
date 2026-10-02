@@ -6,7 +6,7 @@ extends Node
 @export var _spawn_points : Array[SpawnPointInterface]
 @export_group("Config")
 ## creates the strategy that decides what and when to spawn
-@export var _strategy_config : SpawnStrategyConfigInterface
+@export var _strategy_config : SpawnStrategyConfig
 
 ## the strategy created from the config, the manager should owns it
 var _spawn_strategy : SpawnStrategyInterface
