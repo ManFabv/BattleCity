@@ -9,4 +9,4 @@ script = ExtResource("1")
 entity_stats = ExtResource("2")
 max_health_points = 5
 weapon_config = ExtResource("4")
-entity_color = Color(0.369416, 0.491491, 0.25504, 1)
+entity_color = Color(0.66, 0.82, 0.48, 1)
