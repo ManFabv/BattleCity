@@ -22,7 +22,8 @@ _base_levels = ExtResource("base_levels")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 
 [node name="Body" type="StaticBody3D" parent="." unique_id=801766690]
-collision_layer = 774
+collision_layer = 128
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body" unique_id=1913275605]
 shape = SubResource("BoxShape3D_1")
