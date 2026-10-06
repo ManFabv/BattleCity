@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="TimelineBasedSpawnStrategyConfig" format=3 uid="uid://jpuhb365x1eo"]
+
+[ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://Spawner/Scripts/SpawnStrategy/Config/timeline_based_spawn_strategy_config.gd" id="1_config"]
+[ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="2_entry"]
+[ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="3_count"]
+[ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_waves_finished.tres" id="4_finished"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="5_timer"]
+[ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="6_normal"]
+[ext_resource type="PackedScene" uid="uid://bp4vuuy27reqr" path="res://ControllableEntity/Scenes/controllable_enemy_heavy.tscn" id="7_heavy"]
+[ext_resource type="PackedScene" uid="uid://uaqyetcgo8od" path="res://ControllableEntity/Scenes/controllable_enemy_slow.tscn" id="8_slow"]
+
+[sub_resource type="Resource" id="Resource_entry0"]
+script = ExtResource("2_entry")
+scene_to_spawn = ExtResource("6_normal")
+
+[sub_resource type="Resource" id="Resource_entry1"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+spawn_point_index = 1
+scene_to_spawn = ExtResource("7_heavy")
+
+[sub_resource type="Resource" id="Resource_entry2"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 1.5
+scene_to_spawn = ExtResource("6_normal")
+
+[sub_resource type="Resource" id="Resource_entry3"]
+script = ExtResource("2_entry")
+spawn_point_index = 1
+scene_to_spawn = ExtResource("6_normal")
+
+[sub_resource type="Resource" id="Resource_entry4"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+scene_to_spawn = ExtResource("8_slow")
+
+[sub_resource type="Resource" id="Resource_entry5"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+spawn_point_index = 1
+scene_to_spawn = ExtResource("8_slow")
+
+[resource]
+script = ExtResource("1_config")
+_on_alive_count_changed = ExtResource("3_count")
+_on_all_waves_finished = ExtResource("4_finished")
+timer_manager = ExtResource("5_timer")
+_spawn_entry_configs = Array[ExtResource("2_entry")]([SubResource("Resource_entry0"), SubResource("Resource_entry1"), SubResource("Resource_entry2"), SubResource("Resource_entry3"), SubResource("Resource_entry4"), SubResource("Resource_entry5")])
