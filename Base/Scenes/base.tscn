@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="ev_on_base_destroyed"]
 [ext_resource type="Resource" uid="uid://mvona3h4a2bs" path="res://EventBus/Resources/Events/on_base_shield_requested.tres" id="ev_on_base_shield_requested"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
-[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
+[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1"]
 size = Vector3(2, 1.5, 2)

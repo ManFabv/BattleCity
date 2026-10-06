@@ -9,6 +9,6 @@ extends PickablePowerUpInterface
 @export var _shield_scene : PackedScene
 
 
-func _apply_pickup(_picker: ControllableEntity) -> void:
+func _apply_pickup(_controllable_entity_picker: ControllableEntity) -> void:
 	## we notify that a base shield is requested
 	_on_base_shield_requested.emit(_shield_scene.instantiate() as Shield)

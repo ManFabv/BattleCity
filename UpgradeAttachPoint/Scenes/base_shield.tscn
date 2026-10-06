@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4qcnitx65kka"]
 
-[ext_resource type="Script" uid="uid://b3jvqla635dfj" path="res://Upgrade/Scripts/shield.gd" id="1_shield"]
+[ext_resource type="Script" uid="uid://b3jvqla635dfj" path="res://UpgradeAttachPoint/Scripts/shield.gd" id="1_shield"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_base"]

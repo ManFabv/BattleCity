@@ -6,6 +6,6 @@ extends PickablePowerUpInterface
 @export var _speed_modifier : EntityStatsModifierInterface
 
 
-func _apply_pickup(picker: ControllableEntity) -> void:
+func _apply_pickup(controllable_entity_picker: ControllableEntity) -> void:
 	# we apply the speed modifier to the tank
-	picker.apply_stat_modifier(_speed_modifier)
+	controllable_entity_picker.apply_stat_modifier(_speed_modifier)

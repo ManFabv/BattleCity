@@ -29,6 +29,9 @@ func _ready() -> void:
 	_mesh.apply_color(base_color)
 	_health.configure(max_health_points)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
+	# in order to access the upgrade attach point, we subscribe to the base shield requested event
+	# so when the player collects the Base Shield powerup we can attach it to the base without
+	# needing to have a reference hardcoded into the powerup itself
 	_on_base_shield_requested.subscribe(_upgrade_attach_point.attach_upgrade, tree_exited)
 
 

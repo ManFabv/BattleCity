@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bqk3n5t8v2m4x"]
 
 [ext_resource type="Script" uid="uid://d0uvvxj5lktcm" path="res://PickablePowerUp/Scripts/Powerups/pickable_tank_shield_power_up.gd" id="1_shield"]
-[ext_resource type="PackedScene" uid="uid://c1tm1xs3e8fwo" path="res://Upgrade/Scenes/tank_shield.tscn" id="2_shieldscene"]
+[ext_resource type="PackedScene" uid="uid://c1tm1xs3e8fwo" path="res://UpgradeAttachPoint/Scenes/tank_shield.tscn" id="2_shieldscene"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shield"]
 size = Vector3(0.6, 0.6, 0.6)
