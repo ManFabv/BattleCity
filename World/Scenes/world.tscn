@@ -216,9 +216,11 @@ _spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
 
 [node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2138977, 0, -7.374027)
+spawn_point_id = 1
 
 [node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" unique_id=1865266614 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.578964, 0, -6.66182)
+spawn_point_id = 2
 
 [node name="Projectiles" type="Node" parent="." unique_id=700000002]
 

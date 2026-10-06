@@ -6,7 +6,10 @@ extends Resource
 @export var _level_configs : Array[EntityLevelConfig]
 @export_group("Archetype")
 ## seconds an AI-controlled entity of this archetype has to reach a wander target; the player ignores it
-@export_range(0.1, 20.0) var ai_wander_timeout_seconds : float = 10.0
+@export_range(0.1, 20.0) var ai_wander_timeout_seconds : float = 10.0:
+	set(new_value):
+		# we prevent negative timeouts
+		ai_wander_timeout_seconds = maxf(new_value, 0.0)
 
 
 ## config for the given level index, clamped to the available levels

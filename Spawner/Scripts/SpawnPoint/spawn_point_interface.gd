@@ -4,6 +4,12 @@ extends Node3D
 @export_group("Events")
 ## emitted right after instantiate(), before the new node is parented
 @export var _on_spawned : BaseEvent
+@export_group("Config")
+## identifies this spawn point inside its manager, spawn entries refer to it by this id
+@export_range(0, 99) var spawn_point_id : int = 0:
+	set(new_value):
+		# we prevent negative ids
+		spawn_point_id = maxi(new_value, 0)
 
 
 ## instantiate the scene_to_spawn at this spawn point and return the new node

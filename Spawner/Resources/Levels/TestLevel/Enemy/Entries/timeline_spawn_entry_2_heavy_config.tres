@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_entry")
 spawn_delay_seconds = 0.5
-spawn_point_index = 1
+spawn_point_id = 2
 scene_to_spawn = ExtResource("2_scene")

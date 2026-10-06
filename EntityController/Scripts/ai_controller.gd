@@ -36,7 +36,10 @@ var _current_attack_target : Node3D
 ## timer used to give up on a wander target that takes too long to reach
 var _wander_timeout_timer : CustomTimer
 ## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way); set on configure
-var _wander_timeout_seconds : float = 10.0
+var _wander_timeout_seconds : float = 10.0:
+	set(new_value):
+		# we prevent negative timeouts
+		_wander_timeout_seconds = maxf(new_value, 0.0)
 
 
 ## We instantiate the timer and connect the signals

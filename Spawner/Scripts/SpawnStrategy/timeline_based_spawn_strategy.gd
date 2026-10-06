@@ -3,8 +3,8 @@ extends SpawnStrategyInterface
 
 ## the config with the capacity, the events and the timeline entries
 var _timeline_based_spawn_strategy_config : TimelineBasedSpawnStrategyConfig
-## the spawn points the entries refer to by index
-var _spawn_points : Array[SpawnPointInterface] = []
+## the spawn points the entries refer to, indexed by their spawn_point_id
+var _spawn_point_by_id : Dictionary[int, SpawnPointInterface] = {}
 ## one timer for the whole timeline, restarted with the delay of each entry once the previous one spawned
 var _spawn_delay_timer : CustomTimer
 ## true once the delay of the next entry elapsed, it stays due until there is room for it
@@ -42,10 +42,8 @@ func _init(config: TimelineBasedSpawnStrategyConfig) -> void:
 
 ## we validate the timeline and start the delay of the first entry
 func configure(spawn_points: Array[SpawnPointInterface], owner_exited: Signal) -> void:
-	# we cache the spawn points the entries refer to by index
-	_spawn_points = spawn_points
-	# the timeline only starts when every entry is valid
-	if _are_spawn_entries_valid():
+	# the timeline only starts when every spawn point id is unique and every entry is valid
+	if _index_spawn_points_by_id(spawn_points) and _are_spawn_entries_valid():
 		# a single manual timer for the whole timeline, it starts now with the delay of the first entry
 		_spawn_delay_timer = _timeline_based_spawn_strategy_config.timer_manager.create_manual(
 				_next_spawn_entry_config.spawn_delay_seconds, 
@@ -57,7 +55,22 @@ func configure(spawn_points: Array[SpawnPointInterface], owner_exited: Signal) -
 				owner_exited)
 
 
-## true when there is at least one entry and every spawn point index exists
+## indexes the spawn points by their id, false when two of them share the same id
+func _index_spawn_points_by_id(spawn_points: Array[SpawnPointInterface]) -> bool:
+	# we index every spawn point assigned in the manager
+	for spawn_point : SpawnPointInterface in spawn_points:
+		# an empty slot left in the manager's array can't spawn anything
+		if is_instance_valid(spawn_point):
+			# two spawn points with the same id would make the entries ambiguous
+			if _spawn_point_by_id.has(spawn_point.spawn_point_id):
+				push_error("spawn point id %d is used by more than one spawn point" % spawn_point.spawn_point_id)
+				return false
+			# we keep the spawn point under its id
+			_spawn_point_by_id[spawn_point.spawn_point_id] = spawn_point
+	return true
+
+
+## true when there is at least one entry and every entry has a scene and a spawn point id that exists
 func _are_spawn_entries_valid() -> bool:
 	# a timeline without entries never finishes, so the level could not be won
 	if _timeline_based_spawn_strategy_config.last_index() < 0:
@@ -69,11 +82,11 @@ func _are_spawn_entries_valid() -> bool:
 		var spawn_entry_config : TimelineSpawnEntryConfig = _timeline_based_spawn_strategy_config.get_spawn_entry_config_at(entry_index)
 		# an empty slot left in the inspector can't spawn anything
 		if is_instance_valid(spawn_entry_config):
-			# the entry can only spawn at a spawn point that exists
-			if spawn_entry_config.spawn_point_index < _spawn_points.size():
+			# the entry needs a scene to spawn and a spawn point that exists
+			if is_instance_valid(spawn_entry_config.scene_to_spawn) and _spawn_point_by_id.has(spawn_entry_config.spawn_point_id):
 				continue
 		# we report the entry that would break the timeline
-		push_error("timeline entry %d is empty or points to a spawn point index that does not exist" % entry_index)
+		push_error("timeline entry %d is empty, has no scene or points to a spawn point id that does not exist" % entry_index)
 		return false
 	return true
 
@@ -89,15 +102,11 @@ func _try_spawn_next_entry() -> void:
 	_is_next_spawn_entry_waiting_over = false
 	# we move to the next entry
 	_next_spawn_entry_index += 1
-	# we get the requested spawn point
-	var spawn_point : SpawnPointInterface = _spawn_points[spawn_entry_config.spawn_point_index]
-	# a spawn point left empty in the manager's array can't spawn, so we skip this entry
-	if is_instance_valid(spawn_point):
-		# we spawn the scene of this entry at its spawn point
-		spawn_point.spawn(spawn_entry_config.scene_to_spawn)
+	# we spawn the scene of this entry at its spawn point, both validated when the timeline started
+	_spawn_point_by_id[spawn_entry_config.spawn_point_id].spawn(spawn_entry_config.scene_to_spawn)
 	# the last spawn finishes the timeline: we notify it once and the timer is never started again
 	if _next_spawn_entry_index > _timeline_based_spawn_strategy_config.last_index():
-		_timeline_based_spawn_strategy_config.emit_all_waves_finished_event()
+		_timeline_based_spawn_strategy_config.emit_all_spawns_finished_event()
 		return
 	# the delay of the next entry counts from this spawn
 	_spawn_delay_timer.start(_next_spawn_entry_config.spawn_delay_seconds)

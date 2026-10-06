@@ -5,4 +5,5 @@
 
 [resource]
 script = ExtResource("1_entry")
+spawn_point_id = 1
 scene_to_spawn = ExtResource("2_scene")
