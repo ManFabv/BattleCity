@@ -3,13 +3,14 @@ extends Camera3D
 
 @export_group("Config")
 ## how far any ray from the camera will be
-@export_range(0.1, 1000) var _world_position_ray_length : float = 1000
+@export_range(0.1, 1000.0) var _world_position_ray_length : float = 1000.0
 
-# we use this to trigger a raycast and convert a 2D point to world 3D
+## we use this to trigger a raycast and convert a 2D point to world 3D
 @onready var _ray_cast_3d: RayCast3D = %RayCast3D
 
-# if we don't hit anything, we return the last direction
+## if we don't hit anything, we return the last direction
 var _last_position_collision : Vector3 = Vector3.ZERO
+## we cache the last queried 2D point (pointing to the center of the map by default)
 var _last_point_query : Vector2 = Vector2.ZERO
 
 ## this will convert a 2D point to 3D
