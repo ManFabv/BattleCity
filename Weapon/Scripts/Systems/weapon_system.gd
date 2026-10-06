@@ -21,15 +21,22 @@ func try_shot(has_shoot_pressed: bool) -> void:
 
 ## equips the given weapon, replacing the previous one
 func change_weapon(weapon_config: WeaponConfig) -> void:
-	# the previous weapon goes away together with its mesh and its timer
-	if is_instance_valid(_current_weapon):
-		_current_weapon.queue_free()
 	# we instantiate the weapon type of the config
-	_current_weapon = weapon_config.weapon_scene.instantiate() as WeaponInterface
-	# we configure it before it enters the tree, its _ready() reads the config
-	_current_weapon.configure(weapon_config)
-	# we parent it here so it follows the entity
-	add_child(_current_weapon)
+	var new_weapon_interface : WeaponInterface = weapon_config.weapon_scene.instantiate() as WeaponInterface
+	# a weapon_scene whose root isn't a WeaponInterface can't be equipped, so we keep the current weapon
+	if is_instance_valid(new_weapon_interface):
+		# the previous weapon goes away together with its mesh and its timer
+		if is_instance_valid(_current_weapon):
+			_current_weapon.queue_free()
+		# we keep the new weapon as the equipped one
+		_current_weapon = new_weapon_interface
+		# we configure it before it enters the tree, its _ready() reads the config
+		_current_weapon.configure(weapon_config)
+		# we parent it here so it follows the entity
+		add_child(_current_weapon)
+	else:
+		# we report the misconfigured weapon config
+		push_error("weapon_scene of %s is not a WeaponInterface scene" % weapon_config.resource_path)
 
 
 ## listeners are notified every time a shot is fired

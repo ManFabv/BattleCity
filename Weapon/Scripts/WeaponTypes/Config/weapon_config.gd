@@ -28,3 +28,8 @@ extends Resource
 	set(new_value):
 		# we prevent negative cooldowns
 		fire_rate_seconds = maxf(new_value, 0.0)
+## distance from the muzzle to each of the two projectiles, along the muzzle's right axis; only read by DoubleFastWeapon
+@export_range(0.1, 10.0) var shoot_distance_offset : float = 0.2:
+	set(new_value):
+		# we prevent negative offsets, which would swap the left and right projectiles
+		shoot_distance_offset = maxf(new_value, 0.0)

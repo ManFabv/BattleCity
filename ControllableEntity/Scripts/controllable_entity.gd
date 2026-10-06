@@ -80,7 +80,7 @@ func _physics_process(delta) -> void:
 	var applied_gravity : float = _process_gravity()
 	# we are incrementing the velocity to make it match the desired velocity
 	_move_velocity.x = lerp(velocity.x, target_velocity.x, _entity_stats.move_damping * delta)
-	_move_velocity.y += applied_gravity * delta
+	_move_velocity.y = velocity.y - applied_gravity * delta
 	_move_velocity.z = lerp(velocity.z, target_velocity.z, _entity_stats.move_damping * delta)
 	# we calculate the angle for the current position to view to the desired point
 	var look_at_angle : float = lerp_angle(rotation.y, _input_look_at_angle, _entity_stats.rotation_speed * delta)
@@ -166,11 +166,12 @@ func _is_at_max_level() -> bool:
 	return _current_level_index >= _entity_levels.last_index()
 
 
+## gravity to apply this physics step, zero while on the floor
 func _process_gravity() -> float:
 	var applied_gravity : float = 0.0
-	# if we are falling, we make a sum of the velocity on Y and applying gravity
+	# we only pull the body down while it's in the air, the velocity it already has comes from velocity.y
 	if not is_on_floor():
-		applied_gravity = _move_velocity.y - _entity_stats.gravity
+		applied_gravity = _entity_stats.gravity
 	# we return the correct gravity
 	return applied_gravity
 
