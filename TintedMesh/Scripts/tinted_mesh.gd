@@ -1,16 +1,12 @@
 class_name TintedMesh
 extends MeshInstance3D
 
-## material owned by this mesh, so tinting never touches a material shared with other instances;
-## created up front because apply_color() may be called before this node enters the tree
-var _material : StandardMaterial3D = StandardMaterial3D.new()
+@export_group("References")
+## the shared materials, one per color for every tinted mesh
+@export var _tinted_materials : TintedMaterialsResource
 
 
-## we override the first material of the mesh with our own
-func _ready() -> void:
-	set_surface_override_material(0, _material)
-
-
-## paints the mesh albedo color
+## paints the mesh by assigning the shared material of the given color; it can be called before entering the tree
 func apply_color(color: Color) -> void:
-	_material.albedo_color = color
+	# we override the first surface with the material of that color
+	set_surface_override_material(0, _tinted_materials.get_shared_material(color))
