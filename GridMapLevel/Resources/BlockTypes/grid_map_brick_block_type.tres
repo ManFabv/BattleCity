@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="GridMapBlockType" format=3 uid="uid://bw3ka5oxr7np0"]
-
-[ext_resource type="Script" uid="uid://dd5odtypongsi" path="res://GridMapLevel/Scripts/grid_map_block_type.gd" id="1_nhq8p"]
-
-[resource]
-script = ExtResource("1_nhq8p")
-item_name = &"Brick"
-is_destructible = true

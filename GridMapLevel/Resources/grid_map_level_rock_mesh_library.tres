@@ -1,0 +1,18 @@
+[gd_resource type="MeshLibrary" format=3 uid="uid://df1st8hmdq40y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Rock"]
+albedo_color = Color(0.45, 0.45, 0.45, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Rock"]
+material = SubResource("StandardMaterial3D_Rock")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_Rock"]
+
+[resource]
+item/0/name = "Rock"
+item/0/mesh = SubResource("BoxMesh_Rock")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/mesh_cast_shadow = 1
+item/0/shapes = [SubResource("BoxShape3D_Rock"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
