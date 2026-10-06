@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="EntityLevels" format=3 uid="uid://c8bqk1t3q7v5f"]
+
+[ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="1"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="2"]
+[ext_resource type="Resource" uid="uid://bmrycrs0nxijg" path="res://EntityStats/Resources/player_slow_entity_stats.tres" id="stats_1"]
+[ext_resource type="Resource" uid="uid://onoigx4o0mnq" path="res://EntityStats/Resources/player_normal_entity_stats.tres" id="stats_2"]
+[ext_resource type="Resource" uid="uid://b7u77ysou4wb8" path="res://EntityStats/Resources/player_double_fast_entity_stats.tres" id="stats_3"]
+[ext_resource type="Resource" uid="uid://cmj6v73vex2ou" path="res://Weapon/Resources/WeaponTypes/player_slow_weapon_config.tres" id="weapon_1"]
+[ext_resource type="Resource" uid="uid://c0efxaqkxu8e0" path="res://Weapon/Resources/WeaponTypes/player_normal_weapon_config.tres" id="weapon_2"]
+[ext_resource type="Resource" uid="uid://ckd2soxr4g608" path="res://Weapon/Resources/WeaponTypes/player_double_fast_weapon_config.tres" id="weapon_3"]
+
+[sub_resource type="Resource" id="Resource_level_1"]
+script = ExtResource("2")
+entity_stats = ExtResource("stats_1")
+max_health_points = 3
+weapon_config = ExtResource("weapon_1")
+entity_color = Color(0.369416, 0.491491, 0.25504, 1)
+
+[sub_resource type="Resource" id="Resource_level_2"]
+script = ExtResource("2")
+entity_stats = ExtResource("stats_2")
+max_health_points = 4
+weapon_config = ExtResource("weapon_2")
+entity_color = Color(0.5, 0.65, 0.36, 1)
+
+[sub_resource type="Resource" id="Resource_level_3"]
+script = ExtResource("2")
+entity_stats = ExtResource("stats_3")
+max_health_points = 5
+weapon_config = ExtResource("weapon_3")
+entity_color = Color(0.66, 0.82, 0.48, 1)
+
+[resource]
+script = ExtResource("1")
+_level_configs = Array[ExtResource("2")]([SubResource("Resource_level_1"), SubResource("Resource_level_2"), SubResource("Resource_level_3")])

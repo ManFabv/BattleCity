@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityLevels" format=3 uid="uid://cq2m8v4t6lap3"]
+
+[ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="1"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="2"]
+[ext_resource type="Resource" uid="uid://bi4xkllxprjcv" path="res://EntityStats/Resources/enemy_heavy_entity_stats.tres" id="stats_1"]
+[ext_resource type="Resource" uid="uid://cimsupd0bu2c5" path="res://Weapon/Resources/WeaponTypes/enemy_heavy_weapon_config.tres" id="weapon_1"]
+
+[sub_resource type="Resource" id="Resource_level_1"]
+script = ExtResource("2")
+entity_stats = ExtResource("stats_1")
+max_health_points = 5
+weapon_config = ExtResource("weapon_1")
+entity_color = Color(1, 0, 0, 1)
+
+[resource]
+script = ExtResource("1")
+_level_configs = Array[ExtResource("2")]([SubResource("Resource_level_1")])

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bj0gsf8vnreo7"]
 
 [ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_goika"]
-[ext_resource type="Resource" uid="uid://b3n7q1w8k5x2m" path="res://EntityLevel/Resources/enemy_normal_entity_levels_config.tres" id="2_0sqp7"]
+[ext_resource type="Resource" uid="uid://b3n7q1w8k5x2m" path="res://EntityLevel/Resources/Enemies/enemy_normal_entity_levels_config.tres" id="2_0sqp7"]
 
 [node name="EnemyNormalTank" unique_id=459530449 instance=ExtResource("1_goika")]
 _entity_levels = ExtResource("2_0sqp7")

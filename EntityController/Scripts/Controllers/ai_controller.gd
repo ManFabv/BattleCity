@@ -194,4 +194,3 @@ func _on_entity_configured_for_level() -> void:
 	# to avoid issues, we set the agent max avoidance speed equal to
 	# the entity movement speed
 	_navigation_agent.max_speed = owner_controllable_entity.get_entity_move_speed()
-

@@ -5,16 +5,47 @@
 [ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="3_count"]
 [ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_spawns_finished.tres" id="4_finished"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="5_timer"]
-[ext_resource type="Resource" uid="uid://bxvp2f2ejxspr" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_1_normal_config.tres" id="10_entry"]
-[ext_resource type="Resource" uid="uid://cy4nmauofe4fw" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_2_heavy_config.tres" id="11_entry"]
-[ext_resource type="Resource" uid="uid://4m6kapdbqmd8" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_3_normal_config.tres" id="12_entry"]
-[ext_resource type="Resource" uid="uid://y4o4vbsnhlje" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_4_normal_config.tres" id="13_entry"]
-[ext_resource type="Resource" uid="uid://cig7g0k56jq4d" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_5_slow_config.tres" id="14_entry"]
-[ext_resource type="Resource" uid="uid://ceru4227jn2p0" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_6_slow_config.tres" id="15_entry"]
+[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://ControllableEntity/Scenes/Enemies/enemy_heavy_tank.tscn" id="scene_2"]
+[ext_resource type="PackedScene" uid="uid://bj0gsf8vnreo7" path="res://ControllableEntity/Scenes/Enemies/enemy_normal_tank.tscn" id="scene_4"]
+[ext_resource type="PackedScene" uid="uid://dw50dti804jgi" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="scene_6"]
+
+[sub_resource type="Resource" id="Resource_entry_1"]
+script = ExtResource("2_entry")
+spawn_point_id = 1
+scene_to_spawn = ExtResource("scene_4")
+
+[sub_resource type="Resource" id="Resource_entry_2"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("scene_2")
+
+[sub_resource type="Resource" id="Resource_entry_3"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 1.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("scene_4")
+
+[sub_resource type="Resource" id="Resource_entry_4"]
+script = ExtResource("2_entry")
+spawn_point_id = 2
+scene_to_spawn = ExtResource("scene_4")
+
+[sub_resource type="Resource" id="Resource_entry_5"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("scene_6")
+
+[sub_resource type="Resource" id="Resource_entry_6"]
+script = ExtResource("2_entry")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("scene_6")
 
 [resource]
 script = ExtResource("1_config")
 _on_alive_count_changed = ExtResource("3_count")
 _on_all_spawns_finished = ExtResource("4_finished")
 timer_manager = ExtResource("5_timer")
-_spawn_entry_configs = Array[ExtResource("2_entry")]([ExtResource("10_entry"), ExtResource("11_entry"), ExtResource("12_entry"), ExtResource("13_entry"), ExtResource("14_entry"), ExtResource("15_entry")])
+_spawn_entry_configs = Array[ExtResource("2_entry")]([SubResource("Resource_entry_1"), SubResource("Resource_entry_2"), SubResource("Resource_entry_3"), SubResource("Resource_entry_4"), SubResource("Resource_entry_5"), SubResource("Resource_entry_6")])
