@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TimelineSpawnEntryConfig" format=3 uid="uid://cig7g0k56jq4d"]
 
 [ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="1_entry"]
-[ext_resource type="PackedScene" uid="uid://lpdpdea4n38k" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="2_scene"]
+[ext_resource type="PackedScene" uid="uid://dw50dti804jgi" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="2_scene"]
 
 [resource]
 script = ExtResource("1_entry")

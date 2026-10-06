@@ -54,8 +54,6 @@ var _entity_stats : EntityStats:
 
 
 func _ready() -> void:
-	# we hand the children the archetype values first, they don't change with the level
-	_configure_entity_for_archetype()
 	# we apply the current level
 	_configure_entity_for_level(_current_level_index)
 	#we set the callbacks for the healths
@@ -131,16 +129,6 @@ func get_entity_move_speed() -> float:
 ## the entity controller shorthand access
 func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
-
-
-## hands the children the archetype values, the ones that don't change with the level
-func _configure_entity_for_archetype() -> void:
-	# exception to the no-concrete-cast rule: only enemies have an AIController, the player has nothing to configure here
-	var ai_controller : AIController = _entity_controller as AIController
-	if is_instance_valid(ai_controller):
-		# we hand the AI the time it has to reach each wander target
-		ai_controller.configure(_entity_levels.ai_wander_timeout_seconds)
-
 
 
 ## applies speed, health and weapon for the given level in one call

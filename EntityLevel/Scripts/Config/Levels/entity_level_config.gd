@@ -5,7 +5,7 @@ extends Resource
 ## movement, damping and gravity stats for this level
 @export var entity_stats: EntityStats
 ## max starting health points for this level
-@export_range(1, 200) var max_health_points : int = 100:
+@export_range(1, 10) var max_health_points : int = 1:
 	set(new_value):
 		# below 1 the owner would be dead from the start
 		max_health_points = maxi(new_value, 1)
