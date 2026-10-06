@@ -9,8 +9,11 @@ func _ready() -> void:
 
 ## whoever picks it up gets the effect applied and the pickable is consumed
 func _on_body_entered(body: ControllableEntity) -> void:
+	# if the instance is valid, we apply the pickup effect
 	if is_instance_valid(body):
+		# apply pickup effect
 		_apply_pickup(body)
+		# consume the pickable power-up by removing it from the scene tree
 		queue_free()
 
 

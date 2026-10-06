@@ -7,4 +7,5 @@ extends PickablePowerUpInterface
 
 
 func _apply_pickup(_picker: ControllableEntity) -> void:
+	# we request the elimination of all currently alive enemies
 	_on_eliminate_all_enemies.emit()

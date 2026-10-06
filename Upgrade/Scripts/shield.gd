@@ -2,9 +2,8 @@ class_name Shield
 extends Area3D
 
 @export_group("References")
-## particles orbiting the shielded entity; CPUParticles3D instead of GPUParticles3D because the
-## project's Compatibility renderer pays a shader-compile hitch on a GPU particle material's first use
-@export var _orbit_particles : CPUParticles3D
+## particles orbiting the shielded entity
+@export var _orbit_particles : GPUParticles3D
 ## the shared timer manager used to request the timer that removes this shield after _duration
 @export var _timer_manager : TimerManagerResource
 @export_group("Config")

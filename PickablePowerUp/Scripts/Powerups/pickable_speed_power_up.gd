@@ -7,4 +7,5 @@ extends PickablePowerUpInterface
 
 
 func _apply_pickup(picker: ControllableEntity) -> void:
+	# we apply the speed modifier to the tank
 	picker.apply_stat_modifier(_speed_modifier)
