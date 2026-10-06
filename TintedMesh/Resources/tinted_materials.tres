@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="TintedMaterialsResource" format=3 uid="uid://b05rwa661iok8"]
+
+[ext_resource type="Script" uid="uid://dnqffi6ypjsak" path="res://TintedMesh/Scripts/tinted_materials_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")

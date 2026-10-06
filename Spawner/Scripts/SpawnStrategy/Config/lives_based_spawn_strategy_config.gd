@@ -1,5 +1,5 @@
 class_name LivesBasedSpawnStrategyConfig
-extends SpawnStrategyConfigInterface
+extends SpawnStrategyConfig
 
 @export_group("Events")
 ## emitted when there are no lives left

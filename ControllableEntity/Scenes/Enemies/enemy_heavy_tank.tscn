@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dkyrchyfa23ja"]
+
+[ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_rue16"]
+[ext_resource type="Resource" uid="uid://cq2m8v4t6lap3" path="res://EntityLevel/Resources/enemy_heavy_entity_levels_config.tres" id="2_16n3p"]
+
+[node name="EnemyHeavyTank" unique_id=1075506571 instance=ExtResource("1_rue16")]
+_entity_levels = ExtResource("2_16n3p")

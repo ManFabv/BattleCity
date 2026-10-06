@@ -7,16 +7,16 @@ extends Node
 ## event emitted when the player runs out of lives
 @export var _on_player_out_of_lives : BaseEvent
 ## event emitted once there are no more enemies to spawn
-@export var _on_all_waves_finished : BaseEvent
+@export var _on_all_spawns_finished : BaseEvent
 ## event emitted whenever the alive enemies count changes, with the current count as context
 @export var _on_enemy_count_changed : BaseEvent
-## event emitted once every wave is finished and no enemies are left alive
+## event emitted once every spawn is done and no enemies are left alive
 @export var _on_victory : BaseEvent
 ## event emitted once the level is lost
 @export var _on_defeat : BaseEvent
 
 ## true once there are no more enemies to spawn
-var _are_all_waves_finished : bool = false
+var _are_all_spawns_finished : bool = false
 ## last known amount of alive enemies
 var _enemies_alive_count : int = 0
 
@@ -25,10 +25,16 @@ var _enemies_alive_count : int = 0
 func _ready() -> void:
 	_on_base_destroyed.subscribe(_on_base_destroyed_handler, tree_exited)
 	_on_player_out_of_lives.subscribe(_on_player_out_of_lives_handler, tree_exited)
-	_on_all_waves_finished.subscribe(_on_all_waves_finished_handler, tree_exited)
+	_on_all_spawns_finished.subscribe(_on_all_spawns_finished_handler, tree_exited)
 	_on_enemy_count_changed.subscribe(_on_enemy_count_changed_handler, tree_exited)
 	_on_victory.subscribe(_on_victory_handler, tree_exited)
 	_on_defeat.subscribe(_on_defeat_handler, tree_exited)
+
+
+## the level is won once every spawn is done and no enemies are left alive
+func _check_victory() -> void:
+	if _are_all_spawns_finished and _enemies_alive_count == 0:
+		_on_victory.emit()
 
 
 ## the base ran out of health, so the level is lost
@@ -42,8 +48,8 @@ func _on_player_out_of_lives_handler(_event_context: Variant = null) -> void:
 
 
 ## there is nothing left to spawn, so the level is won as soon as no enemies are alive
-func _on_all_waves_finished_handler(_event_context: Variant = null) -> void:
-	_are_all_waves_finished = true
+func _on_all_spawns_finished_handler(_event_context: Variant = null) -> void:
+	_are_all_spawns_finished = true
 	_check_victory()
 
 
@@ -53,13 +59,7 @@ func _on_enemy_count_changed_handler(new_count: int) -> void:
 	_check_victory()
 
 
-## the level is won once every wave is done and no enemies are left alive
-func _check_victory() -> void:
-	if _are_all_waves_finished and _enemies_alive_count == 0:
-		_on_victory.emit()
-
-
-## every wave is cleared and no enemies remain: stop gameplay and restart.
+## every spawn is done and no enemies remain: stop gameplay and restart.
 ## TODO: replace this reload with the levels system / level manager once it exists,
 ## so a victory advances to the next level instead of restarting the current one
 func _on_victory_handler(_event_context: Variant = null) -> void:

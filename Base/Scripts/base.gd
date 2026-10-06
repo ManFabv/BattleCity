@@ -20,10 +20,10 @@ extends Node3D
 ## manages the health for the base, reusing the same component as ControllableEntity
 @onready var _health : Health = %Health
 
-
-## index of the currently applied level
+## index of the currently applied level, clamped to the levels that exist
 var _current_level_index : int = 0:
 	set(new_value):
+		# we clamp the index so it always points to an existing level
 		_current_level_index = clampi(new_value, 0, _base_levels.last_index())
 
 
@@ -32,22 +32,6 @@ func _ready() -> void:
 	_configure_base_for_level(_current_level_index)
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
 	_on_base_shield_requested.subscribe(_on_base_shield_requested_handler, tree_exited)
-
-
-## applies health and color for the given level in one call
-func _configure_base_for_level(level: int) -> void:
-	# we update the current level index
-	_current_level_index = level
-	# we cache the base level config
-	var base_level_config : BaseLevelConfig = _base_levels.level_at(_current_level_index)
-	# we setup the color and health
-	_mesh.apply_color(base_level_config.base_color)
-	_health.configure(base_level_config.health_stats)
-
-
-## we check if we are at the max level for this base
-func _is_at_max_level() -> bool:
-	return _current_level_index >= _base_levels.last_index()
 
 
 ## public entry point to upgrade the base to the next level
@@ -63,6 +47,34 @@ func attach_upgrade(upgrade: Node3D) -> void:
 	_upgrade_attach_point.attach_upgrade(upgrade)
 
 
+## handles the visual destruction of the base and removes it from the tree;
+func destroy_base() -> void:
+	# we emit the event so the listeners know that the base is destroyed
+	_on_base_destroyed.emit()
+	queue_free()
+
+
+## applies health and color for the given level in one call
+func _configure_base_for_level(level: int) -> void:
+	# we update the current level index, the setter clamps it
+	_current_level_index = level
+	# we cache the base level config
+	var base_level_config : BaseLevelConfig = _base_levels.level_at(_current_level_index)
+	# we setup the color and health
+	_mesh.apply_color(base_level_config.base_color)
+	_health.configure(base_level_config.max_health_points)
+
+
+## we check if we are at the max level for this base
+func _is_at_max_level() -> bool:
+	return _current_level_index >= _base_levels.last_index()
+
+
+## listeners are notified when the base is destroyed, and they are unsubscribed once the base is freed
+func subscribe_to_base_destroyed(on_destroyed: Callable) -> void:
+	_on_base_destroyed.subscribe(on_destroyed, tree_exited)
+
+
 ## the shield is instantiated here, so nothing is left orphaned if the base is already gone
 func _on_base_shield_requested_handler(shield_scene: PackedScene) -> void:
 	if is_instance_valid(shield_scene):
@@ -71,7 +83,7 @@ func _on_base_shield_requested_handler(shield_scene: PackedScene) -> void:
 
 
 ## called every time the base takes a hit
-func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) -> void:
+func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
 	# TODO: this should be connected to the UI to show base health visually
 	pass
 
@@ -80,15 +92,3 @@ func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) 
 func _on_dead() -> void:
 	# we say that the base should be destroyed
 	destroy_base()
-
-
-## handles the visual destruction of the base and removes it from the tree;
-func destroy_base() -> void:
-	# we emit the event so the listeners know that the base is destroyed
-	_on_base_destroyed.emit()
-	queue_free()
-
-
-## listeners are notified when the base is destroyed, and they are unsubscribed once the base is freed
-func subscribe_to_base_destroyed(on_destroyed: Callable) -> void:
-	_on_base_destroyed.subscribe(on_destroyed, tree_exited)

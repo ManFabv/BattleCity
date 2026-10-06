@@ -2,24 +2,17 @@ class_name DoubleFastWeapon
 extends WeaponInterface
 
 @export_group("Config")
-@export_range(0.1, 10.0) var _shoot_distance_offset: float = 0.2
+## distance from the muzzle to each of the two projectiles, along the muzzle's right axis
+@export_range(0.1, 10.0) var _shoot_distance_offset : float = 0.2
 
 
-## Level-two weapon: emits two projectiles and uses the faster fire-rate scene.
-func try_shot(on_projectile_spawned: BaseEvent) -> void:
-	_fire_single_shot(on_projectile_spawned, -1.0)
-	_fire_single_shot(on_projectile_spawned, 1.0)
-
-
-## fires one projectile offset to the given side (-1 left, 1 right)
-func _fire_single_shot(on_projectile_spawned: BaseEvent, offset_side: float) -> void:
-	# we instantiate the projectile
-	var shot : Projectile = _weapon_config.projectile_scene.instantiate() as Projectile
-	# we make it top level to avoid any transform issues
-	shot.top_level = true
-	# we add the shot to the scene (after this ready function will be triggered)
-	on_projectile_spawned.emit(shot)
-	# we fire the shot with a movement scene
-	shot.fire(_muzzle, _projectile_config, _weapon_config.weapon_color)
-	# we offset the shot to its side
-	shot.global_position += _muzzle.global_transform.basis.x * _shoot_distance_offset * offset_side
+## fires two projectiles, one to each side of the muzzle
+func _fire_projectiles(on_projectile_spawned: BaseEvent) -> void:
+	# we read the muzzle transform once for both projectiles
+	var muzzle_transform : Transform3D = _muzzle.global_transform
+	# we offset both projectiles the same distance along the muzzle's right axis
+	var side_offset : Vector3 = muzzle_transform.basis.x * _shoot_distance_offset
+	# left projectile
+	_fire_projectile(on_projectile_spawned, muzzle_transform.origin - side_offset)
+	# right projectile
+	_fire_projectile(on_projectile_spawned, muzzle_transform.origin + side_offset)

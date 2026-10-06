@@ -1,70 +1,68 @@
 class_name Projectile
 extends Area3D
 
-
-## Strategy responsible for moving the projectile
-var _projectile_movement_strategy: ProjectileMovementStrategyInterface
-
-## true once this projectile resolved a hit on the level grid, so a shot touching
-## two cells at once (e.g. on the seam between them) only breaks one
-var _has_hit_level_grid: bool = false
-
-# reference to the component
+## reference to the component
 @onready var _hurt_entity: Hurt = %Hurt
 ## the projectile mesh, tinted with the color of the weapon that fires it
 @onready var _mesh: TintedMesh = %TintedMesh
 
+## direction the projectile moves, set when it's fired
+var _move_direction : Vector3 = Vector3.FORWARD
+## units per second the projectile moves, set on configure
+var _projectile_max_speed : float = 0.0:
+	set(new_value):
+		# we prevent negative values, which would move the projectile backwards
+		_projectile_max_speed = maxf(new_value, 0.0)
 
-## to avoid having to connect this signal on
-## every node, we connect it here
+
+## to avoid having to connect this signal on every node, we connect it here
 func _ready() -> void:
 	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
-	# shape-level signal, needed so GridMapLevelBlocks hits resolve the exact cell hit
 	body_shape_entered.connect(_on_body_shape_entered)
 
 
-## we fire the projectile and fire it, setting the position and movement strategy
-func fire(shoot_point: Marker3D, projectile_config: ProjectileConfig, color: Color) -> void:
-	_mesh.apply_color(color)
-	# we set the position to be at the muzzle
-	global_position = shoot_point.global_position
-	_hurt_entity.configure(projectile_config.damage_stats)
-	# initialize the projectile movement strategy
-	_projectile_movement_strategy = projectile_config.projectile_movement_stats.create_strategy()
-	_projectile_movement_strategy.configure(projectile_config.projectile_movement_stats, shoot_point)
-
-
-## we move the projectile on the forward direction
+## we move the projectile along its direction
 func _physics_process(delta: float) -> void:
-	global_transform = _projectile_movement_strategy.move(global_transform, delta)
+	# only the origin changes, so we don't rebuild the whole transform
+	global_position += _move_direction * _projectile_max_speed * delta
 
 
-## we hit solid world geometry: destroy the projectile
-## exception to the typed-handler rule: this mask mixes StaticBody3D (World)
-## and GridMap (LevelBlocks), so Node3D is the nearest common base type
-func _on_body_entered(body: Node3D) -> void:
-	# level grid hits are resolved per cell in _on_body_shape_entered
-	if body is GridMapLevelBlocks:
-		return
+## tints the projectile and caches how fast it moves and how much damage it deals; called once it's in the tree
+func configure(projectile_color: Color, projectile_max_speed: float, projectile_damage_points: int) -> void:
+	# we tint the projectile with the color of whoever fired it
+	_mesh.apply_color(projectile_color)
+	# we cache the speed so the physics step only reads members
+	_projectile_max_speed = projectile_max_speed
+	# we set the damage the hurt area deals
+	_hurt_entity.configure(projectile_damage_points)
+
+
+## places the projectile and sets the direction it moves
+func fire(spawn_position: Vector3, move_direction: Vector3) -> void:
+	# we place the projectile where the shooter spawns it
+	global_position = spawn_position
+	# we normalize once here so the physics step doesn't have to
+	_move_direction = move_direction.normalized()
+
+
+## this will tell us that we should destroy this projectile
+func intercept() -> void:
 	_destroy_projectile()
 
 
-## if we hit the level's block grid, resolve the block at the exact
-## shape we hit -- asking the physics server which cell that shape belongs to,
-## instead of guessing a cell from our own position
-## exception to the typed-handler rule: same mixed mask as _on_body_entered above,
-## so we cast only here where GridMapLevelBlocks-specific behavior is actually needed
+## for now we only remove the node from the tree but we can spawn particles, play sound, etc
+func _destroy_projectile() -> void:
+	queue_free()
+
+
+## if it's a destructible grid we break the block of the shape we hit, in any case the projectile is destroyed
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
-	var level_grid := body as GridMapLevelBlocks
-	if level_grid and not _has_hit_level_grid:
-		# blocks that don't stop projectiles (water) let the shot fly over them
-		if level_grid.resolve_hit_from_shape(body_rid, body_shape_index):
-			_has_hit_level_grid = true
-			_destroy_projectile()
-
-
-## called by a shield that intercepts this projectile
-func intercept() -> void:
+	# we only break blocks if the body is a destructible grid
+	var destructible_grid_map : DestructibleGridMap = body as DestructibleGridMap
+	if is_instance_valid(destructible_grid_map):
+		# we break the block of the shape we hit
+		destructible_grid_map.destroy_block_from_shape(body_rid, body_shape_index)
+	# if two shapes are touched at once (a seam) this runs twice: queue_free() twice is harmless
 	_destroy_projectile()
 
 
@@ -72,10 +70,4 @@ func intercept() -> void:
 ## this is done using the VisibleOnScreenNotifier3D node
 func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
 	# we only need to remove the projectile
-	queue_free()
-
-
-## for now we only remove the node from the tree
-## but we can spawn particles, play sound, etc
-func _destroy_projectile() -> void:
 	queue_free()

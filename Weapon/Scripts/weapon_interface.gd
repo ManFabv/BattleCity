@@ -1,62 +1,80 @@
-extends Node3D
 class_name WeaponInterface
-
+extends Node3D
 
 @export_group("References")
-## the shared timer manager used to request timers needed by this weapon's shooting cost strategy
+## the shared timer manager used to request the fire rate timer
 @export var _timer_manager : TimerManagerResource
 
+## config of this weapon, set on configure
 var _weapon_config : WeaponConfig
-var _shooting_cost_config : ShootingCostConfigInterface
-var _projectile_config : ProjectileConfig
-
-
-## the shooting cost strategy instance
-var _current_shooting_cost_strategy : ShootingCostStrategyInterface
-
 ## this weapon's visual mesh, carrying its own muzzle
 var _weapon_mesh : WeaponMesh
 ## where this weapon's projectiles spawn from; taken from the weapon mesh above
 var _muzzle : Marker3D
+## cooldown between shots, restarted manually with the fire rate on every shot
+var _fire_rate_timer : CustomTimer
+## true once the cooldown elapsed, so the next shot is allowed
+var _is_fire_rate_ready : bool = true
 
 
-func configure(config: WeaponConfig) -> void:
-	_weapon_config = config
-	_projectile_config = config.projectile_config
-	_shooting_cost_config = config.shooting_cost_config
-	_mount_weapon_mesh(config)
-
-
-## the initialize the weapon when it is added to the scene
+## we request the cooldown timer once, not started so the first shot is allowed right away
 func _ready() -> void:
-	_current_shooting_cost_strategy = _shooting_cost_config.create_strategy()
-	_current_shooting_cost_strategy.configure(_shooting_cost_config, self, _timer_manager)
+	_fire_rate_timer = _timer_manager.create_manual(_weapon_config.fire_rate_seconds, _on_fire_rate_timer_timeout, tree_exited, false)
+
+
+## we cache the config and mount the weapon mesh; called before the weapon enters the tree
+func configure(weapon_config: WeaponConfig) -> void:
+	# we cache the config every shot reads from
+	_weapon_config = weapon_config
+	# we mount the visual mesh and take its muzzle
+	_mount_weapon_mesh()
+
+
+## shoots if the cooldown elapsed and returns true when a shot was fired
+func try_shot(on_projectile_spawned: BaseEvent) -> bool:
+	# we can't shoot until the cooldown elapsed
+	if not _is_fire_rate_ready:
+		return false
+	# we consume the shot
+	_is_fire_rate_ready = false
+	# we restart the cooldown only when we actually shoot
+	_fire_rate_timer.start(_weapon_config.fire_rate_seconds)
+	# each weapon type decides which projectiles the shot fires
+	_fire_projectiles(on_projectile_spawned)
+	return true
 
 
 ## instantiates this weapon's visual mesh, tints it and takes its muzzle from it
-func _mount_weapon_mesh(config: WeaponConfig) -> void:
-	_weapon_mesh = config.weapon_mesh_scene.instantiate() as WeaponMesh
+func _mount_weapon_mesh() -> void:
+	# we instantiate the mesh of this weapon
+	_weapon_mesh = _weapon_config.weapon_mesh_scene.instantiate() as WeaponMesh
+	# we parent it here so it follows the entity
 	add_child(_weapon_mesh)
+	# we cache the muzzle the projectiles spawn from
 	_muzzle = _weapon_mesh.muzzle
-	_weapon_mesh.apply_color(config.weapon_color)
+	# we tint it with the weapon color
+	_weapon_mesh.apply_color(_weapon_config.weapon_color)
 
 
-## we update the weapon status
-func process_weapon(_delta: float) -> void:
-	# we update the shooting cost strategy
-	_current_shooting_cost_strategy.process_cost(_delta)
+## fires the projectiles of one shot, each weapon type implements it
+func _fire_projectiles(_on_projectile_spawned: BaseEvent) -> void:
+	push_error("_fire_projectiles() should be implemented on inherited classes")
 
 
-## we ask the shooting cost strategy if we can shoot or not
-func can_shot() -> bool:
-	return _current_shooting_cost_strategy.can_shot()
+## instantiates one projectile, adds it to the tree and fires it from the given position along the muzzle
+func _fire_projectile(on_projectile_spawned: BaseEvent, spawn_position: Vector3) -> void:
+	# we instantiate the projectile
+	var projectile : Projectile = _weapon_config.projectile_scene.instantiate() as Projectile
+	# we make it top level so it doesn't follow the tank after leaving the muzzle
+	projectile.top_level = true
+	# the listeners add it to the tree, so its _ready() runs before configure()
+	on_projectile_spawned.emit(projectile)
+	# we configure it with the weapon values
+	projectile.configure(_weapon_config.weapon_color, _weapon_config.projectile_max_speed, _weapon_config.projectile_damage_points)
+	# we fire it along the muzzle forward axis
+	projectile.fire(spawn_position, _muzzle.global_transform.basis.z)
 
 
-## we release the weapon resources
-func release_weapon() -> void:
-	queue_free()
-
-
-## the weapon will handle the shot, instantiating the projectile and firing it
-func try_shot(_on_projectile_spawned: BaseEvent) -> void:
-	push_error("try_shot() should be implemented on inherited classes")
+## the cooldown elapsed, so the next shot is allowed
+func _on_fire_rate_timer_timeout() -> void:
+	_is_fire_rate_ready = true

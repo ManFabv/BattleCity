@@ -20,14 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
 [ext_resource type="PackedScene" uid="uid://dp2kuvi7dycrs" path="res://Spawner/Scenes/Applier/player_camera_applier.tscn" id="42_cameraapplier"]
 [ext_resource type="PackedScene" uid="uid://dfoiv8221bunb" path="res://Spawner/Scenes/Applier/enemy_navigation_applier.tscn" id="43_navapplier"]
-[ext_resource type="Resource" uid="uid://bl8te3fsf5nqj" path="res://Spawner/Resources/Levels/TestLevel/Enemy/wave_based_spawn_strategy_config.tres" id="44_wavestrategy"]
-[ext_resource type="Resource" uid="uid://dklojtirojybx" path="res://Spawner/Resources/Levels/TestLevel/Player/lives_based_spawn_strategy_config.tres" id="45_livesstrategy"]
-[ext_resource type="Resource" uid="uid://ci1bcagik1k14" path="res://Spawner/Resources/Levels/TestLevel/Base/once_based_spawn_strategy_config.tres" id="46_oncestrategy"]
 [ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://Spawner/Scenes/SpawnPoint/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
-[ext_resource type="Resource" uid="uid://y00y1llc0cuh" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/wave_1_spawns_config.tres" id="50_waveconfig1"]
-[ext_resource type="Resource" uid="uid://cq15rjm6kk3qu" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Waves/wave_2_spawns_config.tres" id="51_waveconfig2"]
+[ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://World/Scripts/world.gd" id="60_world"]
+[ext_resource type="Resource" uid="uid://6sknxj0ttxod" path="res://Level/Resources/test_level_config.tres" id="61_levelconfig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -70,7 +67,12 @@ material = SubResource("StandardMaterial3D_e2bkl")
 top_radius = 1.0
 bottom_radius = 1.0
 
-[node name="World" type="Node3D" unique_id=1462594140]
+[node name="World" type="Node3D" unique_id=1462594140 node_paths=PackedStringArray("_enemy_spawn_manager", "_player_spawn_manager", "_base_spawn_manager")]
+script = ExtResource("60_world")
+_level_config = ExtResource("61_levelconfig")
+_enemy_spawn_manager = NodePath("Enemies/EnemySpawnManager")
+_player_spawn_manager = NodePath("Player/PlayerSpawnManager")
+_base_spawn_manager = NodePath("Base/BaseSpawnManager")
 
 [node name="Environment" type="Node" parent="." unique_id=524306100]
 
@@ -211,15 +213,14 @@ _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
 [node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
-_strategy_config = ExtResource("44_wavestrategy")
 
 [node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2138977, 0, -7.374027)
-wave_spawns = ExtResource("50_waveconfig1")
+spawn_point_id = 1
 
 [node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" unique_id=1865266614 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.578964, 0, -6.66182)
-wave_spawns = ExtResource("51_waveconfig2")
+spawn_point_id = 2
 
 [node name="Projectiles" type="Node" parent="." unique_id=700000002]
 
@@ -238,7 +239,6 @@ _player_camera = NodePath("../PlayerCamera")
 
 [node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("PlayerSpawnPoint")]
-_strategy_config = ExtResource("45_livesstrategy")
 
 [node name="PlayerSpawnPoint" parent="Player/PlayerSpawnManager" unique_id=297298890 instance=ExtResource("48_playerspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
@@ -249,7 +249,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
 
 [node name="BaseSpawnManager" parent="Base" unique_id=1979519489 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("BaseSpawnPoint")]
-_strategy_config = ExtResource("46_oncestrategy")
 
 [node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
