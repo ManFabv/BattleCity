@@ -3,46 +3,18 @@
 [ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://Spawner/Scripts/SpawnStrategy/Config/timeline_based_spawn_strategy_config.gd" id="1_config"]
 [ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="2_entry"]
 [ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="3_count"]
-[ext_resource type="PackedScene" uid="uid://dnk7vxehmehrk" path="res://ControllableEntity/Scenes/Enemies/enemy_normal_tank.tscn" id="4_4ehit"]
 [ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_waves_finished.tres" id="4_finished"]
-[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://ControllableEntity/Scenes/Enemies/enemy_heavy_tank.tscn" id="5_fgvci"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="5_timer"]
-[ext_resource type="PackedScene" uid="uid://lpdpdea4n38k" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="6_wi8op"]
-
-[sub_resource type="Resource" id="Resource_entry0"]
-script = ExtResource("2_entry")
-scene_to_spawn = ExtResource("4_4ehit")
-
-[sub_resource type="Resource" id="Resource_entry1"]
-script = ExtResource("2_entry")
-spawn_delay_seconds = 0.5
-spawn_point_index = 1
-scene_to_spawn = ExtResource("5_fgvci")
-
-[sub_resource type="Resource" id="Resource_entry2"]
-script = ExtResource("2_entry")
-spawn_delay_seconds = 1.5
-scene_to_spawn = ExtResource("4_4ehit")
-
-[sub_resource type="Resource" id="Resource_entry3"]
-script = ExtResource("2_entry")
-spawn_point_index = 1
-scene_to_spawn = ExtResource("4_4ehit")
-
-[sub_resource type="Resource" id="Resource_entry4"]
-script = ExtResource("2_entry")
-spawn_delay_seconds = 0.5
-scene_to_spawn = ExtResource("6_wi8op")
-
-[sub_resource type="Resource" id="Resource_entry5"]
-script = ExtResource("2_entry")
-spawn_delay_seconds = 0.5
-spawn_point_index = 1
-scene_to_spawn = ExtResource("6_wi8op")
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_1_normal_config.tres" id="10_entry"]
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_2_heavy_config.tres" id="11_entry"]
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_3_normal_config.tres" id="12_entry"]
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_4_normal_config.tres" id="13_entry"]
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_5_slow_config.tres" id="14_entry"]
+[ext_resource type="Resource" path="res://Spawner/Resources/Levels/TestLevel/Enemy/Entries/timeline_spawn_entry_6_slow_config.tres" id="15_entry"]
 
 [resource]
 script = ExtResource("1_config")
 _on_alive_count_changed = ExtResource("3_count")
 _on_all_waves_finished = ExtResource("4_finished")
 timer_manager = ExtResource("5_timer")
-_spawn_entry_configs = Array[ExtResource("2_entry")]([SubResource("Resource_entry0"), SubResource("Resource_entry1"), SubResource("Resource_entry2"), SubResource("Resource_entry3"), SubResource("Resource_entry4"), SubResource("Resource_entry5")])
+_spawn_entry_configs = Array[ExtResource("2_entry")]([ExtResource("10_entry"), ExtResource("11_entry"), ExtResource("12_entry"), ExtResource("13_entry"), ExtResource("14_entry"), ExtResource("15_entry")])
