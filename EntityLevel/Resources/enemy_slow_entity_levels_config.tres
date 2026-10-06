@@ -7,4 +7,4 @@
 [resource]
 script = ExtResource("1")
 _level_configs = Array[ExtResource("2")]([ExtResource("3")])
-ai_wander_timeout_seconds = 9.0
+ai_wander_timeout_seconds = 9.3
