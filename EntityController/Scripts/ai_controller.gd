@@ -8,9 +8,6 @@ signal wander_timed_out
 @export_group("Navigation")
 ## this is the component used to make an AI entity to navigate through the world
 @export var _navigation_agent : NavigationAgent3D
-## seconds the entity has to reach the current wander target before giving up on it
-## when we have an unreachable point, or another entity blocking the way
-@export_range(0.1, 20.0) var _wander_timeout : float = 10.0
 
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
@@ -38,16 +35,23 @@ var _base_target : Base
 var _current_attack_target : Node3D
 ## timer used to give up on a wander target that takes too long to reach
 var _wander_timeout_timer : CustomTimer
+## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way); set on configure
+var _wander_timeout_seconds : float = 10.0
 
 
 ## We instantiate the timer and connect the signals
 func _ready() -> void:
 	_wander_timeout_timer = _timer_manager.create_manual(
-			_wander_timeout, 
+			_wander_timeout_seconds, 
 			_on_wander_timeout, 
 			tree_exited, 
 			false)
 	owner_controllable_entity.subscribe_to_configured_for_level(_on_entity_configured_for_level)
+
+
+## sets the archetype's wander timeout; called by the owner entity on its _ready()
+func configure(wander_timeout_seconds: float) -> void:
+	_wander_timeout_seconds = wander_timeout_seconds
 
 
 func get_move_direction() -> Vector3:
@@ -154,8 +158,8 @@ func set_random_target_position() -> void:
 	var random_target_position : Vector3 = _get_random_wander_target()
 	# we set the new target destination position
 	_navigation_agent.set_target_position(random_target_position)
-	# restart the timeout for this new target
-	_wander_timeout_timer.start()
+	# restart the timeout for this new target with the archetype's duration
+	_wander_timeout_timer.start(_wander_timeout_seconds)
 
 
 ## picks a random point on the navigation region; if it can't be reached
@@ -165,6 +169,11 @@ func _get_random_wander_target() -> Vector3:
 			_region_rid, 
 			_navigation_agent.navigation_layers, 
 			false)
+
+
+## the entity only turns toward its movement direction while it hasn't reached the target
+func _can_aim() -> bool:
+	return not _navigation_agent.is_target_reached()
 
 
 ## a timeout can still fire after the target was already reached (ex: while attacking);
@@ -189,7 +198,3 @@ func _on_entity_configured_for_level() -> void:
 	# the entity movement speed
 	_navigation_agent.max_speed = owner_controllable_entity.get_entity_move_speed()
 
-
-## the entity only turns toward its movement direction while it hasn't reached the target
-func _can_aim() -> bool:
-	return not _navigation_agent.is_target_reached()

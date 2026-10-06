@@ -41,9 +41,10 @@ var _input_look_at_angle : float = 0.0
 ## shooting intention captured during the process method
 var _input_has_shot : bool = false
 
-## index of the currently applied level
+## index of the currently applied level, clamped to the levels that exist
 var _current_level_index : int = 0:
 	set(new_value):
+		# we clamp the index so it always points to an existing level
 		_current_level_index = clampi(new_value, 0, _entity_levels.last_index())
 
 ## the entity stats shorthand access
@@ -53,6 +54,9 @@ var _entity_stats : EntityStats:
 
 
 func _ready() -> void:
+	# we hand the children the archetype values first, they don't change with the level
+	_configure_entity_for_archetype()
+	# we apply the current level
 	_configure_entity_for_level(_current_level_index)
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
@@ -92,40 +96,56 @@ func _physics_process(delta) -> void:
 	_check_vertical_death()
 
 
-func _process_gravity() -> float:
-	var applied_gravity : float = 0.0
-	# if we are falling, we make a sum of the velocity on Y and applying gravity
-	if not is_on_floor():
-		applied_gravity = _move_velocity.y - _entity_stats.gravity
-	# we return the correct gravity
-	return applied_gravity
+## sets the level this entity starts with; only stores the index
+func set_initial_level(level: int) -> void:
+	_current_level_index = level
 
 
-## if we are falling from the ground, we make sure to trigger a dead
-func _check_vertical_death() -> void:
-	if global_position.y < _entity_stats.death_vertical_position:
-		# eliminate the entity if it fell below the level's death Z position
-		eliminate()
+## advances to the next entity level, if there is one
+func level_up() -> void:
+	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
+	if not _is_at_max_level():
+		_configure_entity_for_level(_current_level_index + 1)
 
 
-## called everytime the health changes, healing or damaging
-func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
-	# TODO: this should be connected to the UI to see visually the health
-	pass
+## kills this entity and triggers the signal for that
+func eliminate() -> void:
+	_on_dead()
 
 
-## called when the entity has no health
-func _on_dead() -> void:
-	# TODO: we need a better implementation for this method
-	# like spawning particles or playing sounds before
-	# removing the node
-	entity_died.emit()
-	queue_free()
+## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
+func apply_stat_modifier(modifier: EntityStatsModifierInterface) -> void:
+	_entity_stats_manager.add_modifier(modifier)
+
+
+## public entry point so external systems (ex: pickups) can attach an upgrade to this entity
+func attach_upgrade(upgrade: Node3D) -> void:
+	_upgrade_attach_point.attach_upgrade(upgrade)
+
+
+## the entity move speed shorthand access
+func get_entity_move_speed() -> float:
+	return _entity_stats.move_speed
+
+
+## the entity controller shorthand access
+func get_entity_controller() -> EntityControllerInterface:
+	return _entity_controller
+
+
+## hands the children the archetype values, the ones that don't change with the level
+func _configure_entity_for_archetype() -> void:
+	# exception to the no-concrete-cast rule: only enemies have an AIController, the player has nothing to configure here
+	var ai_controller : AIController = _entity_controller as AIController
+	if is_instance_valid(ai_controller):
+		# we hand the AI the time it has to reach each wander target
+		ai_controller.configure(_entity_levels.ai_wander_timeout_seconds)
+
 
 
 ## applies speed, health and weapon for the given level in one call
 func _configure_entity_for_level(level: int) -> void:
-	# we update the current level index
+	# we update the current level index, the setter clamps it
 	_current_level_index = level
 	# we cache the entity level config
 	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
@@ -146,6 +166,22 @@ func _is_at_max_level() -> bool:
 	return _current_level_index >= _entity_levels.last_index()
 
 
+func _process_gravity() -> float:
+	var applied_gravity : float = 0.0
+	# if we are falling, we make a sum of the velocity on Y and applying gravity
+	if not is_on_floor():
+		applied_gravity = _move_velocity.y - _entity_stats.gravity
+	# we return the correct gravity
+	return applied_gravity
+
+
+## if we are falling from the ground, we make sure to trigger a dead
+func _check_vertical_death() -> void:
+	if global_position.y < _entity_stats.death_vertical_position:
+		# eliminate the entity if it fell below the level's death Z position
+		eliminate()
+
+
 ## listeners are notified once, since the entity is freed right after dying
 func subscribe_to_death(on_death: Callable) -> void:
 	entity_died.connect(on_death, CONNECT_ONE_SHOT)
@@ -156,38 +192,16 @@ func subscribe_to_configured_for_level(on_configured_for_level: Callable) -> voi
 	entity_configured_for_level.connect(on_configured_for_level)
 
 
-## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
-func apply_stat_modifier(modifier: EntityStatsModifierInterface) -> void:
-	_entity_stats_manager.add_modifier(modifier)
+## called everytime the health changes, healing or damaging
+func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
+	# TODO: this should be connected to the UI to see visually the health
+	pass
 
 
-## public entry point so external systems (ex: pickups) can attach an upgrade to this entity
-func attach_upgrade(upgrade: Node3D) -> void:
-	_upgrade_attach_point.attach_upgrade(upgrade)
-
-
-## sets the level this entity starts with; only stores the index
-func set_initial_level(level: int) -> void:
-	_current_level_index = level
-
-
-## advances to the next entity level, if there is one
-func level_up() -> void:
-	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
-	if not _is_at_max_level():
-		_configure_entity_for_level(_current_level_index + 1)
-
-
-## kills this entity and triggers the signal for that
-func eliminate() -> void:
-	_on_dead()
-
-
-## the entity move speed shorthand access
-func get_entity_move_speed() -> float:
-	return _entity_stats.move_speed
-
-
-## the entity controller shorthand access
-func get_entity_controller() -> EntityControllerInterface:
-	return _entity_controller
+## called when the entity has no health
+func _on_dead() -> void:
+	# TODO: we need a better implementation for this method
+	# like spawning particles or playing sounds before
+	# removing the node
+	entity_died.emit()
+	queue_free()

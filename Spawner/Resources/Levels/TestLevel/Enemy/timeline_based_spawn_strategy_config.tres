@@ -3,42 +3,42 @@
 [ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://Spawner/Scripts/SpawnStrategy/Config/timeline_based_spawn_strategy_config.gd" id="1_config"]
 [ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="2_entry"]
 [ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="3_count"]
+[ext_resource type="PackedScene" uid="uid://dnk7vxehmehrk" path="res://ControllableEntity/Scenes/Enemies/enemy_normal_tank.tscn" id="4_4ehit"]
 [ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_waves_finished.tres" id="4_finished"]
+[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://ControllableEntity/Scenes/Enemies/enemy_heavy_tank.tscn" id="5_fgvci"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="5_timer"]
-[ext_resource type="PackedScene" uid="uid://cxv2kk58qfsny" path="res://ControllableEntity/Scenes/controllable_enemy_normal.tscn" id="6_normal"]
-[ext_resource type="PackedScene" uid="uid://bp4vuuy27reqr" path="res://ControllableEntity/Scenes/controllable_enemy_heavy.tscn" id="7_heavy"]
-[ext_resource type="PackedScene" uid="uid://uaqyetcgo8od" path="res://ControllableEntity/Scenes/controllable_enemy_slow.tscn" id="8_slow"]
+[ext_resource type="PackedScene" uid="uid://lpdpdea4n38k" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="6_wi8op"]
 
 [sub_resource type="Resource" id="Resource_entry0"]
 script = ExtResource("2_entry")
-scene_to_spawn = ExtResource("6_normal")
+scene_to_spawn = ExtResource("4_4ehit")
 
 [sub_resource type="Resource" id="Resource_entry1"]
 script = ExtResource("2_entry")
 spawn_delay_seconds = 0.5
 spawn_point_index = 1
-scene_to_spawn = ExtResource("7_heavy")
+scene_to_spawn = ExtResource("5_fgvci")
 
 [sub_resource type="Resource" id="Resource_entry2"]
 script = ExtResource("2_entry")
 spawn_delay_seconds = 1.5
-scene_to_spawn = ExtResource("6_normal")
+scene_to_spawn = ExtResource("4_4ehit")
 
 [sub_resource type="Resource" id="Resource_entry3"]
 script = ExtResource("2_entry")
 spawn_point_index = 1
-scene_to_spawn = ExtResource("6_normal")
+scene_to_spawn = ExtResource("4_4ehit")
 
 [sub_resource type="Resource" id="Resource_entry4"]
 script = ExtResource("2_entry")
 spawn_delay_seconds = 0.5
-scene_to_spawn = ExtResource("8_slow")
+scene_to_spawn = ExtResource("6_wi8op")
 
 [sub_resource type="Resource" id="Resource_entry5"]
 script = ExtResource("2_entry")
 spawn_delay_seconds = 0.5
 spawn_point_index = 1
-scene_to_spawn = ExtResource("8_slow")
+scene_to_spawn = ExtResource("6_wi8op")
 
 [resource]
 script = ExtResource("1_config")

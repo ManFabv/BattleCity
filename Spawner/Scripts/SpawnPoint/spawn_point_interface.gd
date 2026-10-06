@@ -8,11 +8,13 @@ extends Node3D
 
 ## instantiate the scene_to_spawn at this spawn point and return the new node
 func spawn(scene: PackedScene) -> Node3D:
+	# we instantiate the node
 	var node : Node3D = scene.instantiate() as Node3D
-	# the event listeners parent the node (NodeContainer.add_child); global_position
-	# can only be set once the node is inside the tree
+	# the event listeners parent the node (NodeContainer.add_child), global_position can only be set once it's inside the tree
 	_emit_spawned_event(node)
+	# we move it to this spawn point
 	node.global_position = global_position
+	# we let the spawn point type react to the new node
 	_on_node_spawned(node)
 	return node
 

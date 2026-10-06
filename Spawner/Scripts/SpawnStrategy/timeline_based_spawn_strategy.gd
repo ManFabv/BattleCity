@@ -93,7 +93,7 @@ func _try_spawn_next_entry() -> void:
 	var spawn_point : SpawnPointInterface = _spawn_points[spawn_entry_config.spawn_point_index]
 	# a spawn point left empty in the manager's array can't spawn, so we skip this entry
 	if is_instance_valid(spawn_point):
-		# we spawn at the spawn point the entry points to
+		# we spawn the scene of this entry at its spawn point
 		spawn_point.spawn(spawn_entry_config.scene_to_spawn)
 	# the last spawn finishes the timeline: we notify it once and the timer is never started again
 	if _next_spawn_entry_index > _timeline_based_spawn_strategy_config.last_index():
