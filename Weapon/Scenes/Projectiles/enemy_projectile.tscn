@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://xlofvlpm7bbb"]
+[gd_scene format=3 uid="uid://2of378jao2eh"]
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1_gmg2w"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="4_qkl3l"]
@@ -13,7 +13,7 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
 
-[node name="ProjectileNormalEnemy" type="Area3D" unique_id=1840560226]
+[node name="EnemyProjectile" type="Area3D" unique_id=1840560226]
 top_level = true
 collision_layer = 512
 collision_mask = 17

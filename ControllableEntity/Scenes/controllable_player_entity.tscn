@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
-[ext_resource type="PackedScene" uid="uid://dh0t6qdmefsv8" path="res://Weapon/Scenes/Systems/player_weapon_system.tscn" id="8_t6wpt"]
+[ext_resource type="PackedScene" uid="uid://06uoyqr2bhhk" path="res://Weapon/Scenes/Systems/weapon_system.tscn" id="8_t6wpt"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Scripts/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]

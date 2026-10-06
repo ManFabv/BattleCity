@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1"]
 [ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2"]
 [ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3"]
-[ext_resource type="PackedScene" uid="uid://d162n2y0wlrot" path="res://Weapon/Scenes/Systems/enemy_weapon_system.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://06uoyqr2bhhk" path="res://Weapon/Scenes/Systems/weapon_system.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://EntityController/Scenes/ai_controller.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]

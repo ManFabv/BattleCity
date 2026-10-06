@@ -5,7 +5,10 @@ extends Area3D
 signal _on_damage_taken
 
 ## damage points applied to the health we collide with, set on configure
-var _damage_points : int = 0
+var _damage_points : int = 0:
+	set(new_value):
+		# we prevent negative values, which would heal the health we hit
+		_damage_points = maxi(new_value, 0)
 
 
 ## to avoid having to connect this signal on every node, we connect it here

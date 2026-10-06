@@ -5,7 +5,10 @@ signal _on_health_changed(max_health_points: int, current_health: int)
 signal _on_dead
 
 ## max health points of the entity, set on configure
-var _max_health_points : int = 0
+var _max_health_points : int = 0:
+	set(new_value):
+		# we prevent negative values
+		_max_health_points = maxi(new_value, 0)
 
 ## used to keep track of hits and heals to the entity
 var current_health : int:

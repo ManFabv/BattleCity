@@ -9,7 +9,10 @@ extends Area3D
 ## direction the projectile moves, set when it's fired
 var _move_direction : Vector3 = Vector3.FORWARD
 ## units per second the projectile moves, set on configure
-var _projectile_max_speed : float = 0.0
+var _projectile_max_speed : float = 0.0:
+	set(new_value):
+		# we prevent negative values, which would move the projectile backwards
+		_projectile_max_speed = maxf(new_value, 0.0)
 
 
 ## to avoid having to connect this signal on every node, we connect it here
