@@ -109,7 +109,7 @@ func _check_vertical_death() -> void:
 
 
 ## called everytime the health changes, healing or damaging
-func _on_health_changed(_health_stats: HealthStats, _current_health: float) -> void:
+func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
 	# TODO: this should be connected to the UI to see visually the health
 	pass
 
@@ -132,7 +132,7 @@ func _configure_entity_for_level(level: int) -> void:
 	## we setup the stats manager
 	_entity_stats_manager.configure(entity_level_config.entity_stats)
 	## we setup the health
-	_health.configure(entity_level_config.health_stats)
+	_health.configure(entity_level_config.max_health_points)
 	## we setup the weapon system
 	_weapon_system.change_weapon(entity_level_config.weapon_config)
 	## we setup the entity color

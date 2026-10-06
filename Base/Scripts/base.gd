@@ -42,7 +42,7 @@ func _configure_base_for_level(level: int) -> void:
 	var base_level_config : BaseLevelConfig = _base_levels.level_at(_current_level_index)
 	# we setup the color and health
 	_mesh.apply_color(base_level_config.base_color)
-	_health.configure(base_level_config.health_stats)
+	_health.configure(base_level_config.max_health_points)
 
 
 ## we check if we are at the max level for this base
@@ -71,7 +71,7 @@ func _on_base_shield_requested_handler(shield_scene: PackedScene) -> void:
 
 
 ## called every time the base takes a hit
-func _on_health_changed(_new_health_stats: HealthStats, _current_health: float) -> void:
+func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
 	# TODO: this should be connected to the UI to show base health visually
 	pass
 

@@ -4,8 +4,8 @@ extends Resource
 @export_group("Config")
 ## movement, damping and gravity stats for this level
 @export var entity_stats: EntityStats
-## health stats for this level
-@export var health_stats: HealthStats
+## max starting health points for this level
+@export_range(1, 200) var max_health_points : int = 100
 ## weapon used at this level
 @export var weapon_config: WeaponConfig
 @export_group("Visuals")

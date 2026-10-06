@@ -4,8 +4,8 @@ extends Area3D
 ## it's going to be triggered when taking damage
 signal _on_damage_taken
 
-## damage that it's going to be applied
-var _damage_stats : DamageStats
+## damage points applied to the health we collide with, set on configure
+var _damage_points : int = 0
 
 
 ## to avoid having to connect this signal on every node, we connect it here
@@ -13,9 +13,9 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 
-## we cache references
-func configure(damage_stats: DamageStats) -> void:
-	_damage_stats = damage_stats
+## we cache the damage points this hurt area deals
+func configure(damage_points: int) -> void:
+	_damage_points = damage_points
 
 
 ## we subscribe to damage signal
@@ -26,6 +26,6 @@ func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
 ## if we collided with other body
 func _on_area_entered(health: Health) -> void:
 	# we take damage when the body has a health component
-	health.take_damage(_damage_stats)
+	health.take_damage(_damage_points)
 	# we notify that we collide with something
 	_on_damage_taken.emit()

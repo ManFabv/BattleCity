@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://ddwfo3aypyf76" path="res://Weapon/Scenes/WeaponTypes/double_fast_weapon_base.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://cwdacexud0eld" path="res://Weapon/Scenes/Projectiles/player_double_fast_projectile.tscn" id="3"]
-[ext_resource type="Resource" uid="uid://vpk58lg2iphv" path="res://Weapon/Resources/Projectiles/player_double_fast_projectile_config.tres" id="6"]
 [ext_resource type="Resource" uid="uid://d3rtkt22fahk5" path="res://Weapon/Resources/ShootingCost/player_double_fast_shooting_cost_config.tres" id="7"]
 [ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="8"]
 
@@ -13,5 +12,6 @@ weapon_scene = ExtResource("2")
 projectile_scene = ExtResource("3")
 weapon_mesh_scene = ExtResource("8")
 weapon_color = Color(0.369416, 0.491491, 0.25504, 1)
-projectile_config = ExtResource("6")
+projectile_max_speed = 30.0
+projectile_damage_points = 3
 shooting_cost_config = ExtResource("7")

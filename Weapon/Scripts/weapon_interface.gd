@@ -8,7 +8,6 @@ class_name WeaponInterface
 
 var _weapon_config : WeaponConfig
 var _shooting_cost_config : ShootingCostConfig
-var _projectile_config : ProjectileConfig
 
 
 ## the shooting cost strategy instance
@@ -22,7 +21,6 @@ var _muzzle : Marker3D
 
 func configure(config: WeaponConfig) -> void:
 	_weapon_config = config
-	_projectile_config = config.projectile_config
 	_shooting_cost_config = config.shooting_cost_config
 	_mount_weapon_mesh(config)
 

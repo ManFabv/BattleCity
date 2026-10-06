@@ -19,7 +19,9 @@ func _fire_single_shot(on_projectile_spawned: BaseEvent, offset_side: float) -> 
 	shot.top_level = true
 	# we add the shot to the scene (after this ready function will be triggered)
 	on_projectile_spawned.emit(shot)
-	# we fire the shot with a movement scene
-	shot.fire(_muzzle, _projectile_config, _weapon_config.weapon_color)
+	# we configure the shot with the weapon values
+	shot.configure(_weapon_config.weapon_color, _weapon_config.projectile_max_speed, _weapon_config.projectile_damage_points)
+	# we fire the shot from the muzzle
+	shot.fire(_muzzle.global_position, _muzzle.global_transform.basis.z)
 	# we offset the shot to its side
 	shot.global_position += _muzzle.global_transform.basis.x * _shoot_distance_offset * offset_side

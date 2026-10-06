@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="1"]
 [ext_resource type="Resource" uid="uid://brupxsi3wvt0x" path="res://EntityStats/Resources/enemy_normal_entity_stats.tres" id="2"]
-[ext_resource type="Resource" uid="uid://cgg4ekbeby5e4" path="res://Health/Resources/HealthStats/enemy_health_2.tres" id="3"]
 [ext_resource type="Resource" uid="uid://gw7fnpy1d4ay" path="res://Weapon/Resources/WeaponTypes/enemy_normal_weapon_config.tres" id="4"]
 
 [resource]
 script = ExtResource("1")
 entity_stats = ExtResource("2")
-health_stats = ExtResource("3")
+max_health_points = 3
 weapon_config = ExtResource("4")
 entity_color = Color(1, 0.45, 0, 1)

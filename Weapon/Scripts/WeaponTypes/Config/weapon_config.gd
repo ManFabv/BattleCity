@@ -13,8 +13,11 @@ extends Resource
 @export var weapon_mesh_scene: PackedScene
 ## color applied to the weapon mesh above
 @export var weapon_color: Color = Color.WHITE
+@export_group("Projectile")
+## units per second each projectile moves
+@export_range(0.1, 100.0) var projectile_max_speed : float = 10.0
+## damage points each projectile deals
+@export_range(1, 100) var projectile_damage_points : int = 10
 @export_group("Config")
-## projectile configuration
-@export var projectile_config: ProjectileConfig
 ## shooting cost configuration
 @export var shooting_cost_config: ShootingCostConfig
