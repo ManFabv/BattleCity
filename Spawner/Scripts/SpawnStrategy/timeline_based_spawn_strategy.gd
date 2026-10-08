@@ -4,7 +4,7 @@ extends SpawnStrategyInterface
 ## the config with the capacity, the events and the timeline entries
 var _timeline_based_spawn_strategy_config : TimelineBasedSpawnStrategyConfig
 ## the spawn points the entries refer to, indexed by their spawn_point_id
-var _spawn_point_by_id : Dictionary[int, SpawnPointInterface] = {}
+var _spawn_point_by_id : Dictionary[int, SpawnPoint] = {}
 ## one timer for the whole timeline, restarted with the delay of each entry once the previous one spawned
 var _spawn_delay_timer : CustomTimer
 ## true once the delay of the next entry elapsed, it stays due until there is room for it
@@ -41,7 +41,7 @@ func _init(config: TimelineBasedSpawnStrategyConfig) -> void:
 
 
 ## we validate the timeline and start the delay of the first entry
-func configure(spawn_points: Array[SpawnPointInterface], owner_exited: Signal) -> void:
+func configure(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	# the timeline only starts when every spawn point id is unique and every entry is valid
 	if _index_spawn_points_by_id(spawn_points) and _are_spawn_entries_valid():
 		# a single manual timer for the whole timeline, it starts now with the delay of the first entry
@@ -56,9 +56,9 @@ func configure(spawn_points: Array[SpawnPointInterface], owner_exited: Signal) -
 
 
 ## indexes the spawn points by their id, false when two of them share the same id
-func _index_spawn_points_by_id(spawn_points: Array[SpawnPointInterface]) -> bool:
+func _index_spawn_points_by_id(spawn_points: Array[SpawnPoint]) -> bool:
 	# we index every spawn point assigned in the manager
-	for spawn_point : SpawnPointInterface in spawn_points:
+	for spawn_point : SpawnPoint in spawn_points:
 		# an empty slot left in the manager's array can't spawn anything
 		if is_instance_valid(spawn_point):
 			# two spawn points with the same id would make the entries ambiguous

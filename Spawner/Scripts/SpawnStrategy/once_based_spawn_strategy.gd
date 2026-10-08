@@ -12,7 +12,7 @@ func _init(config: OnceBasedSpawnStrategyConfig) -> void:
 
 
 ## we spawn the scene_to_spawn once on the first spawn point
-func configure(spawn_points: Array[SpawnPointInterface], _owner_exited: Signal) -> void:
+func configure(spawn_points: Array[SpawnPoint], _owner_exited: Signal) -> void:
 	# only when there is a spawn point to spawn on
 	if spawn_points.size() > 0:
 		# we spawn the configured scene once at the first spawn point

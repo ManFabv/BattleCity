@@ -1,4 +1,4 @@
-class_name SpawnPointInterface
+class_name SpawnPoint
 extends Node3D
 
 @export_group("Events")
@@ -20,8 +20,6 @@ func spawn(scene: PackedScene) -> Node3D:
 	_emit_spawned_event(node)
 	# we move it to this spawn point
 	node.global_position = global_position
-	# we let the spawn point type react to the new node
-	_on_node_spawned(node)
 	return node
 
 
@@ -29,8 +27,3 @@ func spawn(scene: PackedScene) -> Node3D:
 func _emit_spawned_event(node: Node3D) -> void:
 	# we emit the spawned event with the new node as context
 	_on_spawned.emit(node)
-
-
-## hook for each spawn point type, called once the new node is parented and positioned
-func _on_node_spawned(_node: Node3D) -> void:
-	push_error("_on_node_spawned() should be implemented on inherited classes")

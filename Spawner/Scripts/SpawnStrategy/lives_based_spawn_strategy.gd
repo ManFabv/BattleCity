@@ -4,7 +4,7 @@ extends SpawnStrategyInterface
 ## the config with the lives, the respawn delay and the scene_to_spawn
 var _lives_based_spawn_strategy_config : LivesBasedSpawnStrategyConfig
 ## the spawn point that instantiates every life
-var _spawn_point : SpawnPointInterface
+var _spawn_point : SpawnPoint
 ## used to clean up the respawn timers with the manager
 var _owner_exited : Signal
 ## lives left, including the one currently spawned
@@ -21,7 +21,7 @@ func _init(config: LivesBasedSpawnStrategyConfig) -> void:
 
 
 ## at the beginning we spawn the first life
-func configure(spawn_points: Array[SpawnPointInterface], owner_exited: Signal) -> void:
+func configure(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	# if there isn't exactly one spawn point we can't know where to respawn, so we don't start
 	if spawn_points.size() != 1:
 		push_error("lives based spawn strategy needs exactly one spawn point")

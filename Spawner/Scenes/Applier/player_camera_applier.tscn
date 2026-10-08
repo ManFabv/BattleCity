@@ -5,4 +5,4 @@
 
 [node name="PlayerCameraApplier" type="Node" unique_id=1792796145]
 script = ExtResource("1")
-_on_spawned = ExtResource("ev_on_player_spawned")
+_on_player_spawned = ExtResource("ev_on_player_spawned")

@@ -1,6 +1,9 @@
 class_name SightAttackDetector
-extends TargetDetectorInterface
+extends Node3D
 
+@export_group("References")
+## who is the entity we are checking detection for
+@export var owner_controllable_entity : ControllableEntity
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target
 @export_range(0.1, 20.0) var _detection_range : float = 12.0
@@ -8,11 +11,9 @@ extends TargetDetectorInterface
 @export var _vision_shape_cast : ShapeCast3D
 
 
-## checks distance and a shapecast sweep toward the target to know if it's a valid attack target
+## checks distance and a shapecast sweep toward the target to know if it's a valid attack target;
+## the caller makes sure the target is still valid
 func has_detected_target(target: Node3D) -> bool:
-	# if the target is not valid, we return that we don't have a line of sight
-	if not is_instance_valid(target):
-		return false
 	# we cache the target position
 	var target_position : Vector3 = target.global_position
 	# as a quick filter, if the target is out of range we exit early

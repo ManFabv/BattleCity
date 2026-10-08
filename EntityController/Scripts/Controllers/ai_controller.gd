@@ -10,7 +10,7 @@ signal _wander_timed_out
 @export var _navigation_agent : NavigationAgent3D
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
-@export var _attack_detector : TargetDetectorInterface
+@export var _attack_detector : SightAttackDetector
 @export_group("References")
 ## the shared timer manager used to request the wander target timeout timer
 @export var _timer_manager : TimerManagerResource

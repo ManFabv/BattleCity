@@ -3,7 +3,7 @@ extends Node
 
 @export_group("References")
 ## spawn points managed by this manager
-@export var _spawn_points : Array[SpawnPointInterface]
+@export var _spawn_points : Array[SpawnPoint]
 
 ## the strategy created from the config, the manager should owns it
 var _spawn_strategy : SpawnStrategyInterface
