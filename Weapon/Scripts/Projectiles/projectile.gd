@@ -2,7 +2,7 @@ class_name Projectile
 extends Area3D
 
 @export_group("References")
-## reference to the component
+## the area that deals this projectile's damage to the health it touches
 @export var _hurt_entity: Hurt
 ## the projectile mesh, tinted with the color of the weapon that fires it
 @export var _mesh: TintedMesh

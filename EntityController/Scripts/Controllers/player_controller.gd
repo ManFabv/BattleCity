@@ -12,7 +12,7 @@ func set_camera(camera: PlayerCamera) -> void:
 
 
 func get_move_direction() -> Vector3:
-	# this can be processed on another class by AI
+	# we get the move axis from the input manager
 	var move_input : Vector2 = _process_move_input()
 	# we normalize the input
 	move_input = move_input.normalized()

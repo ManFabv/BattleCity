@@ -34,7 +34,7 @@ signal _wander_timed_out
 var _safe_move_direction : Vector3
 ## where we want to look
 var _target_look_at : float
-## this will help us to know if we have already shot
+## true while the state machine wants this entity to shoot, read as the shoot input
 var _has_shot : bool = false
 ## current target used when attacking the player instead of wandering
 var _player_target : ControllableEntity
@@ -46,7 +46,7 @@ var _current_attack_target : Node3D
 var _wander_timeout_timer : CustomTimer
 
 
-## We instantiate the timer and connect the signals
+## we request the wander timeout timer and subscribe to the level manager and the events
 func _ready() -> void:
 	_wander_timeout_timer = _timer_manager.create_manual(
 			_wander_timeout_seconds, 
@@ -87,12 +87,12 @@ func get_look_at_angle() -> float:
 	return _target_look_at
 
 
-## we said that the entity is going to shoot
+## the entity starts holding the shoot input
 func start_shooting() -> void:
 	_has_shot = true
 
 
-## we said that the entity stopped shooting
+## the entity releases the shoot input
 func stop_shooting() -> void:
 	_has_shot = false
 

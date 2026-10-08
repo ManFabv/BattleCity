@@ -12,7 +12,7 @@ extends Node3D
 		spawn_point_id = maxi(new_value, 0)
 
 
-## instantiate the scene_to_spawn at this spawn point and return the new node
+## instantiates the given scene at this spawn point and returns the new node
 func spawn(scene: PackedScene) -> Node3D:
 	# we instantiate the node
 	var node : Node3D = scene.instantiate() as Node3D

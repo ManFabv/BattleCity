@@ -1,17 +1,8 @@
 class_name KeyboardAndMouseProcessor
 extends InputInterface
 
-#input action names variables
-var _move_left_name : String
-var _move_right_name : String
-var _move_up_name : String
-var _move_down_name : String
-var _fire_primary_name : String
-#input action for open menu
-var _open_ui_menu_name : String
-
 @export_group("References")
-## player
+## the player whose position the mouse aim is relative to
 @export var _player : ControllableEntity
 
 ## player camera, injected by PlayerCameraApplier (via PlayerController) after this player spawns
@@ -21,17 +12,6 @@ var _player_camera : PlayerCamera
 ## injected right after this player's controller is spawned
 func set_camera(camera: PlayerCamera) -> void:
 	_player_camera = camera
-
-
-func _ready() -> void:
-	# we map the input actions according to this player id
-	_move_left_name = "move_left_p1"
-	_move_right_name = "move_right_p1"
-	_move_up_name = "move_up_p1"
-	_move_down_name = "move_down_p1"
-	_fire_primary_name = "fire_primary_p1"
-	# we map the open UI menu
-	_open_ui_menu_name = "open_ui_menu"
 
 
 ## called when we are going to start using this input
@@ -44,15 +24,6 @@ func exit_input_type() -> void:
 	pass #TODO: here we can change cursor GUI
 
 
-## here we get the input according to their input axis
-func get_input_movement() -> Vector2:
-	# we get the input of the keyboard
-	var move_input : Vector2 = Input.get_vector(
-		_move_left_name, _move_right_name, _move_up_name, _move_down_name)
-	# we return the input value
-	return move_input
-
-
 ## here we need to calculate where to look according to mouse position
 func get_look_at() -> Vector2:
 	# we get the mouse position in viewport coordinates
@@ -63,12 +34,3 @@ func get_look_at() -> Vector2:
 	world_pos -= _player.global_position
 	# we return the converted input
 	return Vector2(world_pos.x, world_pos.z)
-
-
-## we check if the player wants to open the menu
-func is_open_menu_pressed() -> bool:
-	return Input.is_action_just_pressed(_open_ui_menu_name)
-
-
-func is_shot_pressed() -> bool:
-	return Input.is_action_pressed(_fire_primary_name)

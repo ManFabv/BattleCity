@@ -2,7 +2,7 @@ class_name EntityControllerInterface
 extends Node
 
 @export_group("References")
-## who is the AI entity that we want to move
+## the entity this controller drives, player or AI
 @export var owner_controllable_entity : ControllableEntity
 
 
