@@ -4,10 +4,6 @@ extends Node3D
 ## called after we just shoot
 signal _shot_fired
 
-@export_group("Events")
-## the event where we notify that a projectile should be added to the tree
-@export var _on_projectile_spawned : BaseEvent
-
 ## current equipped weapon
 var _current_weapon : WeaponInterface
 
@@ -15,7 +11,7 @@ var _current_weapon : WeaponInterface
 ## this will try to shoot, the weapon decides if it is able to (cooldown)
 func try_shot() -> void:
 	# the weapon handles its cooldown and tells us if it actually shot
-	if _current_weapon.try_shot(_on_projectile_spawned):
+	if _current_weapon.try_shot():
 		_emit_shot_fired_signal()
 
 

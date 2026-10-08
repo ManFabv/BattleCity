@@ -1,6 +1,9 @@
 class_name WeaponInterface
 extends Node3D
 
+@export_group("Events")
+## the event where we notify that a projectile should be added to the tree
+@export var _on_projectile_spawned : BaseEvent
 @export_group("References")
 ## the shared timer manager used to request the fire rate timer
 @export var _timer_manager : TimerManagerResource
@@ -31,7 +34,7 @@ func configure(weapon_config: WeaponConfig) -> void:
 
 
 ## shoots if the cooldown elapsed and returns true when a shot was fired
-func try_shot(on_projectile_spawned: BaseEvent) -> bool:
+func try_shot() -> bool:
 	# we can't shoot until the cooldown elapsed
 	if not _is_fire_rate_ready:
 		return false
@@ -40,7 +43,7 @@ func try_shot(on_projectile_spawned: BaseEvent) -> bool:
 	# we restart the cooldown only when we actually shoot
 	_fire_rate_timer.start(_weapon_config.fire_rate_seconds)
 	# each weapon type decides which projectiles the shot fires
-	_fire_projectiles(on_projectile_spawned)
+	_fire_projectiles()
 	return true
 
 
@@ -57,18 +60,18 @@ func _mount_weapon_mesh() -> void:
 
 
 ## fires the projectiles of one shot, each weapon type implements it
-func _fire_projectiles(_on_projectile_spawned: BaseEvent) -> void:
+func _fire_projectiles() -> void:
 	push_error("_fire_projectiles() should be implemented on inherited classes")
 
 
 ## instantiates one projectile, adds it to the tree and fires it from the given position along the muzzle
-func _fire_projectile(on_projectile_spawned: BaseEvent, spawn_position: Vector3) -> void:
+func _fire_projectile(spawn_position: Vector3) -> void:
 	# we instantiate the projectile
 	var projectile : Projectile = _weapon_config.projectile_scene.instantiate() as Projectile
 	# we make it top level so it doesn't follow the tank after leaving the muzzle
 	projectile.top_level = true
 	# the listeners add it to the tree, so its _ready() runs before configure()
-	on_projectile_spawned.emit(projectile)
+	_on_projectile_spawned.emit(projectile)
 	# we configure it with the weapon values
 	projectile.configure(_weapon_config.weapon_color, _weapon_config.projectile_max_speed, _weapon_config.projectile_damage_points)
 	# we fire it along the muzzle forward axis

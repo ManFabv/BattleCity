@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://daroot5kxtm0h" path="res://Weapon/Scripts/WeaponTypes/normal_weapon.gd" id="1"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
+[ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://EventBus/Resources/Events/on_projectile_spawned.tres" id="3_projectile_spawned"]
 
 [node name="NormalWeapon" type="Node3D" unique_id=254992871]
 script = ExtResource("1")
+_on_projectile_spawned = ExtResource("3_projectile_spawned")
 _timer_manager = ExtResource("2_timerres")
