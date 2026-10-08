@@ -2,7 +2,7 @@ class_name ControllableEntity
 extends CharacterBody3D
 
 ## emitted when this entity runs out of health
-signal entity_died
+signal _entity_died
 
 @export_group("Controller")
 ## this will give us the reference to the needed implementation
@@ -139,7 +139,7 @@ func _check_vertical_death() -> void:
 
 ## listeners are notified once, since the entity is freed right after dying
 func subscribe_to_death(on_death: Callable) -> void:
-	entity_died.connect(on_death, CONNECT_ONE_SHOT)
+	_entity_died.connect(on_death, CONNECT_ONE_SHOT)
 
 
 ## called when the health runs out, which means this entity dies
@@ -147,5 +147,5 @@ func _on_health_depleted() -> void:
 	# TODO: we need a better implementation for this method
 	# like spawning particles or playing sounds before
 	# removing the node
-	entity_died.emit()
+	_entity_died.emit()
 	queue_free()

@@ -3,7 +3,7 @@ extends EntityControllerInterface
 
 ## emitted when the current wander target isn't reached before its timeout;
 ## the state machine reacts to this the same way it reacts to reaching the target
-signal wander_timed_out
+signal _wander_timed_out
 
 @export_group("Navigation")
 ## this is the component used to make an AI entity to navigate through the world
@@ -97,6 +97,11 @@ func is_shot_pressed() -> bool:
 	return _has_shot
 
 
+## listeners are notified when the entity gives up on the current wander target
+func subscribe_to_wander_timed_out(on_wander_timed_out: Callable) -> void:
+	_wander_timed_out.connect(on_wander_timed_out)
+
+
 ## called once by EnemyTargetApplier right after this entity spawns
 func set_attack_targets(player_target: ControllableEntity, base_target: Base) -> void:
 	_player_target = player_target
@@ -176,7 +181,7 @@ func _on_wander_timeout() -> void:
 		# stops moving exactly as if it had reached it, and let the state machine move on
 		# to the next state instead of retrying wander forever
 		_navigation_agent.set_target_position(owner_controllable_entity.global_position)
-		wander_timed_out.emit()
+		_wander_timed_out.emit()
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:

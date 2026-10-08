@@ -8,7 +8,7 @@ enum TimerState { NEEDS_INIT, INITED, RUNNING, PAUSED, READY_TO_CLEANUP }
 enum TimerMode { ONE_SHOT, LOOP, MANUAL }
 
 ## signal emitted when the timer finishes a loop/time left
-signal timeout
+signal _timed_out
 
 
 ## current time to finish the timer
@@ -36,8 +36,8 @@ var _mode: TimerMode
 func _init(duration: float, mode: TimerMode, on_timeout: Callable) -> void:
 	_duration = duration
 	_mode = mode
-	# we connect the timeout signal
-	timeout.connect(on_timeout)
+	# we connect the timed out signal
+	_timed_out.connect(on_timeout)
 	# we init the timer
 	reset()
 
@@ -96,10 +96,10 @@ func _is_not_running() -> bool:
 	return _state != TimerState.RUNNING
 
 
-## we reset the time and emit the timeout signal
+## we reset the time and emit the timed out signal
 func _trigger_timeout() -> void:
 	_time_left = 0.0
-	timeout.emit()
+	_timed_out.emit()
 
 
 ## if the timer has loop set, we reset the timer

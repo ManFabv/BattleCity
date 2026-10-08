@@ -1,8 +1,8 @@
 class_name Hurt
 extends Area3D
 
-## it's going to be triggered when taking damage
-signal _on_damage_taken
+## it's going to be triggered after dealing damage
+signal _damage_dealt
 
 ## damage points applied to the health we collide with, set on configure
 var _damage_points : int = 0:
@@ -21,9 +21,9 @@ func configure(damage_points: int) -> void:
 	_damage_points = damage_points
 
 
-## we subscribe to damage signal
-func subscribe_to_damage_signal(on_damage_taken: Callable) -> void:
-	_on_damage_taken.connect(on_damage_taken)
+## we subscribe to damage dealt signal
+func subscribe_to_damage_dealt(on_damage_dealt: Callable) -> void:
+	_damage_dealt.connect(on_damage_dealt)
 
 
 ## if we collided with other body
@@ -31,4 +31,4 @@ func _on_area_entered(health: Health) -> void:
 	# we take damage when the body has a health component
 	health.take_damage(_damage_points)
 	# we notify that we collide with something
-	_on_damage_taken.emit()
+	_damage_dealt.emit()

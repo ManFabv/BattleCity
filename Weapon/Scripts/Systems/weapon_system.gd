@@ -2,7 +2,7 @@ class_name WeaponSystem
 extends Node3D
 
 ## called after we just shoot
-signal shot_fired
+signal _shot_fired
 
 @export_group("Events")
 ## the event where we notify that a projectile should be added to the tree
@@ -41,9 +41,9 @@ func change_weapon(weapon_config: WeaponConfig) -> void:
 
 ## listeners are notified every time a shot is fired
 func subscribe_to_shot_fired(on_shot_fired: Callable) -> void:
-	shot_fired.connect(on_shot_fired)
+	_shot_fired.connect(on_shot_fired)
 
 
 ## notifies the listeners that a shot was fired
 func _emit_shot_fired_signal() -> void:
-	shot_fired.emit()
+	_shot_fired.emit()

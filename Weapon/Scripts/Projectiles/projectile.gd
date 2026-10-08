@@ -18,7 +18,7 @@ var _projectile_max_speed : float = 0.0:
 
 ## to avoid having to connect this signal on every node, we connect it here
 func _ready() -> void:
-	_hurt_entity.subscribe_to_damage_signal(_destroy_projectile)
+	_hurt_entity.subscribe_to_damage_dealt(_destroy_projectile)
 	body_shape_entered.connect(_on_body_shape_entered)
 
 
