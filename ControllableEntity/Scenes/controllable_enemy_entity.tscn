@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
 [ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://EntityDetection/Scenes/sight_attack_detector.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
@@ -18,7 +19,7 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMeshBody"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_weapon_system", "_entity_stats_manager", "_health", "_tintable_body_mesh")]
+[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_weapon_system", "_entity_stats_manager", "_health")]
 collision_layer = 4
 collision_mask = 247
 script = ExtResource("1")
@@ -26,10 +27,10 @@ _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
+_entity_level_manager = NodePath("EntityLevelManager")
 _weapon_system = NodePath("WeaponSystem")
 _entity_stats_manager = NodePath("EntityStatsManager")
 _health = NodePath("Health")
-_tintable_body_mesh = NodePath("TintableMeshBody")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=700678358]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -46,9 +47,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 
 [node name="EntityStatsManager" parent="." unique_id=838874006 instance=ExtResource("7")]
 
-[node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
+[node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "_entity_level_manager", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
 _attack_detector = NodePath("../SightAttackDetector")
+_entity_level_manager = NodePath("../EntityLevelManager")
 owner_controllable_entity = NodePath("..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2063289975]
@@ -70,5 +72,11 @@ shape = SubResource("BoxShape3D")
 _ai_controller = NodePath("../AiController")
 _navigation_agent = NodePath("../NavigationAgent3D")
 _weapon_system = NodePath("../WeaponSystem")
+
+[node name="EntityLevelManager" parent="." unique_id=555100004 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
+_entity_stats_manager = NodePath("../EntityStatsManager")
+_health = NodePath("../Health")
+_weapon_system = NodePath("../WeaponSystem")
+_tintable_body_mesh = NodePath("../TintableMeshBody")
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]

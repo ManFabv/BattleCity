@@ -14,6 +14,9 @@ signal wander_timed_out
 @export_group("References")
 ## the shared timer manager used to request the wander target timeout timer
 @export var _timer_manager : TimerManagerResource
+@export_group("Level")
+## the level manager of the owner entity, it notifies us every time the stats of a level are applied
+@export var _entity_level_manager : EntityLevelManager
 @export_group("Wander Setup")
 ## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way)
 @export_range(0.1, 20.0) var _wander_timeout_seconds : float = 10.0:
@@ -48,7 +51,7 @@ func _ready() -> void:
 			_on_wander_timeout, 
 			tree_exited, 
 			false)
-	owner_controllable_entity.subscribe_to_configured_for_level(_on_entity_configured_for_level)
+	_entity_level_manager.subscribe_to_configured_for_level(_on_entity_configured_for_level)
 
 
 func get_move_direction() -> Vector3:

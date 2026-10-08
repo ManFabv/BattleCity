@@ -4,7 +4,9 @@
 [ext_resource type="Resource" uid="uid://b3n7q1w8k5x2m" path="res://EntityLevel/Resources/Enemies/enemy_normal_entity_levels_config.tres" id="2_0sqp7"]
 
 [node name="EnemyNormalTank" unique_id=459530449 instance=ExtResource("1_goika")]
-_entity_levels = ExtResource("2_0sqp7")
 
 [node name="AiController" parent="." index="5" unique_id=2129425660]
 _wander_timeout_seconds = 7.5
+
+[node name="EntityLevelManager" parent="." index="10" unique_id=555100004]
+_entity_levels = ExtResource("2_0sqp7")

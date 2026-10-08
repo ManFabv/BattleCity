@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://c8bqk1t3q7v5f" path="res://EntityLevel/Resources/Player/player_entity_levels_config.tres" id="18"]
+[ext_resource type="PackedScene" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
@@ -20,7 +21,7 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_weapon_system", "_entity_stats_manager", "_health", "_tintable_body_mesh")]
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_weapon_system", "_entity_stats_manager", "_health")]
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
@@ -28,11 +29,10 @@ _on_input_changed_event = ExtResource("2_odrml")
 _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
-_entity_levels = ExtResource("18")
+_entity_level_manager = NodePath("EntityLevelManager")
 _weapon_system = NodePath("WeaponSystem")
 _entity_stats_manager = NodePath("EntityStatsManager")
 _health = NodePath("Health")
-_tintable_body_mesh = NodePath("TintableMeshBody")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
@@ -70,5 +70,12 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
+
+[node name="EntityLevelManager" parent="." unique_id=555100003 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
+_entity_levels = ExtResource("18")
+_entity_stats_manager = NodePath("../EntityStatsManager")
+_health = NodePath("../Health")
+_weapon_system = NodePath("../WeaponSystem")
+_tintable_body_mesh = NodePath("../TintableMeshBody")
 
 [editable path="InputManager"]
