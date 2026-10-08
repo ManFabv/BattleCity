@@ -1,12 +1,73 @@
 [gd_resource type="Resource" script_class="LevelConfig" format=3 uid="uid://6sknxj0ttxod"]
 
-[ext_resource type="Script" uid="uid://dgv7ygaa0cle5" path="res://Level/Scripts/Config/level_config.gd" id="1_config"]
-[ext_resource type="Resource" uid="uid://dklojtirojybx" path="res://Spawner/Resources/Levels/TestLevel/Player/lives_based_spawn_strategy_config.tres" id="2_player"]
-[ext_resource type="Resource" uid="uid://ci1bcagik1k14" path="res://Spawner/Resources/Levels/TestLevel/Base/once_based_spawn_strategy_config.tres" id="3_base"]
-[ext_resource type="Resource" uid="uid://jpuhb365x1eo" path="res://Spawner/Resources/Levels/TestLevel/Enemy/timeline_based_spawn_strategy_config.tres" id="4_enemy"]
+[ext_resource type="Script" uid="uid://dgv7ygaa0cle5" path="res://Level/Scripts/Config/level_config.gd" id="1_level_config"]
+[ext_resource type="Script" uid="uid://b7x7ewwg8re0f" path="res://Spawner/Scripts/SpawnStrategy/Config/lives_based_spawn_strategy_config.gd" id="2_lives_based_spawn_strate"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="3_on_player_out_of_lives"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="4_timer_manager"]
+[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/Scenes/controllable_player_entity.tscn" id="5_controllable_player_enti"]
+[ext_resource type="Script" uid="uid://c2w31bd4a4ikv" path="res://Spawner/Scripts/SpawnStrategy/Config/once_based_spawn_strategy_config.gd" id="6_once_based_spawn_strateg"]
+[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="7_base"]
+[ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="8_timeline_spawn_entry_con"]
+[ext_resource type="PackedScene" uid="uid://bj0gsf8vnreo7" path="res://ControllableEntity/Scenes/Enemies/enemy_normal_tank.tscn" id="9_enemy_normal_tank"]
+[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://ControllableEntity/Scenes/Enemies/enemy_heavy_tank.tscn" id="10_enemy_heavy_tank"]
+[ext_resource type="PackedScene" uid="uid://dw50dti804jgi" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="11_enemy_slow_tank"]
+[ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://Spawner/Scripts/SpawnStrategy/Config/timeline_based_spawn_strategy_config.gd" id="12_timeline_based_spawn_str"]
+[ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="13_on_enemy_count_changed"]
+[ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_spawns_finished.tres" id="14_on_all_spawns_finished"]
+
+[sub_resource type="Resource" id="Resource_once_based_spawn_strategy_config"]
+script = ExtResource("6_once_based_spawn_strateg")
+scene_to_spawn = ExtResource("7_base")
+
+[sub_resource type="Resource" id="Resource_entry_1"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_point_id = 1
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_entry_2"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_entry_3"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 1.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_entry_4"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_point_id = 2
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_entry_5"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_entry_6"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_timeline_based_spawn_strategy_config"]
+script = ExtResource("12_timeline_based_spawn_str")
+_on_alive_count_changed = ExtResource("13_on_enemy_count_changed")
+_on_all_spawns_finished = ExtResource("14_on_all_spawns_finished")
+timer_manager = ExtResource("4_timer_manager")
+_spawn_entry_configs = Array[ExtResource("8_timeline_spawn_entry_con")]([SubResource("Resource_entry_1"), SubResource("Resource_entry_2"), SubResource("Resource_entry_3"), SubResource("Resource_entry_4"), SubResource("Resource_entry_5"), SubResource("Resource_entry_6")])
+
+[sub_resource type="Resource" id="Resource_lives_based_spawn_strategy_config"]
+script = ExtResource("2_lives_based_spawn_strate")
+_on_out_of_lives = ExtResource("3_on_player_out_of_lives")
+timer_manager = ExtResource("4_timer_manager")
+scene_to_spawn = ExtResource("5_controllable_player_enti")
 
 [resource]
-script = ExtResource("1_config")
-player_lives_based_spawn_strategy_config = ExtResource("2_player")
-base_once_based_spawn_strategy_config = ExtResource("3_base")
-enemy_timeline_based_spawn_strategy_config = ExtResource("4_enemy")
+script = ExtResource("1_level_config")
+player_lives_based_spawn_strategy_config = SubResource("Resource_lives_based_spawn_strategy_config")
+base_once_based_spawn_strategy_config = SubResource("Resource_once_based_spawn_strategy_config")
+enemy_timeline_based_spawn_strategy_config = SubResource("Resource_timeline_based_spawn_strategy_config")
