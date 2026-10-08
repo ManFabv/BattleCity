@@ -20,7 +20,7 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point")]
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_weapon_system", "_entity_stats_manager", "_health", "_tintable_body_mesh")]
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
@@ -29,13 +29,16 @@ _on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_levels = ExtResource("18")
+_weapon_system = NodePath("WeaponSystem")
+_entity_stats_manager = NodePath("EntityStatsManager")
+_health = NodePath("Health")
+_tintable_body_mesh = NodePath("TintableMeshBody")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
 [node name="TintableMeshBody" parent="." unique_id=90287670 instance=ExtResource("tinted_mesh")]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMesh_uvnfx")
 
@@ -54,17 +57,14 @@ _player = NodePath("../..")
 script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
-unique_name_in_owner = true
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
-unique_name_in_owner = true
 
 [node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
-unique_name_in_owner = true
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]

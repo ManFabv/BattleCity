@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="3_lf2qg"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="4_ctv5m"]
 
-[node name="StateMachine" type="Node" unique_id=994521171]
+[node name="StateMachine" type="Node" unique_id=994521171 node_paths=PackedStringArray("_state_chart")]
 script = ExtResource("1_rf7p6")
+_state_chart = NodePath("StateChart")
 
 [node name="StateChart" type="Node" parent="." unique_id=1895341624]
-unique_name_in_owner = true
 script = ExtResource("1_f8pib")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 

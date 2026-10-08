@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bri1aktpcdkak" path="res://Camera/Scripts/player_camera.gd" id="1_cjy00"]
 
-[node name="PlayerCamera" type="Camera3D" unique_id=344513952]
+[node name="PlayerCamera" type="Camera3D" unique_id=344513952 node_paths=PackedStringArray("_ray_cast_3d")]
 top_level = true
 projection = 1
 size = 18.0
 far = 1000.0
 script = ExtResource("1_cjy00")
+_ray_cast_3d = NodePath("RayCast3D")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=11124790]
-unique_name_in_owner = true
 target_position = Vector3(0, 0, -10)
 collision_mask = 32

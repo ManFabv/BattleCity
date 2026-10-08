@@ -18,7 +18,7 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMeshBody"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point")]
+[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_weapon_system", "_entity_stats_manager", "_health", "_tintable_body_mesh")]
 collision_layer = 4
 collision_mask = 247
 script = ExtResource("1")
@@ -26,13 +26,16 @@ _on_input_changed_event = ExtResource("2")
 _on_menu_opened_event = ExtResource("3")
 _entity_controller = NodePath("AiController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
+_weapon_system = NodePath("WeaponSystem")
+_entity_stats_manager = NodePath("EntityStatsManager")
+_health = NodePath("Health")
+_tintable_body_mesh = NodePath("TintableMeshBody")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=700678358]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D")
 
 [node name="TintableMeshBody" parent="." unique_id=1073442393 instance=ExtResource("tinted_mesh")]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
 mesh = SubResource("BoxMeshBody")
 
@@ -40,10 +43,8 @@ mesh = SubResource("BoxMeshBody")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 
 [node name="WeaponSystem" parent="." unique_id=154862127 instance=ExtResource("5")]
-unique_name_in_owner = true
 
 [node name="EntityStatsManager" parent="." unique_id=838874006 instance=ExtResource("7")]
-unique_name_in_owner = true
 
 [node name="AiController" parent="." unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
 _navigation_agent = NodePath("../NavigationAgent3D")
@@ -59,7 +60,6 @@ neighbor_distance = 20.0
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=770466037 instance=ExtResource("8")]
-unique_name_in_owner = true
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=438800465]

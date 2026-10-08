@@ -23,14 +23,15 @@ signal entity_died
 ## per-level stats, health and weapon config
 @export var _entity_levels : EntityLevels
 
+@export_group("References")
 ## system that will handle all the shooting logic
-@onready var _weapon_system: WeaponSystem = %WeaponSystem
+@export var _weapon_system: WeaponSystem
 ## manages the entity stats and its modifiers
-@onready var _entity_stats_manager : EntityStatsManager = %EntityStatsManager
+@export var _entity_stats_manager : EntityStatsManager
 ## manages the health for the entity
-@onready var _health : Health = %Health
+@export var _health : Health
 ## the tank's body mesh
-@onready var _tintable_body_mesh : TintedMesh = %TintableMeshBody
+@export var _tintable_body_mesh : TintedMesh
 
 ## calculated velocity by input
 var _move_velocity : Vector3 = Vector3.ZERO

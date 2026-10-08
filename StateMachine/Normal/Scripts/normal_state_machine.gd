@@ -8,9 +8,8 @@ class_name NormalStateMachine
 @export var _navigation_agent : NavigationAgent3D
 ## the weapon system that reports when a shot was fired
 @export var _weapon_system : WeaponSystem
-
 ## the entity state chart for triggering state events
-@onready var state_chart: StateChart = %"StateChart"
+@export var _state_chart : StateChart
 
 ## true while the upcoming shot is aimed at the player or the base instead of being a wander shot
 var _is_aiming_at_target : bool = false
@@ -46,18 +45,18 @@ func _on_attack_base_state_entered() -> void:
 
 
 func _on_navigation_agent_3d_target_reached() -> void:
-	state_chart.send_event("fire_event")
+	_state_chart.send_event("fire_event")
 
 
 ## the AIController gave up on the current wander target (timeout): behave the same as
 ## reaching it, so the entity doesn't stay wandering forever
 func _on_ai_controller_wander_timed_out() -> void:
-	state_chart.send_event("fire_event")
+	_state_chart.send_event("fire_event")
 
 
 func _on_weapon_system_shot_fired() -> void:
 	_ai_controller.stop_shooting()
-	state_chart.send_event(_next_event_after_shot())
+	_state_chart.send_event(_next_event_after_shot())
 
 
 ## an aimed shot always goes back to wandering; a wander shot looks for a target to attack

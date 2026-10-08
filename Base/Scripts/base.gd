@@ -9,6 +9,10 @@ extends Node3D
 @export_group("References")
 ## where attachable upgrades (ex: shields) are parented, so they are placed correctly
 @export var _upgrade_attach_point : UpgradeAttachPoint
+## the base body mesh
+@export var _mesh : TintedMesh
+## manages the health for the base, reusing the same component as ControllableEntity
+@export var _health : Health
 @export_group("Base Configuration")
 ## max starting health points for this level
 @export_range(1, 10) var max_health_points : int = 1:
@@ -17,11 +21,6 @@ extends Node3D
 		max_health_points = maxi(new_value, 1)
 ## color applied to the base mesh at this level
 @export var base_color : Color = Color(0.752941, 0.752941, 0.752941, 1)
-
-## the base body mesh
-@onready var _mesh : TintedMesh = %TintedMesh
-## manages the health for the base, reusing the same component as ControllableEntity
-@onready var _health : Health = %Health
 
 
 ## we configure the health and color of the base and we subscribe to events
