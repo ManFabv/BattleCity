@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://lbf4ktidlp27"]
+
+[ext_resource type="Script" uid="uid://bqkfb42aqh2f3" path="res://EntityLevel/Scripts/entity_level_manager.gd" id="1_levelmgr"]
+
+[node name="EntityLevelManager" type="Node" unique_id=1379410469]
+script = ExtResource("1_levelmgr")

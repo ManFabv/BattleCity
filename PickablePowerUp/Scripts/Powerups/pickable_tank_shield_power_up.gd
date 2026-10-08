@@ -6,5 +6,6 @@ extends PickablePowerUpInterface
 @export var _shield_scene : PackedScene
 
 
-func _apply_pickup(picker: ControllableEntity) -> void:
-	picker.attach_upgrade(_shield_scene.instantiate() as Shield)
+func _apply_pickup(controllable_entity_picker: ControllableEntity) -> void:
+	# we attach the shield to its target
+	controllable_entity_picker.attach_upgrade(_shield_scene.instantiate() as Shield)

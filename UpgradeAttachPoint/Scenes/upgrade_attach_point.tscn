@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bran8tym1bgkp"]
+
+[ext_resource type="Script" uid="uid://dgaglorf7msqe" path="res://UpgradeAttachPoint/Scripts/upgrade_attach_point.gd" id="1"]
+
+[node name="UpgradeAttachPoint" type="Marker3D" unique_id=1757510288]
+script = ExtResource("1")

@@ -1,7 +1,12 @@
-[gd_scene format=3 uid="uid://lpdpdea4n38k"]
+[gd_scene format=3 uid="uid://dw50dti804jgi"]
 
 [ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_uuy24"]
-[ext_resource type="Resource" uid="uid://dxr4h5rat2b8k" path="res://EntityLevel/Resources/enemy_slow_entity_levels_config.tres" id="2_bw7if"]
+[ext_resource type="Resource" uid="uid://dxr4h5rat2b8k" path="res://EntityLevel/Resources/Enemies/enemy_slow_entity_levels_config.tres" id="2_bw7if"]
 
 [node name="EnemySlowTank" unique_id=84492125 instance=ExtResource("1_uuy24")]
+
+[node name="AiController" parent="." index="5" unique_id=2129425660]
+_wander_timeout_seconds = 9.3
+
+[node name="EntityLevelManager" parent="." index="10" unique_id=555100004]
 _entity_levels = ExtResource("2_bw7if")

@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dgpwyjcpjpung" path="res://Base/Scripts/base.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="2"]
-[ext_resource type="Resource" uid="uid://ve7com1me6a" path="res://BaseLevel/Resources/base_levels_config.tres" id="base_levels"]
 [ext_resource type="Resource" uid="uid://d1ampvvv2nrxf" path="res://EventBus/Resources/Events/on_base_destroyed.tres" id="ev_on_base_destroyed"]
 [ext_resource type="Resource" uid="uid://mvona3h4a2bs" path="res://EventBus/Resources/Events/on_base_shield_requested.tres" id="ev_on_base_shield_requested"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
-[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://Upgrade/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
+[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1"]
 size = Vector3(2, 1.5, 2)
@@ -14,12 +13,13 @@ size = Vector3(2, 1.5, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_1"]
 size = Vector3(1.8, 1.4, 1.8)
 
-[node name="Base" type="Node3D" unique_id=59400926 node_paths=PackedStringArray("_upgrade_attach_point")]
+[node name="Base" type="Node3D" unique_id=59400926 node_paths=PackedStringArray("_upgrade_attach_point", "_mesh", "_health")]
 script = ExtResource("1")
 _on_base_destroyed = ExtResource("ev_on_base_destroyed")
 _on_base_shield_requested = ExtResource("ev_on_base_shield_requested")
-_base_levels = ExtResource("base_levels")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
+_mesh = NodePath("Body/TintedMesh")
+_health = NodePath("Health")
 
 [node name="Body" type="StaticBody3D" parent="." unique_id=801766690]
 collision_layer = 128
@@ -29,7 +29,6 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_1")
 
 [node name="TintedMesh" parent="Body" unique_id=1292998884 instance=ExtResource("tinted_mesh")]
-unique_name_in_owner = true
 mesh = SubResource("BoxMesh_1")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=1913275606]
@@ -39,7 +38,6 @@ height = 1.5
 [node name="UpgradeAttachPoint" parent="." unique_id=555100005 instance=ExtResource("upgrade_attach_point")]
 
 [node name="Health" parent="." unique_id=184915631 instance=ExtResource("2")]
-unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=1400347367]
 shape = SubResource("BoxShape3D_1")

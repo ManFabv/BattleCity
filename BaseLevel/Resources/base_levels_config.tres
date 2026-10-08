@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="BaseLevels" format=3 uid="uid://ve7com1me6a"]
-
-[ext_resource type="Script" uid="uid://b7baselvlsq3e" path="res://BaseLevel/Scripts/Config/base_levels.gd" id="1"]
-[ext_resource type="Script" uid="uid://dbaselvlcfg5h" path="res://BaseLevel/Scripts/Config/Levels/base_level_config.gd" id="2"]
-[ext_resource type="Resource" uid="uid://c2baselvl0k8d" path="res://BaseLevel/Resources/Levels/base_level_config.tres" id="3"]
-
-[resource]
-script = ExtResource("1")
-_level_configs = Array[ExtResource("2")]([ExtResource("3")])

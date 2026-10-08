@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4h7t6b2tawke"]
 
 [ext_resource type="Script" uid="uid://dxrtq2v8mfscj" path="res://PickablePowerUp/Scripts/Powerups/pickable_base_shield_power_up.gd" id="1_base_shield"]
-[ext_resource type="PackedScene" uid="uid://b4qcnitx65kka" path="res://Upgrade/Scenes/base_shield.tscn" id="2_shieldscene"]
+[ext_resource type="PackedScene" uid="uid://b4qcnitx65kka" path="res://UpgradeAttachPoint/Scenes/base_shield.tscn" id="2_shieldscene"]
 [ext_resource type="Resource" uid="uid://mvona3h4a2bs" path="res://EventBus/Resources/Events/on_base_shield_requested.tres" id="3_baseshield"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_base_shield"]

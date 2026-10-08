@@ -1,10 +1,11 @@
 class_name Projectile
 extends Area3D
 
+@export_group("References")
 ## reference to the component
-@onready var _hurt_entity: Hurt = %Hurt
+@export var _hurt_entity: Hurt
 ## the projectile mesh, tinted with the color of the weapon that fires it
-@onready var _mesh: TintedMesh = %TintedMesh
+@export var _mesh: TintedMesh
 
 ## direction the projectile moves, set when it's fired
 var _move_direction : Vector3 = Vector3.FORWARD

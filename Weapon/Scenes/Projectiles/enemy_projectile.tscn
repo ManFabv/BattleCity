@@ -13,14 +13,15 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
 
-[node name="EnemyProjectile" type="Area3D" unique_id=1840560226]
+[node name="EnemyProjectile" type="Area3D" unique_id=1840560226 node_paths=PackedStringArray("_hurt_entity", "_mesh")]
 top_level = true
 collision_layer = 512
 collision_mask = 17
 script = ExtResource("1_gmg2w")
+_hurt_entity = NodePath("Hurt")
+_mesh = NodePath("TintedMesh")
 
 [node name="TintedMesh" parent="." unique_id=1454117825 instance=ExtResource("tinted_mesh")]
-unique_name_in_owner = true
 cast_shadow = 0
 mesh = SubResource("SphereMesh_1bece")
 
@@ -30,7 +31,6 @@ shape = SubResource("SphereShape3D_2re41")
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1294217409]
 
 [node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("4_qkl3l")]
-unique_name_in_owner = true
 collision_mask = 10
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
