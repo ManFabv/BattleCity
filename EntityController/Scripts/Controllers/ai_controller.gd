@@ -17,6 +17,8 @@ signal _wander_timed_out
 @export_group("Events")
 ## event announcing that a grenade was picked up, this enemy reacts by eliminating itself
 @export var _on_grenade_picked_up : BaseEvent
+## event announcing a new player instance, this enemy takes it as its player target (ex: after a respawn)
+@export var _on_player_spawned : BaseEvent
 @export_group("Level")
 ## the level manager of the owner entity, it notifies us every time the stats of a level are applied
 @export var _entity_level_manager : EntityLevelManager
@@ -53,6 +55,7 @@ func _ready() -> void:
 			false)
 	_entity_level_manager.subscribe_to_configured_for_level(_on_entity_configured_for_level)
 	_on_grenade_picked_up.subscribe(_on_grenade_picked_up_handler, tree_exited)
+	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
 
 
 func get_move_direction() -> Vector3:
@@ -103,7 +106,7 @@ func subscribe_to_wander_timed_out(on_wander_timed_out: Callable) -> void:
 	_wander_timed_out.connect(on_wander_timed_out)
 
 
-## called once by EnemyTargetApplier right after this entity spawns
+## called once by EnemyTargetApplier right after this entity spawns, with the targets alive at that moment
 func set_attack_targets(player_target: ControllableEntity, base_target: Base) -> void:
 	_player_target = player_target
 	_base_target = base_target
@@ -190,6 +193,11 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 ## a grenade was picked up: this enemy eliminates itself
 func _on_grenade_picked_up_handler(_event_context: Variant = null) -> void:
 	owner_controllable_entity.eliminate()
+
+
+## a new player instance spawned (ex: after a respawn): it becomes the player target
+func _on_player_spawned_handler(player: ControllableEntity) -> void:
+	_player_target = player
 
 
 func _on_entity_configured_for_level() -> void:
