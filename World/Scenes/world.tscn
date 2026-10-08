@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
 [ext_resource type="PackedScene" uid="uid://dp2kuvi7dycrs" path="res://Spawner/Scenes/Applier/player_camera_applier.tscn" id="42_cameraapplier"]
-[ext_resource type="PackedScene" uid="uid://dfoiv8221bunb" path="res://Spawner/Scenes/Applier/enemy_navigation_applier.tscn" id="43_navapplier"]
 [ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://Spawner/Scenes/SpawnPoint/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
@@ -202,9 +201,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 [node name="EnemyContainer" parent="Enemies" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
 
 [node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
-
-[node name="EnemyNavigationApplier" parent="Enemies" unique_id=1309938728 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("43_navapplier")]
-_navigation_region = NodePath("../../Navigation/NavigationRegion")
 
 [node name="EnemyAliveTracker" parent="Enemies" unique_id=2081209512 instance=ExtResource("11_tracker")]
 

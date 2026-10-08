@@ -32,9 +32,6 @@ signal _wander_timed_out
 var _target_position : Vector3
 ## where we want to look
 var _target_look_at : float
-## navigation region RID used to get random target positions inside the
-## navigation region; handed to us by EnemyNavigationApplier when we spawn
-var _region_rid : RID
 ## this will help us to know if we have already shot
 var _has_shot : bool = false
 ## current target used when attacking the player instead of wandering
@@ -112,11 +109,6 @@ func set_attack_targets(player_target: ControllableEntity, base_target: Base) ->
 	_base_target = base_target
 
 
-## called once by EnemyNavigationApplier right after this entity spawns
-func set_navigation_region_rid(region_rid: RID) -> void:
-	_region_rid = region_rid
-
-
 ## aims at the player instead of wandering; the entity holds its ground and looks at it
 func attack_player() -> void:
 	# the player may not have been assigned yet, or may have died since
@@ -166,8 +158,9 @@ func set_random_target_position() -> void:
 ## picks a random point on the navigation region; if it can't be reached
 ## the wander timeout takes care of giving up on it
 func _get_random_wander_target() -> Vector3:
-	return NavigationServer3D.region_get_random_point(
-			_region_rid, 
+	# the agent joins the world's navigation map when it enters the tree, so nobody has to inject it
+	return NavigationServer3D.map_get_random_point(
+			_navigation_agent.get_navigation_map(),
 			_navigation_agent.navigation_layers, 
 			false)
 
