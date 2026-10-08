@@ -27,7 +27,7 @@ extends Node3D
 func _ready() -> void:
 	_mesh.apply_color(base_color)
 	_health.configure(max_health_points)
-	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
+	_health.subscribe_to_depleted(_on_health_depleted)
 	# in order to access the upgrade attach point, we subscribe to the base shield requested event
 	# so when the player collects the Base Shield powerup we can attach it to the base without
 	# needing to have a reference hardcoded into the powerup itself
@@ -46,13 +46,7 @@ func subscribe_to_base_destroyed(on_destroyed: Callable) -> void:
 	_on_base_destroyed.subscribe(on_destroyed, tree_exited)
 
 
-## called every time the base takes a hit
-func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
-	# TODO: this should be connected to the UI to show base health visually
-	pass
-
-
-## called when the base has no health left
-func _on_dead() -> void:
+## called when the base health runs out
+func _on_health_depleted() -> void:
 	# we say that the base should be destroyed
 	destroy_base()

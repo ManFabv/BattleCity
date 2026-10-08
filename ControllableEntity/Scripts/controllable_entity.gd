@@ -44,7 +44,7 @@ func _ready() -> void:
 	# we ask the level manager to configure this entity, the children are ready by now
 	_entity_level_manager.configure_entity_for_current_level()
 	#we set the callbacks for the healths
-	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
+	_health.subscribe_to_depleted(_on_health_depleted)
 
 
 func _process(_delta) -> void:
@@ -97,7 +97,7 @@ func level_up() -> void:
 
 ## kills this entity and triggers the signal for that
 func eliminate() -> void:
-	_on_dead()
+	_on_health_depleted()
 
 
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
@@ -142,14 +142,8 @@ func subscribe_to_death(on_death: Callable) -> void:
 	entity_died.connect(on_death, CONNECT_ONE_SHOT)
 
 
-## called everytime the health changes, healing or damaging
-func _on_health_changed(_max_health_points: int, _current_health: int) -> void:
-	# TODO: this should be connected to the UI to see visually the health
-	pass
-
-
-## called when the entity has no health
-func _on_dead() -> void:
+## called when the health runs out, which means this entity dies
+func _on_health_depleted() -> void:
 	# TODO: we need a better implementation for this method
 	# like spawning particles or playing sounds before
 	# removing the node
