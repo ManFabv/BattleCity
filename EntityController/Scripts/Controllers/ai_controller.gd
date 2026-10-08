@@ -31,7 +31,7 @@ signal _wander_timed_out
 
 
 ## safe movement direction, computed asynchronously by the avoidance callback
-var _target_position : Vector3
+var _safe_move_direction : Vector3
 ## where we want to look
 var _target_look_at : float
 ## this will help us to know if we have already shot
@@ -69,7 +69,7 @@ func get_move_direction() -> Vector3:
 	_navigation_agent.velocity = intended_direction.normalized() * owner_controllable_entity.get_entity_move_speed()
 	# Return the safe position which is calculated 
 	# by the avoidance callback previously
-	return _target_position
+	return _safe_move_direction
 
 
 func get_look_at_angle() -> float:
@@ -82,7 +82,7 @@ func get_look_at_angle() -> float:
 	# we are going to take the angle only if we don't reached target
 	elif _can_aim():
 		# we get the angle where we have to look at
-		_target_look_at = atan2(-_target_position.x, -_target_position.z)
+		_target_look_at = atan2(-_safe_move_direction.x, -_safe_move_direction.z)
 	# we return the wanted angle
 	return _target_look_at
 
@@ -187,7 +187,7 @@ func _on_wander_timeout() -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	# We cache the computed safe velocity as a direction for the entity.
 	# The entity is responsible for applying its own movement speed.
-	_target_position = safe_velocity.normalized()
+	_safe_move_direction = safe_velocity.normalized()
 
 
 ## a grenade was picked up: this enemy eliminates itself
