@@ -7,7 +7,8 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, NOT_SET }
 
 @export_group("Events")
 @export var _on_input_changed_event : BaseEvent
-@export var _on_menu_opened_event : BaseEvent
+## event announcing that the pause input was pressed
+@export var _on_pause_input_pressed : BaseEvent
 
 @export_group("Processors")
 ## different input processors according to player controller
@@ -43,10 +44,10 @@ func _on_joy_connection_changed(_device_id, connected):
 ## TODO: this only toggles get_tree().paused (see GamePauseController); we should
 ## show a proper pause menu UI instead, with its own resume/quit options
 func _unhandled_input(_event):
-	# if the player wants to open or close the menu
+	# if the player pressed the pause input
 	if _current_input_processor.is_open_menu_pressed():
-		# we trigger the event so pause-aware systems react
-		_on_menu_opened_event.emit()
+		# we announce it so the pause-aware systems react
+		_on_pause_input_pressed.emit()
 
 
 ## we get the input of the player to see what controller is the player using

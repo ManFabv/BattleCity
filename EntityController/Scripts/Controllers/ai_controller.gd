@@ -14,6 +14,9 @@ signal _wander_timed_out
 @export_group("References")
 ## the shared timer manager used to request the wander target timeout timer
 @export var _timer_manager : TimerManagerResource
+@export_group("Events")
+## event announcing that a grenade was picked up, this enemy reacts by eliminating itself
+@export var _on_grenade_picked_up : BaseEvent
 @export_group("Level")
 ## the level manager of the owner entity, it notifies us every time the stats of a level are applied
 @export var _entity_level_manager : EntityLevelManager
@@ -52,6 +55,7 @@ func _ready() -> void:
 			tree_exited, 
 			false)
 	_entity_level_manager.subscribe_to_configured_for_level(_on_entity_configured_for_level)
+	_on_grenade_picked_up.subscribe(_on_grenade_picked_up_handler, tree_exited)
 
 
 func get_move_direction() -> Vector3:
@@ -188,6 +192,11 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	# We cache the computed safe velocity as a direction for the entity.
 	# The entity is responsible for applying its own movement speed.
 	_target_position = safe_velocity.normalized()
+
+
+## a grenade was picked up: this enemy eliminates itself
+func _on_grenade_picked_up_handler(_event_context: Variant = null) -> void:
+	owner_controllable_entity.eliminate()
 
 
 func _on_entity_configured_for_level() -> void:

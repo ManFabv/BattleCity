@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dqk8w2p5narjy" path="res://PickablePowerUp/Scenes/pickable_speed_power_up.tscn" id="19_speed"]
 [ext_resource type="PackedScene" uid="uid://c4h7t6b2tawke" path="res://PickablePowerUp/Scenes/pickable_base_shield_power_up.tscn" id="20_baseshield"]
 [ext_resource type="PackedScene" uid="uid://beq3lar5w0n2m" path="res://PickablePowerUp/Scenes/pickable_grenade_power_up.tscn" id="21_grenade"]
-[ext_resource type="PackedScene" uid="uid://gwphhxbtcmsf" path="res://EnemyTracking/Scenes/enemy_eliminator_applier.tscn" id="22_eliminator_applier"]
 [ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
@@ -208,8 +207,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 _navigation_region = NodePath("../../Navigation/NavigationRegion")
 
 [node name="EnemyAliveTracker" parent="Enemies" unique_id=2081209512 instance=ExtResource("11_tracker")]
-
-[node name="EnemyEliminatorApplier" parent="Enemies" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
 
 [node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
