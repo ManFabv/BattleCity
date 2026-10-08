@@ -161,8 +161,9 @@ skeleton = NodePath("../..")
 
 [node name="Level" parent="Navigation/NavigationRegion" unique_id=1932757374 instance=ExtResource("9_level")]
 
-[node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("32_gridmapupdater")]
+[node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region", "_grid_map_level") instance=ExtResource("32_gridmapupdater")]
 _navigation_region = NodePath("../NavigationRegion")
+_grid_map_level = NodePath("../NavigationRegion/Level")
 
 [node name="PowerUps" type="Node" parent="." unique_id=987654321]
 

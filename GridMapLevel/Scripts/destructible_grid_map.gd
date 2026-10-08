@@ -1,9 +1,8 @@
 class_name DestructibleGridMap
 extends GridMap
 
-@export_group("Events")
-## event emitted whenever a block is removed from this grid
-@export var _on_block_destroyed : BaseEvent
+## emitted whenever a block is removed from this grid
+signal _block_destroyed(cell: Vector3i)
 
 
 ## destroys the block owned by the shape we hit, the physics server tells us which cell that shape is
@@ -22,7 +21,7 @@ func _destroy_block(cell: Vector3i) -> void:
 	# mark the cell as destroyed
 	set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
 	# we notify listeners
-	_on_block_destroyed.emit(cell)
+	_emit_block_destroyed_signal(cell)
 
 
 ## cell of the given shape of this grid's physics body
@@ -31,3 +30,13 @@ func _get_cell_from_shape(body_rid: RID, body_shape_index: int) -> Vector3i:
 	var shape_transform : Transform3D = PhysicsServer3D.body_get_shape_transform(body_rid, body_shape_index)
 	# we convert the shape's position (local to the grid) into its grid cell coordinates
 	return local_to_map(shape_transform.origin)
+
+
+## listeners are notified every time a block is removed from this grid
+func subscribe_to_block_destroyed(on_block_destroyed: Callable) -> void:
+	_block_destroyed.connect(on_block_destroyed)
+
+
+## notifies the cell of the removed block
+func _emit_block_destroyed_signal(cell: Vector3i) -> void:
+	_block_destroyed.emit(cell)

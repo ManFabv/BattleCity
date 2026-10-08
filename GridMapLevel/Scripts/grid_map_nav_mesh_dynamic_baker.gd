@@ -7,9 +7,8 @@ extends Node
 @export_group("References")
 ## reference to the navigation region that we want to rebake
 @export var _navigation_region : NavigationRegion3D
-@export_group("Events")
-## we listen this to count destroyed blocks
-@export var _on_block_destroyed : BaseEvent
+## the level whose destroyed blocks we count
+@export var _grid_map_level : GridMapLevel
 
 ## blocks destroyed that the current navmesh does not reflect yet
 var _pending_blocks_count : int = 0
@@ -17,12 +16,12 @@ var _pending_blocks_count : int = 0
 
 ## we subscribe to the relevant signals
 func _ready() -> void:
-	_on_block_destroyed.subscribe(_on_block_destroyed_triggered, tree_exited)
+	_grid_map_level.subscribe_to_block_destroyed(_on_grid_map_level_block_destroyed)
 	_navigation_region.bake_finished.connect(_on_bake_finished)
 
 
 ## counts the destroyed block and asks for a rebake once the threshold is reached
-func _on_block_destroyed_triggered(_cell: Variant) -> void:
+func _on_grid_map_level_block_destroyed(_cell: Vector3i) -> void:
 	_pending_blocks_count += 1
 	# deferred so the GridMap has rebuilt its blocks
 	_try_rebake.call_deferred(_blocks_before_rebake)
