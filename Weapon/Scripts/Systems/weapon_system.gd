@@ -12,10 +12,10 @@ signal shot_fired
 var _current_weapon : WeaponInterface
 
 
-## this will try to shoot if it has pressed the shoot button and the weapon is able to shoot
-func try_shot(has_shoot_pressed: bool) -> void:
+## this will try to shoot, the weapon decides if it is able to (cooldown)
+func try_shot() -> void:
 	# the weapon handles its cooldown and tells us if it actually shot
-	if has_shoot_pressed and _current_weapon.try_shot(_on_projectile_spawned):
+	if _current_weapon.try_shot(_on_projectile_spawned):
 		_emit_shot_fired_signal()
 
 

@@ -70,8 +70,9 @@ func _physics_process(delta) -> void:
 	_move_velocity.z = new_velocity_on_floor.z
 	# we calculate the angle for the current position to view to the desired point
 	var look_at_angle : float = rotate_toward(rotation.y, _input_look_at_angle, _current_entity_stats.rotation_speed * delta)
-	# we get if the player pressed shot input
-	_weapon_system.try_shot(_input_has_shot)
+	# we only ask the weapon system to shoot while the shoot input is pressed
+	if _input_has_shot:
+		_weapon_system.try_shot()
 	# we update the velocity according to the calculated movement
 	velocity = _move_velocity
 	# we rotate accordingly
