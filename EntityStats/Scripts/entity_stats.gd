@@ -5,8 +5,8 @@ extends Resource
 ## how fast the body will move
 @export_range(1, 100) var move_speed : float = 7
 
-## how fast the body start stopping movement
-@export_range(1, 100) var move_damping : float = 10
+## seconds to go from standing still to move_speed, and from move_speed to standing still
+@export_range(0.1, 5.0) var move_acceleration_time_seconds : float = 0.15
 
 ## how much will modify the player settings gravity
 @export_range(1, 100) var gravity_modifier : float = 2

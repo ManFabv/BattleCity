@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
 [ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://EntityDetection/Scenes/sight_attack_detector.tscn" id="12"]
-[ext_resource type="PackedScene" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
+[ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 

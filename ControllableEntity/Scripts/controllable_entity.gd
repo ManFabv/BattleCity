@@ -67,12 +67,17 @@ func _physics_process(delta) -> void:
 	var target_velocity : Vector3 = _input_move_direction * get_entity_move_speed()
 	# we apply gravity to the body
 	var applied_gravity : float = _process_gravity()
-	# we are incrementing the velocity to make it match the desired velocity
-	_move_velocity.x = lerp(velocity.x, target_velocity.x, _entity_stats.move_damping * delta)
+	# the max velocity change allowed this tick: reaching move_speed takes move_acceleration_time_seconds
+	var max_velocity_change_this_tick : float = (get_entity_move_speed() / _entity_stats.move_acceleration_time_seconds) * delta
+	var current_velocity_on_floor : Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+	var target_velocity_xon_floor : Vector3 = Vector3(target_velocity.x, 0.0, target_velocity.z)
+	# moving the vector as a whole keeps the diagonal ramps in a straight line
+	var new_velocity_on_floor : Vector3 = current_velocity_on_floor.move_toward(target_velocity_xon_floor, max_velocity_change_this_tick)
+	_move_velocity.x = new_velocity_on_floor.x
 	_move_velocity.y = velocity.y - applied_gravity * delta
-	_move_velocity.z = lerp(velocity.z, target_velocity.z, _entity_stats.move_damping * delta)
+	_move_velocity.z = new_velocity_on_floor.z
 	# we calculate the angle for the current position to view to the desired point
-	var look_at_angle : float = lerp_angle(rotation.y, _input_look_at_angle, _entity_stats.rotation_speed * delta)
+	var look_at_angle : float = rotate_toward(rotation.y, _input_look_at_angle, _entity_stats.rotation_speed * delta)
 	# we get if the player pressed shot input
 	_weapon_system.try_shot(_input_has_shot)
 	# we update the velocity according to the calculated movement
