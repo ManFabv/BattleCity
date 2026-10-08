@@ -1,5 +1,5 @@
-extends Node
 class_name CustomTimerManager
+extends Node
 
 @export_group("References")
 ## the shared timer list this node drives every frame

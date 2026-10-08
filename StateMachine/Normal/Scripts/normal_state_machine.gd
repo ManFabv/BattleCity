@@ -1,5 +1,5 @@
-extends Node
 class_name NormalStateMachine
+extends Node
 
 @export_group("References")
 ## the entity controller reference

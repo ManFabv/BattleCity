@@ -1,5 +1,5 @@
-extends Node3D
 class_name NodeContainer
+extends Node3D
 
 ## we are going to listen this event so we can parent the nodes
 ## to this object avoiding to remove nodes when their owners are removed

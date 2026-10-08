@@ -1,5 +1,5 @@
-extends Node3D
 class_name GameManager
+extends Node3D
 
 @export_group("Scenes")
 ## the first scene that we want to instantiate
