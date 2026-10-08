@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1_uvnfx"]
-[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2_odrml"]
-[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
@@ -25,8 +23,6 @@ size = Vector3(0.8, 0.5, 1.2)
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
-_on_input_changed_event = ExtResource("2_odrml")
-_on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_level_manager = NodePath("EntityLevelManager")

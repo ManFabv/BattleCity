@@ -4,10 +4,6 @@ extends CharacterBody3D
 ## emitted when this entity runs out of health
 signal entity_died
 
-@export_group("Events")
-@export var _on_input_changed_event : BaseEvent
-@export var _on_menu_opened_event : BaseEvent
-
 @export_group("Controller")
 ## this will give us the reference to the needed implementation
 ## which will make this entity move
@@ -49,10 +45,6 @@ func _ready() -> void:
 	_entity_level_manager.configure_entity_for_current_level()
 	#we set the callbacks for the healths
 	_health.subscribe_to_health_signals(_on_health_changed, _on_dead)
-	#we listen to the input type changed signal on input manager
-	_on_input_changed_event.subscribe(_entity_controller.on_input_type_changed, tree_exited)
-	#we listen to the event signal when the menu is opened
-	_on_menu_opened_event.subscribe(_entity_controller.on_menu_opened, tree_exited)
 
 
 func _process(_delta) -> void:

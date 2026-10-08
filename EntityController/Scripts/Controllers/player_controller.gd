@@ -6,14 +6,6 @@ extends EntityControllerInterface
 @export var _input_manager : InputManager
 
 
-func on_input_type_changed(_event_context: Variant = null) -> void:
-	print("INPUT CHANGED")
-
-
-func on_menu_opened(_event_context: Variant = null) -> void:
-	print("MENU OPENED")
-
-
 ## injected by PlayerCameraApplier right after this player is spawned
 func set_camera(camera: PlayerCamera) -> void:
 	_input_manager.set_camera(camera)

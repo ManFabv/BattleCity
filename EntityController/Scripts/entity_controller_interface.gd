@@ -19,11 +19,3 @@ func get_look_at_angle() -> float:
 func is_shot_pressed() -> bool:
 	push_error("is_shot_pressed() should be implemented on inherited classes")
 	return false
-
-
-func on_input_type_changed(_event_context: Variant = null) -> void:
-	push_error("on_input_type_changed() should be implemented on inherited classes")
-
-
-func on_menu_opened(_event_context: Variant = null) -> void:
-	push_error("on_menu_opened() should be implemented on inherited classes")

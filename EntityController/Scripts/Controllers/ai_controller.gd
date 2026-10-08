@@ -97,14 +97,6 @@ func is_shot_pressed() -> bool:
 	return _has_shot
 
 
-func on_input_type_changed(_event_context: Variant = null) -> void:
-	pass # nothing for now
-
-
-func on_menu_opened(_event_context: Variant = null) -> void:
-	pass # nothing for now
-
-
 ## called once by EnemyTargetApplier right after this entity spawns
 func set_attack_targets(player_target: ControllableEntity, base_target: Base) -> void:
 	_player_target = player_target
