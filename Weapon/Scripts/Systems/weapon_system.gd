@@ -17,8 +17,10 @@ func try_shot() -> void:
 
 ## equips the given weapon, replacing the previous one
 func change_weapon(weapon_config: WeaponConfig) -> void:
-	# we instantiate the weapon type of the config
-	var new_weapon_interface : WeaponInterface = weapon_config.weapon_scene.instantiate() as WeaponInterface
+	# we instantiate the weapon scene untyped, so we can still free it if its root isn't a WeaponInterface
+	var instance : Node = weapon_config.weapon_scene.instantiate()
+	# we cast it to the weapon type of the config
+	var new_weapon_interface : WeaponInterface = instance as WeaponInterface
 	# a weapon_scene whose root isn't a WeaponInterface can't be equipped, so we keep the current weapon
 	if is_instance_valid(new_weapon_interface):
 		# the previous weapon goes away together with its mesh and its timer
@@ -33,6 +35,8 @@ func change_weapon(weapon_config: WeaponConfig) -> void:
 	else:
 		# we report the misconfigured weapon config
 		push_error("weapon_scene of %s is not a WeaponInterface scene" % weapon_config.resource_path)
+		# a node outside the tree is not reference counted, so nobody else would free it
+		instance.free()
 
 
 ## listeners are notified every time a shot is fired

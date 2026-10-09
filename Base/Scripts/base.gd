@@ -40,10 +40,10 @@ func subscribe_to_base_destroyed(on_destroyed: Callable) -> void:
 	_on_base_destroyed.subscribe(on_destroyed, tree_exited)
 
 
-## the power-up sends the shield scene; we instantiate it here, so it can't be left orphan if the base is already gone
+## the power-up sends the shield scene; it's instantiated here, so it can't be left orphan if the base is already gone
 func _on_base_shield_picked_up_handler(shield_scene: PackedScene) -> void:
 	# we attach a new shield to the base
-	_upgrade_attach_point.attach_upgrade(shield_scene.instantiate() as Shield)
+	_upgrade_attach_point.attach_upgrade(shield_scene)
 
 
 ## called when the base health runs out, which means the base is destroyed

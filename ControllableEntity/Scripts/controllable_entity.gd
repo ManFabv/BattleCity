@@ -88,8 +88,8 @@ func apply_stat_modifier(modifier: EntityStatsModifierInterface) -> void:
 
 
 ## public entry point so external systems (ex: pickups) can attach an upgrade to this entity
-func attach_upgrade(upgrade: Node3D) -> void:
-	_upgrade_attach_point.attach_upgrade(upgrade)
+func attach_upgrade(upgrade_scene: PackedScene) -> void:
+	_upgrade_attach_point.attach_upgrade(upgrade_scene)
 
 
 ## the entity move speed shorthand access

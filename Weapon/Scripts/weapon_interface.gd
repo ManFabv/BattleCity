@@ -66,20 +66,29 @@ func _fire_projectiles() -> void:
 
 ## instantiates one projectile, adds it to the tree and fires it from the given position along the muzzle
 func _fire_projectile(spawn_position: Vector3) -> void:
-	# we instantiate the projectile
-	var projectile : Projectile = _weapon_config.projectile_scene.instantiate() as Projectile
-	# we make it top level so it doesn't follow the tank after leaving the muzzle
-	projectile.top_level = true
-	# the listeners add it to the tree, so its _ready() runs before configure()
-	_on_projectile_spawned.emit(projectile)
-	# we configure it with the weapon values
-	projectile.configure(
-			_weapon_config.weapon_color,
-			_weapon_config.projectile_max_speed,
-			_weapon_config.projectile_damage_points,
-			_weapon_config.projectile_lifetime_seconds)
-	# we fire it along the muzzle forward axis
-	projectile.fire(spawn_position, _muzzle.global_transform.basis.z)
+	# we instantiate the projectile untyped, so we can still free it if its root isn't a Projectile
+	var instance : Node = _weapon_config.projectile_scene.instantiate()
+	# we cast it to the type the shot configures
+	var projectile : Projectile = instance as Projectile
+	# only a Projectile can be configured and fired
+	if is_instance_valid(projectile):
+		# we make it top level so it doesn't follow the tank after leaving the muzzle
+		projectile.top_level = true
+		# the listeners add it to the tree, so its _ready() runs before configure()
+		_on_projectile_spawned.emit(projectile)
+		# we configure it with the weapon values
+		projectile.configure(
+				_weapon_config.weapon_color,
+				_weapon_config.projectile_max_speed,
+				_weapon_config.projectile_damage_points,
+				_weapon_config.projectile_lifetime_seconds)
+		# we fire it along the muzzle forward axis
+		projectile.fire(spawn_position, _muzzle.global_transform.basis.z)
+	else:
+		# we report the misconfigured weapon config
+		push_error("projectile_scene of %s is not a Projectile scene" % _weapon_config.resource_path)
+		# a node outside the tree is not reference counted, so nobody else would free it
+		instance.free()
 
 
 ## the cooldown elapsed, so the next shot is allowed

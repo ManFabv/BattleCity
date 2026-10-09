@@ -8,4 +8,4 @@ extends PickablePowerUpInterface
 
 func _apply_pickup(controllable_entity_picker: ControllableEntity) -> void:
 	# we attach the shield to its target
-	controllable_entity_picker.attach_upgrade(_shield_scene.instantiate() as Shield)
+	controllable_entity_picker.attach_upgrade(_shield_scene)
