@@ -14,7 +14,7 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape_slow"]
 radius = 0.16
 
-[node name="ProjectileSlowPlayer" type="Area3D" unique_id=1614010296 node_paths=PackedStringArray("_hurt_entity", "_mesh")]
+[node name="PlayerLevel0Projectile"type="Area3D" unique_id=1614010296 node_paths=PackedStringArray("_hurt_entity", "_mesh")]
 collision_layer = 256
 collision_mask = 145
 script = ExtResource("1_ckhoq")
