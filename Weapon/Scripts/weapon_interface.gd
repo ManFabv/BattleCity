@@ -83,8 +83,6 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 	var projectile : Projectile = instance as Projectile
 	# only a Projectile can be configured and fired
 	if is_instance_valid(projectile):
-		# we make it top level so it doesn't follow the tank after leaving the muzzle
-		projectile.top_level = true
 		# the listeners add it to the tree, so its _ready() runs before configure()
 		_on_projectile_spawned.emit(projectile)
 		# we configure it with the weapon values

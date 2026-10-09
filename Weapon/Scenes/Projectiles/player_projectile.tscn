@@ -15,7 +15,6 @@ rings = 16
 radius = 0.127266
 
 [node name="PlayerProjectile" type="Area3D" unique_id=1208582303 node_paths=PackedStringArray("_hurt_entity", "_mesh")]
-top_level = true
 collision_layer = 256
 collision_mask = 145
 script = ExtResource("1_rrlge")
