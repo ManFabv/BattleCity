@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dy8xg21ej20gv"]
+
+[ext_resource type="Script" uid="uid://dlq83rcumhg8o" path="res://Game/Scripts/pause_input_listener.gd" id="1_listener"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_pause_input_pressed.tres" id="2_ev_on_pause_input_pressed"]
+
+[node name="PauseInputListener" type="Node" unique_id=854732812]
+process_mode = 3
+script = ExtResource("1_listener")
+_on_pause_input_pressed = ExtResource("2_ev_on_pause_input_pressed")
