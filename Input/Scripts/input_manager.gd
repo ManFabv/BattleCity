@@ -1,49 +1,40 @@
 class_name InputManager
 extends Node
 
-## we are going to use this enum to keep track of the current user controller type
-## if it's keyboard and mouse, or gamepad
+## the kind of controller the player used last; NOT_SET until the first one is chosen
 enum InputType { KEYBOARD_MOUSE, GAMEPAD, NOT_SET }
 
 @export_group("Events")
-@export var _on_input_changed_event : BaseEvent
+## event announcing that the active controller type changed
+@export var _on_input_type_changed : BaseEvent
 ## event announcing that the pause input was pressed
 @export var _on_pause_input_pressed : BaseEvent
 
 @export_group("Processors")
-## different input processors according to player controller
-@export var _keyboard_mouse_processor: KeyboardAndMouseProcessor
-@export var _game_pad_processor: GamePadProcessor
+## processor used while the player plays with keyboard and mouse
+@export var _keyboard_mouse_processor : KeyboardAndMouseProcessor
+## processor used while the player plays with a gamepad
+@export var _game_pad_processor : GamePadProcessor
 
-## According to last controller that the user pressed, we are going to use the correct input
+## the controller type the player used last
 var _last_input : InputType = InputType.NOT_SET
-## this is the actual input processor
+## the processor of that controller type
 var _current_input_processor : InputInterface
 
 
+## we start with keyboard and mouse and listen to gamepads being connected
 func _ready() -> void:
-	# Prevent input to get processed when not on focus
+	# we ignore the gamepad while the game window isn't focused
 	Input.ignore_joypad_on_unfocused_application = true
 	# by default we use keyboard and mouse
 	_change_input_type(InputType.KEYBOARD_MOUSE)
-	# we subscribe to gamepad changed signal to update input type
-	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	# we switch the controller type when a gamepad is connected or disconnected
+	Input.joy_connection_changed.connect(_on_input_joy_connection_changed)
 
 
-## here we check if the gamepad was connected or disconnected and we
-## update the input type accordingly
-func _on_joy_connection_changed(_device_id, connected):
-	if connected:
-		_change_input_type(InputType.GAMEPAD)
-	else:
-		_change_input_type(InputType.KEYBOARD_MOUSE)
-
-
-## this node's process_mode is set to Always (in input_manager.tscn) so it keeps
-## receiving input while the game is paused, letting escape toggle the pause back off
-## TODO: this only toggles get_tree().paused (see GamePauseController); we should
-## show a proper pause menu UI instead, with its own resume/quit options
-func _unhandled_input(_event):
+## runs while paused (process_mode Always) so the pause input can also resume the game
+## TODO: show a pause menu with resume and quit instead of only toggling the pause
+func _unhandled_input(_event: InputEvent) -> void:
 	# if the player pressed the pause input
 	if _current_input_processor.is_open_menu_pressed():
 		# we announce it so the pause-aware systems react
@@ -63,35 +54,46 @@ func _input(event: InputEvent) -> void:
 		_change_input_type(InputType.KEYBOARD_MOUSE)
 
 
+## the move axis of the active controller
+func get_input_movement() -> Vector2:
+	return _current_input_processor.get_input_movement()
+
+
+## where the active controller aims
+func get_look_at() -> Vector2:
+	return _current_input_processor.get_look_at()
+
+
+## true while the shoot input of the active controller is held
+func is_shot_pressed() -> bool:
+	return _current_input_processor.is_shot_pressed()
+
+
+## switches to the processor of the given controller type
 func _change_input_type(new_input_type: InputType) -> void:
 	# if we have the same input type, we don't do anything
 	if _last_input == new_input_type:
 		return
-	# if we have a valid input set, we call the exit method
-	if _current_input_processor:
+	# the first change has no previous processor to exit
+	if _last_input != InputType.NOT_SET:
 		_current_input_processor.exit_input_type()
 	# we update the current input type
 	_last_input = new_input_type
+	# we pick the processor of that type
 	match _last_input:
 		InputType.GAMEPAD:
 			_current_input_processor = _game_pad_processor
 		InputType.KEYBOARD_MOUSE:
 			_current_input_processor = _keyboard_mouse_processor
-		_: # default to keyboard
-			_current_input_processor = _keyboard_mouse_processor
 	# we call the method for start using this input type
 	_current_input_processor.enter_input_type()
-	# we trigger the signal that the type changed
-	_on_input_changed_event.emit()
+	# TODO: the HUD will listen to swap the button icons and the cursor
+	_on_input_type_changed.emit()
 
 
-func get_input_movement() -> Vector2:
-	return _current_input_processor.get_input_movement()
-
-
-func get_look_at() -> Vector2:
-	return _current_input_processor.get_look_at()
-
-
-func is_shot_pressed() -> bool:
-	return _current_input_processor.is_shot_pressed()
+## a connected gamepad becomes the active controller, a disconnected one gives it back to keyboard and mouse
+func _on_input_joy_connection_changed(_device_id: int, connected: bool) -> void:
+	if connected:
+		_change_input_type(InputType.GAMEPAD)
+	else:
+		_change_input_type(InputType.KEYBOARD_MOUSE)

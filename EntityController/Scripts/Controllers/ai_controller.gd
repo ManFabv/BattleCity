@@ -180,7 +180,7 @@ func _on_wander_timeout() -> void:
 		_wander_timed_out.emit()
 
 
-func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+func _on_navigation_agent_velocity_computed(safe_velocity: Vector3) -> void:
 	# We cache the computed safe velocity as a direction for the entity.
 	# The entity is responsible for applying its own movement speed.
 	_safe_move_direction = safe_velocity.normalized()

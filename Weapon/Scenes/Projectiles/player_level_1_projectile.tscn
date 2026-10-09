@@ -14,12 +14,13 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_2re41"]
 radius = 0.127266
 
-[node name="PlayerLevel1Projectile"type="Area3D" unique_id=1208582303 node_paths=PackedStringArray("_hurt_entity", "_mesh")]
+[node name="PlayerLevel1Projectile" type="Area3D" unique_id=1208582303 node_paths=PackedStringArray("_hurt_entity", "_mesh", "_visible_on_screen_notifier")]
 collision_layer = 256
 collision_mask = 145
 script = ExtResource("1_rrlge")
 _hurt_entity = NodePath("Hurt")
 _mesh = NodePath("TintedMesh")
+_visible_on_screen_notifier = NodePath("VisibleOnScreenNotifier3D")
 _timer_manager = ExtResource("timer_manager")
 
 [node name="TintedMesh" parent="." unique_id=1319705289 instance=ExtResource("tinted_mesh")]
@@ -37,4 +38,3 @@ collision_mask = 1024
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1883193573]
 shape = SubResource("SphereShape3D_2re41")
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

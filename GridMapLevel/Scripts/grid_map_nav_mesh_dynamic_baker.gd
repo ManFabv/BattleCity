@@ -26,7 +26,7 @@ var _pending_changes_count : int = 0:
 ## we subscribe to the relevant signals
 func _ready() -> void:
 	_grid_map_level.subscribe_to_block_destroyed(_on_grid_map_level_block_destroyed)
-	_navigation_region.bake_finished.connect(_on_bake_finished)
+	_navigation_region.bake_finished.connect(_on_navigation_region_bake_finished)
 	_on_base_spawned.subscribe(_on_base_spawned_handler, tree_exited)
 
 
@@ -45,12 +45,12 @@ func _on_base_spawned_handler(_base: Base) -> void:
 
 
 ## changes made while baking were not in that bake: rebake if any are pending
-func _on_bake_finished() -> void:
+func _on_navigation_region_bake_finished() -> void:
 	_try_rebake()
 
 
 ## starts a bake if enough changes are pending and no bake is running.
-## if a bake is running we do nothing: _on_bake_finished will pick up what is pending
+## if a bake is running we do nothing: _on_navigation_region_bake_finished picks up what is pending
 func _try_rebake(min_pending_changes: int = 1) -> void:
 	# if we don't have enough pending changes, we skip the rebake
 	if _pending_changes_count < min_pending_changes:

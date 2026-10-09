@@ -63,9 +63,8 @@ collision_layer = 1024
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D")
 
-[node name="StateMachine" parent="." unique_id=1728153428 node_paths=PackedStringArray("_ai_controller", "_navigation_agent", "_weapon_system") instance=ExtResource("9")]
+[node name="StateMachine" parent="." unique_id=1728153428 node_paths=PackedStringArray("_ai_controller", "_weapon_system") instance=ExtResource("9")]
 _ai_controller = NodePath("../AiController")
-_navigation_agent = NodePath("../NavigationAgent3D")
 _weapon_system = NodePath("../WeaponSystem")
 
 [node name="EntityLevelManager" parent="." unique_id=555100004 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
@@ -74,4 +73,5 @@ _health = NodePath("../Health")
 _weapon_system = NodePath("../WeaponSystem")
 _tintable_body_mesh = NodePath("../TintableMeshBody")
 
-[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_velocity_computed"]
+[connection signal="target_reached" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_target_reached"]

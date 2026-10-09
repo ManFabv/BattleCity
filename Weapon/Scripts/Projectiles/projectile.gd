@@ -6,6 +6,8 @@ extends Area3D
 @export var _hurt_entity: Hurt
 ## the projectile mesh, tinted with the color of the weapon that fires it
 @export var _mesh: TintedMesh
+## reports when the projectile leaves the screen
+@export var _visible_on_screen_notifier : VisibleOnScreenNotifier3D
 ## the shared timer manager used to request the lifetime timer
 @export var _timer_manager : TimerManagerResource
 
@@ -24,6 +26,8 @@ func _ready() -> void:
 	_hurt_entity.subscribe_to_damage_dealt(_destroy_projectile)
 	# we listen to the bodies we hit
 	body_shape_entered.connect(_on_body_shape_entered)
+	# we are destroyed once we leave the screen
+	_visible_on_screen_notifier.screen_exited.connect(_destroy_projectile)
 
 
 ## we move the projectile along its direction
@@ -75,10 +79,3 @@ func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, 
 		destructible_grid_map.destroy_block_from_shape(body_rid, body_shape_index)
 	# if two shapes are touched at once (a seam) this runs twice: queue_free() twice is harmless
 	_destroy_projectile()
-
-
-## here we check if the projectile left the screen to remove it
-## this is done using the VisibleOnScreenNotifier3D node
-func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
-	# we only need to remove the projectile
-	queue_free()
