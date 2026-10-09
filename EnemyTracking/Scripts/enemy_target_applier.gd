@@ -27,11 +27,11 @@ func _ready() -> void:
 
 ## when an enemy is spawned we set the current base and player as its targets
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
-	if is_instance_valid(enemy):
-		var ai_controller : AIController = enemy.get_entity_controller() as AIController
-		if is_instance_valid(ai_controller):
-			# because it's a recently spawned enemy, we need to setup its target base and player
-			ai_controller.set_attack_targets(_player_target, _base_target)
+	# we reach the concrete controller to inject the targets (documented exception)
+	var ai_controller : AIController = enemy.get_entity_controller() as AIController
+	if is_instance_valid(ai_controller):
+		# because it's a recently spawned enemy, we need to setup its target base and player
+		ai_controller.set_attack_targets(_player_target, _base_target)
 
 
 ## when a player is spawned we cache it for the enemies spawned from now on

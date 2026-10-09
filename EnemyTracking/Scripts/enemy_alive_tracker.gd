@@ -19,12 +19,14 @@ func _ready() -> void:
 	_on_enemy_spawned.subscribe(_on_enemy_spawned_handler, tree_exited)
 
 
-## if the instance is valid, we count it and we listen to enemy death event so we can decrement the count
+## we count the new enemy and we listen to its death so we can decrement the count
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
-	if is_instance_valid(enemy):
-		_enemies_alive_count += 1
-		enemy.subscribe_to_death(_on_enemy_died)
-		_on_enemy_count_changed.emit(_enemies_alive_count)
+	# we count the enemy that was just spawned
+	_enemies_alive_count += 1
+	# we listen to its death to decrement the count
+	enemy.subscribe_to_death(_on_enemy_died)
+	# we notify that the count changed
+	_on_enemy_count_changed.emit(_enemies_alive_count)
 
 
 ## we decrement the alive count and notify that the count changed

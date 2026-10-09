@@ -13,7 +13,5 @@ func _ready() -> void:
 
 
 func _parent_node(new_node: Node) -> void:
-	# if the parameter is valid
-	if is_instance_valid(new_node):
-		# we add the node as child
-		add_child(new_node)
+	# we add the node as child; SpawnPoint.spawn() only emits a live, just instantiated node
+	add_child(new_node)
