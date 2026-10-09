@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://Weapon/Scripts/Projectiles/projectile.gd" id="1_rrlge"]
 [ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://Health/Scenes/hurt.tscn" id="4_f8ohn"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="timer_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bece"]
@@ -20,6 +21,7 @@ collision_mask = 145
 script = ExtResource("1_rrlge")
 _hurt_entity = NodePath("Hurt")
 _mesh = NodePath("TintedMesh")
+_timer_manager = ExtResource("timer_manager")
 
 [node name="TintedMesh" parent="." unique_id=1319705289 instance=ExtResource("tinted_mesh")]
 cast_shadow = 0
@@ -31,7 +33,7 @@ shape = SubResource("SphereShape3D_2re41")
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1369367574]
 
 [node name="Hurt" parent="." unique_id=1016129527 instance=ExtResource("4_f8ohn")]
-collision_mask = 4
+collision_mask = 1024
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1883193573]
 shape = SubResource("SphereShape3D_2re41")

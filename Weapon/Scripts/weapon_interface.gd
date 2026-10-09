@@ -73,7 +73,11 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 	# the listeners add it to the tree, so its _ready() runs before configure()
 	_on_projectile_spawned.emit(projectile)
 	# we configure it with the weapon values
-	projectile.configure(_weapon_config.weapon_color, _weapon_config.projectile_max_speed, _weapon_config.projectile_damage_points)
+	projectile.configure(
+			_weapon_config.weapon_color,
+			_weapon_config.projectile_max_speed,
+			_weapon_config.projectile_damage_points,
+			_weapon_config.projectile_lifetime_seconds)
 	# we fire it along the muzzle forward axis
 	projectile.fire(spawn_position, _muzzle.global_transform.basis.z)
 

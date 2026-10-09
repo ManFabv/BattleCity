@@ -58,7 +58,7 @@ neighbor_distance = 20.0
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=770466037 instance=ExtResource("8")]
-collision_layer = 4
+collision_layer = 1024
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=438800465]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

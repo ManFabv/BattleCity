@@ -6,6 +6,8 @@ extends Area3D
 @export var _hurt_entity: Hurt
 ## the projectile mesh, tinted with the color of the weapon that fires it
 @export var _mesh: TintedMesh
+## the shared timer manager used to request the lifetime timer
+@export var _timer_manager : TimerManagerResource
 
 ## direction the projectile moves, set when it's fired
 var _move_direction : Vector3 = Vector3.FORWARD
@@ -18,7 +20,9 @@ var _projectile_max_speed : float = 0.0:
 
 ## to avoid having to connect this signal on every node, we connect it here
 func _ready() -> void:
+	# we are destroyed after dealing damage
 	_hurt_entity.subscribe_to_damage_dealt(_destroy_projectile)
+	# we listen to the bodies we hit
 	body_shape_entered.connect(_on_body_shape_entered)
 
 
@@ -28,14 +32,18 @@ func _physics_process(delta: float) -> void:
 	global_position += _move_direction * _projectile_max_speed * delta
 
 
-## tints the projectile and caches how fast it moves and how much damage it deals; called once it's in the tree
-func configure(projectile_color: Color, projectile_max_speed: float, projectile_damage_points: int) -> void:
+## tints the projectile, caches how fast it moves and how much damage it deals and starts its lifetime;
+## called once it's in the tree
+func configure(projectile_color: Color, projectile_max_speed: float, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
 	# we tint the projectile with the color of whoever fired it
 	_mesh.apply_color(projectile_color)
 	# we cache the speed so the physics step only reads members
 	_projectile_max_speed = projectile_max_speed
 	# we set the damage the hurt area deals
 	_hurt_entity.configure(projectile_damage_points)
+	# a shot that never enters the screen (the notifier only reports leaving it) nor hits anything is
+	# removed when its lifetime ends; the timer is cancelled if the projectile leaves the tree before
+	_timer_manager.create_one_shot(projectile_lifetime_seconds, _destroy_projectile, tree_exited)
 
 
 ## places the projectile and sets the direction it moves
@@ -56,7 +64,9 @@ func _destroy_projectile() -> void:
 	queue_free()
 
 
-## if it's a destructible grid we break the block of the shape we hit, in any case the projectile is destroyed
+## if it's a destructible grid we break the block of the shape we hit, in any case the projectile is destroyed;
+## documented exception: the mask mixes World and Base (StaticBody3D) with LevelBlocks (GridMap, destructible
+## or not), so the parameter is their common Node3D and we only cast to break bricks
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
 	# we only break blocks if the body is a destructible grid
 	var destructible_grid_map : DestructibleGridMap = body as DestructibleGridMap

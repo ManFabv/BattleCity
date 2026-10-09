@@ -14,7 +14,10 @@ extends Node
 @export var _grid_map_level : GridMapLevel
 
 ## blocks destroyed that the current navmesh does not reflect yet
-var _pending_blocks_count : int = 0
+var _pending_blocks_count : int = 0:
+	set(new_value):
+		# we prevent negative counts
+		_pending_blocks_count = maxi(new_value, 0)
 
 
 ## we subscribe to the relevant signals

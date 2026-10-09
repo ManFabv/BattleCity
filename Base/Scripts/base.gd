@@ -25,8 +25,11 @@ extends Node3D
 
 ## we configure the health and color of the base and we subscribe to events
 func _ready() -> void:
+	# we tint the base body
 	_mesh.apply_color(_base_color)
+	# we start the base at full health
 	_health.configure(_max_health_points)
+	# the base is destroyed when its health runs out
 	_health.subscribe_to_depleted(_on_health_depleted)
 	# we subscribe to the base shield picked up event, so the powerup doesn't need a reference to the base
 	_on_base_shield_picked_up.subscribe(_on_base_shield_picked_up_handler, tree_exited)

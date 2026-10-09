@@ -61,7 +61,6 @@ _input_manager = NodePath("../InputManager")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
-collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

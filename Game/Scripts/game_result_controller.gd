@@ -17,10 +17,14 @@ extends Node
 
 ## true once there are no more enemies to spawn
 var _are_all_spawns_finished : bool = false
-## last known amount of alive enemies
-var _enemies_alive_count : int = 0
 ## true once this level reached victory or defeat, so a second outcome in the same frame is ignored
 var _is_level_resolved : bool = false
+
+## last known amount of alive enemies
+var _enemies_alive_count : int = 0:
+	set(new_value):
+		# we prevent negative counts
+		_enemies_alive_count = maxi(new_value, 0)
 
 
 ## we subscribe to the different signals that we need to be aware of and notify
