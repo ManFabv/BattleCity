@@ -6,11 +6,6 @@ extends EntityControllerInterface
 @export var _input_manager : InputManager
 
 
-## injected by PlayerCameraApplier right after this player is spawned
-func set_camera(camera: PlayerCamera) -> void:
-	_input_manager.set_camera(camera)
-
-
 func get_move_direction() -> Vector3:
 	# we get the move axis from the input manager
 	var move_input : Vector2 = _process_move_input()

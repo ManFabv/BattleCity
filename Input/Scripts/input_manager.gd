@@ -95,8 +95,3 @@ func get_look_at() -> Vector2:
 
 func is_shot_pressed() -> bool:
 	return _current_input_processor.is_shot_pressed()
-
-
-## injected right after this player's controller is spawned; forwarded to the processor that aims with the mouse
-func set_camera(camera: PlayerCamera) -> void:
-	_keyboard_mouse_processor.set_camera(camera)

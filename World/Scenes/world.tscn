@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
-[ext_resource type="PackedScene" uid="uid://dp2kuvi7dycrs" path="res://Spawner/Scenes/Applier/player_camera_applier.tscn" id="42_cameraapplier"]
 [ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://Spawner/Scenes/SpawnPoint/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
@@ -230,9 +229,6 @@ spawn_point_id = 2
 [node name="PlayerCamera" parent="Player" unique_id=297298889 instance=ExtResource("24_playercamera")]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
-
-[node name="PlayerCameraApplier" parent="Player" unique_id=297298891 node_paths=PackedStringArray("_player_camera") instance=ExtResource("42_cameraapplier")]
-_player_camera = NodePath("../PlayerCamera")
 
 [node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("PlayerSpawnPoint")]
