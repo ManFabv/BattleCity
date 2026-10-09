@@ -50,9 +50,8 @@ var _wander_timeout_timer : CustomTimer
 func _ready() -> void:
 	_wander_timeout_timer = _timer_manager.create_manual(
 			_wander_timeout_seconds, 
-			_on_wander_timeout, 
-			tree_exited, 
-			false)
+			_on_wander_timeout,
+			tree_exited)
 	_entity_level_manager.subscribe_to_configured_for_level(_on_entity_configured_for_level)
 	_on_grenade_picked_up.subscribe(_on_grenade_picked_up_handler, tree_exited)
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)

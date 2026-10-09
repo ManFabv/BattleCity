@@ -22,7 +22,7 @@ var _is_fire_rate_ready : bool = true
 
 ## we request the cooldown timer once, not started so the first shot is allowed right away
 func _ready() -> void:
-	_fire_rate_timer = _timer_manager.create_manual(_weapon_config.fire_rate_seconds, _on_fire_rate_timer_timeout, tree_exited, false)
+	_fire_rate_timer = _timer_manager.create_manual(_weapon_config.fire_rate_seconds, _on_fire_rate_timer_timeout, tree_exited)
 
 
 ## we cache the config and mount the weapon mesh; called before the weapon enters the tree

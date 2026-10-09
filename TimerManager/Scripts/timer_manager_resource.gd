@@ -32,8 +32,8 @@ func create_loop(duration: float, on_timeout: Callable, owner_exited: Signal, au
 	return _create(duration, CustomTimer.TimerMode.LOOP, on_timeout, owner_exited, auto_start)
 
 
-## create a manual timer, the owner restarts it with start()
-func create_manual(duration: float, on_timeout: Callable, owner_exited: Signal, auto_start: bool = true) -> CustomTimer:
+## create a manual timer, stopped by default: the owner starts and restarts it with start()
+func create_manual(duration: float, on_timeout: Callable, owner_exited: Signal, auto_start: bool = false) -> CustomTimer:
 	return _create(duration, CustomTimer.TimerMode.MANUAL, on_timeout, owner_exited, auto_start)
 
 
