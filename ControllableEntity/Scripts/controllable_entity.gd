@@ -79,7 +79,7 @@ func level_up() -> void:
 
 ## kills this entity right away, whatever its health (ex: grenade, fall)
 func eliminate() -> void:
-	_on_health_depleted()
+	_die()
 
 
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
@@ -109,6 +109,14 @@ func _check_vertical_death() -> void:
 		eliminate()
 
 
+## notifies the death and removes the entity at the end of the frame
+func _die() -> void:
+	# TODO: spawn particles or play a sound before removing the node
+	_entity_died.emit()
+	# we remove the entity once the frame ends
+	queue_free()
+
+
 ## listeners are notified once, since the entity is freed right after dying
 func subscribe_to_death(on_death: Callable) -> void:
 	_entity_died.connect(on_death, CONNECT_ONE_SHOT)
@@ -116,8 +124,4 @@ func subscribe_to_death(on_death: Callable) -> void:
 
 ## called when the health runs out, which means this entity dies
 func _on_health_depleted() -> void:
-	# TODO: we need a better implementation for this method
-	# like spawning particles or playing sounds before
-	# removing the node
-	_entity_died.emit()
-	queue_free()
+	_die()
