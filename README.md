@@ -93,13 +93,11 @@ Mi flujo de desarrollo incluye:
 * Brainstorming: exploración de alternativas y detección de posibles mejoras.
 * Validación de restricciones: análisis de ventajas y desventajas de mis diseños específicos.
 * Revisión puntual: contraste de errores o riesgos antes de integrar un cambio.
+* Implementacion puntual de refactors o simplificaciones.
 
-La IA no es el autor principal de las ideas, del código ni de los assets. Las sugerencias se revisan, adaptan y aplican manualmente. Cuando una consulta de IA aporta directamente a un cambio, se documenta en el commit correspondiente; no implica que la herramienta haya realizado la implementación.
+La IA no es el autor principal de las ideas, del código ni de los assets. Las sugerencias se revisan, adaptan y se aplican.
+Esto quiere decir que no se deja a la IA mas que como consulta y para la implementacion rapida de mis ideas de refactor y no es usada para vibe coding
 
-Commits con consulta IA: 
-* [49c319ee39ccd2c9e449df5bab995958a0cf6b2a](https://github.com/ManFabv/BattleCity/commit/49c319ee39ccd2c9e449df5bab995958a0cf6b2a)
-* [3847ca0b60e40670973fcff7aa576597b10a30e6](https://github.com/ManFabv/BattleCity/commit/3847ca0b60e40670973fcff7aa576597b10a30e6)
-* [44e8ed7fc8dc3f7b4dc7094f569af061de15eb74](https://github.com/ManFabv/BattleCity/commit/44e8ed7fc8dc3f7b4dc7094f569af061de15eb74)
 
 ## Recursos de aprendizaje: ##
 * [Principal: UNL](https://www.unl.edu.ar/carreras/tecnicatura-en-diseno-y-programacion-de-videojuegos-2/)
