@@ -25,13 +25,8 @@ func get_move_direction() -> Vector3:
 func get_look_at_angle() -> float:
 	# we get the position where we have to look at
 	var look_at_input : Vector2 = _process_look_at_input()
-	# we convert the input to 3D to be able to move the player in the world
-	var world_look_at : Vector3 = Vector3(look_at_input.x,
-		owner_controllable_entity.global_position.y, 
-		look_at_input.y)
-	var desired_look_at_angle : float = atan2(-world_look_at.x, -world_look_at.z)
-	# we return the wanted angle
-	return desired_look_at_angle
+	# the input's y is the world's z, so the yaw comes straight from the 2D input
+	return atan2(-look_at_input.x, -look_at_input.y)
 
 
 func _process_move_input() -> Vector2:
