@@ -12,8 +12,8 @@ extends Node3D
 var _weapon_config : WeaponConfig
 ## this weapon's visual mesh, carrying its own muzzle
 var _weapon_mesh : WeaponMesh
-## where this weapon's projectiles spawn from; taken from the weapon mesh above
-var _muzzle : Marker3D
+## where this weapon's projectiles spawn from; the mesh's muzzle, or this weapon if the mesh is invalid
+var _muzzle : Node3D
 ## cooldown between shots, restarted manually with the fire rate on every shot
 var _fire_rate_timer : CustomTimer
 ## true once the cooldown elapsed, so the next shot is allowed
@@ -49,14 +49,25 @@ func try_shot() -> bool:
 
 ## instantiates this weapon's visual mesh, tints it and takes its muzzle from it
 func _mount_weapon_mesh() -> void:
-	# we instantiate the mesh of this weapon
-	_weapon_mesh = _weapon_config.weapon_mesh_scene.instantiate() as WeaponMesh
-	# we parent it here so it follows the entity
-	add_child(_weapon_mesh)
-	# we cache the muzzle the projectiles spawn from
-	_muzzle = _weapon_mesh.muzzle
-	# we tint it with the weapon color
-	_weapon_mesh.apply_color(_weapon_config.weapon_color)
+	# we instantiate the mesh untyped, so we can still free it if its root isn't a WeaponMesh
+	var instance : Node = _weapon_config.weapon_mesh_scene.instantiate()
+	# we cast it to the mesh type that carries the muzzle
+	_weapon_mesh = instance as WeaponMesh
+	# only a WeaponMesh has a muzzle to fire from
+	if is_instance_valid(_weapon_mesh):
+		# we parent it here so it follows the entity
+		add_child(_weapon_mesh)
+		# we cache the muzzle the projectiles spawn from
+		_muzzle = _weapon_mesh.muzzle
+		# we tint it with the weapon color
+		_weapon_mesh.apply_color(_weapon_config.weapon_color)
+	else:
+		# we report the misconfigured weapon config
+		push_error("weapon_mesh_scene of %s is not a WeaponMesh scene" % _weapon_config.resource_path)
+		# a node outside the tree is not reference counted, so nobody else would free it
+		instance.free()
+		# the weapon still fires, from its own position
+		_muzzle = self
 
 
 ## fires the projectiles of one shot, each weapon type implements it
