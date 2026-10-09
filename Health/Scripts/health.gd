@@ -2,6 +2,7 @@ class_name Health
 extends Area3D
 
 ## emitted every time the health changes, healing or damaging
+## TODO: the HUD will subscribe to it to show the health bar
 signal _health_changed(max_health_points: int, current_health: int)
 ## emitted when the health runs out
 signal _depleted
@@ -49,6 +50,7 @@ func take_damage(damage_points: int) -> void:
 
 
 ## here we take heal amount
+## TODO: a healing power-up will call it
 func take_heal(heal_points: int) -> void:
 	# we report a health that was never configured, because it would look depleted and ignore the heal silently
 	if _max_health_points < 1:

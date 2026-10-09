@@ -17,8 +17,7 @@ func configure(new_entity_stats: EntityStats) -> void:
 	_apply_modifiers()
 
 
-## we add the modifier applier and we reapply every active one
-## NOTE: every recompute starts from the base stats, so a modifier can't build on its own previous result
+## we add the modifier applier and we recompute the stats from the base with every active one
 func add_modifier(new_entity_stats_modifier: EntityStatsModifierInterface) -> void:
 	# we cache the actual instance that will apply the modification
 	var applier : EntityStatsModifierApplier = new_entity_stats_modifier.create_new_applier(
@@ -37,7 +36,7 @@ func resulting_entity_stats() -> EntityStats:
 
 ## we apply all entity stats modifiers
 func _apply_modifiers() -> void:
-	# a fresh working copy every recompute, so the shared base resource is never modified (accepted .duplicate() exception)
+	# a fresh copy every recompute, the modifiers never touch the shared base resource
 	_current_stacked_entity_stats = _base_entity_stats.duplicate()
 	# we apply all the modifiers
 	for modifier in _modifiers:

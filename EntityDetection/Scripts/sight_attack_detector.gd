@@ -14,8 +14,7 @@ extends Node3D
 @export var _vision_shape_cast : ShapeCast3D
 
 
-## checks distance and a shapecast sweep toward the target to know if it's a valid attack target;
-## the caller makes sure the target is still valid
+## true if the target is in range and nothing blocks the sweep toward it; the caller validates it
 func has_detected_target(target: Node3D) -> bool:
 	# we cache the target position
 	var target_position : Vector3 = target.global_position

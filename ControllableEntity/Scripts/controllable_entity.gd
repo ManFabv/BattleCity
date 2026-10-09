@@ -30,6 +30,7 @@ var _current_entity_stats : EntityStats:
 		return _entity_stats_manager.resulting_entity_stats()
 
 
+## we apply the current level and listen to the health running out
 func _ready() -> void:
 	# we ask the level manager to configure this entity, the children are ready by now
 	_entity_level_manager.configure_entity_for_current_level()
@@ -37,12 +38,15 @@ func _ready() -> void:
 	_health.subscribe_to_depleted(_on_health_depleted)
 
 
+## moves, rotates and shoots following the controller, on the tick that consumes its input
 func _physics_process(delta: float) -> void:
 	# we read the controller intention on the same tick that consumes it
 	var target_velocity : Vector3 = _entity_controller.get_move_direction() * get_entity_move_speed()
 	# the max velocity change allowed this tick: reaching move_speed takes move_acceleration_time_seconds
 	var max_velocity_change_this_tick : float = (get_entity_move_speed() / _current_entity_stats.move_acceleration_time_seconds) * delta
+	# we only accelerate on the floor plane
 	var current_velocity_on_floor : Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+	# the target on the same plane
 	var target_velocity_on_floor : Vector3 = Vector3(target_velocity.x, 0.0, target_velocity.z)
 	# moving the vector as a whole keeps the diagonal ramps in a straight line
 	var new_velocity_on_floor : Vector3 = current_velocity_on_floor.move_toward(target_velocity_on_floor, max_velocity_change_this_tick)
@@ -66,6 +70,7 @@ func _physics_process(delta: float) -> void:
 
 
 ## sets the level this entity starts with; only stores the index
+## TODO: the player save will call it to restore the player's level
 func set_initial_level(level: int) -> void:
 	# we let the level manager store it, it works before the entity enters the tree
 	_entity_level_manager.set_initial_level(level)

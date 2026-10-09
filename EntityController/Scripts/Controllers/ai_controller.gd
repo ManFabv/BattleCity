@@ -1,8 +1,7 @@
 class_name AIController
 extends EntityControllerInterface
 
-## emitted when the current wander target isn't reached before its timeout;
-## the state machine reacts to this the same way it reacts to reaching the target
+## emitted when the current wander target isn't reached before its timeout
 signal _wander_timed_out
 
 @export_group("Navigation")
@@ -25,7 +24,6 @@ signal _wander_timed_out
 	set(new_value):
 		# we prevent negative timeouts
 		_wander_timeout_seconds = maxf(new_value, 0.0)
-
 
 ## safe movement direction, computed asynchronously by the avoidance callback
 var _safe_move_direction : Vector3
@@ -53,11 +51,11 @@ func _ready() -> void:
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
 
 
+## feeds the agent the desired velocity and returns the safe direction computed by the avoidance
 func get_move_direction() -> Vector3:
 	# we take the next position on the navmesh
 	var next_position : Vector3 = _navigation_agent.get_next_path_position()
-	# we take the direction between our owner position and the next
-	# path position to know in which intended direction we need to move
+	# we take the direction from our owner to the next path position
 	var intended_direction : Vector3 = owner_controllable_entity.global_position.direction_to(next_position)
 	# we read the speed every tick, so level ups and stat modifiers reach the agent
 	var move_speed : float = owner_controllable_entity.get_entity_move_speed()
@@ -65,19 +63,18 @@ func get_move_direction() -> Vector3:
 	_navigation_agent.max_speed = move_speed
 	# we set the desired velocity to the navigation agent for avoidance calculation
 	_navigation_agent.velocity = intended_direction * move_speed
-	# Return the safe position which is calculated 
-	# by the avoidance callback previously
+	# the safe direction comes from the previous avoidance callback
 	return _safe_move_direction
 
 
+## aims straight at the attack target, or along the movement while wandering
 func get_look_at_angle() -> float:
-	# while attacking, aim straight at the target instead of following the
-	# avoidance movement direction (which isn't reliable for aiming)
+	# while attacking, the avoidance direction isn't reliable for aiming
 	if is_instance_valid(_current_attack_target):
 		var direction_to_target : Vector3 = owner_controllable_entity.global_position.direction_to(
 				_current_attack_target.global_position)
 		_target_look_at = atan2(-direction_to_target.x, -direction_to_target.z)
-	# we are going to take the angle only if we don't reached target
+	# we only follow the movement while the target isn't reached
 	elif _can_aim():
 		# we get the angle where we have to look at
 		_target_look_at = atan2(-_safe_move_direction.x, -_safe_move_direction.z)
@@ -95,13 +92,9 @@ func stop_shooting() -> void:
 	_has_shot = false
 
 
+## true while the state machine holds the shoot input
 func is_shot_pressed() -> bool:
 	return _has_shot
-
-
-## listeners are notified when the entity gives up on the current wander target
-func subscribe_to_wander_timed_out(on_wander_timed_out: Callable) -> void:
-	_wander_timed_out.connect(on_wander_timed_out)
 
 
 ## called once by EnemyTargetApplier right after this entity spawns, with the targets alive at that moment
@@ -124,8 +117,7 @@ func attack_base() -> void:
 		_current_attack_target = _base_target
 
 
-## freezes the look-at angle at whatever it was aiming when the shot is taken,
-## so the entity doesn't keep turning to follow the target while it fires
+## freezes the look-at angle where it was aiming, so the entity doesn't turn while it fires
 func stop_aiming() -> void:
 	_current_attack_target = null
 
@@ -154,13 +146,12 @@ func set_random_target_position() -> void:
 	_wander_timeout_timer.start(_wander_timeout_seconds)
 
 
-## picks a random point on the navigation region; if it can't be reached
-## the wander timeout takes care of giving up on it
+## picks a random point on the navigation map; the wander timeout gives up on it if it can't be reached
 func _get_random_wander_target() -> Vector3:
-	# the agent joins the world's navigation map when it enters the tree, so nobody has to inject it
+	# the agent joins the world's navigation map when it enters the tree
 	return NavigationServer3D.map_get_random_point(
 			_navigation_agent.get_navigation_map(),
-			_navigation_agent.navigation_layers, 
+			_navigation_agent.navigation_layers,
 			false)
 
 
@@ -169,20 +160,22 @@ func _can_aim() -> bool:
 	return not _navigation_agent.is_target_reached()
 
 
-## a timeout can still fire after the target was already reached (ex: while attacking);
-## in that case is_target_reached() is true and there's nothing to give up on
+## listeners are notified when the entity gives up on the current wander target
+func subscribe_to_wander_timed_out(on_wander_timed_out: Callable) -> void:
+	_wander_timed_out.connect(on_wander_timed_out)
+
+
+## gives up on a wander target not reached in time; it can fire after reaching it, then it does nothing
 func _on_wander_timeout() -> void:
 	if not _navigation_agent.is_target_reached():
-		# give up on the current wander target by clamping it to where we are, so the entity
-		# stops moving exactly as if it had reached it, and let the state machine move on
-		# to the next state instead of retrying wander forever
+		# we move the target to where we are, so the entity stops as if it had reached it
 		_navigation_agent.set_target_position(owner_controllable_entity.global_position)
+		# we let the state machine move on instead of wandering forever
 		_wander_timed_out.emit()
 
 
+## the avoidance computed a safe velocity; the entity applies its own speed to the direction
 func _on_navigation_agent_velocity_computed(safe_velocity: Vector3) -> void:
-	# We cache the computed safe velocity as a direction for the entity.
-	# The entity is responsible for applying its own movement speed.
 	_safe_move_direction = safe_velocity.normalized()
 
 

@@ -1,7 +1,6 @@
 class_name EnemyTargetApplier
 extends Node
-## applies the current player and base as attack targets to every enemy AI controller when it spawns;
-## later player respawns reach the enemies already alive through their own on_player_spawned subscription
+## hands the current player and base to every enemy when it spawns, events aren't sticky
 
 @export_group("Events")
 ## event we listen to in order to know when a new enemy needs its attack targets
@@ -17,8 +16,7 @@ var _player_target : ControllableEntity
 var _base_target : Base
 
 
-## we listen when a base and player are spawned and cached those references so we can inject them to
-## the enemies when they are spawned in the level
+## we cache the player and the base when they spawn, to hand them to the enemies spawned later
 func _ready() -> void:
 	_on_enemy_spawned.subscribe(_on_enemy_spawned_handler, tree_exited)
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
@@ -27,7 +25,7 @@ func _ready() -> void:
 
 ## when an enemy is spawned we set the current base and player as its targets
 func _on_enemy_spawned_handler(enemy: ControllableEntity) -> void:
-	# we reach the concrete controller to inject the targets (documented exception)
+	# only the AI controller takes attack targets
 	var ai_controller : AIController = enemy.get_entity_controller() as AIController
 	if is_instance_valid(ai_controller):
 		# because it's a recently spawned enemy, we need to setup its target base and player

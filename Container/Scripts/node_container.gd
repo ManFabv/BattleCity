@@ -1,17 +1,17 @@
 class_name NodeContainer
 extends Node3D
+## parents spawned nodes, so they outlive whoever spawned them
 
-## we are going to listen this event so we can parent the nodes
-## to this object avoiding to remove nodes when their owners are removed
 @export_group("Events")
+## event carrying the spawned node, still outside the tree
 @export var _on_node_spawned: BaseEvent
 
 
+## we listen to the spawned event; being first in tree order makes us its first listener
 func _ready() -> void:
-	# We start listening to the event
-	_on_node_spawned.subscribe(_parent_node, tree_exited)
+	_on_node_spawned.subscribe(_on_node_spawned_handler, tree_exited)
 
 
-func _parent_node(new_node: Node) -> void:
-	# we add the node as child; SpawnPoint.spawn() only emits a live, just instantiated node
+## we add the node as child, which runs its _ready()
+func _on_node_spawned_handler(new_node: Node) -> void:
 	add_child(new_node)

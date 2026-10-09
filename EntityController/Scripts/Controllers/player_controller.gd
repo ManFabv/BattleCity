@@ -6,6 +6,7 @@ extends EntityControllerInterface
 @export var _input_manager : InputManager
 
 
+## the move input at full speed in any direction, on the floor plane
 func get_move_direction() -> Vector3:
 	# we get the move axis from the input manager
 	var move_input : Vector2 = _input_manager.get_input_movement()
@@ -17,6 +18,7 @@ func get_move_direction() -> Vector3:
 	return move_direction
 
 
+## the yaw toward the aim of the active controller
 func get_look_at_angle() -> float:
 	# we get the position where we have to look at
 	var look_at_input : Vector2 = _input_manager.get_look_at()
@@ -24,5 +26,6 @@ func get_look_at_angle() -> float:
 	return atan2(-look_at_input.x, -look_at_input.y)
 
 
+## true while the shoot input is held
 func is_shot_pressed() -> bool:
 	return _input_manager.is_shot_pressed()

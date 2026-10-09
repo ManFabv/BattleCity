@@ -19,12 +19,12 @@ func _ready() -> void:
 
 ## called when we are going to start using this input
 func enter_input_type() -> void:
-	pass #TODO: here we can change cursor GUI
+	pass # TODO: show the mouse cursor
 
 
 ## called when we are going to stop using this input and change to another
 func exit_input_type() -> void:
-	pass #TODO: here we can change cursor GUI
+	pass # TODO: hide the mouse cursor
 
 
 ## here we need to calculate where to look according to mouse position

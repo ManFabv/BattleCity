@@ -49,8 +49,7 @@ func _on_navigation_region_bake_finished() -> void:
 	_try_rebake()
 
 
-## starts a bake if enough changes are pending and no bake is running.
-## if a bake is running we do nothing: _on_navigation_region_bake_finished picks up what is pending
+## starts a bake if enough changes are pending; while one runs, its bake_finished picks them up
 func _try_rebake(min_pending_changes: int = 1) -> void:
 	# if we don't have enough pending changes, we skip the rebake
 	if _pending_changes_count < min_pending_changes:

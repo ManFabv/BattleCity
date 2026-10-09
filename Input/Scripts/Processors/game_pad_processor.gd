@@ -13,12 +13,12 @@ var _last_point_position : Vector2 = Vector2.ZERO
 
 ## called when we are going to start using this input
 func enter_input_type() -> void:
-	pass #TODO: here we can change cursor GUI
+	pass # TODO: show the gamepad aim reticle
 
 
 ## called when we are going to stop using this input and change to another
 func exit_input_type() -> void:
-	pass #TODO: here we can change cursor GUI
+	pass # TODO: hide the gamepad aim reticle
 
 
 ## here we need to calculate where to look according to right stick

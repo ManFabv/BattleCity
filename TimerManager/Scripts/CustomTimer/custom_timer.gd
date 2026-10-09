@@ -48,8 +48,7 @@ func tick(delta: float) -> void:
 	if _time_left == 0.0:
 		# we trigger the signal
 		_trigger_timeout()
-		# if it's looping we start the timer again
-		# and if it's not then we free the timer
+		# we restart, stop or release the timer depending on its mode
 		_handle_no_time_left()
 
 
@@ -77,8 +76,7 @@ func is_ready_for_cleanup() -> bool:
 	return _state == TimerState.READY_TO_CLEANUP
 
 
-## marks the timer for removal; the manager drops it on its next tick
-## (never erase it from the list directly, it could be mid-iteration)
+## marks the timer for removal; the manager drops it on its next tick, it could be mid-iteration now
 func cancel() -> void:
 	_prepare_for_cleanup()
 
@@ -99,7 +97,7 @@ func _prepare_for_cleanup() -> void:
 	_state = TimerState.READY_TO_CLEANUP
 
 
-# if it's looping we start the timer again and if it's not then we free the timer
+## restarts a loop, stops a manual timer and marks a one shot for removal
 func _handle_no_time_left() -> void:
 	match _mode:
 		# if it's looping, we need to restart the loop

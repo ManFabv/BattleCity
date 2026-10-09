@@ -8,6 +8,7 @@ extends Node3D
 @export var _timer_manager_scene: PackedScene
 
 
+## we start the single timer driver and the first scene
 func _ready() -> void:
 	# TODO: here we should instantiate any global system
 	var current_timer_manager : CustomTimerManager = _timer_manager_scene.instantiate() as CustomTimerManager

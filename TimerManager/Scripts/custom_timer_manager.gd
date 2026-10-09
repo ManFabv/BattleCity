@@ -6,5 +6,6 @@ extends Node
 @export var _timer_manager : TimerManagerResource
 
 
+## we tick every shared timer once per frame
 func _process(delta: float) -> void:
 	_timer_manager.tick(delta)

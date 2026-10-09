@@ -36,8 +36,7 @@ func _physics_process(delta: float) -> void:
 	global_position += _move_direction * _projectile_max_speed * delta
 
 
-## tints the projectile, caches how fast it moves and how much damage it deals and starts its lifetime;
-## called once it's in the tree
+## tints the projectile, caches its speed and damage and starts its lifetime; called once it's in the tree
 func configure(projectile_color: Color, projectile_max_speed: float, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
 	# we tint the projectile with the color of whoever fired it
 	_mesh.apply_color(projectile_color)
@@ -45,8 +44,7 @@ func configure(projectile_color: Color, projectile_max_speed: float, projectile_
 	_projectile_max_speed = projectile_max_speed
 	# we set the damage the hurt area deals
 	_hurt_entity.configure(projectile_damage_points)
-	# a shot that never enters the screen (the notifier only reports leaving it) nor hits anything is
-	# removed when its lifetime ends; the timer is cancelled if the projectile leaves the tree before
+	# a shot spawned off screen never gets screen_exited, so its lifetime timer removes it
 	_timer_manager.create_one_shot(projectile_lifetime_seconds, _destroy_projectile, tree_exited)
 
 
@@ -68,9 +66,7 @@ func _destroy_projectile() -> void:
 	queue_free()
 
 
-## if it's a destructible grid we break the block of the shape we hit, in any case the projectile is destroyed;
-## documented exception: the mask mixes World and Base (StaticBody3D) with LevelBlocks (GridMap, destructible
-## or not), so the parameter is their common Node3D and we only cast to break bricks
+## the body is a StaticBody3D (World, Base) or a GridMap (LevelBlocks); bricks break, the projectile always dies
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, _local_shape_index: int) -> void:
 	# we only break blocks if the body is a destructible grid
 	var destructible_grid_map : DestructibleGridMap = body as DestructibleGridMap

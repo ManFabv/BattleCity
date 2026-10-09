@@ -7,8 +7,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
 
-## whoever picks it up gets the effect applied and the pickable is consumed;
-## the mask only reports live player bodies, so the parameter needs no check
+## the picker gets the effect and the pickable is consumed; the mask only reports player bodies
 func _on_body_entered(controllable_entity: ControllableEntity) -> void:
 	# apply pickup effect
 	_apply_pickup(controllable_entity)

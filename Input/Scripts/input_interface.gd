@@ -1,8 +1,6 @@
 class_name InputInterface
 extends Node
-## base of the input processors, one per controller type (keyboard and mouse, gamepad);
-## the InputMap merges every device in the same actions, so only the look-at and the
-## enter / exit hooks depend on the controller
+## base of the input processors; the InputMap merges every device, so only the aim differs
 
 ## input actions shared by every controller, as StringName so Input doesn't convert a String on every call
 const _MOVE_LEFT_ACTION : StringName = &"move_left_p1"

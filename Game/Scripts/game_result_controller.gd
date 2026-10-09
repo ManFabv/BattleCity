@@ -41,10 +41,8 @@ func _check_victory() -> void:
 		_emit_level_outcome_event(_on_victory)
 
 
-## stops gameplay for a moment and restarts the current level from scratch, so enemy counters,
-## spawners, power-ups and player lives all start clean; victory and defeat restart alike for now
-## TODO: replace this reload with the levels system / level manager once it exists,
-## so a victory advances to the next level instead of restarting the current one
+## freezes gameplay for a moment and reloads the level, so every counter, spawner and life starts clean
+## TODO: a victory should load the next level once the scene manager exists
 func _restart_level() -> void:
 	# we freeze gameplay while the outcome is shown
 	get_tree().paused = true
