@@ -53,8 +53,8 @@ avoidance_enabled = true
 radius = 1.2
 neighbor_distance = 20.0
 
-[node name="SightAttackDetector" parent="." unique_id=1103963107 node_paths=PackedStringArray("owner_controllable_entity") instance=ExtResource("12")]
-owner_controllable_entity = NodePath("..")
+[node name="SightAttackDetector" parent="." unique_id=1103963107 node_paths=PackedStringArray("_owner_controllable_entity") instance=ExtResource("12")]
+_owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=770466037 instance=ExtResource("8")]
 collision_layer = 1024

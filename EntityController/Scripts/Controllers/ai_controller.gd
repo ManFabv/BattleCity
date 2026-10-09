@@ -64,7 +64,7 @@ func get_move_direction() -> Vector3:
 	# the avoidance never returns a safe velocity faster than the entity moves
 	_navigation_agent.max_speed = move_speed
 	# we set the desired velocity to the navigation agent for avoidance calculation
-	_navigation_agent.velocity = intended_direction.normalized() * move_speed
+	_navigation_agent.velocity = intended_direction * move_speed
 	# Return the safe position which is calculated 
 	# by the avoidance callback previously
 	return _safe_move_direction
@@ -132,16 +132,14 @@ func stop_aiming() -> void:
 
 ## true if the player is close enough and in direct line of sight
 func can_attack_player() -> bool:
-	if not is_instance_valid(_player_target):
-		return false
-	return _attack_detector.has_detected_target(_player_target)
+	# the player may have died since it was assigned
+	return is_instance_valid(_player_target) and _attack_detector.has_detected_target(_player_target)
 
 
 ## true if the base is close enough and in direct line of sight
 func can_attack_base() -> bool:
-	if not is_instance_valid(_base_target):
-		return false
-	return _attack_detector.has_detected_target(_base_target)
+	# the base may have been destroyed since it was assigned
+	return is_instance_valid(_base_target) and _attack_detector.has_detected_target(_base_target)
 
 
 ## this will help us take a random point inside navigation mesh

@@ -10,5 +10,5 @@ extends PickablePowerUpInterface
 
 
 func _apply_pickup(_controllable_entity_picker: ControllableEntity) -> void:
-	## we announce the pickup with the shield scene, a PackedScene is refcounted so it can't leak without listeners
+	# we announce the pickup with the shield scene, a PackedScene is refcounted so it can't leak without listeners
 	_on_base_shield_picked_up.emit(_shield_scene)

@@ -15,9 +15,9 @@ var _remaining_lives : int:
 
 
 ## we cache the config
-func _init(config: LivesBasedSpawnStrategyConfig) -> void:
+func _init(lives_based_spawn_strategy_config: LivesBasedSpawnStrategyConfig) -> void:
 	# we cache the config so we can read the lives, delay and scene later
-	_lives_based_spawn_strategy_config = config
+	_lives_based_spawn_strategy_config = lives_based_spawn_strategy_config
 
 
 ## at the beginning we spawn the first life

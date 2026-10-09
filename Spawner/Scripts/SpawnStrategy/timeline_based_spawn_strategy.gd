@@ -35,9 +35,9 @@ var _next_spawn_entry_config : TimelineSpawnEntryConfig:
 
 
 ## we cache the config
-func _init(config: TimelineBasedSpawnStrategyConfig) -> void:
+func _init(timeline_based_spawn_strategy_config: TimelineBasedSpawnStrategyConfig) -> void:
 	# we cache the config so we can read the entries, capacity, timer manager and events later
-	_timeline_based_spawn_strategy_config = config
+	_timeline_based_spawn_strategy_config = timeline_based_spawn_strategy_config
 
 
 ## we validate the timeline and start the delay of the first entry
