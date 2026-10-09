@@ -36,4 +36,3 @@ shape = SubResource("SphereShape3D_2re41")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
 shape = SubResource("SphereShape3D_2re41")
-

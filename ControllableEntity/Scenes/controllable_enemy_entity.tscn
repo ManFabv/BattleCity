@@ -73,5 +73,5 @@ _health = NodePath("../Health")
 _weapon_system = NodePath("../WeaponSystem")
 _tintable_body_mesh = NodePath("../TintableMeshBody")
 
-[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_velocity_computed"]
 [connection signal="target_reached" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_velocity_computed"]
