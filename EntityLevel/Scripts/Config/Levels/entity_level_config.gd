@@ -2,7 +2,7 @@ class_name EntityLevelConfig
 extends Resource
 
 @export_group("Config")
-## movement, damping and gravity stats for this level
+## movement, acceleration time and gravity stats for this level
 @export var entity_stats: EntityStats
 ## max starting health points for this level
 @export_range(1, 10) var max_health_points : int = 1:

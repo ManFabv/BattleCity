@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://fsxgcqmd3col"]
 
 [ext_resource type="Script" uid="uid://cyxhv4k52wtj" path="res://GridMapLevel/Scripts/grid_map_nav_mesh_dynamic_baker.gd" id="1_ybtso"]
-[ext_resource type="Resource" uid="uid://daggla0oo7wn4" path="res://EventBus/Resources/Events/on_block_destroyed.tres" id="ev_on_block_destroyed"]
+[ext_resource type="Resource" uid="uid://l8rvmkak5kgl" path="res://EventBus/Resources/Events/on_base_spawned.tres" id="2_ev_on_base_spawned"]
 
 [node name="GridMapDynamicBaker" type="Node" unique_id=1112847361]
 script = ExtResource("1_ybtso")
-_on_block_destroyed = ExtResource("ev_on_block_destroyed")
+_on_base_spawned = ExtResource("2_ev_on_base_spawned")

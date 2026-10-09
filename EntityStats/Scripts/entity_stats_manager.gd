@@ -17,13 +17,11 @@ func configure(new_entity_stats: EntityStats) -> void:
 	_apply_modifiers()
 
 
-## we add the modifier applier and we reapply the others left
-## NOTE: that this implementation probably won't work if the have a modifier that is
-## increasing or decreasing its modified value because we reapply the modifiers again
+## we add the modifier applier and we recompute the stats from the base with every active one
 func add_modifier(new_entity_stats_modifier: EntityStatsModifierInterface) -> void:
 	# we cache the actual instance that will apply the modification
 	var applier : EntityStatsModifierApplier = new_entity_stats_modifier.create_new_applier(
-			_modifier_depleted, 
+			_on_modifier_depleted,
 			tree_exited)
 	# we add the new applier to the list of modifiers
 	_modifiers.append(applier)
@@ -31,17 +29,14 @@ func add_modifier(new_entity_stats_modifier: EntityStatsModifierInterface) -> vo
 	_apply_modifiers()
 
 
-## we remove the modifier applier and we reapply the others left
-## NOTE: that this implementation probably won't work if the have a modifier that is
-## increasing or decreasing its modified value because we reapply the modifiers again
-func remove_modifier(modifier: EntityStatsModifierApplier) -> void:
-	_modifiers.erase(modifier)
-	_apply_modifiers()
+## we get the base stats with all entity stats modifiers applied
+func resulting_entity_stats() -> EntityStats:
+	return _current_stacked_entity_stats
 
 
 ## we apply all entity stats modifiers
 func _apply_modifiers() -> void:
-	# we generate a copy to not affect real stats and we apply the modifiers
+	# a fresh copy every recompute, the modifiers never touch the shared base resource
 	_current_stacked_entity_stats = _base_entity_stats.duplicate()
 	# we apply all the modifiers
 	for modifier in _modifiers:
@@ -49,19 +44,9 @@ func _apply_modifiers() -> void:
 		modifier.apply(_current_stacked_entity_stats)
 
 
-## we get the base stats with all entity stats modifiers applied
-func resulting_entity_stats() -> EntityStats:
-	return _current_stacked_entity_stats
-
-
-## when we deplete a modifier, we remove it from the list
-func _modifier_depleted(modifier: EntityStatsModifierApplier) -> void:
-	remove_modifier(modifier)
-
-
-## removes every active modifier at once; used when resetting stats (e.g. player death)
-func clear_modifiers() -> void:
-	# because the modifiers are refcounted, we only need to remove the references from the list
-	_modifiers.clear()
-	# we recalculate the resulting modifiers (if any but it shouldn't)
+## when a modifier is depleted, we remove it and we reapply the others left
+func _on_modifier_depleted(modifier: EntityStatsModifierApplier) -> void:
+	# we stop applying the depleted modifier, the list was its only owner so it's freed
+	_modifiers.erase(modifier)
+	# we recalculate the stats without it
 	_apply_modifiers()

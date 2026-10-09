@@ -11,15 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://dqk8w2p5narjy" path="res://PickablePowerUp/Scenes/pickable_speed_power_up.tscn" id="19_speed"]
 [ext_resource type="PackedScene" uid="uid://c4h7t6b2tawke" path="res://PickablePowerUp/Scenes/pickable_base_shield_power_up.tscn" id="20_baseshield"]
 [ext_resource type="PackedScene" uid="uid://beq3lar5w0n2m" path="res://PickablePowerUp/Scenes/pickable_grenade_power_up.tscn" id="21_grenade"]
-[ext_resource type="PackedScene" uid="uid://gwphhxbtcmsf" path="res://EnemyTracking/Scenes/enemy_eliminator_applier.tscn" id="22_eliminator_applier"]
 [ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
-[ext_resource type="PackedScene" uid="uid://dp2kuvi7dycrs" path="res://Spawner/Scenes/Applier/player_camera_applier.tscn" id="42_cameraapplier"]
-[ext_resource type="PackedScene" uid="uid://dfoiv8221bunb" path="res://Spawner/Scenes/Applier/enemy_navigation_applier.tscn" id="43_navapplier"]
 [ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://Spawner/Scenes/SpawnPoint/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
@@ -41,11 +38,12 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_e2bkl"]
+resource_local_to_scene = true
 vertices = PackedVector3Array(-6.0735207, 0.5, 4.5832834, -4.8235207, 0.5, 3.8332834, -4.8235207, 0.5, 3.0832834, -8.323521, 0.5, 3.0832834, -6.0735207, 0.5, 9.083283, -12.323521, 0.5, 2.0832834, -14.073521, 0.5, 7.8332834, -13.073521, 0.5, 9.083283, -10.573521, 0.5, -9.166717, -12.573521, 0.5, -9.166717, -14.073521, 0.5, -7.6667166, -12.323521, 0.5, -3.1667166, -10.573521, 0.5, -3.1667166, -9.073521, 0.5, 2.0832834, -13.073521, 0.5, 1.3332834, -13.073521, 0.5, -2.4167166, -7.8235207, 0.5, -2.4167166, -7.8235207, 0.5, -0.16671658, -4.5735207, 0.5, -0.16671658, -8.573521, 0.5, -3.1667166, -0.82352066, 0.5, -7.9167166, -2.0735207, 0.5, -9.166717, -3.8235207, 0.5, 0.8332834, 13.176479, 0.5, -0.41671658, 13.176479, 0.5, 0.33328342, 14.176479, 0.5, 0.33328342, -3.8235207, 0.5, 2.3332834, 2.1764793, 0.5, 3.8332834, 12.426479, 0.5, -1.1667166, 14.176479, 0.5, -7.1667166, 12.676479, 0.5, -8.166717, 5.6764793, 0.5, -0.16671658, 7.9264793, 0.5, -0.16671658, 8.676479, 0.5, -1.1667166, 12.676479, 0.5, -9.166717, 1.9264793, 0.5, -9.166717, 0.92647934, 0.5, -7.9167166, 4.9264793, 0.5, 2.0832834, 4.9264793, 0.5, 0.5832834, 13.176479, 0.5, 1.3332834, 14.176479, 0.5, 7.3332834, 12.426479, 0.5, 2.0832834, 10.176479, 0.5, 2.0832834, 9.426479, 0.5, 3.0832834, 12.676479, 0.5, 8.333283, 7.4264793, 0.5, 9.083283, 12.426479, 0.5, 9.083283, 7.4264793, 0.5, 3.0832834, 3.1764793, 0.5, 4.5832834, 5.6764793, 0.5, 3.0832834, 3.1764793, 0.5, 9.083283, -2.8235207, 0.5, 7.0832834, -2.8235207, 0.5, 8.833283, -0.07352066, 0.5, 8.833283, -0.07352066, 0.5, 7.0832834)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 5), PackedInt32Array(5, 0, 4), PackedInt32Array(5, 4, 7), PackedInt32Array(5, 7, 6), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(11, 8, 12), PackedInt32Array(5, 13, 3), PackedInt32Array(14, 5, 6), PackedInt32Array(15, 14, 10), PackedInt32Array(10, 14, 6), PackedInt32Array(15, 10, 11), PackedInt32Array(18, 17, 16), PackedInt32Array(16, 19, 18), PackedInt32Array(18, 19, 8), PackedInt32Array(18, 8, 21), PackedInt32Array(18, 21, 20), PackedInt32Array(19, 12, 8), PackedInt32Array(20, 22, 18), PackedInt32Array(25, 24, 23), PackedInt32Array(2, 26, 1), PackedInt32Array(1, 26, 27), PackedInt32Array(23, 28, 25), PackedInt32Array(25, 28, 29), PackedInt32Array(29, 28, 30), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 36), PackedInt32Array(33, 36, 35), PackedInt32Array(33, 35, 34), PackedInt32Array(37, 27, 38), PackedInt32Array(38, 27, 26), PackedInt32Array(38, 26, 22), PackedInt32Array(38, 22, 31), PackedInt32Array(31, 22, 36), PackedInt32Array(36, 22, 20), PackedInt32Array(30, 28, 34), PackedInt32Array(34, 28, 33), PackedInt32Array(24, 25, 39), PackedInt32Array(39, 25, 40), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 40), PackedInt32Array(43, 40, 44), PackedInt32Array(46, 45, 44), PackedInt32Array(44, 45, 43), PackedInt32Array(43, 45, 47), PackedInt32Array(41, 39, 40), PackedInt32Array(49, 48, 37), PackedInt32Array(37, 48, 27), PackedInt32Array(49, 47, 48), PackedInt32Array(48, 47, 50), PackedInt32Array(50, 47, 45), PackedInt32Array(54, 53, 51), PackedInt32Array(51, 53, 52)]
 geometry_parsed_geometry_type = 1
-geometry_collision_mask = 113
-agent_radius = 1.0
+geometry_collision_mask = 241
+agent_radius = 1.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qjlgo"]
 size = Vector3(30, 0.5, 20)
@@ -163,8 +161,11 @@ skeleton = NodePath("../..")
 
 [node name="Level" parent="Navigation/NavigationRegion" unique_id=1932757374 instance=ExtResource("9_level")]
 
-[node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("32_gridmapupdater")]
+[node name="BaseContainer" parent="Navigation/NavigationRegion" unique_id=601915876 instance=ExtResource("33_basecontainer")]
+
+[node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region", "_grid_map_level") instance=ExtResource("32_gridmapupdater")]
 _navigation_region = NodePath("../NavigationRegion")
+_grid_map_level = NodePath("../NavigationRegion/Level")
 
 [node name="PowerUps" type="Node" parent="." unique_id=987654321]
 
@@ -204,12 +205,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
 
-[node name="EnemyNavigationApplier" parent="Enemies" unique_id=1309938728 node_paths=PackedStringArray("_navigation_region") instance=ExtResource("43_navapplier")]
-_navigation_region = NodePath("../../Navigation/NavigationRegion")
-
 [node name="EnemyAliveTracker" parent="Enemies" unique_id=2081209512 instance=ExtResource("11_tracker")]
-
-[node name="EnemyEliminatorApplier" parent="Enemies" unique_id=2081209513 instance=ExtResource("22_eliminator_applier")]
 
 [node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
@@ -234,9 +230,6 @@ spawn_point_id = 2
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
 
-[node name="PlayerCameraApplier" parent="Player" unique_id=297298891 node_paths=PackedStringArray("_player_camera") instance=ExtResource("42_cameraapplier")]
-_player_camera = NodePath("../PlayerCamera")
-
 [node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("PlayerSpawnPoint")]
 
@@ -244,8 +237,6 @@ _spawn_points = [NodePath("PlayerSpawnPoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
 
 [node name="Base" type="Node" parent="." unique_id=700000004]
-
-[node name="BaseContainer" parent="Base" unique_id=601915876 instance=ExtResource("33_basecontainer")]
 
 [node name="BaseSpawnManager" parent="Base" unique_id=1979519489 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("BaseSpawnPoint")]

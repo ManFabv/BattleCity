@@ -10,17 +10,21 @@ extends Node
 @export var _on_all_spawns_finished : BaseEvent
 ## event emitted whenever the alive enemies count changes, with the current count as context
 @export var _on_enemy_count_changed : BaseEvent
-## event emitted once every spawn is done and no enemies are left alive
+## event emitted once every spawn is done and no enemies are left alive, for the future level UI
 @export var _on_victory : BaseEvent
-## event emitted once the level is lost
+## event emitted once the level is lost, for the future level UI
 @export var _on_defeat : BaseEvent
 
 ## true once there are no more enemies to spawn
 var _are_all_spawns_finished : bool = false
-## last known amount of alive enemies
-var _enemies_alive_count : int = 0
 ## true once this level reached victory or defeat, so a second outcome in the same frame is ignored
 var _is_level_resolved : bool = false
+
+## last known amount of alive enemies
+var _enemies_alive_count : int = 0:
+	set(new_value):
+		# we prevent negative counts
+		_enemies_alive_count = maxi(new_value, 0)
 
 
 ## we subscribe to the different signals that we need to be aware of and notify
@@ -29,14 +33,25 @@ func _ready() -> void:
 	_on_player_out_of_lives.subscribe(_on_player_out_of_lives_handler, tree_exited)
 	_on_all_spawns_finished.subscribe(_on_all_spawns_finished_handler, tree_exited)
 	_on_enemy_count_changed.subscribe(_on_enemy_count_changed_handler, tree_exited)
-	_on_victory.subscribe(_on_victory_handler, tree_exited)
-	_on_defeat.subscribe(_on_defeat_handler, tree_exited)
 
 
 ## the level is won once every spawn is done and no enemies are left alive
 func _check_victory() -> void:
 	if _are_all_spawns_finished and _enemies_alive_count == 0:
 		_emit_level_outcome_event(_on_victory)
+
+
+## freezes gameplay for a moment and reloads the level, so every counter, spawner and life starts clean
+## TODO: a victory should load the next level once the scene manager exists
+func _restart_level() -> void:
+	# we freeze gameplay while the outcome is shown
+	get_tree().paused = true
+	# the scene tree timer keeps running while paused
+	await get_tree().create_timer(1.0).timeout
+	# we resume before reloading so the new level doesn't start paused
+	get_tree().paused = false
+	# we reload the level from scratch
+	get_tree().reload_current_scene()
 
 
 ## the base ran out of health, so the level is lost
@@ -61,29 +76,7 @@ func _on_enemy_count_changed_handler(new_count: int) -> void:
 	_check_victory()
 
 
-## every spawn is done and no enemies remain: stop gameplay and restart.
-## TODO: replace this reload with the levels system / level manager once it exists,
-## so a victory advances to the next level instead of restarting the current one
-func _on_victory_handler(_event_context: Variant = null) -> void:
-	get_tree().paused = true
-	await get_tree().create_timer(1.0).timeout
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-
-
-## the level is lost (base destroyed or player out of lives): restart the
-## current level from scratch so enemy counters, spawners, power-ups and
-## player lives all start clean. There is no separate game-over flow yet
-## (out of scope, see #315), so any defeat condition just restarts
-## TODO: replace this reload with the levels system / level manager once it exists
-func _on_defeat_handler(_event_context: Variant = null) -> void:
-	get_tree().paused = true
-	await get_tree().create_timer(1.0).timeout
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-
-
-## emits the first outcome of the level and ignores any later one
+## emits the first outcome of the level, restarts it and ignores any later outcome
 func _emit_level_outcome_event(level_outcome_event: BaseEvent) -> void:
 	# we ignore any outcome after the first one, a second one can arrive in the same physics flush
 	if _is_level_resolved:
@@ -92,3 +85,5 @@ func _emit_level_outcome_event(level_outcome_event: BaseEvent) -> void:
 	_is_level_resolved = true
 	# we notify the outcome
 	level_outcome_event.emit()
+	# we restart the level ourselves, the event is only a notification
+	_restart_level()

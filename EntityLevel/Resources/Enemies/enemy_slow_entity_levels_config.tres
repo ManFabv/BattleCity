@@ -11,7 +11,6 @@
 [sub_resource type="Resource" id="Resource_enemy_slow_entity_stats"]
 script = ExtResource("2_entity_stats")
 move_speed = 2.5
-move_damping = 20.0
 gravity_modifier = 10.0
 
 [sub_resource type="Resource" id="Resource_enemy_slow_weapon_config"]
@@ -24,7 +23,7 @@ projectile_max_speed = 8.0
 projectile_damage_points = 1
 fire_rate_seconds = 3.0
 
-[sub_resource type="Resource" id="Resource_level_1"]
+[sub_resource type="Resource" id="Resource_enemy_slow_entity_level_config"]
 script = ExtResource("1_entity_level_config")
 entity_stats = SubResource("Resource_enemy_slow_entity_stats")
 max_health_points = 2
@@ -33,4 +32,4 @@ entity_color = Color(1, 1, 0, 1)
 
 [resource]
 script = ExtResource("7_entity_levels")
-_level_configs = Array[ExtResource("1_entity_level_config")]([SubResource("Resource_level_1")])
+_level_configs = Array[ExtResource("1_entity_level_config")]([SubResource("Resource_enemy_slow_entity_level_config")])

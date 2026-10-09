@@ -3,7 +3,10 @@ extends Camera3D
 
 @export_group("Config")
 ## how far any ray from the camera will be
-@export_range(0.1, 1000.0) var _world_position_ray_length : float = 1000.0
+@export_range(0.1, 1000.0) var _world_position_ray_length : float = 1000.0:
+	set(new_value):
+		# we prevent negative lengths, which would cast the ray backwards
+		_world_position_ray_length = maxf(new_value, 0.0)
 
 @export_group("References")
 ## we use this to trigger a raycast and convert a 2D point to world 3D

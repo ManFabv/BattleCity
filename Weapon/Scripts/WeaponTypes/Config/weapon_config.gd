@@ -22,6 +22,11 @@ extends Resource
 	set(new_value):
 		# we prevent negative damage, which would heal the target
 		projectile_damage_points = maxi(new_value, 0)
+## seconds each projectile lives if it never hits anything nor leaves the screen
+@export_range(1.0, 60.0) var projectile_lifetime_seconds : float = 10.0:
+	set(new_value):
+		# we need some time, or the projectile would be removed as soon as it's fired
+		projectile_lifetime_seconds = maxf(new_value, 1.0)
 @export_group("Shot")
 ## seconds the weapon waits between shots
 @export_range(0.1, 10.0) var fire_rate_seconds : float = 1.0:

@@ -6,14 +6,17 @@ var _once_based_spawn_strategy_config : OnceBasedSpawnStrategyConfig
 
 
 ## we cache the config
-func _init(config: OnceBasedSpawnStrategyConfig) -> void:
+func _init(once_based_spawn_strategy_config: OnceBasedSpawnStrategyConfig) -> void:
 	# we cache the config so we can read the scene when we configure
-	_once_based_spawn_strategy_config = config
+	_once_based_spawn_strategy_config = once_based_spawn_strategy_config
 
 
 ## we spawn the scene_to_spawn once on the first spawn point
-func configure(spawn_points: Array[SpawnPointInterface], _owner_exited: Signal) -> void:
+func configure(spawn_points: Array[SpawnPoint], _owner_exited: Signal) -> void:
 	# only when there is a spawn point to spawn on
 	if spawn_points.size() > 0:
 		# we spawn the configured scene once at the first spawn point
 		spawn_points[0].spawn(_once_based_spawn_strategy_config.scene_to_spawn)
+	else:
+		# we report the manager left without spawn points
+		push_error("once based spawn strategy needs at least one spawn point")

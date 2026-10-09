@@ -11,9 +11,15 @@ extends SpawnStrategyConfig
 @export var scene_to_spawn : PackedScene
 @export_group("Config")
 ## how many lives there are at the start
-@export_range(1, 10) var starting_lives : int = 3
+@export_range(1, 10) var starting_lives : int = 3:
+	set(new_value):
+		# the first life always spawns, so we need at least one
+		starting_lives = maxi(new_value, 1)
 ## how long to wait after death before spawning the next life
-@export_range(0.1, 10.0) var respawn_delay : float = 2.0
+@export_range(0.1, 10.0) var respawn_delay : float = 2.0:
+	set(new_value):
+		# we prevent negative delays
+		respawn_delay = maxf(new_value, 0.0)
 
 
 ## creates the lives based spawn strategy that uses this config's lives and delay

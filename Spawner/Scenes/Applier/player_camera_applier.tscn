@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://dp2kuvi7dycrs"]
-
-[ext_resource type="Script" uid="uid://dcbai60eab1v2" path="res://Spawner/Scripts/Applier/player_camera_applier.gd" id="1"]
-[ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://EventBus/Resources/Events/on_player_spawned.tres" id="ev_on_player_spawned"]
-
-[node name="PlayerCameraApplier" type="Node" unique_id=1792796145]
-script = ExtResource("1")
-_on_spawned = ExtResource("ev_on_player_spawned")

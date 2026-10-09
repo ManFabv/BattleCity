@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://d177b15gvya4j"]
 
 [ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1_uvnfx"]
-[ext_resource type="Resource" uid="uid://bhxm65v2pfaoq" path="res://EventBus/Resources/Events/on_input_changed_event.tres" id="2_odrml"]
-[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://EventBus/Resources/Events/on_menu_opened_event.tres" id="3_kitst"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
@@ -11,7 +9,7 @@
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://c8bqk1t3q7v5f" path="res://EntityLevel/Resources/Player/player_entity_levels_config.tres" id="18"]
-[ext_resource type="PackedScene" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
+[ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
@@ -25,8 +23,6 @@ size = Vector3(0.8, 0.5, 1.2)
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
-_on_input_changed_event = ExtResource("2_odrml")
-_on_menu_opened_event = ExtResource("3_kitst")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_level_manager = NodePath("EntityLevelManager")
@@ -65,7 +61,6 @@ _input_manager = NodePath("../InputManager")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
-collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

@@ -7,7 +7,7 @@ extends Resource
 	set(new_value):
 		# we prevent negative delays
 		spawn_delay_seconds = maxf(new_value, 0.0)
-## id of the spawn point, among the manager's spawn points, where this entry spawns (see SpawnPointInterface.spawn_point_id)
+## id of the spawn point, among the manager's spawn points, where this entry spawns (see SpawnPoint.spawn_point_id)
 @export_range(0, 99) var spawn_point_id : int = 0:
 	set(new_value):
 		# we prevent negative ids

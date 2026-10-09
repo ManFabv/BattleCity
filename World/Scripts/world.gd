@@ -16,7 +16,7 @@ extends Node3D
 
 ## we hand each spawn manager its config; it runs after every child _ready(), so every listener is already subscribed
 func _ready() -> void:
-	# same order the managers started in before (tree order): enemies, player, base
+	# the enemy timeline starts counting now
 	_enemy_spawn_manager.configure(_level_config.enemy_timeline_based_spawn_strategy_config)
 	# the player spawns right away
 	_player_spawn_manager.configure(_level_config.player_lives_based_spawn_strategy_config)

@@ -6,22 +6,10 @@ extends EntityControllerInterface
 @export var _input_manager : InputManager
 
 
-func on_input_type_changed(_event_context: Variant = null) -> void:
-	print("INPUT CHANGED")
-
-
-func on_menu_opened(_event_context: Variant = null) -> void:
-	print("MENU OPENED")
-
-
-## injected by PlayerCameraApplier right after this player is spawned
-func set_camera(camera: PlayerCamera) -> void:
-	_input_manager.set_camera(camera)
-
-
+## the move input at full speed in any direction, on the floor plane
 func get_move_direction() -> Vector3:
-	# this can be processed on another class by AI
-	var move_input : Vector2 = _process_move_input()
+	# we get the move axis from the input manager
+	var move_input : Vector2 = _input_manager.get_input_movement()
 	# we normalize the input
 	move_input = move_input.normalized()
 	# we convert 2D input to 3D movement
@@ -30,25 +18,14 @@ func get_move_direction() -> Vector3:
 	return move_direction
 
 
+## the yaw toward the aim of the active controller
 func get_look_at_angle() -> float:
 	# we get the position where we have to look at
-	var look_at_input : Vector2 = _process_look_at_input()
-	# we convert the input to 3D to be able to move the player in the world
-	var world_look_at : Vector3 = Vector3(look_at_input.x,
-		owner_controllable_entity.global_position.y, 
-		look_at_input.y)
-	var desired_look_at_angle : float = atan2(-world_look_at.x, -world_look_at.z)
-	# we return the wanted angle
-	return desired_look_at_angle
+	var look_at_input : Vector2 = _input_manager.get_look_at()
+	# the input's y is the world's z, so the yaw comes straight from the 2D input
+	return atan2(-look_at_input.x, -look_at_input.y)
 
 
-func _process_move_input() -> Vector2:
-	return _input_manager.get_input_movement()
-
-
-func _process_look_at_input() -> Vector2:
-	return _input_manager.get_look_at()
-
-
+## true while the shoot input is held
 func is_shot_pressed() -> bool:
 	return _input_manager.is_shot_pressed()

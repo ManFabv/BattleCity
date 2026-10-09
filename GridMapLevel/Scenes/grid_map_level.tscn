@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://duohrtg45dkra"]
 
+[ext_resource type="Script" uid="uid://bygwsvauwtukp" path="res://GridMapLevel/Scripts/grid_map_level.gd" id="1_grid_map_level"]
 [ext_resource type="Script" uid="uid://cfrxrf8weu2ua" path="res://GridMapLevel/Scripts/destructible_grid_map.gd" id="2_6wsgj"]
 [ext_resource type="MeshLibrary" uid="uid://nl12jra7rha7" path="res://GridMapLevel/Resources/grid_map_level_brick_mesh_library.tres" id="3_brick"]
 [ext_resource type="MeshLibrary" uid="uid://df1st8hmdq40y" path="res://GridMapLevel/Resources/grid_map_level_rock_mesh_library.tres" id="4_rock"]
-[ext_resource type="Resource" uid="uid://daggla0oo7wn4" path="res://EventBus/Resources/Events/on_block_destroyed.tres" id="8_5gr3i"]
 [ext_resource type="MeshLibrary" uid="uid://brya6c3535etl" path="res://GridMapLevel/Resources/grid_map_level_water_mesh_library.tres" id="9_water"]
 [ext_resource type="MeshLibrary" uid="uid://dsflk43tfpre4" path="res://GridMapLevel/Resources/grid_map_level_vegetation_mesh_library.tres" id="10_veg"]
 
-[node name="Level" type="Node3D" unique_id=631901111]
+[node name="Level" type="Node3D" unique_id=631901111 node_paths=PackedStringArray("_destructible_grid_map")]
+script = ExtResource("1_grid_map_level")
+_destructible_grid_map = NodePath("BricksGridMap")
 
 [node name="BricksGridMap" type="GridMap" parent="." unique_id=1059575894]
 mesh_library = ExtResource("3_brick")
@@ -18,7 +20,6 @@ data = {
 "cells": PackedInt32Array(65532, 5, 0, 65533, 5, 0, 65534, 5, 0, 65535, 5, 0, 0, 5, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 65524, 65534, 0, 65525, 65534, 0, 65526, 65534, 0, 65528, 1, 0, 65529, 1, 0, 65530, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 65531, 5, 0, 65531, 6, 0, 65531, 7, 0, 65531, 8, 0, 65531, 9, 0, 65531, 10, 0, 65532, 10, 0, 65533, 10, 0, 65534, 10, 0, 65535, 10, 0, 0, 10, 0)
 }
 script = ExtResource("2_6wsgj")
-_on_block_destroyed = ExtResource("8_5gr3i")
 
 [node name="RocksGridMap" type="GridMap" parent="." unique_id=169841109]
 mesh_library = ExtResource("4_rock")

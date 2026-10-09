@@ -1,9 +1,6 @@
 class_name EntityLevelManager
 extends Node
 
-## emitted after the configuration of the current level is applied (stats, health, weapon and color)
-signal entity_configured_for_level
-
 @export_group("Entity")
 ## per-level stats, health and weapon config
 @export var _entity_levels : EntityLevels
@@ -44,27 +41,20 @@ func level_up() -> void:
 		_configure_entity_for_level(_current_level_index + 1)
 
 
-## listeners are notified every time the level stats are applied
-func subscribe_to_configured_for_level(on_configured_for_level: Callable) -> void:
-	entity_configured_for_level.connect(on_configured_for_level)
-
-
 ## applies speed, health and weapon for the given level in one call
 func _configure_entity_for_level(level: int) -> void:
 	# we update the current level index, the setter clamps it
 	_current_level_index = level
 	# we cache the entity level config
 	var entity_level_config: EntityLevelConfig = _entity_levels.level_at(_current_level_index)
-	## we setup the stats manager
+	# we setup the stats manager
 	_entity_stats_manager.configure(entity_level_config.entity_stats)
-	## we setup the health
+	# we setup the health
 	_health.configure(entity_level_config.max_health_points)
-	## we setup the weapon system
+	# we setup the weapon system
 	_weapon_system.change_weapon(entity_level_config.weapon_config)
-	## we setup the entity color
+	# we setup the entity color
 	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
-	# we notify that the correct entity configuration was made
-	entity_configured_for_level.emit()
 
 
 ## we check if we are at the max level for this entity

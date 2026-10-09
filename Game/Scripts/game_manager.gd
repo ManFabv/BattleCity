@@ -1,5 +1,5 @@
-extends Node3D
 class_name GameManager
+extends Node3D
 
 @export_group("Scenes")
 ## the first scene that we want to instantiate
@@ -8,6 +8,7 @@ class_name GameManager
 @export var _timer_manager_scene: PackedScene
 
 
+## we start the single timer driver and the first scene
 func _ready() -> void:
 	# TODO: here we should instantiate any global system
 	var current_timer_manager : CustomTimerManager = _timer_manager_scene.instantiate() as CustomTimerManager

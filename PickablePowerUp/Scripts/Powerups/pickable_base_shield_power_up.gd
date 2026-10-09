@@ -2,13 +2,14 @@ class_name PickableBaseShieldPowerUp
 extends PickablePowerUpInterface
 
 @export_group("Events")
-## event requesting the base to attach the shield, so this power-up doesn't need a reference to the base
-@export var _on_base_shield_requested : BaseEvent
+## event announcing that a base shield was picked up, so this power-up doesn't need a reference to the base
+@export var _on_base_shield_picked_up : BaseEvent
 @export_group("References")
-## shield scene the base attaches to itself on pickup
+## shield scene the base instantiates and attaches to itself on pickup
 @export var _shield_scene : PackedScene
 
 
+## the pickup sends the shield scene, the base attaches it
 func _apply_pickup(_controllable_entity_picker: ControllableEntity) -> void:
-	## we notify that a base shield is requested
-	_on_base_shield_requested.emit(_shield_scene.instantiate() as Shield)
+	# we announce the pickup with the shield scene, a PackedScene is refcounted so it can't leak without listeners
+	_on_base_shield_picked_up.emit(_shield_scene)
