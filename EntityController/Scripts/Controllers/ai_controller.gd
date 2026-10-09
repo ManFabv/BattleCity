@@ -19,9 +19,6 @@ signal _wander_timed_out
 @export var _on_grenade_picked_up : BaseEvent
 ## event announcing a new player instance, this enemy takes it as its player target (ex: after a respawn)
 @export var _on_player_spawned : BaseEvent
-@export_group("Level")
-## the level manager of the owner entity, it notifies us every time the stats of a level are applied
-@export var _entity_level_manager : EntityLevelManager
 @export_group("Wander Setup")
 ## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way)
 @export_range(0.1, 20.0) var _wander_timeout_seconds : float = 10.0:
@@ -46,13 +43,12 @@ var _current_attack_target : Node3D
 var _wander_timeout_timer : CustomTimer
 
 
-## we request the wander timeout timer and subscribe to the level manager and the events
+## we request the wander timeout timer and subscribe to the events
 func _ready() -> void:
 	_wander_timeout_timer = _timer_manager.create_manual(
-			_wander_timeout_seconds, 
+			_wander_timeout_seconds,
 			_on_wander_timeout,
 			tree_exited)
-	_entity_level_manager.subscribe_to_configured_for_level(_on_entity_configured_for_level)
 	_on_grenade_picked_up.subscribe(_on_grenade_picked_up_handler, tree_exited)
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
 
@@ -63,9 +59,12 @@ func get_move_direction() -> Vector3:
 	# we take the direction between our owner position and the next
 	# path position to know in which intended direction we need to move
 	var intended_direction : Vector3 = owner_controllable_entity.global_position.direction_to(next_position)
+	# we read the speed every tick, so level ups and stat modifiers reach the agent
+	var move_speed : float = owner_controllable_entity.get_entity_move_speed()
+	# the avoidance never returns a safe velocity faster than the entity moves
+	_navigation_agent.max_speed = move_speed
 	# we set the desired velocity to the navigation agent for avoidance calculation
-	# the navigation agent needs the actual desired movement speed
-	_navigation_agent.velocity = intended_direction.normalized() * owner_controllable_entity.get_entity_move_speed()
+	_navigation_agent.velocity = intended_direction.normalized() * move_speed
 	# Return the safe position which is calculated 
 	# by the avoidance callback previously
 	return _safe_move_direction
@@ -197,9 +196,3 @@ func _on_grenade_picked_up_handler(_event_context: Variant = null) -> void:
 ## a new player instance spawned (ex: after a respawn): it becomes the player target
 func _on_player_spawned_handler(player: ControllableEntity) -> void:
 	_player_target = player
-
-
-func _on_entity_configured_for_level() -> void:
-	# to avoid issues, we set the agent max avoidance speed equal to
-	# the entity movement speed
-	_navigation_agent.max_speed = owner_controllable_entity.get_entity_move_speed()
