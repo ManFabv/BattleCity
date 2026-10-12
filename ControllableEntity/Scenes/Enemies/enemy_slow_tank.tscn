@@ -5,7 +5,7 @@
 
 [node name="EnemySlowTank" unique_id=84492125 instance=ExtResource("1_uuy24")]
 
-[node name="AiController" parent="." index="5" unique_id=2129425660]
+[node name="StateMachine" parent="." index="9" unique_id=1728153428]
 _wander_timeout_seconds = 9.3
 
 [node name="EntityLevelManager" parent="." index="10" unique_id=555100004]
