@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://Container/Scenes/player_container.tscn" id="23_playercontainer"]
 [ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://Camera/Scenes/player_camera.tscn" id="24_playercamera"]
 [ext_resource type="PackedScene" uid="uid://bm0o8lxhv8cmv" path="res://Game/Scenes/game_pause_controller.tscn" id="29_pausecontroller"]
-[ext_resource type="PackedScene" uid="uid://dy8xg21ej20gv" path="res://Game/Scenes/pause_input_listener.tscn" id="30_pauseinputlistener"]
 [ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://GridMapLevel/Scenes/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
 [ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://Container/Scenes/base_container.tscn" id="33_basecontainer"]
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://Spawner/Scenes/Manager/spawn_manager.tscn" id="41_spawnmanager"]
@@ -250,5 +249,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 [node name="LevelResultController" parent="Game" unique_id=561437413 instance=ExtResource("14_outcome")]
 
 [node name="GamePauseController" parent="Game" unique_id=1230938136 instance=ExtResource("29_pausecontroller")]
-
-[node name="PauseInputListener" parent="Game" unique_id=1073514075 instance=ExtResource("30_pauseinputlistener")]

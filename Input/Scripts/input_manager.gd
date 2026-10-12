@@ -7,6 +7,8 @@ enum InputType { KEYBOARD_MOUSE, GAMEPAD, NOT_SET }
 @export_group("Events")
 ## event announcing that the active controller type changed
 @export var _on_input_type_changed : BaseEvent
+## event announcing that the pause input was pressed
+@export var _on_pause_input_pressed : BaseEvent
 
 @export_group("Processors")
 ## processor used while the player plays with keyboard and mouse
@@ -28,6 +30,17 @@ func _ready() -> void:
 	_change_input_type(InputType.KEYBOARD_MOUSE)
 	# we switch the controller type when a gamepad is connected or disconnected
 	Input.joy_connection_changed.connect(_on_input_joy_connection_changed)
+
+
+## runs while paused (process_mode Always) so the pause input can also resume the game
+## unhandled: the GUI, such as the pause overlay buttons, gets the event before us
+func _unhandled_input(event: InputEvent) -> void:
+	# we only react to a fresh press of this event, never to an echo or to other events of the frame
+	if _current_input_processor.is_open_menu_pressed(event):
+		# we consume the event so no other node handles it
+		get_viewport().set_input_as_handled()
+		# we announce the press, the listeners decide what pausing means
+		_on_pause_input_pressed.emit()
 
 
 ## we get the input of the player to see what controller is the player using
