@@ -94,6 +94,7 @@ Mi flujo de desarrollo incluye:
 * Validación de restricciones: análisis de ventajas y desventajas de mis diseños específicos.
 * Revisión puntual: contraste de errores o riesgos antes de integrar un cambio.
 * Implementacion puntual de refactors o simplificaciones.
+* Consulta de metodos y API del engine: es el uso mas extensivo que le doy. Por ejemplo, como se marca un destino en una navigation region o que metodo usar para una tarea puntual de Godot.
 
 La IA no es el autor principal de las ideas, del código ni de los assets. Las sugerencias se revisan, adaptan y se aplican.
 Esto quiere decir que no se deja a la IA mas que como consulta y para la implementacion rapida de mis ideas de refactor y no es usada para vibe coding
@@ -106,6 +107,7 @@ Esto quiere decir que no se deja a la IA mas que como consulta y para la impleme
 * [Complete Godot 3D](https://www.udemy.com/course/complete-godot-3d/)
 * [Godot 4 Shaders](https://www.udemy.com/course/godot-4-shaders/)
 * [Godot 4: Build an Action RPG](https://www.udemy.com/course/godot-rpg/)
+* [Godot - VFX for Games - Beginner to Intermediate](https://www.udemy.com/course/godot-vfx-for-games/)
 
 ## Referencias: ##
 * [Battle City NES Gameplay](https://www.youtube.com/watch?v=YqaDd1oAApU)
