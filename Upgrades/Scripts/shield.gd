@@ -10,14 +10,14 @@ extends Area3D
 @export_group("FX Config")
 ## how long the shield stays attached before removing itself
 @export_range(0.1, 60.0) var _duration : float = 5.0
-## how fast the particles orbit, in radians per second
+## how fast the particles orbit
 @export_range(0.1, 20.0) var _orbit_speed : float = 2.0
 
 
 ## we connect the timer effect and request the timer to remove this shield after _duration
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)
-	_timer_manager.create_one_shot(_duration, queue_free, tree_exited)
+	_timer_manager.create_one_shot(_duration, _on_shield_depleted, tree_exited)
 
 
 ## rotates the orbit particles around the shielded entity
@@ -29,3 +29,10 @@ func _process(delta: float) -> void:
 func _on_area_entered(projectile: Projectile) -> void:
 	# we intercept the projectile to prevent it from hitting the shielded entity
 	projectile.intercept()
+
+
+## called when the shield is depleted
+func _on_shield_depleted() -> void:
+	# TODO: here we can spawn some VFXs
+	# we freed the node
+	queue_free()
