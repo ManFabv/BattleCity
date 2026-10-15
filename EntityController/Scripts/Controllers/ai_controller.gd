@@ -19,8 +19,8 @@ var _safe_move_direction : Vector3
 var _target_look_at : float
 ## true while the state machine wants this entity to shoot, read as the shoot input
 var _has_shot : bool = false
-## true when the next sight check tries the player before the base
-var _is_player_attack_preferred : bool = true
+## true when the pending sight check is for the player, false when it is for the base
+var _is_player_attack_requested : bool = true
 ## current target used when attacking the player instead of wandering
 var _player_target : ControllableEntity
 ## current target used when attacking the base instead of wandering
@@ -41,15 +41,11 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	# we check once, then we sleep until the next request
 	set_physics_process(false)
-	# the preferred target is tried first and the other one is the fallback
-	if _is_player_attack_preferred:
-		# the base is only tried when the player is not in sight
-		if not _try_attack_player():
-			_try_attack_base()
+	# we check the target that was requested
+	if _is_player_attack_requested:
+		_try_attack_player()
 	else:
-		# the player is only tried when the base is not in sight
-		if not _try_attack_base():
-			_try_attack_player()
+		_try_attack_base()
 
 
 ## feeds the agent the desired velocity and returns the safe direction computed by the avoidance
@@ -110,18 +106,18 @@ func stop_moving() -> void:
 	_navigation_agent.set_target_position(owner_controllable_entity.global_position)
 
 
-## aims at the player if it is in sight, else at the base; the sight is checked on the next physics tick
-func try_attack_player_first() -> void:
-	# the next sight check tries the player first
-	_is_player_attack_preferred = true
+## aims at the player if it is in sight, otherwise it keeps aiming forward; the sight is checked on the next physics tick
+func try_attack_player() -> void:
+	# the next sight check is for the player
+	_is_player_attack_requested = true
 	# the sight check needs a physics tick
 	set_physics_process(true)
 
 
-## aims at the base if it is in sight, else at the player; the sight is checked on the next physics tick
-func try_attack_base_first() -> void:
-	# the next sight check tries the base first
-	_is_player_attack_preferred = false
+## aims at the base if it is in sight, otherwise it keeps aiming forward; the sight is checked on the next physics tick
+func try_attack_base() -> void:
+	# the next sight check is for the base
+	_is_player_attack_requested = false
 	# the sight check needs a physics tick
 	set_physics_process(true)
 

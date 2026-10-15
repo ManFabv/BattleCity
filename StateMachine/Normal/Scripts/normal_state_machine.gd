@@ -21,11 +21,16 @@ const _WANDER_TIMEOUT_PROPERTY : StringName = &"wander_timeout_seconds"
 		# we prevent negative timeouts
 		_wander_timeout_seconds = maxf(new_value, 0.0)
 @export_group("Attack Setup")
-## chance of preferring the player over the base when both are in sight
-@export_range(0.0, 1.0) var _attack_player_chance : float = 0.8:
+## chance of aiming at the player when it is in sight; the rest of the chances aims forward
+@export_range(0.0, 1.0) var _attack_player_chance : float = 0.15:
 	set(new_value):
 		# we keep the chance inside the probability range
 		_attack_player_chance = clampf(new_value, 0.0, 1.0)
+## chance of aiming at the base when it is in sight; the rest of the chances aims forward
+@export_range(0.0, 1.0) var _attack_base_chance : float = 0.05:
+	set(new_value):
+		# we keep the chance inside the probability range
+		_attack_base_chance = clampf(new_value, 0.0, 1.0)
 
 
 ## we publish the wander timeout to the chart and subscribe to the weapon signal
@@ -42,17 +47,21 @@ func _on_wander_state_entered() -> void:
 	_ai_controller.set_random_target_position()
 
 
-## the entity stops and aims at the player or the base if one is in sight
+## the entity stops and by default aims forward; sometimes it aims at the base or the player if they are in sight
 func _on_aim_in_place_state_entered() -> void:
 	# we stop where we are
 	_ai_controller.stop_moving()
-	# one roll decides which target is tried first, the other one is the fallback
-	if randf() < _attack_player_chance:
+	# one roll decides where to aim
+	var roll : float = randf()
+	# the first slice of the roll is for the base
+	if roll < _attack_base_chance:
 		# the controller checks the sight on its next physics tick
-		_ai_controller.try_attack_player_first()
-	else:
+		_ai_controller.try_attack_base()
+	# the next slice is for the player
+	elif roll < _attack_base_chance + _attack_player_chance:
 		# the controller checks the sight on its next physics tick
-		_ai_controller.try_attack_base_first()
+		_ai_controller.try_attack_player()
+	# the rest of the roll keeps the entity aiming forward, where it already faces
 
 
 ## the entity holds its aim and shoots
