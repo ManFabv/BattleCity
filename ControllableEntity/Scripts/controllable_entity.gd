@@ -40,29 +40,14 @@ func _ready() -> void:
 
 ## moves, rotates and shoots following the controller, on the tick that consumes its input
 func _physics_process(delta: float) -> void:
-	# we read the controller intention on the same tick that consumes it
-	var target_velocity : Vector3 = _entity_controller.get_move_direction() * get_entity_move_speed()
-	# the max velocity change allowed this tick: reaching move_speed takes move_acceleration_time_seconds
-	var max_velocity_change_this_tick : float = (get_entity_move_speed() / _current_entity_stats.move_acceleration_time_seconds) * delta
-	# we only accelerate on the floor plane
-	var current_velocity_on_floor : Vector3 = Vector3(velocity.x, 0.0, velocity.z)
-	# the target on the same plane
-	var target_velocity_on_floor : Vector3 = Vector3(target_velocity.x, 0.0, target_velocity.z)
-	# moving the vector as a whole keeps the diagonal ramps in a straight line
-	var new_velocity_on_floor : Vector3 = current_velocity_on_floor.move_toward(target_velocity_on_floor, max_velocity_change_this_tick)
-	# we update the floor velocity, the vertical one is kept for the gravity
-	velocity.x = new_velocity_on_floor.x
-	velocity.z = new_velocity_on_floor.z
-	# we only pull the body down while it's in the air, the velocity it already has comes from velocity.y
-	if not is_on_floor():
-		velocity += get_gravity() * _current_entity_stats.gravity_modifier * delta
-	# we calculate the angle for the current position to view to the desired point
-	var look_at_angle : float = rotate_toward(rotation.y, _entity_controller.get_look_at_angle(), _current_entity_stats.rotation_speed * delta)
-	# we only ask the weapon system to shoot while the shoot input is pressed
-	if _entity_controller.is_shot_pressed():
-		_weapon_system.try_shot()
-	# we rotate accordingly
-	rotation.y = look_at_angle
+	# we accelerate the floor velocity towards the controller intention
+	_apply_movement(delta)
+	# we pull the body down while it's in the air
+	_try_apply_gravity(delta)
+	# we shoot while the shoot input is pressed
+	_try_shot()
+	# we rotate towards the controller look at angle
+	_apply_rotation(delta)
 	# we move the object with that velocity
 	move_and_slide()
 
@@ -85,6 +70,39 @@ func get_entity_move_speed() -> float:
 ## the entity controller shorthand access
 func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
+
+
+## accelerates the floor velocity towards the controller intention, read on the tick that consumes it
+func _apply_movement(delta: float) -> void:
+	var target_velocity : Vector3 = _entity_controller.get_move_direction() * get_entity_move_speed()
+	# the vertical velocity is kept for the gravity, so only the floor plane accelerates
+	target_velocity.y = velocity.y
+	# reaching move_speed takes move_acceleration_time_seconds
+	var acceleration : float = get_entity_move_speed() / _current_entity_stats.move_acceleration_time_seconds
+	# each tick the velocity can change by the acceleration during that tick
+	velocity = velocity.move_toward(target_velocity, acceleration * delta)
+
+
+## rotates the body towards the controller look at angle, at the rotation speed of the stats
+func _apply_rotation(delta: float) -> void:
+	# the angle the body can turn during this tick
+	var desired_rotation : float = _current_entity_stats.rotation_speed
+	# we turn towards the desired angle without passing it
+	rotation.y = rotate_toward(rotation.y, _entity_controller.get_look_at_angle(), desired_rotation * delta)
+
+
+## pulls the body down only while it's in the air, the velocity it already has comes from velocity.y
+func _try_apply_gravity(delta: float) -> void:
+	# we only pull the body down while it's in the air
+	if not is_on_floor():
+		velocity += get_gravity() * _current_entity_stats.gravity_modifier * delta
+
+
+## asks the weapon system to shoot only while the shoot input is pressed
+func _try_shot() -> void:
+	# we only ask the weapon system to shoot while the shoot input is pressed
+	if _entity_controller.is_shot_pressed():
+		_weapon_system.try_shot()
 
 
 ## notifies the death and removes the entity at the end of the frame
