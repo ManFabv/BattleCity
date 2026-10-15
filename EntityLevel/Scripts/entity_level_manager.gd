@@ -7,7 +7,7 @@ extends Node
 
 @export_group("Entity")
 ## the levels the entity gets one by one; level 0 is its starting level
-@export var _entity_levels : EntityLevels
+@export var _entity_level_configs : Array[EntityLevelConfig]
 
 @export_group("References")
 ## manages the entity stats and its modifiers
@@ -23,7 +23,7 @@ extends Node
 var _current_level : int = 0:
 	set(new_value):
 		# we clamp the level between the starting one and one past the last level
-		_current_level = clampi(new_value, 0, _entity_levels.last_index() + 1)
+		_current_level = clampi(new_value, 0, _entity_level_configs.size())
 
 
 ## we apply the starting level and we listen to the stars
@@ -53,7 +53,7 @@ func _configure_entity_for_level(entity_level_config: EntityLevelConfig) -> void
 
 ## we check if we are at the highest level of this entity
 func _is_at_max_level() -> bool:
-	return _current_level > _entity_levels.last_index()
+	return _current_level >= _entity_level_configs.size()
 
 
 ## applies the next level, if there is one
@@ -61,7 +61,7 @@ func _apply_next_level() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
 	if not _is_at_max_level():
 		# the config at the current level is the next one
-		_configure_entity_for_level(_entity_levels.level_at(_current_level))
+		_configure_entity_for_level(_entity_level_configs[_current_level])
 		# we count the applied level
 		_current_level += 1
 

@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
 [ext_resource type="PackedScene" uid="uid://2of378jao2eh" path="res://Weapon/Scenes/Projectiles/enemy_projectile.tscn" id="5_enemy_projectile"]
 [ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="7_entity_level_config"]
-[ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="8_entity_levels"]
 [ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
 [ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
 
@@ -38,11 +37,7 @@ max_health_points = 5
 weapon_config = SubResource("Resource_enemy_heavy_weapon_config")
 entity_color = Color(1, 0, 0, 1)
 
-[sub_resource type="Resource" id="Resource_enemy_heavy_entity_levels"]
-script = ExtResource("8_entity_levels")
-_level_configs = Array[ExtResource("7_entity_level_config")]([SubResource("Resource_enemy_heavy_entity_level_config")])
-
 [node name="EnemyHeavyTank" unique_id=1075506571 instance=ExtResource("1_base")]
 
 [node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
-_entity_levels = SubResource("Resource_enemy_heavy_entity_levels")
+_entity_level_configs = Array[ExtResource("7_entity_level_config")]([SubResource("Resource_enemy_heavy_entity_level_config")])

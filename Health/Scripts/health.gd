@@ -7,13 +7,11 @@ signal _health_changed(max_health_points: int, current_health: int)
 ## emitted when the health runs out
 signal _depleted
 
-@export_group("Config")
-## max health points of the owner, the health starts full
-@export_range(1, 10) var _max_health_points : int = 1:
+## max health points of the owner, set by configure(); the health starts full
+var _max_health_points : int = 1:
 	set(new_value):
 		# below 1 the owner would be dead from the start
 		_max_health_points = maxi(new_value, 1)
-
 ## used to keep track of hits and heals to the entity
 var _current_health : int:
 	set(new_value):
