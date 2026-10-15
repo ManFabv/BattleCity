@@ -4,6 +4,7 @@ extends InputInterface
 @export_group("References")
 ## the player whose position the mouse aim is relative to
 @export var _player : ControllableEntity
+
 @export_group("Config")
 ## height over the player position of the plane the mouse aims at: the cannon height, so the aim doesn't drift with the camera angle
 @export_range(0.0, 5.0) var _aim_height_offset : float = 0.35

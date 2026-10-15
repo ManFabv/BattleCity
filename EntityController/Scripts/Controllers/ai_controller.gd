@@ -4,9 +4,11 @@ extends EntityControllerInterface
 @export_group("Navigation")
 ## this is the component used to make an AI entity to navigate through the world
 @export var _navigation_agent : NavigationAgent3D
+
 @export_group("Attack Detection")
 ## used to check line of sight (range, vision cone and obstacles) toward attack targets
 @export var _attack_detector : SightAttackDetector
+
 @export_group("Events")
 ## event announcing that a grenade was picked up, this enemy reacts by eliminating itself
 @export var _on_grenade_picked_up : BaseEvent

@@ -7,9 +7,11 @@ extends Node
 	set(new_value):
 		# below 1 a rebake would start even without destroyed blocks
 		_blocks_before_rebake = maxi(new_value, 1)
+
 @export_group("Events")
 ## event announcing the base, static geometry that only exists at runtime
 @export var _on_base_spawned : BaseEvent
+
 @export_group("References")
 ## reference to the navigation region that we want to rebake
 @export var _navigation_region : NavigationRegion3D

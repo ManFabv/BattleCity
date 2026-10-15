@@ -11,6 +11,7 @@ extends Resource
 		max_health_points = maxi(new_value, 1)
 ## weapon used at this level
 @export var weapon_config: WeaponConfig
+
 @export_group("Visuals")
 ## color applied to this entity's body mesh at this level
 @export var entity_color: Color = Color.WHITE

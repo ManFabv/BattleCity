@@ -9,6 +9,7 @@ extends Node
 		_spawn_points = new_value
 		# we refresh the warnings in the editor
 		_update_editor_warnings()
+
 @export_group("Config")
 ## config of the strategy that decides when and where this manager spawns
 @export var _spawn_strategy_config : SpawnStrategyConfig:

@@ -5,11 +5,13 @@ extends SpawnStrategyConfig
 @export_group("Events")
 ## emitted when there are no lives left
 @export var _on_out_of_lives : BaseEvent
+
 @export_group("References")
 ## the shared timer manager used to request the respawn delay timer
 @export var timer_manager : TimerManagerResource
 ## the scene_to_spawn to instantiate, one instance per life
 @export var scene_to_spawn : PackedScene
+
 @export_group("Config")
 ## how many lives there are at the start
 @export_range(1, 10) var starting_lives : int = 3:

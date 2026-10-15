@@ -14,12 +14,14 @@ const _WANDER_TIMEOUT_PROPERTY : StringName = &"wander_timeout_seconds"
 @export var _weapon_system : WeaponSystem
 ## the entity state chart for triggering state events
 @export var _state_chart : StateChart
+
 @export_group("Wander Setup")
 ## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way)
 @export_range(0.1, 20.0) var _wander_timeout_seconds : float = 10.0:
 	set(new_value):
 		# we prevent negative timeouts
 		_wander_timeout_seconds = maxf(new_value, 0.0)
+
 @export_group("Attack Setup")
 ## chance of aiming at the player when it is in sight; the rest of the chances aims forward
 @export_range(0.0, 1.0) var _attack_player_chance : float = 0.15:

@@ -6,6 +6,7 @@ extends Area3D
 @export var _orbit_particles : CPUParticles3D
 ## the shared timer manager used to request the timer that removes this shield after _duration
 @export var _timer_manager : TimerManagerResource
+
 @export_group("FX Config")
 ## how long the shield stays attached before removing itself
 @export_range(0.1, 60.0) var _duration : float = 5.0

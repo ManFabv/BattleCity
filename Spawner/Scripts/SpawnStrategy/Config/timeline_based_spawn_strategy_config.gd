@@ -7,9 +7,11 @@ extends SpawnStrategyConfig
 @export var _on_alive_count_changed : BaseEvent
 ## event emitted once, when the last entry of the timeline has spawned
 @export var _on_all_spawns_finished : BaseEvent
+
 @export_group("References")
 ## the shared timer manager used to request the entry timers
 @export var timer_manager : TimerManagerResource
+
 @export_group("Config")
 ## maximum spawned nodes alive at the same time
 @export_range(1, 20) var max_alive_count : int = 3:

@@ -4,6 +4,7 @@ extends Node3D
 @export_group("Events")
 ## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
+
 @export_group("References")
 ## the shared timer manager the shot cost requests its timers from
 @export var _timer_manager : TimerManagerResource

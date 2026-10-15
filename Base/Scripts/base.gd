@@ -6,6 +6,7 @@ extends Node3D
 @export var _on_base_destroyed : BaseEvent
 ## emitted when a base shield power-up was picked up
 @export var _on_base_shield_picked_up : BaseEvent
+
 @export_group("References")
 ## where attachable upgrades (ex: shields) are parented, so they are placed correctly
 @export var _upgrade_attach_point : UpgradeAttachPoint
@@ -13,9 +14,10 @@ extends Node3D
 @export var _mesh : TintedMesh
 ## manages the health for the base, reusing the same component as ControllableEntity
 @export var _health : Health
+
 @export_group("Base Configuration")
 ## color applied to the base mesh
-@export var _base_color : Color = Color(0.752941, 0.752941, 0.752941, 1)
+@export var _base_color : Color = Color.WHITE
 
 
 ## we tint the base and we subscribe to events

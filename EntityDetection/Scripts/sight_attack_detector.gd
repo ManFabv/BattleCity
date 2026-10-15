@@ -4,6 +4,7 @@ extends Node3D
 @export_group("References")
 ## who is the entity we are checking detection for
 @export var _owner_controllable_entity : ControllableEntity
+
 @export_group("Attack Detection")
 ## max distance at which the player or base is considered a valid attack target
 @export_range(0.1, 20.0) var _detection_range : float = 12.0:

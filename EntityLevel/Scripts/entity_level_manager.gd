@@ -4,6 +4,7 @@ extends Node
 @export_group("Events")
 ## event announcing that a star was picked up, the entity levels up
 @export var _on_star_picked_up : BaseEvent
+
 @export_group("Entity")
 ## the upgrades the entity gets one by one; its starting level is the one of its scene
 @export var _entity_levels : EntityLevels
