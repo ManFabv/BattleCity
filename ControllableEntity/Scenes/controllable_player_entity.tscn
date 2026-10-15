@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="entity_stats_script"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="normal_weapon_base"]
-[ext_resource type="Resource" path="res://EventBus/Resources/Events/on_star_picked_up.tres" id="on_star_picked_up"]
+[ext_resource type="Resource" uid="uid://djlo04ybhx8qw" path="res://EventBus/Resources/Events/on_star_picked_up.tres" id="on_star_picked_up"]
 [ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_level_0_projectile.tscn" id="player_level_0_projectile"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
