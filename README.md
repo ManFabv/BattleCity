@@ -108,6 +108,7 @@ Esto quiere decir que no se deja a la IA mas que como consulta y para la impleme
 * [Godot 4 Shaders](https://www.udemy.com/course/godot-4-shaders/)
 * [Godot 4: Build an Action RPG](https://www.udemy.com/course/godot-rpg/)
 * [Godot - VFX for Games - Beginner to Intermediate](https://www.udemy.com/course/godot-vfx-for-games/)
+* [Godot 4 Best Practices: Practical techniques and strategies for efficient, scalable game development](https://www.packtpub.com/en-us/product/godot-4-best-practices-9781835467824)
 
 ## Referencias: ##
 * [Battle City NES Gameplay](https://www.youtube.com/watch?v=YqaDd1oAApU)
