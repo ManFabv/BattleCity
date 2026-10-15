@@ -2,11 +2,11 @@ class_name EntityLevelManager
 extends Node
 
 @export_group("Events")
-## event announcing that a star was picked up, the entity levels up
+## event announcing that a star was picked up, the entity levels up; empty for the entities that never level up
 @export var _on_star_picked_up : BaseEvent
 
 @export_group("Entity")
-## the upgrades the entity gets one by one; its starting level is the one of its scene
+## the levels the entity gets one by one; level 0 is its starting level
 @export var _entity_levels : EntityLevels
 
 @export_group("References")
@@ -19,21 +19,25 @@ extends Node
 ## the tank's body mesh
 @export var _tintable_body_mesh : TintedMesh
 
-## upgrades applied so far, 0 is the starting level; one past the last upgrade means the highest level
+## index of the next level to apply, one past the last level means the highest level
 var _current_level : int = 0:
 	set(new_value):
-		# we clamp the level between the starting one and one past the last upgrade
+		# we clamp the level between the starting one and one past the last level
 		_current_level = clampi(new_value, 0, _entity_levels.last_index() + 1)
 
 
-## we listen to the stars
+## we apply the starting level and we listen to the stars
 ## TODO: the run state will restore the saved level here
 func _ready() -> void:
-	# the picked star is a fact, this entity decides to level up
-	_on_star_picked_up.subscribe(_on_star_picked_up_handler, tree_exited)
+	# the entity starts at its first level
+	_apply_next_level()
+	# only the entities that level up listen to the stars
+	if is_instance_valid(_on_star_picked_up):
+		# the picked star is a fact, this entity decides to level up
+		_on_star_picked_up.subscribe(_on_star_picked_up_handler, tree_exited)
 
 
-## applies speed, health and weapon of the given upgrade in one call
+## applies stats, health, weapon and color of the given level in one call
 func _configure_entity_for_level(entity_level_config: EntityLevelConfig) -> void:
 	# we setup the stats manager
 	_entity_stats_manager.configure(entity_level_config.entity_stats)
@@ -52,11 +56,17 @@ func _is_at_max_level() -> bool:
 	return _current_level > _entity_levels.last_index()
 
 
-## advances to the next entity level, if there is one
-func _on_star_picked_up_handler(_event_context: Variant = null) -> void:
+## applies the next level, if there is one
+func _apply_next_level() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
 	if not _is_at_max_level():
-		# the upgrade at the current level is the next one
+		# the config at the current level is the next one
 		_configure_entity_for_level(_entity_levels.level_at(_current_level))
-		# we count the applied upgrade
+		# we count the applied level
 		_current_level += 1
+
+
+## advances to the next entity level, if there is one
+func _on_star_picked_up_handler(_event_context: Variant = null) -> void:
+	# a picked star is a level up
+	_apply_next_level()

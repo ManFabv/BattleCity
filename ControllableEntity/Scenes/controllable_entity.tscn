@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://06uoyqr2bhhk" path="res://Weapon/Scenes/Systems/weapon_system.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D"]
@@ -12,10 +13,9 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMeshBody"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="ControllableEntity" type="CharacterBody3D" unique_id=800100001 node_paths=PackedStringArray("_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
+[node name="ControllableEntity" type="CharacterBody3D" unique_id=800100001 node_paths=PackedStringArray("_weapon_system", "_entity_stats_manager", "_health")]
 collision_mask = 247
 script = ExtResource("1")
-_tintable_body_mesh = NodePath("TintableMeshBody")
 _weapon_system = NodePath("WeaponSystem")
 _entity_stats_manager = NodePath("EntityStatsManager")
 _health = NodePath("Health")
@@ -37,3 +37,9 @@ mesh = SubResource("BoxMeshBody")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=438800465]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D")
+
+[node name="EntityLevelManager" parent="." unique_id=555100003 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
+_entity_stats_manager = NodePath("../EntityStatsManager")
+_health = NodePath("../Health")
+_weapon_system = NodePath("../WeaponSystem")
+_tintable_body_mesh = NodePath("../TintableMeshBody")

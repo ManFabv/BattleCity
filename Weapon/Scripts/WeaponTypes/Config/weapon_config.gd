@@ -7,10 +7,6 @@ extends Resource
 ## which projectile to fire
 @export var projectile_scene: PackedScene
 
-@export_group("Visuals")
-## which scene to instantiate as this weapon's visual mesh, mounted as a child of the Weapon node
-@export var weapon_mesh_scene: PackedScene
-
 @export_group("Projectile")
 ## how each projectile moves (ex: a straight line at a speed)
 @export var projectile_movement_config : ProjectileMovementConfig

@@ -1,9 +1,8 @@
 class_name EntityStatsManager
 extends Node
 
-@export_group("Config")
-## base entity stats of the owner (modifiers will be applied on top of this)
-@export var _base_entity_stats : EntityStats
+## base entity stats of the owner, set by configure() (modifiers will be applied on top of this)
+var _base_entity_stats : EntityStats
 
 ## a list of active modifiers for the current stats
 var _modifiers : Array[EntityStatsModifierApplier]
@@ -12,13 +11,7 @@ var _modifiers : Array[EntityStatsModifierApplier]
 var _current_stacked_entity_stats : EntityStats
 
 
-## we compute the stats from the base ones
-func _ready() -> void:
-	# we apply the modifiers over the base stats
-	_apply_modifiers()
-
-
-## we replace the base stats, called when the owner levels up, and we apply any modifiers
+## we replace the base stats, called when the owner is configured for a level, and we apply any modifiers
 func configure(new_entity_stats: EntityStats) -> void:
 	_base_entity_stats = new_entity_stats
 	_apply_modifiers()

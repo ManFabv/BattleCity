@@ -5,9 +5,15 @@
 [ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="3_weapon_config"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
 [ext_resource type="PackedScene" uid="uid://2of378jao2eh" path="res://Weapon/Scenes/Projectiles/enemy_projectile.tscn" id="5_enemy_projectile"]
-[ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="6_weapon_mesh_base"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="7_entity_level_config"]
+[ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="8_entity_levels"]
 [ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
 [ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
+
+[sub_resource type="Resource" id="Resource_enemy_heavy_entity_stats"]
+script = ExtResource("2_entity_stats")
+move_speed = 1.5
+gravity_modifier = 10.0
 
 [sub_resource type="Resource" id="Resource_enemy_heavy_projectile_movement_config"]
 script = ExtResource("linear_projectile_movement_config_script")
@@ -21,24 +27,22 @@ fire_rate_seconds = 3.0
 script = ExtResource("3_weapon_config")
 weapon_scene = ExtResource("4_normal_weapon_base")
 projectile_scene = ExtResource("5_enemy_projectile")
-weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
 projectile_movement_config = SubResource("Resource_enemy_heavy_projectile_movement_config")
 projectile_damage_points = 3
 shot_cost_config = SubResource("Resource_enemy_heavy_shot_cost_config")
 
-[sub_resource type="Resource" id="Resource_enemy_heavy_entity_stats"]
-script = ExtResource("2_entity_stats")
-move_speed = 1.5
-gravity_modifier = 10.0
+[sub_resource type="Resource" id="Resource_enemy_heavy_entity_level_config"]
+script = ExtResource("7_entity_level_config")
+entity_stats = SubResource("Resource_enemy_heavy_entity_stats")
+max_health_points = 5
+weapon_config = SubResource("Resource_enemy_heavy_weapon_config")
+entity_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_enemy_heavy_entity_levels"]
+script = ExtResource("8_entity_levels")
+_level_configs = Array[ExtResource("7_entity_level_config")]([SubResource("Resource_enemy_heavy_entity_level_config")])
 
 [node name="EnemyHeavyTank" unique_id=1075506571 instance=ExtResource("1_base")]
-_entity_color = Color(1, 0, 0, 1)
 
-[node name="WeaponSystem" parent="." index="2" unique_id=154862127]
-_weapon_config = SubResource("Resource_enemy_heavy_weapon_config")
-
-[node name="EntityStatsManager" parent="." index="3" unique_id=838874006]
-_base_entity_stats = SubResource("Resource_enemy_heavy_entity_stats")
-
-[node name="Health" parent="." index="4" unique_id=770466037]
-_max_health_points = 5
+[node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
+_entity_levels = SubResource("Resource_enemy_heavy_entity_levels")

@@ -8,15 +8,13 @@ extends Node3D
 @export_group("References")
 ## the shared timer manager the shot cost requests its timers from
 @export var _timer_manager : TimerManagerResource
+## the meshes of this weapon, tinted with the weapon color
+@export var _tinted_meshes : Array[TintedMesh]
 
 ## config of this weapon, set on configure
 var _weapon_config : WeaponConfig
-## color of the weapon mesh and of the projectiles it fires, set by apply_color()
+## color of the weapon meshes and of the projectiles it fires, set by apply_color()
 var _weapon_color : Color = Color.WHITE
-## this weapon's visual mesh, carrying its own muzzle
-var _weapon_mesh : WeaponMesh
-## where this weapon's projectiles spawn from; the mesh's muzzle, or this weapon if the mesh is invalid
-var _muzzle : Node3D
 ## what a shot costs, created from the config; it decides when the weapon can shoot
 var _shot_cost : ShotCostInterface
 
@@ -27,22 +25,18 @@ func _ready() -> void:
 	_shot_cost = _weapon_config.shot_cost_config.create_shot_cost(_timer_manager, tree_exited)
 
 
-## we cache the config and mount the weapon mesh; called before the weapon enters the tree
+## we cache the config every shot reads from; called before the weapon enters the tree
 func configure(weapon_config: WeaponConfig) -> void:
-	# we cache the config every shot reads from
 	_weapon_config = weapon_config
-	# we mount the visual mesh and take its muzzle
-	_mount_weapon_mesh()
 
 
-## tints the weapon mesh and the projectiles fired from now on
+## tints the weapon meshes and the projectiles fired from now on
 func apply_color(color: Color) -> void:
 	# we cache the color the projectiles take
 	_weapon_color = color
-	# a weapon without a valid mesh has nothing to tint
-	if is_instance_valid(_weapon_mesh):
-		# we tint the mesh
-		_weapon_mesh.apply_color(color)
+	# each mesh of this weapon shares the material of that color
+	for tinted_mesh in _tinted_meshes:
+		tinted_mesh.apply_color(color)
 
 
 ## shoots if the shot cost can be paid and returns true when a shot was fired
@@ -57,34 +51,13 @@ func try_shot() -> bool:
 	return true
 
 
-## instantiates this weapon's visual mesh and takes its muzzle from it
-func _mount_weapon_mesh() -> void:
-	# we instantiate the mesh untyped, so we can still free it if its root isn't a WeaponMesh
-	var instance : Node = _weapon_config.weapon_mesh_scene.instantiate()
-	# we cast it to the mesh type that carries the muzzle
-	_weapon_mesh = instance as WeaponMesh
-	# only a WeaponMesh has a muzzle to fire from
-	if is_instance_valid(_weapon_mesh):
-		# we parent it here so it follows the entity
-		add_child(_weapon_mesh)
-		# we cache the muzzle the projectiles spawn from
-		_muzzle = _weapon_mesh.muzzle
-	else:
-		# we report the misconfigured weapon config
-		push_error("weapon_mesh_scene of %s is not a WeaponMesh scene" % _weapon_config.resource_path)
-		# a node outside the tree is not reference counted, so nobody else would free it
-		instance.free()
-		# the weapon still fires, from its own position
-		_muzzle = self
-
-
 ## fires the projectiles of one shot, each weapon type implements it
 func _fire_projectiles() -> void:
 	push_error("_fire_projectiles() should be implemented on inherited classes")
 
 
-## instantiates one projectile, adds it to the tree and fires it from the given position along the muzzle
-func _fire_projectile(spawn_position: Vector3) -> void:
+## instantiates one projectile, adds it to the tree and fires it from the given muzzle along its forward axis
+func _fire_projectile(muzzle: Marker3D) -> void:
 	# we instantiate the projectile untyped, so we can still free it if its root isn't a Projectile
 	var instance : Node = _weapon_config.projectile_scene.instantiate()
 	# we cast it to the type the shot configures
@@ -100,7 +73,7 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)
 		# we fire it along the muzzle forward axis
-		projectile.fire(spawn_position, _muzzle.global_transform.basis.z)
+		projectile.fire(muzzle.global_position, muzzle.global_transform.basis.z)
 	else:
 		# we report the misconfigured weapon config
 		push_error("projectile_scene of %s is not a Projectile scene" % _weapon_config.resource_path)

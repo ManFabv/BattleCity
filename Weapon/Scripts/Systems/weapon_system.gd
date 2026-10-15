@@ -4,20 +4,10 @@ extends Node3D
 ## called after we just shoot
 signal _shot_fired
 
-@export_group("Config")
-## weapon equipped when the entity enters the tree
-@export var _weapon_config : WeaponConfig
-
 ## current equipped weapon
 var _current_weapon : WeaponInterface
 ## color of the equipped weapon and its projectiles, kept for the weapons equipped later
 var _weapon_color : Color = Color.WHITE
-
-
-## we equip the configured weapon
-func _ready() -> void:
-	# we equip the weapon of this entity
-	change_weapon(_weapon_config)
 
 
 ## this will try to shoot, the weapon decides if it is able to (cooldown)

@@ -2,7 +2,7 @@ class_name EntityLevels
 extends Resource
 
 @export_group("Config")
-## one config per upgrade; index 0 is the first upgrade, the starting level is the one of the scene
+## one config per level; index 0 is the starting level of the entity, the next ones are its upgrades
 @export var _level_configs : Array[EntityLevelConfig]
 
 
