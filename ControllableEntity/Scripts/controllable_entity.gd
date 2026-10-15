@@ -1,7 +1,7 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-## emitted when this entity dies: health depleted, fall below the level or eliminated (ex: grenade)
+## emitted when this entity dies: health depleted or eliminated (ex: grenade, fall into the kill zone)
 signal _entity_died
 
 @export_group("Controller")
@@ -65,8 +65,6 @@ func _physics_process(delta: float) -> void:
 	rotation.y = look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
-	# we eliminate the entity if it fell below the level's vertical death position
-	_check_vertical_death()
 
 
 ## sets the level this entity starts with; only stores the index
@@ -82,7 +80,7 @@ func level_up() -> void:
 	_entity_level_manager.level_up()
 
 
-## kills this entity right away, whatever its health (ex: grenade, fall)
+## kills this entity right away, whatever its health (ex: grenade, kill zone)
 func eliminate() -> void:
 	_die()
 
@@ -105,13 +103,6 @@ func get_entity_move_speed() -> float:
 ## the entity controller shorthand access
 func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
-
-
-## eliminates the entity once it fell below the level (ex: knocked off the arena)
-func _check_vertical_death() -> void:
-	if global_position.y < _current_entity_stats.death_vertical_position:
-		# eliminate the entity if it fell below the level's death vertical position
-		eliminate()
 
 
 ## notifies the death and removes the entity at the end of the frame
