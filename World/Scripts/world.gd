@@ -1,10 +1,6 @@
 class_name World
 extends Node3D
 
-@export_group("Config")
-## spawn configs of this level for the enemies, the player and the base
-@export var _level_config : LevelConfig
-
 @export_group("References")
 ## spawns the enemies following the level timeline
 @export var _enemy_spawn_manager : SpawnManager
@@ -14,11 +10,11 @@ extends Node3D
 @export var _base_spawn_manager : SpawnManager
 
 
-## we hand each spawn manager its config; it runs after every child _ready(), so every listener is already subscribed
+## we start each spawn manager; it runs after every child _ready(), so every listener is already subscribed
 func _ready() -> void:
 	# the enemy timeline starts counting now
-	_enemy_spawn_manager.configure(_level_config.enemy_timeline_based_spawn_strategy_config)
+	_enemy_spawn_manager.start()
 	# the player spawns right away
-	_player_spawn_manager.configure(_level_config.player_lives_based_spawn_strategy_config)
+	_player_spawn_manager.start()
 	# the base spawns right away
-	_base_spawn_manager.configure(_level_config.base_once_based_spawn_strategy_config)
+	_base_spawn_manager.start()

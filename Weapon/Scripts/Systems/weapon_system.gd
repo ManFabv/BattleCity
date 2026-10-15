@@ -4,8 +4,20 @@ extends Node3D
 ## called after we just shoot
 signal _shot_fired
 
+@export_group("Config")
+## weapon equipped when the entity enters the tree
+@export var _weapon_config : WeaponConfig
+
 ## current equipped weapon
 var _current_weapon : WeaponInterface
+## color of the equipped weapon and its projectiles, kept for the weapons equipped later
+var _weapon_color : Color = Color.WHITE
+
+
+## we equip the configured weapon
+func _ready() -> void:
+	# we equip the weapon of this entity
+	change_weapon(_weapon_config)
 
 
 ## this will try to shoot, the weapon decides if it is able to (cooldown)
@@ -13,6 +25,14 @@ func try_shot() -> void:
 	# the weapon handles its cooldown and tells us if it actually shot
 	if _current_weapon.try_shot():
 		_emit_shot_fired_signal()
+
+
+## tints the equipped weapon and the next ones, the projectiles take the same color
+func apply_color(color: Color) -> void:
+	# we keep the color for the weapons equipped later
+	_weapon_color = color
+	# we tint the equipped weapon
+	_current_weapon.apply_color(color)
 
 
 ## equips the given weapon, replacing the previous one
@@ -30,6 +50,8 @@ func change_weapon(weapon_config: WeaponConfig) -> void:
 		_current_weapon = new_weapon_interface
 		# we configure it before it enters the tree, its _ready() reads the config
 		_current_weapon.configure(weapon_config)
+		# we tint it with the entity color
+		_current_weapon.apply_color(_weapon_color)
 		# we parent it here so it follows the entity
 		add_child(_current_weapon)
 	else:

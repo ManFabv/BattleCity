@@ -1,6 +1,6 @@
 class_name NodeContainer
-extends Node3D
-## parents spawned nodes, so they outlive whoever spawned them
+extends Node
+## parents spawned nodes, so they outlive whoever spawned them; it isn't a Node3D, so a child's transform is its global one
 
 @export_group("Events")
 ## event carrying the spawned node, still outside the tree

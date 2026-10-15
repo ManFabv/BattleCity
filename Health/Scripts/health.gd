@@ -7,11 +7,12 @@ signal _health_changed(max_health_points: int, current_health: int)
 ## emitted when the health runs out
 signal _depleted
 
-## max health points of the entity, set on configure
-var _max_health_points : int = 0:
+@export_group("Config")
+## max health points of the owner, the health starts full
+@export_range(1, 10) var _max_health_points : int = 1:
 	set(new_value):
-		# we prevent negative values
-		_max_health_points = maxi(new_value, 0)
+		# below 1 the owner would be dead from the start
+		_max_health_points = maxi(new_value, 1)
 
 ## used to keep track of hits and heals to the entity
 var _current_health : int:
@@ -20,11 +21,14 @@ var _current_health : int:
 		_current_health = clampi(new_value, 0, _max_health_points)
 
 
-## we cache the max health points and start with full health
+## we start with full health
+func _ready() -> void:
+	# we set the initial max health
+	_initialize_max_health()
+
+
+## we replace the max health points and refill the health, called when the owner levels up
 func configure(max_health_points: int) -> void:
-	# we report a max that would leave the health depleted from the start
-	if max_health_points < 1:
-		push_error("Health.configure() received max_health_points < 1; the health would be depleted from the start")
 	# we cache the max health points
 	_max_health_points = max_health_points
 	# we set the initial max health
@@ -33,10 +37,6 @@ func configure(max_health_points: int) -> void:
 
 ## here we take damage and emit the corresponding signal if the health runs out
 func take_damage(damage_points: int) -> void:
-	# we report a health that was never configured, because it would look depleted and ignore the damage silently
-	if _max_health_points < 1:
-		push_error("Health.take_damage() was called before configure(); max health points is below 1")
-		return
 	# if the health is already depleted we don't want to take more damage nor emit the signal
 	if _is_depleted():
 		return
@@ -52,10 +52,6 @@ func take_damage(damage_points: int) -> void:
 ## here we take heal amount
 ## TODO: a healing power-up will call it
 func take_heal(heal_points: int) -> void:
-	# we report a health that was never configured, because it would look depleted and ignore the heal silently
-	if _max_health_points < 1:
-		push_error("Health.take_heal() was called before configure(); max health points is below 1")
-		return
 	# if the health is already depleted we don't want to heal nor emit the signal
 	if _is_depleted():
 		return

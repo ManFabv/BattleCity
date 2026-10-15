@@ -26,7 +26,3 @@ extends Resource
 	set(new_value):
 		# below 0 rotate_toward() would turn away from the target angle
 		rotation_speed = maxf(new_value, 0.0)
-
-@export_group("Bounds")
-## if the entity's vertical position drops below this value, it's eliminated (e.g. knocked off the arena)
-@export_range(-100, 100) var death_vertical_position : float = -10.0

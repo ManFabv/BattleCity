@@ -1,10 +1,23 @@
 [gd_scene format=3 uid="uid://dwt62qx867bb3"]
 
+[ext_resource type="Script" uid="uid://b7x7ewwg8re0f" path="res://Spawner/Scripts/SpawnStrategy/Config/lives_based_spawn_strategy_config.gd" id="2_lives_based_spawn_strate"]
 [ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://Container/Scenes/projectile_container.tscn" id="3_3rhlx"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://EventBus/Resources/Events/on_player_out_of_lives.tres" id="3_on_player_out_of_lives"]
 [ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://Container/Scenes/enemy_container.tscn" id="3_yw7h8"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="4_timer_manager"]
+[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://ControllableEntity/Scenes/controllable_player_entity.tscn" id="5_controllable_player_enti"]
+[ext_resource type="Script" uid="uid://c2w31bd4a4ikv" path="res://Spawner/Scripts/SpawnStrategy/Config/once_based_spawn_strategy_config.gd" id="6_once_based_spawn_strateg"]
+[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://Base/Scenes/base.tscn" id="7_base"]
+[ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://Spawner/Scripts/SpawnStrategy/Config/Entries/timeline_spawn_entry_config.gd" id="8_timeline_spawn_entry_con"]
+[ext_resource type="PackedScene" uid="uid://bj0gsf8vnreo7" path="res://ControllableEntity/Scenes/Enemies/enemy_normal_tank.tscn" id="9_enemy_normal_tank"]
 [ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://GridMapLevel/Scenes/grid_map_level.tscn" id="9_level"]
+[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://ControllableEntity/Scenes/Enemies/enemy_heavy_tank.tscn" id="10_enemy_heavy_tank"]
+[ext_resource type="PackedScene" uid="uid://dw50dti804jgi" path="res://ControllableEntity/Scenes/Enemies/enemy_slow_tank.tscn" id="11_enemy_slow_tank"]
 [ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://EnemyTracking/Scenes/enemy_alive_tracker.tscn" id="11_tracker"]
 [ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://EnemyTracking/Scenes/enemy_target_applier.tscn" id="12_applier"]
+[ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://Spawner/Scripts/SpawnStrategy/Config/timeline_based_spawn_strategy_config.gd" id="12_timeline_based_spawn_str"]
+[ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://EventBus/Resources/Events/on_enemy_count_changed.tres" id="13_on_enemy_count_changed"]
+[ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://EventBus/Resources/Events/on_all_spawns_finished.tres" id="14_on_all_spawns_finished"]
 [ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://Game/Scenes/game_result_controller.tscn" id="14_outcome"]
 [ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://PickablePowerUp/Scenes/pickable_star_power_up.tscn" id="17_star"]
 [ext_resource type="PackedScene" uid="uid://bqk3n5t8v2m4x" path="res://PickablePowerUp/Scenes/pickable_tank_shield_power_up.tscn" id="18_shield"]
@@ -21,7 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://Spawner/Scenes/SpawnPoint/player_spawn_point.tscn" id="48_playerspawnpoint"]
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
 [ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://World/Scripts/world.gd" id="60_world"]
-[ext_resource type="Resource" uid="uid://6sknxj0ttxod" path="res://Level/Resources/test_level_config.tres" id="61_levelconfig"]
+[ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://KillZone/Scenes/kill_zone.tscn" id="62_killzone"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -65,9 +78,59 @@ material = SubResource("StandardMaterial3D_e2bkl")
 top_radius = 1.0
 bottom_radius = 1.0
 
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_1"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_point_id = 1
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_2"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_3"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 1.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_4"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_point_id = 2
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_5"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 1
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_6"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_based_spawn_strategy_config"]
+script = ExtResource("12_timeline_based_spawn_str")
+_on_alive_count_changed = ExtResource("13_on_enemy_count_changed")
+_on_all_spawns_finished = ExtResource("14_on_all_spawns_finished")
+timer_manager = ExtResource("4_timer_manager")
+_spawn_entry_configs = Array[ExtResource("8_timeline_spawn_entry_con")]([SubResource("Resource_enemy_timeline_spawn_entry_1"), SubResource("Resource_enemy_timeline_spawn_entry_2"), SubResource("Resource_enemy_timeline_spawn_entry_3"), SubResource("Resource_enemy_timeline_spawn_entry_4"), SubResource("Resource_enemy_timeline_spawn_entry_5"), SubResource("Resource_enemy_timeline_spawn_entry_6")])
+
+[sub_resource type="Resource" id="Resource_player_lives_based_spawn_strategy_config"]
+script = ExtResource("2_lives_based_spawn_strate")
+_on_out_of_lives = ExtResource("3_on_player_out_of_lives")
+timer_manager = ExtResource("4_timer_manager")
+scene_to_spawn = ExtResource("5_controllable_player_enti")
+
+[sub_resource type="Resource" id="Resource_base_once_based_spawn_strategy_config"]
+script = ExtResource("6_once_based_spawn_strateg")
+scene_to_spawn = ExtResource("7_base")
+
 [node name="World" type="Node3D" unique_id=1462594140 node_paths=PackedStringArray("_enemy_spawn_manager", "_player_spawn_manager", "_base_spawn_manager")]
 script = ExtResource("60_world")
-_level_config = ExtResource("61_levelconfig")
 _enemy_spawn_manager = NodePath("Enemies/EnemySpawnManager")
 _player_spawn_manager = NodePath("Player/PlayerSpawnManager")
 _base_spawn_manager = NodePath("Base/BaseSpawnManager")
@@ -209,6 +272,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, 5)
 
 [node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2")]
+_spawn_strategy_config = SubResource("Resource_enemy_timeline_based_spawn_strategy_config")
 
 [node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" unique_id=213432042 instance=ExtResource("47_enemyspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.2138977, 0, -7.374027)
@@ -232,6 +296,7 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("PlayerSpawnPoint")]
+_spawn_strategy_config = SubResource("Resource_player_lives_based_spawn_strategy_config")
 
 [node name="PlayerSpawnPoint" parent="Player/PlayerSpawnManager" unique_id=297298890 instance=ExtResource("48_playerspawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
@@ -240,6 +305,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
 
 [node name="BaseSpawnManager" parent="Base" unique_id=1979519489 node_paths=PackedStringArray("_spawn_points") instance=ExtResource("41_spawnmanager")]
 _spawn_points = [NodePath("BaseSpawnPoint")]
+_spawn_strategy_config = SubResource("Resource_base_once_based_spawn_strategy_config")
 
 [node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
@@ -249,3 +315,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 [node name="LevelResultController" parent="Game" unique_id=561437413 instance=ExtResource("14_outcome")]
 
 [node name="GamePauseController" parent="Game" unique_id=1230938136 instance=ExtResource("29_pausecontroller")]
+
+[node name="KillZone" parent="." unique_id=1222635435 instance=ExtResource("62_killzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)

@@ -48,13 +48,11 @@ func _on_aim_in_place_state_entered() -> void:
 	_ai_controller.stop_moving()
 	# one roll decides which target is tried first, the other one is the fallback
 	if randf() < _attack_player_chance:
-		# the base is only tried when the player is not in sight
-		if not _ai_controller.try_attack_player():
-			_ai_controller.try_attack_base()
+		# the controller checks the sight on its next physics tick
+		_ai_controller.try_attack_player_first()
 	else:
-		# the player is only tried when the base is not in sight
-		if not _ai_controller.try_attack_base():
-			_ai_controller.try_attack_player()
+		# the controller checks the sight on its next physics tick
+		_ai_controller.try_attack_base_first()
 
 
 ## the entity holds its aim and shoots

@@ -5,24 +5,25 @@ extends Node3D
 ## the event where we notify that a projectile should be added to the tree
 @export var _on_projectile_spawned : BaseEvent
 @export_group("References")
-## the shared timer manager used to request the fire rate timer
+## the shared timer manager the shot cost requests its timers from
 @export var _timer_manager : TimerManagerResource
 
 ## config of this weapon, set on configure
 var _weapon_config : WeaponConfig
+## color of the weapon mesh and of the projectiles it fires, set by apply_color()
+var _weapon_color : Color = Color.WHITE
 ## this weapon's visual mesh, carrying its own muzzle
 var _weapon_mesh : WeaponMesh
 ## where this weapon's projectiles spawn from; the mesh's muzzle, or this weapon if the mesh is invalid
 var _muzzle : Node3D
-## cooldown between shots, restarted manually with the fire rate on every shot
-var _fire_rate_timer : CustomTimer
-## true once the cooldown elapsed, so the next shot is allowed
-var _is_fire_rate_ready : bool = true
+## what a shot costs, created from the config; it decides when the weapon can shoot
+var _shot_cost : ShotCostInterface
 
 
-## we request the cooldown timer once, not started so the first shot is allowed right away
+## we create the shot cost once, it is cleaned up when this weapon leaves the tree
 func _ready() -> void:
-	_fire_rate_timer = _timer_manager.create_manual(_weapon_config.fire_rate_seconds, _on_fire_rate_timer_timeout, tree_exited)
+	# we keep the cost of this weapon
+	_shot_cost = _weapon_config.shot_cost_config.create_shot_cost(_timer_manager, tree_exited)
 
 
 ## we cache the config and mount the weapon mesh; called before the weapon enters the tree
@@ -33,21 +34,29 @@ func configure(weapon_config: WeaponConfig) -> void:
 	_mount_weapon_mesh()
 
 
-## shoots if the cooldown elapsed and returns true when a shot was fired
+## tints the weapon mesh and the projectiles fired from now on
+func apply_color(color: Color) -> void:
+	# we cache the color the projectiles take
+	_weapon_color = color
+	# a weapon without a valid mesh has nothing to tint
+	if is_instance_valid(_weapon_mesh):
+		# we tint the mesh
+		_weapon_mesh.apply_color(color)
+
+
+## shoots if the shot cost can be paid and returns true when a shot was fired
 func try_shot() -> bool:
-	# we can't shoot until the cooldown elapsed
-	if not _is_fire_rate_ready:
+	# we can't shoot until the cost can be paid
+	if not _shot_cost.can_shoot():
 		return false
-	# we consume the shot
-	_is_fire_rate_ready = false
-	# we restart the cooldown only when we actually shoot
-	_fire_rate_timer.start(_weapon_config.fire_rate_seconds)
+	# we charge the cost only when we actually shoot
+	_shot_cost.consume()
 	# each weapon type decides which projectiles the shot fires
 	_fire_projectiles()
 	return true
 
 
-## instantiates this weapon's visual mesh, tints it and takes its muzzle from it
+## instantiates this weapon's visual mesh and takes its muzzle from it
 func _mount_weapon_mesh() -> void:
 	# we instantiate the mesh untyped, so we can still free it if its root isn't a WeaponMesh
 	var instance : Node = _weapon_config.weapon_mesh_scene.instantiate()
@@ -59,8 +68,6 @@ func _mount_weapon_mesh() -> void:
 		add_child(_weapon_mesh)
 		# we cache the muzzle the projectiles spawn from
 		_muzzle = _weapon_mesh.muzzle
-		# we tint it with the weapon color
-		_weapon_mesh.apply_color(_weapon_config.weapon_color)
 	else:
 		# we report the misconfigured weapon config
 		push_error("weapon_mesh_scene of %s is not a WeaponMesh scene" % _weapon_config.resource_path)
@@ -87,8 +94,8 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 		_on_projectile_spawned.emit(projectile)
 		# we configure it with the weapon values
 		projectile.configure(
-				_weapon_config.weapon_color,
-				_weapon_config.projectile_max_speed,
+				_weapon_color,
+				_weapon_config.projectile_movement_config,
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)
 		# we fire it along the muzzle forward axis
@@ -99,7 +106,3 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 		# a node outside the tree is not reference counted, so nobody else would free it
 		instance.free()
 
-
-## the cooldown elapsed, so the next shot is allowed
-func _on_fire_rate_timer_timeout() -> void:
-	_is_fire_rate_ready = true

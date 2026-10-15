@@ -1,7 +1,7 @@
 class_name ControllableEntity
 extends CharacterBody3D
 
-## emitted when this entity dies: health depleted, fall below the level or eliminated (ex: grenade)
+## emitted when this entity dies: health depleted or eliminated (ex: grenade, fall into the kill zone)
 signal _entity_died
 
 @export_group("Controller")
@@ -13,10 +13,12 @@ signal _entity_died
 @export var _upgrade_attach_point : UpgradeAttachPoint
 
 @export_group("Entity")
-## applies the level configuration (stats, health, weapon and color) and levels up this entity
-@export var _entity_level_manager : EntityLevelManager
+## color of the body and of the weapon until the entity levels up
+@export var _entity_color : Color = Color.WHITE
 
 @export_group("References")
+## the body mesh
+@export var _tintable_body_mesh : TintedMesh
 ## system that will handle all the shooting logic
 @export var _weapon_system: WeaponSystem
 ## manages the entity stats and its modifiers
@@ -30,10 +32,12 @@ var _current_entity_stats : EntityStats:
 		return _entity_stats_manager.resulting_entity_stats()
 
 
-## we apply the current level and listen to the health running out
+## we tint the entity and listen to the health running out
 func _ready() -> void:
-	# we ask the level manager to configure this entity, the children are ready by now
-	_entity_level_manager.configure_entity_for_current_level()
+	# we tint the body, the children are ready by now
+	_tintable_body_mesh.apply_color(_entity_color)
+	# the weapon and its projectiles take the same color
+	_weapon_system.apply_color(_entity_color)
 	# we die when the health runs out
 	_health.subscribe_to_depleted(_on_health_depleted)
 
@@ -65,24 +69,9 @@ func _physics_process(delta: float) -> void:
 	rotation.y = look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
-	# we eliminate the entity if it fell below the level's vertical death position
-	_check_vertical_death()
 
 
-## sets the level this entity starts with; only stores the index
-## TODO: the player save will call it to restore the player's level
-func set_initial_level(level: int) -> void:
-	# we let the level manager store it, it works before the entity enters the tree
-	_entity_level_manager.set_initial_level(level)
-
-
-## advances to the next entity level, if there is one
-func level_up() -> void:
-	# we let the level manager decide if there is a next level
-	_entity_level_manager.level_up()
-
-
-## kills this entity right away, whatever its health (ex: grenade, fall)
+## kills this entity right away, whatever its health (ex: grenade, kill zone)
 func eliminate() -> void:
 	_die()
 
@@ -105,13 +94,6 @@ func get_entity_move_speed() -> float:
 ## the entity controller shorthand access
 func get_entity_controller() -> EntityControllerInterface:
 	return _entity_controller
-
-
-## eliminates the entity once it fell below the level (ex: knocked off the arena)
-func _check_vertical_death() -> void:
-	if global_position.y < _current_entity_stats.death_vertical_position:
-		# eliminate the entity if it fell below the level's death vertical position
-		eliminate()
 
 
 ## notifies the death and removes the entity at the end of the frame

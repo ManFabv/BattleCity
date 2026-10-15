@@ -9,14 +9,9 @@ extends Resource
 @export_group("Visuals")
 ## which scene to instantiate as this weapon's visual mesh, mounted as a child of the Weapon node
 @export var weapon_mesh_scene: PackedScene
-## color applied to the weapon mesh above
-@export var weapon_color: Color = Color.WHITE
 @export_group("Projectile")
-## units per second each projectile moves
-@export_range(0.1, 100.0) var projectile_max_speed : float = 10.0:
-	set(new_value):
-		# we prevent negative speeds, which would move the projectiles backwards
-		projectile_max_speed = maxf(new_value, 0.0)
+## how each projectile moves (ex: a straight line at a speed)
+@export var projectile_movement_config : ProjectileMovementConfig
 ## damage points each projectile deals
 @export_range(1, 100) var projectile_damage_points : int = 10:
 	set(new_value):
@@ -28,13 +23,5 @@ extends Resource
 		# we need some time, or the projectile would be removed as soon as it's fired
 		projectile_lifetime_seconds = maxf(new_value, 1.0)
 @export_group("Shot")
-## seconds the weapon waits between shots
-@export_range(0.1, 10.0) var fire_rate_seconds : float = 1.0:
-	set(new_value):
-		# we prevent negative cooldowns
-		fire_rate_seconds = maxf(new_value, 0.0)
-## distance from the muzzle to each of the two projectiles, along the muzzle's right axis; only read by DoubleFastWeapon
-@export_range(0.1, 10.0) var shoot_distance_offset : float = 0.2:
-	set(new_value):
-		# we prevent negative offsets, which would swap the left and right projectiles
-		shoot_distance_offset = maxf(new_value, 0.0)
+## what each shot costs (ex: waiting between shots)
+@export var shot_cost_config : ShotCostConfig

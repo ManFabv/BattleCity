@@ -40,56 +40,28 @@ func _init(timeline_based_spawn_strategy_config: TimelineBasedSpawnStrategyConfi
 	_timeline_based_spawn_strategy_config = timeline_based_spawn_strategy_config
 
 
-## we validate the timeline and start the delay of the first entry
-func configure(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
-	# the timeline only starts when every spawn point id is unique and every entry is valid
-	if _index_spawn_points_by_id(spawn_points) and _are_spawn_entries_valid():
-		# a single manual timer for the whole timeline, it starts now with the delay of the first entry
-		_spawn_delay_timer = _timeline_based_spawn_strategy_config.timer_manager.create_manual(
-				_next_spawn_entry_config.spawn_delay_seconds, 
-				_on_spawn_delay_timer_timeout,
-				owner_exited,
-				true)
-		# we listen to the alive count so we know when there is room again
-		_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
-				_on_alive_count_changed_handler, 
-				owner_exited)
+## we index the spawn points and start the delay of the first entry, the config validated the timeline
+func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
+	# we index every spawn point assigned in the manager by its id
+	_index_spawn_points_by_id(spawn_points)
+	# a single manual timer for the whole timeline, it starts now with the delay of the first entry
+	_spawn_delay_timer = _timeline_based_spawn_strategy_config.timer_manager.create_manual(
+			_next_spawn_entry_config.spawn_delay_seconds, 
+			_on_spawn_delay_timer_timeout,
+			owner_exited,
+			true)
+	# we listen to the alive count so we know when there is room again
+	_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
+			_on_alive_count_changed_handler, 
+			owner_exited)
 
 
-## indexes the spawn points by their id, false when two of them share the same id
-func _index_spawn_points_by_id(spawn_points: Array[SpawnPoint]) -> bool:
+## indexes the spawn points by their id, the config validated that the ids are unique
+func _index_spawn_points_by_id(spawn_points: Array[SpawnPoint]) -> void:
 	# we index every spawn point assigned in the manager
 	for spawn_point : SpawnPoint in spawn_points:
-		# an empty slot left in the manager's array can't spawn anything
-		if is_instance_valid(spawn_point):
-			# two spawn points with the same id would make the entries ambiguous
-			if _spawn_point_by_id.has(spawn_point.spawn_point_id):
-				push_error("spawn point id %d is used by more than one spawn point" % spawn_point.spawn_point_id)
-				return false
-			# we keep the spawn point under its id
-			_spawn_point_by_id[spawn_point.spawn_point_id] = spawn_point
-	return true
-
-
-## true when there is at least one entry and every entry has a scene and a spawn point id that exists
-func _are_spawn_entries_valid() -> bool:
-	# a timeline without entries never finishes, so the level could not be won
-	if _timeline_based_spawn_strategy_config.last_index() < 0:
-		push_error("timeline based spawn strategy needs at least one entry")
-		return false
-	# we check every entry
-	for entry_index : int in range(_timeline_based_spawn_strategy_config.last_index() + 1):
-		# we get the spawn entry config
-		var spawn_entry_config : TimelineSpawnEntryConfig = _timeline_based_spawn_strategy_config.get_spawn_entry_config_at(entry_index)
-		# an empty slot left in the inspector can't spawn anything
-		if is_instance_valid(spawn_entry_config):
-			# the entry needs a scene to spawn and a spawn point that exists
-			if is_instance_valid(spawn_entry_config.scene_to_spawn) and _spawn_point_by_id.has(spawn_entry_config.spawn_point_id):
-				continue
-		# we report the entry that would break the timeline
-		push_error("timeline entry %d is empty, has no scene or points to a spawn point id that does not exist" % entry_index)
-		return false
-	return true
+		# we keep the spawn point under its id
+		_spawn_point_by_id[spawn_point.spawn_point_id] = spawn_point
 
 
 ## spawns the next entry if its delay elapsed and there is room, then starts the delay of the following one
