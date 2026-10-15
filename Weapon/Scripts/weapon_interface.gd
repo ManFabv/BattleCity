@@ -98,7 +98,7 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 		# we configure it with the weapon values
 		projectile.configure(
 				_weapon_color,
-				_weapon_config.projectile_max_speed,
+				_weapon_config.projectile_movement_config,
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)
 		# we fire it along the muzzle forward axis

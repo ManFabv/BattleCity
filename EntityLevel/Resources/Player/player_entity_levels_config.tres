@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cgj0oxi8op852" path="res://Weapon/Scenes/Projectiles/player_level_1_projectile.tscn" id="7_player_level_1_projectile"]
 [ext_resource type="PackedScene" uid="uid://ddwfo3aypyf76" path="res://Weapon/Scenes/WeaponTypes/double_fast_weapon_base.tscn" id="8_double_fast_weapon_base"]
 [ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="9_entity_levels"]
+[ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
 
 [sub_resource type="Resource" id="Resource_player_level_1_entity_stats"]
 script = ExtResource("2_entity_stats")
@@ -15,12 +16,16 @@ move_speed = 6.0
 gravity_modifier = 10.0
 rotation_speed = 35.0
 
+[sub_resource type="Resource" id="Resource_player_level_1_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 20.0
+
 [sub_resource type="Resource" id="Resource_player_level_1_weapon_config"]
 script = ExtResource("3_weapon_config")
 weapon_scene = ExtResource("4_normal_weapon_base")
 projectile_scene = ExtResource("7_player_level_1_projectile")
 weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
-projectile_max_speed = 20.0
+projectile_movement_config = SubResource("Resource_player_level_1_projectile_movement_config")
 projectile_damage_points = 2
 fire_rate_seconds = 0.25
 
@@ -37,12 +42,16 @@ move_speed = 7.5
 gravity_modifier = 10.0
 rotation_speed = 40.0
 
+[sub_resource type="Resource" id="Resource_player_level_2_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 30.0
+
 [sub_resource type="Resource" id="Resource_player_level_2_weapon_config"]
 script = ExtResource("3_weapon_config")
 weapon_scene = ExtResource("8_double_fast_weapon_base")
 projectile_scene = ExtResource("7_player_level_1_projectile")
 weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
-projectile_max_speed = 30.0
+projectile_movement_config = SubResource("Resource_player_level_2_projectile_movement_config")
 projectile_damage_points = 3
 fire_rate_seconds = 0.125
 

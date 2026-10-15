@@ -11,13 +11,8 @@ extends Area3D
 ## the shared timer manager used to request the lifetime timer
 @export var _timer_manager : TimerManagerResource
 
-## direction the projectile moves, set when it's fired
-var _move_direction : Vector3 = Vector3.FORWARD
-## units per second the projectile moves, set on configure
-var _projectile_max_speed : float = 0.0:
-	set(new_value):
-		# we prevent negative values, which would move the projectile backwards
-		_projectile_max_speed = maxf(new_value, 0.0)
+## how this projectile moves, created from the movement config on configure
+var _projectile_movement : ProjectileMovementInterface
 
 
 ## to avoid having to connect this signal on every node, we connect it here
@@ -30,18 +25,18 @@ func _ready() -> void:
 	_visible_on_screen_notifier.screen_exited.connect(_destroy_projectile)
 
 
-## we move the projectile along its direction
+## we move the projectile as its movement says
 func _physics_process(delta: float) -> void:
-	# only the origin changes, so we don't rebuild the whole transform
-	global_position += _move_direction * _projectile_max_speed * delta
+	# only the position changes, so we don't rebuild the whole transform
+	global_position = _projectile_movement.move(global_position, delta)
 
 
-## tints the projectile, caches its speed and damage and starts its lifetime; called once it's in the tree
-func configure(projectile_color: Color, projectile_max_speed: float, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
+## tints the projectile, creates its movement, sets its damage and starts its lifetime; called once it's in the tree
+func configure(projectile_color: Color, projectile_movement_config: ProjectileMovementConfig, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
 	# we tint the projectile with the color of whoever fired it
 	_mesh.apply_color(projectile_color)
-	# we cache the speed so the physics step only reads members
-	_projectile_max_speed = projectile_max_speed
+	# we keep the movement of this projectile
+	_projectile_movement = projectile_movement_config.create_projectile_movement()
 	# we set the damage the hurt area deals
 	_hurt_entity.configure(projectile_damage_points)
 	# a shot spawned off screen never gets screen_exited, so its lifetime timer removes it
@@ -52,8 +47,8 @@ func configure(projectile_color: Color, projectile_max_speed: float, projectile_
 func fire(spawn_position: Vector3, move_direction: Vector3) -> void:
 	# we place the projectile where the shooter spawns it
 	global_position = spawn_position
-	# we normalize once here so the physics step doesn't have to
-	_move_direction = move_direction.normalized()
+	# the movement keeps the direction it follows
+	_projectile_movement.aim(move_direction)
 
 
 ## this will tell us that we should destroy this projectile

@@ -10,11 +10,8 @@ extends Resource
 ## which scene to instantiate as this weapon's visual mesh, mounted as a child of the Weapon node
 @export var weapon_mesh_scene: PackedScene
 @export_group("Projectile")
-## units per second each projectile moves
-@export_range(0.1, 100.0) var projectile_max_speed : float = 10.0:
-	set(new_value):
-		# we prevent negative speeds, which would move the projectiles backwards
-		projectile_max_speed = maxf(new_value, 0.0)
+## how each projectile moves (ex: a straight line at a speed)
+@export var projectile_movement_config : ProjectileMovementConfig
 ## damage points each projectile deals
 @export_range(1, 100) var projectile_damage_points : int = 10:
 	set(new_value):
