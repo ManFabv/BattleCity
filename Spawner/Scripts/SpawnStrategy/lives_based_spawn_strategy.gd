@@ -38,7 +38,6 @@ func configure(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 
 ## spawns the next life and listens to its death
 func _consume_life() -> void:
-	# TODO: apply the saved level with set_initial_level() before spawn() emits, it needs a pre-emit callback
 	# we spawn a new life at the spawn point
 	var entity : ControllableEntity = _spawn_point.spawn(_lives_based_spawn_strategy_config.scene_to_spawn) as ControllableEntity
 	# only a controllable entity tells us when it dies

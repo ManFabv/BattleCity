@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="entity_stats_script"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="normal_weapon_base"]
+[ext_resource type="Resource" path="res://EventBus/Resources/Events/on_star_picked_up.tres" id="on_star_picked_up"]
 [ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_level_0_projectile.tscn" id="player_level_0_projectile"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
@@ -39,13 +40,12 @@ move_speed = 5.0
 gravity_modifier = 10.0
 rotation_speed = 30.0
 
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
-_entity_level_manager = NodePath("EntityLevelManager")
 _entity_color = Color(0.369416, 0.491491, 0.25504, 1)
 _tintable_body_mesh = NodePath("TintableMeshBody")
 _weapon_system = NodePath("WeaponSystem")
@@ -92,6 +92,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
 shape = SubResource("BoxShape3D_tugb3")
 
 [node name="EntityLevelManager" parent="." unique_id=555100003 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
+_on_star_picked_up = ExtResource("on_star_picked_up")
 _entity_levels = ExtResource("18")
 _entity_stats_manager = NodePath("../EntityStatsManager")
 _health = NodePath("../Health")

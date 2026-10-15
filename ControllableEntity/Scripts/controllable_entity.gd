@@ -13,8 +13,6 @@ signal _entity_died
 @export var _upgrade_attach_point : UpgradeAttachPoint
 
 @export_group("Entity")
-## applies the level configuration (stats, health, weapon and color) and levels up this entity
-@export var _entity_level_manager : EntityLevelManager
 ## color of the body and of the weapon until the entity levels up
 @export var _entity_color : Color = Color.WHITE
 
@@ -71,19 +69,6 @@ func _physics_process(delta: float) -> void:
 	rotation.y = look_at_angle
 	# we move the object with that velocity
 	move_and_slide()
-
-
-## sets the level this entity starts with; only stores the index
-## TODO: the player save will call it to restore the player's level
-func set_initial_level(level: int) -> void:
-	# we let the level manager store it, it works before the entity enters the tree
-	_entity_level_manager.set_initial_level(level)
-
-
-## advances to the next entity level, if there is one
-func level_up() -> void:
-	# we let the level manager decide if there is a next level
-	_entity_level_manager.level_up()
 
 
 ## kills this entity right away, whatever its health (ex: grenade, kill zone)
