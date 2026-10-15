@@ -13,8 +13,8 @@ extends Node3D
 ## we start each spawn manager; it runs after every child _ready(), so every listener is already subscribed
 func _ready() -> void:
 	# the enemy timeline starts counting now
-	_enemy_spawn_manager.configure()
+	_enemy_spawn_manager.start()
 	# the player spawns right away
-	_player_spawn_manager.configure()
+	_player_spawn_manager.start()
 	# the base spawns right away
-	_base_spawn_manager.configure()
+	_base_spawn_manager.start()

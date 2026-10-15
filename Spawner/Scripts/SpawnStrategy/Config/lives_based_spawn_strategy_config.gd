@@ -1,3 +1,4 @@
+@tool
 class_name LivesBasedSpawnStrategyConfig
 extends SpawnStrategyConfig
 
@@ -25,6 +26,19 @@ extends SpawnStrategyConfig
 ## creates the lives based spawn strategy that uses this config's lives and delay
 func create_spawn_strategy() -> SpawnStrategyInterface:
 	return LivesBasedSpawnStrategy.new(self)
+
+
+## every life spawns at the same place, so it needs a scene and exactly one spawn point
+func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedStringArray:
+	# we collect everything that is wrong
+	var warnings : PackedStringArray = PackedStringArray()
+	# without a scene there is nothing to spawn
+	if not is_instance_valid(scene_to_spawn):
+		warnings.append("lives based spawn strategy needs a scene to spawn")
+	# with more than one spawn point we can't know where to respawn
+	if spawn_points.size() != 1:
+		warnings.append("lives based spawn strategy needs exactly one spawn point")
+	return warnings
 
 
 ## notifies that there are no lives left

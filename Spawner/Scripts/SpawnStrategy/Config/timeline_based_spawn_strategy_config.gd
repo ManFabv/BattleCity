@@ -1,3 +1,4 @@
+@tool
 class_name TimelineBasedSpawnStrategyConfig
 extends SpawnStrategyConfig
 
@@ -22,6 +23,34 @@ extends SpawnStrategyConfig
 ## creates the timeline based spawn strategy that uses this config's entries and capacity
 func create_spawn_strategy() -> SpawnStrategyInterface:
 	return TimelineBasedSpawnStrategy.new(self)
+
+
+## the ids of the spawn points have to be unique and every entry needs a scene and an id that exists
+func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedStringArray:
+	# we collect everything that is wrong
+	var warnings : PackedStringArray = PackedStringArray()
+	# the ids the entries can point to
+	var spawn_point_ids : Dictionary[int, bool] = {}
+	# we check every spawn point assigned in the manager
+	for spawn_point : SpawnPoint in spawn_points:
+		# an empty slot left in the manager's array can't spawn anything
+		if is_instance_valid(spawn_point):
+			# two spawn points with the same id would make the entries ambiguous
+			if spawn_point_ids.has(spawn_point.spawn_point_id):
+				warnings.append("spawn point id %d is used by more than one spawn point" % spawn_point.spawn_point_id)
+			# we keep the id
+			spawn_point_ids[spawn_point.spawn_point_id] = true
+	# a timeline without entries never finishes, so the level could not be won
+	if _spawn_entry_configs.is_empty():
+		warnings.append("timeline based spawn strategy needs at least one entry")
+	# we check every entry
+	for entry_index : int in _spawn_entry_configs.size():
+		# an empty slot left in the inspector can't spawn anything
+		var spawn_entry_config : TimelineSpawnEntryConfig = _spawn_entry_configs[entry_index]
+		# the entry needs a scene to spawn and a spawn point that exists
+		if not (is_instance_valid(spawn_entry_config) and is_instance_valid(spawn_entry_config.scene_to_spawn) and spawn_point_ids.has(spawn_entry_config.spawn_point_id)):
+			warnings.append("timeline entry %d is empty, has no scene or points to a spawn point id that does not exist" % entry_index)
+	return warnings
 
 
 ## spawn entry config for the given step of the timeline

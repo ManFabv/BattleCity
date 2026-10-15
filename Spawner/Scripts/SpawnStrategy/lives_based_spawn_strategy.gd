@@ -21,12 +21,8 @@ func _init(lives_based_spawn_strategy_config: LivesBasedSpawnStrategyConfig) -> 
 
 
 ## at the beginning we spawn the first life
-func configure(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
-	# if there isn't exactly one spawn point we can't know where to respawn, so we don't start
-	if spawn_points.size() != 1:
-		push_error("lives based spawn strategy needs exactly one spawn point")
-		return
-	# we cache the only spawn point, every life spawns there
+func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
+	# we cache the only spawn point the config validated, every life spawns there
 	_spawn_point = spawn_points[0]
 	# we cache the owner exited signal so the respawn timers are cleaned up with the manager
 	_owner_exited = owner_exited
