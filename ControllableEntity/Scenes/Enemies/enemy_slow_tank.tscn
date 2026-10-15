@@ -6,11 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
 [ext_resource type="PackedScene" uid="uid://2of378jao2eh" path="res://Weapon/Scenes/Projectiles/enemy_projectile.tscn" id="5_enemy_projectile"]
 [ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="6_weapon_mesh_base"]
+[ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
 [ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
 
 [sub_resource type="Resource" id="Resource_enemy_slow_projectile_movement_config"]
 script = ExtResource("linear_projectile_movement_config_script")
 max_speed = 8.0
+
+[sub_resource type="Resource" id="Resource_enemy_slow_shot_cost_config"]
+script = ExtResource("fire_rate_shot_cost_config_script")
+fire_rate_seconds = 3.0
 
 [sub_resource type="Resource" id="Resource_enemy_slow_weapon_config"]
 script = ExtResource("3_weapon_config")
@@ -19,7 +24,7 @@ projectile_scene = ExtResource("5_enemy_projectile")
 weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
 projectile_movement_config = SubResource("Resource_enemy_slow_projectile_movement_config")
 projectile_damage_points = 1
-fire_rate_seconds = 3.0
+shot_cost_config = SubResource("Resource_enemy_slow_shot_cost_config")
 
 [sub_resource type="Resource" id="Resource_enemy_slow_entity_stats"]
 script = ExtResource("2_entity_stats")
