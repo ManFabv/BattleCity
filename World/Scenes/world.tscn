@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://Spawner/Scenes/SpawnPoint/base_spawn_point.tscn" id="49_basespawnpoint"]
 [ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://World/Scripts/world.gd" id="60_world"]
 [ext_resource type="Resource" uid="uid://6sknxj0ttxod" path="res://Level/Resources/test_level_config.tres" id="61_levelconfig"]
-[ext_resource type="PackedScene" path="res://KillZone/Scenes/kill_zone.tscn" id="62_killzone"]
+[ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://KillZone/Scenes/kill_zone.tscn" id="62_killzone"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjlgo"]
 sky_horizon_color = Color(0.60506, 0.61376, 0.624935, 1)
@@ -251,5 +251,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05939, 0, 8.5)
 
 [node name="GamePauseController" parent="Game" unique_id=1230938136 instance=ExtResource("29_pausecontroller")]
 
-[node name="KillZone" parent="." instance=ExtResource("62_killzone")]
+[node name="KillZone" parent="." unique_id=1222635435 instance=ExtResource("62_killzone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
