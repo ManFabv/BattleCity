@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqk3n5t8v2m4x"]
 
-[ext_resource type="Script" uid="uid://d0uvvxj5lktcm" path="res://PickablePowerUp/Scripts/pickable_attachable_power_up.gd" id="1_shield"]
+[ext_resource type="Script" uid="uid://d0uvvxj5lktcm" path="res://PickablePowerUp/Scripts/Powerups/pickable_attachable_power_up.gd" id="1_shield"]
 [ext_resource type="PackedScene" uid="uid://c1tm1xs3e8fwo" path="res://UpgradeAttachPoint/Scenes/Shields/tank_shield.tscn" id="2_shieldscene"]
 [ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://EventBus/Resources/Events/on_tank_shield_picked_up.tres" id="3_tankshield"]
 
