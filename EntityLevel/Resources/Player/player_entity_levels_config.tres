@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cgj0oxi8op852" path="res://Weapon/Scenes/Projectiles/player_level_1_projectile.tscn" id="7_player_level_1_projectile"]
 [ext_resource type="PackedScene" uid="uid://ddwfo3aypyf76" path="res://Weapon/Scenes/WeaponTypes/double_fast_weapon_base.tscn" id="8_double_fast_weapon_base"]
 [ext_resource type="Script" uid="uid://biyvp0jfbmrej" path="res://EntityLevel/Scripts/Config/entity_levels.gd" id="9_entity_levels"]
+[ext_resource type="PackedScene" uid="uid://bw7dq3m5xk2ne" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_double.tscn" id="10_weapon_mesh_double"]
 [ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
 [ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
 
@@ -59,7 +60,7 @@ fire_rate_seconds = 0.125
 script = ExtResource("3_weapon_config")
 weapon_scene = ExtResource("8_double_fast_weapon_base")
 projectile_scene = ExtResource("7_player_level_1_projectile")
-weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
+weapon_mesh_scene = ExtResource("10_weapon_mesh_double")
 projectile_movement_config = SubResource("Resource_player_level_2_projectile_movement_config")
 projectile_damage_points = 3
 shot_cost_config = SubResource("Resource_player_level_2_shot_cost_config")

@@ -1,31 +1,22 @@
 [gd_scene format=3 uid="uid://d177b15gvya4j"]
 
-[ext_resource type="Script" uid="uid://qdc1wvvexnhv" path="res://ControllableEntity/Scripts/controllable_entity.gd" id="1_uvnfx"]
+[ext_resource type="PackedScene" uid="uid://c5nq8v02kr4tm" path="res://ControllableEntity/Scenes/controllable_entity.tscn" id="1_base"]
 [ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
-[ext_resource type="PackedScene" uid="uid://cjcbxwooxbpas" path="res://EntityStats/Scenes/entity_stats_manager.tscn" id="6_mx24k"]
 [ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
-[ext_resource type="PackedScene" uid="uid://06uoyqr2bhhk" path="res://Weapon/Scenes/Systems/weapon_system.tscn" id="8_t6wpt"]
 [ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Scripts/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
-[ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://c8bqk1t3q7v5f" path="res://EntityLevel/Resources/Player/player_entity_levels_config.tres" id="18"]
 [ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
 [ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="entity_stats_script"]
+[ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://EventBus/Resources/Events/on_tank_shield_picked_up.tres" id="ev_on_tank_shield_picked_up"]
 [ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
 [ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="normal_weapon_base"]
 [ext_resource type="Resource" uid="uid://djlo04ybhx8qw" path="res://EventBus/Resources/Events/on_star_picked_up.tres" id="on_star_picked_up"]
 [ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_level_0_projectile.tscn" id="player_level_0_projectile"]
-[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 [ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="weapon_config_script"]
 [ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="weapon_mesh_base"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
-size = Vector3(1, 0.7, 1.65)
-
-[sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
-size = Vector3(0.8, 0.5, 1.2)
 
 [sub_resource type="Resource" id="Resource_player_level_0_projectile_movement_config"]
 script = ExtResource("linear_projectile_movement_config_script")
@@ -50,63 +41,45 @@ move_speed = 5.0
 gravity_modifier = 10.0
 rotation_speed = 30.0
 
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
+[node name="Player" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller") instance=ExtResource("1_base")]
 collision_layer = 2
-collision_mask = 247
-script = ExtResource("1_uvnfx")
 _entity_controller = NodePath("PlayerController")
-_upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_color = Color(0.369416, 0.491491, 0.25504, 1)
-_tintable_body_mesh = NodePath("TintableMeshBody")
-_weapon_system = NodePath("WeaponSystem")
-_entity_stats_manager = NodePath("EntityStatsManager")
-_health = NodePath("Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1320617532]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
-shape = SubResource("BoxShape3D_tugb3")
-
-[node name="TintableMeshBody" parent="." unique_id=90287670 instance=ExtResource("tinted_mesh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.255377, 0)
-mesh = SubResource("BoxMesh_uvnfx")
-
-[node name="UpgradeAttachPoint" parent="." unique_id=555100001 instance=ExtResource("upgrade_attach_point")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
-
-[node name="InputManager" parent="." unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
-_keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
-_game_pad_processor = NodePath("GamePadProcessor")
-
-[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" unique_id=740792287 node_paths=PackedStringArray("_player")]
-script = ExtResource("10_t6wpt")
-_player = NodePath("../..")
-
-[node name="GamePadProcessor" type="Node" parent="InputManager" unique_id=904701735]
-script = ExtResource("11_g2a7d")
-
-[node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
+[node name="WeaponSystem" parent="." index="2" unique_id=154862127]
 _weapon_config = SubResource("Resource_player_level_0_weapon_config")
 
-[node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
+[node name="EntityStatsManager" parent="." index="3" unique_id=838874006]
 _base_entity_stats = SubResource("Resource_player_level_0_entity_stats")
 
-[node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+[node name="Health" parent="." index="4" unique_id=770466037]
+_max_health_points = 3
+
+[node name="PlayerController" parent="." index="5" unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 owner_controllable_entity = NodePath("..")
 
-[node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
-_max_health_points = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
-shape = SubResource("BoxShape3D_tugb3")
-
-[node name="EntityLevelManager" parent="." unique_id=555100003 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
+[node name="EntityLevelManager" parent="." index="6" unique_id=555100003 node_paths=PackedStringArray("_entity_stats_manager", "_health", "_weapon_system", "_tintable_body_mesh") instance=ExtResource("entity_level_manager")]
 _on_star_picked_up = ExtResource("on_star_picked_up")
 _entity_levels = ExtResource("18")
 _entity_stats_manager = NodePath("../EntityStatsManager")
 _health = NodePath("../Health")
 _weapon_system = NodePath("../WeaponSystem")
 _tintable_body_mesh = NodePath("../TintableMeshBody")
+
+[node name="UpgradeAttachPoint" parent="." index="7" unique_id=555100001 instance=ExtResource("upgrade_attach_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+_on_upgrade_picked_up = ExtResource("ev_on_tank_shield_picked_up")
+
+[node name="InputManager" parent="." index="8" unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
+_keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
+_game_pad_processor = NodePath("GamePadProcessor")
+
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" index="0" unique_id=740792287 node_paths=PackedStringArray("_player")]
+script = ExtResource("10_t6wpt")
+_player = NodePath("../..")
+
+[node name="GamePadProcessor" type="Node" parent="InputManager" index="1" unique_id=904701735]
+script = ExtResource("11_g2a7d")
 
 [editable path="InputManager"]

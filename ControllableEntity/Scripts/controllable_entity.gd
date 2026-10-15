@@ -8,10 +8,6 @@ signal _entity_died
 ## decides where this entity moves, looks and when it shoots (player input or AI)
 @export var _entity_controller : EntityControllerInterface
 
-@export_group("Upgrades")
-## where attachable upgrades (ex: shields) are parented, so they follow this entity
-@export var _upgrade_attach_point : UpgradeAttachPoint
-
 @export_group("Entity")
 ## color of the body and of the weapon until the entity levels up
 @export var _entity_color : Color = Color.WHITE
@@ -79,11 +75,6 @@ func eliminate() -> void:
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
 func apply_stat_modifier(modifier: EntityStatsModifierInterface) -> void:
 	_entity_stats_manager.add_modifier(modifier)
-
-
-## public entry point so external systems (ex: pickups) can attach an upgrade to this entity
-func attach_upgrade(upgrade_scene: PackedScene) -> void:
-	_upgrade_attach_point.attach_upgrade(upgrade_scene)
 
 
 ## the entity move speed shorthand access

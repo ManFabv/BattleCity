@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dw50dti804jgi"]
 
-[ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/Entities/controllable_enemy_entity.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="2_entity_stats"]
 [ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="3_weapon_config"]
 [ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
@@ -34,14 +34,14 @@ gravity_modifier = 10.0
 [node name="EnemySlowTank" unique_id=84492125 instance=ExtResource("1_base")]
 _entity_color = Color(1, 1, 0, 1)
 
-[node name="WeaponSystem" parent="." index="3" unique_id=154862127]
+[node name="WeaponSystem" parent="." index="2" unique_id=154862127]
 _weapon_config = SubResource("Resource_enemy_slow_weapon_config")
 
-[node name="EntityStatsManager" parent="." index="4" unique_id=838874006]
+[node name="EntityStatsManager" parent="." index="3" unique_id=838874006]
 _base_entity_stats = SubResource("Resource_enemy_slow_entity_stats")
 
-[node name="Health" parent="." index="8" unique_id=770466037]
+[node name="Health" parent="." index="4" unique_id=770466037]
 _max_health_points = 2
 
-[node name="StateMachine" parent="." index="9" unique_id=1728153428]
+[node name="StateMachine" parent="." index="8" unique_id=1728153428]
 _wander_timeout_seconds = 9.3

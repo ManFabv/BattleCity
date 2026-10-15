@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0uvvxj5lktcm" path="res://PickablePowerUp/Scripts/Powerups/pickable_tank_shield_power_up.gd" id="1_shield"]
 [ext_resource type="PackedScene" uid="uid://c1tm1xs3e8fwo" path="res://UpgradeAttachPoint/Scenes/Shields/tank_shield.tscn" id="2_shieldscene"]
+[ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://EventBus/Resources/Events/on_tank_shield_picked_up.tres" id="3_tankshield"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shield"]
 size = Vector3(0.6, 0.6, 0.6)
@@ -16,6 +17,7 @@ albedo_color = Color(0.223529, 0.6, 0.882353, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_shield")
+_on_tank_shield_picked_up = ExtResource("3_tankshield")
 _shield_scene = ExtResource("2_shieldscene")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1487593577]

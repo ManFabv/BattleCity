@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bw7dq3m5xk2ne"]
+
+[ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="2_tinted_mesh"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_second_barrel"]
+size = Vector3(0.2, 0.2, 1)
+
+[node name="WeaponMeshDouble" unique_id=1005048348 node_paths=PackedStringArray("_extra_barrel_meshes") instance=ExtResource("1_base")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.2, 0.605377, -0.567)
+_extra_barrel_meshes = [NodePath("SecondBarrel")]
+
+[node name="Muzzle" parent="." index="0" unique_id=1801826187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.499)
+
+[node name="SecondBarrel" parent="." index="1" unique_id=1005048349 instance=ExtResource("2_tinted_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+mesh = SubResource("BoxMesh_second_barrel")
