@@ -14,21 +14,14 @@ extends Node3D
 ## manages the health for the base, reusing the same component as ControllableEntity
 @export var _health : Health
 @export_group("Base Configuration")
-## max starting health points of the base
-@export_range(1, 10) var _max_health_points : int = 1:
-	set(new_value):
-		# below 1 the owner would be dead from the start
-		_max_health_points = maxi(new_value, 1)
 ## color applied to the base mesh
 @export var _base_color : Color = Color(0.752941, 0.752941, 0.752941, 1)
 
 
-## we configure the health and color of the base and we subscribe to events
+## we tint the base and we subscribe to events
 func _ready() -> void:
 	# we tint the base body
 	_mesh.apply_color(_base_color)
-	# we start the base at full health
-	_health.configure(_max_health_points)
 	# the base is destroyed when its health runs out
 	_health.subscribe_to_depleted(_on_health_depleted)
 	# we subscribe to the base shield picked up event, so the powerup doesn't need a reference to the base

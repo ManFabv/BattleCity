@@ -17,13 +17,14 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMeshBody"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_weapon_system", "_entity_stats_manager", "_health")]
+[node name="EnemyTank" type="CharacterBody3D" unique_id=659922350 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
 collision_layer = 4
 collision_mask = 247
 script = ExtResource("1")
 _entity_controller = NodePath("AiController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_level_manager = NodePath("EntityLevelManager")
+_tintable_body_mesh = NodePath("TintableMeshBody")
 _weapon_system = NodePath("WeaponSystem")
 _entity_stats_manager = NodePath("EntityStatsManager")
 _health = NodePath("Health")

@@ -28,12 +28,6 @@ func set_initial_level(level: int) -> void:
 	_current_level_index = level
 
 
-## applies the current level; the owner entity calls it once on its _ready()
-func configure_entity_for_current_level() -> void:
-	# we apply the current level
-	_configure_entity_for_level(_current_level_index)
-
-
 ## advances to the next entity level, if there is one
 func level_up() -> void:
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
@@ -53,8 +47,10 @@ func _configure_entity_for_level(level: int) -> void:
 	_health.configure(entity_level_config.max_health_points)
 	# we setup the weapon system
 	_weapon_system.change_weapon(entity_level_config.weapon_config)
-	# we setup the entity color
+	# we tint the body
 	_tintable_body_mesh.apply_color(entity_level_config.entity_color)
+	# the weapon and its projectiles take the same color
+	_weapon_system.apply_color(entity_level_config.entity_color)
 
 
 ## we check if we are at the max level for this entity

@@ -9,8 +9,6 @@ extends Resource
 @export_group("Visuals")
 ## which scene to instantiate as this weapon's visual mesh, mounted as a child of the Weapon node
 @export var weapon_mesh_scene: PackedScene
-## color applied to the weapon mesh above
-@export var weapon_color: Color = Color.WHITE
 @export_group("Projectile")
 ## units per second each projectile moves
 @export_range(0.1, 100.0) var projectile_max_speed : float = 10.0:
@@ -33,8 +31,3 @@ extends Resource
 	set(new_value):
 		# we prevent negative cooldowns
 		fire_rate_seconds = maxf(new_value, 0.0)
-## distance from the muzzle to each of the two projectiles, along the muzzle's right axis; only read by DoubleFastWeapon
-@export_range(0.1, 10.0) var shoot_distance_offset : float = 0.2:
-	set(new_value):
-		# we prevent negative offsets, which would swap the left and right projectiles
-		shoot_distance_offset = maxf(new_value, 0.0)

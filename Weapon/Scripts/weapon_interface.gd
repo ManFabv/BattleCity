@@ -10,6 +10,8 @@ extends Node3D
 
 ## config of this weapon, set on configure
 var _weapon_config : WeaponConfig
+## color of the weapon mesh and of the projectiles it fires, set by apply_color()
+var _weapon_color : Color = Color.WHITE
 ## this weapon's visual mesh, carrying its own muzzle
 var _weapon_mesh : WeaponMesh
 ## where this weapon's projectiles spawn from; the mesh's muzzle, or this weapon if the mesh is invalid
@@ -33,6 +35,16 @@ func configure(weapon_config: WeaponConfig) -> void:
 	_mount_weapon_mesh()
 
 
+## tints the weapon mesh and the projectiles fired from now on
+func apply_color(color: Color) -> void:
+	# we cache the color the projectiles take
+	_weapon_color = color
+	# a weapon without a valid mesh has nothing to tint
+	if is_instance_valid(_weapon_mesh):
+		# we tint the mesh
+		_weapon_mesh.apply_color(color)
+
+
 ## shoots if the cooldown elapsed and returns true when a shot was fired
 func try_shot() -> bool:
 	# we can't shoot until the cooldown elapsed
@@ -47,7 +59,7 @@ func try_shot() -> bool:
 	return true
 
 
-## instantiates this weapon's visual mesh, tints it and takes its muzzle from it
+## instantiates this weapon's visual mesh and takes its muzzle from it
 func _mount_weapon_mesh() -> void:
 	# we instantiate the mesh untyped, so we can still free it if its root isn't a WeaponMesh
 	var instance : Node = _weapon_config.weapon_mesh_scene.instantiate()
@@ -59,8 +71,6 @@ func _mount_weapon_mesh() -> void:
 		add_child(_weapon_mesh)
 		# we cache the muzzle the projectiles spawn from
 		_muzzle = _weapon_mesh.muzzle
-		# we tint it with the weapon color
-		_weapon_mesh.apply_color(_weapon_config.weapon_color)
 	else:
 		# we report the misconfigured weapon config
 		push_error("weapon_mesh_scene of %s is not a WeaponMesh scene" % _weapon_config.resource_path)
@@ -87,7 +97,7 @@ func _fire_projectile(spawn_position: Vector3) -> void:
 		_on_projectile_spawned.emit(projectile)
 		# we configure it with the weapon values
 		projectile.configure(
-				_weapon_config.weapon_color,
+				_weapon_color,
 				_weapon_config.projectile_max_speed,
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)

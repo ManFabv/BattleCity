@@ -10,8 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://wjn101irgvcg" path="res://Health/Scenes/health.tscn" id="11_t6wpt"]
 [ext_resource type="Resource" uid="uid://c8bqk1t3q7v5f" path="res://EntityLevel/Resources/Player/player_entity_levels_config.tres" id="18"]
 [ext_resource type="PackedScene" uid="uid://lbf4ktidlp27" path="res://EntityLevel/Scenes/entity_level_manager.tscn" id="entity_level_manager"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="entity_stats_script"]
+[ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="normal_weapon_base"]
+[ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_level_0_projectile.tscn" id="player_level_0_projectile"]
 [ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="tinted_mesh"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="weapon_config_script"]
+[ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="weapon_mesh_base"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tugb3"]
 size = Vector3(1, 0.7, 1.65)
@@ -19,13 +24,30 @@ size = Vector3(1, 0.7, 1.65)
 [sub_resource type="BoxMesh" id="BoxMesh_uvnfx"]
 size = Vector3(0.8, 0.5, 1.2)
 
-[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_weapon_system", "_entity_stats_manager", "_health")]
+[sub_resource type="Resource" id="Resource_player_level_0_weapon_config"]
+script = ExtResource("weapon_config_script")
+weapon_scene = ExtResource("normal_weapon_base")
+projectile_scene = ExtResource("player_level_0_projectile")
+weapon_mesh_scene = ExtResource("weapon_mesh_base")
+projectile_max_speed = 8.0
+projectile_damage_points = 1
+fire_rate_seconds = 0.5
+
+[sub_resource type="Resource" id="Resource_player_level_0_entity_stats"]
+script = ExtResource("entity_stats_script")
+move_speed = 5.0
+gravity_modifier = 10.0
+rotation_speed = 30.0
+
+[node name="Player" type="CharacterBody3D" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller", "_upgrade_attach_point", "_entity_level_manager", "_tintable_body_mesh", "_weapon_system", "_entity_stats_manager", "_health")]
 collision_layer = 2
 collision_mask = 247
 script = ExtResource("1_uvnfx")
 _entity_controller = NodePath("PlayerController")
 _upgrade_attach_point = NodePath("UpgradeAttachPoint")
 _entity_level_manager = NodePath("EntityLevelManager")
+_entity_color = Color(0.369416, 0.491491, 0.25504, 1)
+_tintable_body_mesh = NodePath("TintableMeshBody")
 _weapon_system = NodePath("WeaponSystem")
 _entity_stats_manager = NodePath("EntityStatsManager")
 _health = NodePath("Health")
@@ -53,14 +75,17 @@ _player = NodePath("../..")
 script = ExtResource("11_g2a7d")
 
 [node name="WeaponSystem" parent="." unique_id=523735498 instance=ExtResource("8_t6wpt")]
+_weapon_config = SubResource("Resource_player_level_0_weapon_config")
 
 [node name="EntityStatsManager" parent="." unique_id=2120595112 instance=ExtResource("6_mx24k")]
+_base_entity_stats = SubResource("Resource_player_level_0_entity_stats")
 
 [node name="PlayerController" parent="." unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
 _input_manager = NodePath("../InputManager")
 owner_controllable_entity = NodePath("..")
 
 [node name="Health" parent="." unique_id=937771143 instance=ExtResource("11_t6wpt")]
+_max_health_points = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Health" unique_id=831903859]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)

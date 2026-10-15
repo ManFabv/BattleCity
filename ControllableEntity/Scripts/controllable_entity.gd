@@ -15,8 +15,12 @@ signal _entity_died
 @export_group("Entity")
 ## applies the level configuration (stats, health, weapon and color) and levels up this entity
 @export var _entity_level_manager : EntityLevelManager
+## color of the body and of the weapon until the entity levels up
+@export var _entity_color : Color = Color.WHITE
 
 @export_group("References")
+## the body mesh
+@export var _tintable_body_mesh : TintedMesh
 ## system that will handle all the shooting logic
 @export var _weapon_system: WeaponSystem
 ## manages the entity stats and its modifiers
@@ -30,10 +34,12 @@ var _current_entity_stats : EntityStats:
 		return _entity_stats_manager.resulting_entity_stats()
 
 
-## we apply the current level and listen to the health running out
+## we tint the entity and listen to the health running out
 func _ready() -> void:
-	# we ask the level manager to configure this entity, the children are ready by now
-	_entity_level_manager.configure_entity_for_current_level()
+	# we tint the body, the children are ready by now
+	_tintable_body_mesh.apply_color(_entity_color)
+	# the weapon and its projectiles take the same color
+	_weapon_system.apply_color(_entity_color)
 	# we die when the health runs out
 	_health.subscribe_to_depleted(_on_health_depleted)
 

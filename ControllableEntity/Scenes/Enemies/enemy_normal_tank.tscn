@@ -1,12 +1,36 @@
 [gd_scene format=3 uid="uid://bj0gsf8vnreo7"]
 
-[ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_goika"]
-[ext_resource type="Resource" uid="uid://b3n7q1w8k5x2m" path="res://EntityLevel/Resources/Enemies/enemy_normal_entity_levels_config.tres" id="2_0sqp7"]
+[ext_resource type="PackedScene" uid="uid://dv8joyvmbs5s1" path="res://ControllableEntity/Scenes/controllable_enemy_entity.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="2_entity_stats"]
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="3_weapon_config"]
+[ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
+[ext_resource type="PackedScene" uid="uid://2of378jao2eh" path="res://Weapon/Scenes/Projectiles/enemy_projectile.tscn" id="5_enemy_projectile"]
+[ext_resource type="PackedScene" uid="uid://c12jtmnb4tpuw" path="res://Weapon/Scenes/WeaponMesh/weapon_mesh_base.tscn" id="6_weapon_mesh_base"]
 
-[node name="EnemyNormalTank" unique_id=459530449 instance=ExtResource("1_goika")]
+[sub_resource type="Resource" id="Resource_enemy_normal_weapon_config"]
+script = ExtResource("3_weapon_config")
+weapon_scene = ExtResource("4_normal_weapon_base")
+projectile_scene = ExtResource("5_enemy_projectile")
+weapon_mesh_scene = ExtResource("6_weapon_mesh_base")
+projectile_max_speed = 8.0
+projectile_damage_points = 2
+
+[sub_resource type="Resource" id="Resource_enemy_normal_entity_stats"]
+script = ExtResource("2_entity_stats")
+move_speed = 5.0
+gravity_modifier = 10.0
+
+[node name="EnemyNormalTank" unique_id=459530449 instance=ExtResource("1_base")]
+_entity_color = Color(1, 0.45, 0, 1)
+
+[node name="WeaponSystem" parent="." index="3" unique_id=154862127]
+_weapon_config = SubResource("Resource_enemy_normal_weapon_config")
+
+[node name="EntityStatsManager" parent="." index="4" unique_id=838874006]
+_base_entity_stats = SubResource("Resource_enemy_normal_entity_stats")
+
+[node name="Health" parent="." index="8" unique_id=770466037]
+_max_health_points = 3
 
 [node name="StateMachine" parent="." index="9" unique_id=1728153428]
 _wander_timeout_seconds = 7.5
-
-[node name="EntityLevelManager" parent="." index="10" unique_id=555100004]
-_entity_levels = ExtResource("2_0sqp7")
