@@ -47,6 +47,12 @@ func take_damage(damage_points: int) -> void:
 		_emit_depleted_signal()
 
 
+## drains all the health that is left, as if it took that much damage; it does nothing if it is already depleted
+func deplete() -> void:
+	# take_damage() already ignores a depleted health, so the signal can't be emitted twice
+	take_damage(_current_health)
+
+
 ## here we take heal amount
 ## TODO: a healing power-up will call it
 func take_heal(heal_points: int) -> void:

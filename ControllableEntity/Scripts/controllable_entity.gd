@@ -44,7 +44,8 @@ func _physics_process(delta: float) -> void:
 
 ## kills this entity right away, whatever its health (ex: grenade, kill zone)
 func eliminate() -> void:
-	_die()
+	# the health runs out, so every death goes through its single depleted signal
+	_health.deplete()
 
 
 ## public entry point so external systems (ex: pickups) can apply a stat modifier to this entity
