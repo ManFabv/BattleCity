@@ -53,6 +53,8 @@ func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
 			_on_alive_count_changed_handler, 
 			owner_exited)
+	# a spawn already deferred when the level leaves the tree must find nothing due
+	owner_exited.connect(_on_spawn_manager_tree_exited, CONNECT_ONE_SHOT)
 
 
 ## indexes the spawn points by their id, the config validated that the ids are unique
@@ -98,3 +100,9 @@ func _on_alive_count_changed_handler(new_count: int) -> void:
 	_spawned_nodes_alive_count = new_count
 	# deferred because we want to wait until this frame and timers are processed
 	_try_spawn_next_entry.call_deferred()
+
+
+## the level left the tree: an entry that was due stays unspawned
+func _on_spawn_manager_tree_exited() -> void:
+	# a deferred _try_spawn_next_entry() finds nothing due and returns
+	_is_next_spawn_entry_waiting_over = false
