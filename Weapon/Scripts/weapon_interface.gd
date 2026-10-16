@@ -64,6 +64,8 @@ func _fire_projectile(muzzle: Marker3D) -> void:
 	var projectile : Projectile = instance as Projectile
 	# only a Projectile can be configured and fired
 	if is_instance_valid(projectile):
+		# the container isn't a Node3D, so this is already its global position and it enters the tree in place
+		projectile.position = muzzle.global_position
 		# the listeners add it to the tree, so its _ready() runs before configure()
 		_on_projectile_spawned.emit(projectile)
 		# we configure it with the weapon values
@@ -73,7 +75,7 @@ func _fire_projectile(muzzle: Marker3D) -> void:
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)
 		# we fire it along the muzzle forward axis
-		projectile.fire(muzzle.global_position, muzzle.global_transform.basis.z)
+		projectile.fire(muzzle.global_transform.basis.z)
 	else:
 		# we report the misconfigured weapon config
 		push_error("projectile_scene of %s is not a Projectile scene" % _weapon_config.resource_path)

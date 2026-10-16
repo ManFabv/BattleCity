@@ -43,10 +43,8 @@ func configure(projectile_color: Color, projectile_movement_config: ProjectileMo
 	_timer_manager.create_one_shot(projectile_lifetime_seconds, _destroy_projectile, tree_exited)
 
 
-## places the projectile and sets the direction it moves
-func fire(spawn_position: Vector3, move_direction: Vector3) -> void:
-	# we place the projectile where the shooter spawns it
-	global_position = spawn_position
+## sets the direction it moves; the shooter placed it before it entered the tree
+func fire(move_direction: Vector3) -> void:
 	# the movement keeps the direction it follows
 	_projectile_movement.aim(move_direction)
 
