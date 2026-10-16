@@ -1,19 +1,20 @@
 class_name UpgradeAttachPoint
 extends Marker3D
 
+@export_group("Events")
+## event announcing that an upgrade for this attach point was picked up
+## so the pickup doesn't need a reference to the owner
+@export var _on_upgrade_picked_up : BaseEvent
 
-## the upgrade is instantiated and parented here, so it follows the owner of this attach point
-func attach_upgrade(upgrade_scene: PackedScene) -> void:
+
+## we subscribe to the upgrade picked up event
+func _ready() -> void:
+	_on_upgrade_picked_up.subscribe(_on_upgrade_picked_up_handler, tree_exited)
+
+
+## the pickup sends the upgrade scene; it's instantiated and parented here
+func _on_upgrade_picked_up_handler(upgrade_scene: PackedScene) -> void:
 	# we instantiate the scene untyped, so we can still free it if its root isn't a Node3D
-	var instance : Node = upgrade_scene.instantiate()
-	# we cast it to the type this attach point can place
-	var upgrade : Node3D = instance as Node3D
-	# only a Node3D follows the owner of this attach point
-	if is_instance_valid(upgrade):
-		# we add it to the tree
-		add_child(upgrade)
-	else:
-		# we report the misconfigured scene
-		push_error("UpgradeAttachPoint.attach_upgrade(): the root of %s is not a Node3D" % upgrade_scene.resource_path)
-		# a node outside the tree is not reference counted, so nobody else would free it
-		instance.free()
+	var instance : Node3D = upgrade_scene.instantiate() as Node3D
+	# we add it to the tree
+	add_child(instance)

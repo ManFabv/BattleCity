@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bqk3n5t8v2m4x"]
+
+[ext_resource type="PackedScene" uid="uid://cx3m7plahv4we" path="res://PickablePowerUp/Scenes/pickable_power_up.tscn" id="0_base"]
+[ext_resource type="Script" uid="uid://d0uvvxj5lktcm" path="res://PickablePowerUp/Scripts/Powerups/pickable_attachable_power_up.gd" id="1_shield"]
+[ext_resource type="PackedScene" uid="uid://c1tm1xs3e8fwo" path="res://Upgrades/Scenes/Shield/tank_shield.tscn" id="2_shieldscene"]
+[ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://EventBus/Resources/Events/on_tank_shield_picked_up.tres" id="3_tankshield"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shield"]
+albedo_color = Color(0.223529, 0.6, 0.882353, 1)
+
+[node name="PickableTankShieldPowerUp" unique_id=1127179180 instance=ExtResource("0_base")]
+script = ExtResource("1_shield")
+_on_upgrade_picked_up = ExtResource("3_tankshield")
+_upgrade_scene = ExtResource("2_shieldscene")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=1760582028]
+surface_material_override/0 = SubResource("StandardMaterial3D_shield")

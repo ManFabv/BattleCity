@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://beq3lar5w0n2m"]
+
+[ext_resource type="PackedScene" uid="uid://cx3m7plahv4we" path="res://PickablePowerUp/Scenes/pickable_power_up.tscn" id="0_base"]
+[ext_resource type="Script" uid="uid://doneq5nhgxcgd" path="res://PickablePowerUp/Scripts/Powerups/pickable_event_emitter_power_up.gd" id="1_grenade"]
+[ext_resource type="Resource" uid="uid://83e8qmbrwb6y" path="res://EventBus/Resources/Events/on_grenade_picked_up.tres" id="2_eliminate"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grenade"]
+albedo_color = Color(0.298039, 0.6, 0.298039, 1)
+
+[node name="PickableGrenadePowerUp" unique_id=1892374661 instance=ExtResource("0_base")]
+script = ExtResource("1_grenade")
+_on_power_up_picked_up = ExtResource("2_eliminate")
+
+[node name="MeshInstance3D" parent="." index="1" unique_id=1760582028]
+surface_material_override/0 = SubResource("StandardMaterial3D_grenade")

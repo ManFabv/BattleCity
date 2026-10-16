@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cx3m7plahv4we"]
+
+[ext_resource type="Script" uid="uid://bi7muc3nutk2c" path="res://PickablePowerUp/Scripts/pickable_power_up_interface.gd" id="1_interface"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pickable"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pickable"]
+size = Vector3(0.6, 0.6, 0.6)
+
+[node name="PickablePowerUp" type="Area3D" unique_id=1892374600]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_interface")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1537609810]
+shape = SubResource("BoxShape3D_pickable")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1760582028]
+mesh = SubResource("BoxMesh_pickable")

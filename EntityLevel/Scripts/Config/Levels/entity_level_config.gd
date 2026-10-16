@@ -13,5 +13,5 @@ extends Resource
 @export var weapon_config: WeaponConfig
 
 @export_group("Visuals")
-## color applied to this entity's body mesh at this level
+## color applied to this entity's body mesh, weapon and projectiles at this level
 @export var entity_color: Color = Color.WHITE

@@ -7,13 +7,11 @@ signal _health_changed(max_health_points: int, current_health: int)
 ## emitted when the health runs out
 signal _depleted
 
-@export_group("Config")
-## max health points of the owner, the health starts full
-@export_range(1, 10) var _max_health_points : int = 1:
+## max health points of the owner, set by configure(); the health starts full
+var _max_health_points : int = 1:
 	set(new_value):
 		# below 1 the owner would be dead from the start
 		_max_health_points = maxi(new_value, 1)
-
 ## used to keep track of hits and heals to the entity
 var _current_health : int:
 	set(new_value):
@@ -47,6 +45,12 @@ func take_damage(damage_points: int) -> void:
 	# because we clamp the current health on the setter, we won't get less than 0
 	if _is_depleted():
 		_emit_depleted_signal()
+
+
+## drains all the health that is left, as if it took that much damage; it does nothing if it is already depleted
+func deplete() -> void:
+	# take_damage() already ignores a depleted health, so the signal can't be emitted twice
+	take_damage(_current_health)
 
 
 ## here we take heal amount

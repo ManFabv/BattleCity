@@ -3,8 +3,28 @@
 [ext_resource type="Script" uid="uid://bs376r8siu1oi" path="res://Weapon/Scripts/WeaponTypes/double_fast_weapon.gd" id="1"]
 [ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://TimerManager/Resources/timer_manager.tres" id="2_timerres"]
 [ext_resource type="Resource" uid="uid://dcr3oysjeymap" path="res://EventBus/Resources/Events/on_projectile_spawned.tres" id="3_projectile_spawned"]
+[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://TintedMesh/Scenes/tinted_mesh.tscn" id="4_tinted_mesh"]
 
-[node name="DoubleFastWeapon" type="Node3D" unique_id=1184496234]
+[sub_resource type="BoxMesh" id="BoxMesh_barrel"]
+size = Vector3(0.2, 0.2, 1)
+
+[node name="DoubleFastWeapon" type="Node3D" unique_id=1184496234 node_paths=PackedStringArray("_muzzles", "_tinted_meshes")]
 script = ExtResource("1")
+_muzzles = [NodePath("LeftBarrel/Muzzle"), NodePath("RightBarrel/Muzzle")]
 _on_projectile_spawned = ExtResource("3_projectile_spawned")
 _timer_manager = ExtResource("2_timerres")
+_tinted_meshes = [NodePath("LeftBarrel"), NodePath("RightBarrel")]
+
+[node name="LeftBarrel" parent="." unique_id=1005048348 instance=ExtResource("4_tinted_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.605377, -0.567)
+mesh = SubResource("BoxMesh_barrel")
+
+[node name="Muzzle" type="Marker3D" parent="LeftBarrel" unique_id=1801826188]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -0.499)
+
+[node name="RightBarrel" parent="." unique_id=1005048349 instance=ExtResource("4_tinted_mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.605377, -0.567)
+mesh = SubResource("BoxMesh_barrel")
+
+[node name="Muzzle" type="Marker3D" parent="RightBarrel" unique_id=1801826189]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -0.499)

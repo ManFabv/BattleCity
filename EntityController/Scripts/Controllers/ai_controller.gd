@@ -102,7 +102,7 @@ func set_attack_targets(player_target: ControllableEntity, base_target: Base) ->
 	_base_target = base_target
 
 
-## stops the entity where it is, as if it had reached its target
+## stops the entity where it is, as if its path had finished
 func stop_moving() -> void:
 	# we move the target to where we are
 	_navigation_agent.set_target_position(owner_controllable_entity.global_position)
@@ -169,7 +169,7 @@ func _can_attack_base() -> bool:
 	return is_instance_valid(_base_target) and _attack_detector.has_detected_target(_base_target)
 
 
-## picks a random point on the navigation map; the state chart gives up on it if it can't be reached
+## picks a random point on the navigation map; if it can't be reached the agent walks to the closest reachable point
 func _get_random_wander_target() -> Vector3:
 	# the agent joins the world's navigation map when it enters the tree
 	return NavigationServer3D.map_get_random_point(
@@ -178,9 +178,9 @@ func _get_random_wander_target() -> Vector3:
 			false)
 
 
-## the entity only turns toward its movement direction while it hasn't reached the target
+## the entity only turns toward its movement direction while its path isn't finished
 func _can_aim() -> bool:
-	return not _navigation_agent.is_target_reached()
+	return not _navigation_agent.is_navigation_finished()
 
 
 ## the avoidance computed a safe velocity; the entity applies its own speed to the direction

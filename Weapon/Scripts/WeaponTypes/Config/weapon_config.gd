@@ -7,10 +7,6 @@ extends Resource
 ## which projectile to fire
 @export var projectile_scene: PackedScene
 
-@export_group("Visuals")
-## which scene to instantiate as this weapon's visual mesh, mounted as a child of the Weapon node
-@export var weapon_mesh_scene: PackedScene
-
 @export_group("Projectile")
 ## how each projectile moves (ex: a straight line at a speed)
 @export var projectile_movement_config : ProjectileMovementConfig
@@ -27,4 +23,9 @@ extends Resource
 
 @export_group("Shot")
 ## what each shot costs (ex: waiting between shots)
-@export var shot_cost_config : ShotCostConfig
+@export var _shot_cost_config : ShotCostConfig
+
+
+## creates the runtime shot cost of one weapon that uses this config
+func create_shot_cost(timer_manager: TimerManagerResource, owner_exited: Signal) -> ShotCostInterface:
+	return _shot_cost_config.create_shot_cost(timer_manager, owner_exited)

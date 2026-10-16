@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dv8joyvmbs5s1"]
+
+[ext_resource type="PackedScene" uid="uid://c5nq8v02kr4tm" path="res://ControllableEntity/Scenes/controllable_entity.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://dqvh0awm4m1mp" path="res://EntityController/Scenes/ai_controller.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://wx50lpp58dmd" path="res://StateMachine/Normal/Scenes/normal_state_machine.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://EntityDetection/Scenes/sight_attack_detector.tscn" id="12"]
+
+[node name="EnemyTank" unique_id=659922350 node_paths=PackedStringArray("_entity_controller") instance=ExtResource("1_base")]
+collision_layer = 4
+_entity_controller = NodePath("AiController")
+
+[node name="Health" parent="." index="4" unique_id=770466037]
+collision_layer = 1024
+
+[node name="AiController" parent="." index="6" unique_id=2129425660 node_paths=PackedStringArray("_navigation_agent", "_attack_detector", "owner_controllable_entity") instance=ExtResource("6")]
+_navigation_agent = NodePath("../NavigationAgent3D")
+_attack_detector = NodePath("../SightAttackDetector")
+owner_controllable_entity = NodePath("..")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="7" unique_id=2063289975]
+avoidance_enabled = true
+radius = 1.2
+neighbor_distance = 20.0
+
+[node name="SightAttackDetector" parent="." index="8" unique_id=1103963107 node_paths=PackedStringArray("_owner_controllable_entity") instance=ExtResource("12")]
+_owner_controllable_entity = NodePath("..")
+
+[node name="StateMachine" parent="." index="9" unique_id=1728153428 node_paths=PackedStringArray("_ai_controller", "_weapon_system") instance=ExtResource("9")]
+_ai_controller = NodePath("../AiController")
+_weapon_system = NodePath("../WeaponSystem")
+
+[connection signal="navigation_finished" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_velocity_computed"]

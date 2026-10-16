@@ -36,11 +36,6 @@ to = NodePath("../../AimInPlace")
 event = &"aim_event"
 delay_in_seconds = "1"
 
-[node name="TransitionToAimInPlaceOnTimeout" type="Node" parent="StateChart/RootCompoundState/Wander" unique_id=1478529307]
-script = ExtResource("4_ctv5m")
-to = NodePath("../../AimInPlace")
-delay_in_seconds = "wander_timeout_seconds"
-
 [node name="AimInPlace" type="Node" parent="StateChart/RootCompoundState" unique_id=1478529301]
 script = ExtResource("3_lf2qg")
 

@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://d177b15gvya4j"]
+
+[ext_resource type="PackedScene" uid="uid://c5nq8v02kr4tm" path="res://ControllableEntity/Scenes/controllable_entity.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://dckh4hk6ushu4" path="res://EntityLevel/Scripts/Config/Levels/entity_level_config.gd" id="1_entity_level_config"]
+[ext_resource type="Script" uid="uid://c20qkm4e2f4lx" path="res://EntityStats/Scripts/entity_stats.gd" id="2_entity_stats"]
+[ext_resource type="Script" uid="uid://ceo3p6ss4460" path="res://Weapon/Scripts/WeaponTypes/Config/weapon_config.gd" id="3_weapon_config"]
+[ext_resource type="PackedScene" uid="uid://wu26eciwbaaq" path="res://Weapon/Scenes/WeaponTypes/normal_weapon_base.tscn" id="4_normal_weapon_base"]
+[ext_resource type="PackedScene" uid="uid://c7txj2htclqx7" path="res://Input/Scenes/input_manager.tscn" id="4_qg7t1"]
+[ext_resource type="PackedScene" uid="uid://waou0jxnr0cd" path="res://Weapon/Scenes/Projectiles/player_level_0_projectile.tscn" id="5_player_level_0_projectile"]
+[ext_resource type="PackedScene" uid="uid://cgj0oxi8op852" path="res://Weapon/Scenes/Projectiles/player_level_1_projectile.tscn" id="7_player_level_1_projectile"]
+[ext_resource type="PackedScene" uid="uid://ddwfo3aypyf76" path="res://Weapon/Scenes/WeaponTypes/double_fast_weapon_base.tscn" id="8_double_fast_weapon_base"]
+[ext_resource type="PackedScene" uid="uid://cbtltak6rmjhe" path="res://EntityController/Scenes/player_controller.tscn" id="8_sfijf"]
+[ext_resource type="Script" uid="uid://cv7jsjg3msy73" path="res://Input/Scripts/Processors/keyboard_mouse_processor.gd" id="10_t6wpt"]
+[ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://Input/Scripts/Processors/game_pad_processor.gd" id="11_g2a7d"]
+[ext_resource type="PackedScene" uid="uid://b7k2naxq4ndvh" path="res://Weapon/Scenes/Projectiles/player_level_2_projectile.tscn" id="11_player_level_2_projectile"]
+[ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://EventBus/Resources/Events/on_tank_shield_picked_up.tres" id="ev_on_tank_shield_picked_up"]
+[ext_resource type="Script" uid="uid://c3x8lirb0q88y" path="res://Weapon/Scripts/ShotCost/Config/fire_rate_shot_cost_config.gd" id="fire_rate_shot_cost_config_script"]
+[ext_resource type="Script" uid="uid://bto180aavcqgy" path="res://Weapon/Scripts/ProjectileMovement/Config/linear_projectile_movement_config.gd" id="linear_projectile_movement_config_script"]
+[ext_resource type="Resource" uid="uid://djlo04ybhx8qw" path="res://EventBus/Resources/Events/on_star_picked_up.tres" id="on_star_picked_up"]
+[ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://UpgradeAttachPoint/Scenes/upgrade_attach_point.tscn" id="upgrade_attach_point"]
+
+[sub_resource type="Resource" id="Resource_player_level_0_entity_stats"]
+script = ExtResource("2_entity_stats")
+move_speed = 5.0
+gravity_modifier = 10.0
+rotation_speed = 30.0
+
+[sub_resource type="Resource" id="Resource_player_level_0_shot_cost_config"]
+script = ExtResource("fire_rate_shot_cost_config_script")
+fire_rate_seconds = 0.5
+
+[sub_resource type="Resource" id="Resource_player_level_0_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 8.0
+
+[sub_resource type="Resource" id="Resource_player_level_0_weapon_config"]
+script = ExtResource("3_weapon_config")
+weapon_scene = ExtResource("4_normal_weapon_base")
+projectile_scene = ExtResource("5_player_level_0_projectile")
+projectile_movement_config = SubResource("Resource_player_level_0_projectile_movement_config")
+projectile_damage_points = 1
+_shot_cost_config = SubResource("Resource_player_level_0_shot_cost_config")
+
+[sub_resource type="Resource" id="Resource_player_level_0_entity_level_config"]
+script = ExtResource("1_entity_level_config")
+entity_stats = SubResource("Resource_player_level_0_entity_stats")
+max_health_points = 3
+weapon_config = SubResource("Resource_player_level_0_weapon_config")
+entity_color = Color(0.369416, 0.491491, 0.25504, 1)
+
+[sub_resource type="Resource" id="Resource_player_level_1_entity_stats"]
+script = ExtResource("2_entity_stats")
+move_speed = 6.0
+gravity_modifier = 10.0
+rotation_speed = 35.0
+
+[sub_resource type="Resource" id="Resource_player_level_1_shot_cost_config"]
+script = ExtResource("fire_rate_shot_cost_config_script")
+fire_rate_seconds = 0.25
+
+[sub_resource type="Resource" id="Resource_player_level_1_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 20.0
+
+[sub_resource type="Resource" id="Resource_player_level_1_weapon_config"]
+script = ExtResource("3_weapon_config")
+weapon_scene = ExtResource("4_normal_weapon_base")
+projectile_scene = ExtResource("7_player_level_1_projectile")
+projectile_movement_config = SubResource("Resource_player_level_1_projectile_movement_config")
+projectile_damage_points = 2
+_shot_cost_config = SubResource("Resource_player_level_1_shot_cost_config")
+
+[sub_resource type="Resource" id="Resource_player_level_1_entity_level_config"]
+script = ExtResource("1_entity_level_config")
+entity_stats = SubResource("Resource_player_level_1_entity_stats")
+max_health_points = 4
+weapon_config = SubResource("Resource_player_level_1_weapon_config")
+entity_color = Color(0.5, 0.65, 0.36, 1)
+
+[sub_resource type="Resource" id="Resource_player_level_2_entity_stats"]
+script = ExtResource("2_entity_stats")
+move_speed = 7.5
+gravity_modifier = 10.0
+rotation_speed = 40.0
+
+[sub_resource type="Resource" id="Resource_player_level_2_shot_cost_config"]
+script = ExtResource("fire_rate_shot_cost_config_script")
+fire_rate_seconds = 0.125
+
+[sub_resource type="Resource" id="Resource_player_level_2_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 30.0
+
+[sub_resource type="Resource" id="Resource_player_level_2_weapon_config"]
+script = ExtResource("3_weapon_config")
+weapon_scene = ExtResource("8_double_fast_weapon_base")
+projectile_scene = ExtResource("11_player_level_2_projectile")
+projectile_movement_config = SubResource("Resource_player_level_2_projectile_movement_config")
+projectile_damage_points = 3
+_shot_cost_config = SubResource("Resource_player_level_2_shot_cost_config")
+
+[sub_resource type="Resource" id="Resource_player_level_2_entity_level_config"]
+script = ExtResource("1_entity_level_config")
+entity_stats = SubResource("Resource_player_level_2_entity_stats")
+max_health_points = 5
+weapon_config = SubResource("Resource_player_level_2_weapon_config")
+entity_color = Color(0.66, 0.82, 0.48, 1)
+
+[node name="Player" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller") instance=ExtResource("1_base")]
+collision_layer = 2
+_entity_controller = NodePath("PlayerController")
+
+[node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
+_on_star_picked_up = ExtResource("on_star_picked_up")
+_entity_level_configs = Array[ExtResource("1_entity_level_config")]([SubResource("Resource_player_level_0_entity_level_config"), SubResource("Resource_player_level_1_entity_level_config"), SubResource("Resource_player_level_2_entity_level_config")])
+
+[node name="PlayerController" parent="." index="6" unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "owner_controllable_entity") instance=ExtResource("8_sfijf")]
+_input_manager = NodePath("../InputManager")
+owner_controllable_entity = NodePath("..")
+
+[node name="UpgradeAttachPoint" parent="." index="7" unique_id=555100001 instance=ExtResource("upgrade_attach_point")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.357062, -0.23291)
+_on_upgrade_picked_up = ExtResource("ev_on_tank_shield_picked_up")
+
+[node name="InputManager" parent="." index="8" unique_id=439727135 node_paths=PackedStringArray("_keyboard_mouse_processor", "_game_pad_processor") instance=ExtResource("4_qg7t1")]
+_keyboard_mouse_processor = NodePath("KeyboardMouseProcessor")
+_game_pad_processor = NodePath("GamePadProcessor")
+
+[node name="KeyboardMouseProcessor" type="Node" parent="InputManager" index="0" unique_id=740792287 node_paths=PackedStringArray("_player")]
+script = ExtResource("10_t6wpt")
+_player = NodePath("../..")
+
+[node name="GamePadProcessor" type="Node" parent="InputManager" index="1" unique_id=904701735]
+script = ExtResource("11_g2a7d")
+
+[editable path="InputManager"]

@@ -45,15 +45,16 @@ func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	# we index every spawn point assigned in the manager by its id
 	_index_spawn_points_by_id(spawn_points)
 	# a single manual timer for the whole timeline, it starts now with the delay of the first entry
-	_spawn_delay_timer = _timeline_based_spawn_strategy_config.timer_manager.create_manual(
-			_next_spawn_entry_config.spawn_delay_seconds, 
+	_spawn_delay_timer = _timeline_based_spawn_strategy_config.create_spawn_delay_timer(
+			_next_spawn_entry_config.spawn_delay_seconds,
 			_on_spawn_delay_timer_timeout,
-			owner_exited,
-			true)
+			owner_exited)
 	# we listen to the alive count so we know when there is room again
 	_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
 			_on_alive_count_changed_handler, 
 			owner_exited)
+	# a spawn already deferred when the level leaves the tree must find nothing due
+	owner_exited.connect(_on_spawn_manager_tree_exited, CONNECT_ONE_SHOT)
 
 
 ## indexes the spawn points by their id, the config validated that the ids are unique
@@ -99,3 +100,9 @@ func _on_alive_count_changed_handler(new_count: int) -> void:
 	_spawned_nodes_alive_count = new_count
 	# deferred because we want to wait until this frame and timers are processed
 	_try_spawn_next_entry.call_deferred()
+
+
+## the level left the tree: an entry that was due stays unspawned
+func _on_spawn_manager_tree_exited() -> void:
+	# a deferred _try_spawn_next_entry() finds nothing due and returns
+	_is_next_spawn_entry_waiting_over = false

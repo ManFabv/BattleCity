@@ -51,7 +51,4 @@ func _on_entity_died() -> void:
 		_lives_based_spawn_strategy_config.emit_out_of_lives_event()
 		return
 	# we wait the respawn delay before spawning the next life
-	_lives_based_spawn_strategy_config.timer_manager.create_one_shot(
-			_lives_based_spawn_strategy_config.respawn_delay, 
-			_consume_life, 
-			_owner_exited)
+	_lives_based_spawn_strategy_config.create_respawn_timer(_consume_life, _owner_exited)

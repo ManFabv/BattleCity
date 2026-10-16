@@ -87,17 +87,17 @@ El jugador debera defender su base de los ataques enemigos y tratar que los enem
 Juego de accion Twin Stick Shooter 3D con vista Top-Down
 
 ## Política de Colaboración con IA ##
-Este proyecto utiliza Inteligencia Artificial únicamente como consultor y herramienta de brainstorming para temas puntuales. La arquitectura, las decisiones de diseño, la implementación del refactor, la integración final del código y la optimización del sistema son responsabilidad del autor.
+Este proyecto utiliza Inteligencia Artificial como consultor, herramienta de brainstorming y para implementar los refactors que yo decido aplicar. La arquitectura, las decisiones de diseño, la decisión de qué refactors aplicar, la integración final del código y la optimización del sistema son responsabilidad del autor.
 
 Mi flujo de desarrollo incluye:
 * Brainstorming: exploración de alternativas y detección de posibles mejoras.
 * Validación de restricciones: análisis de ventajas y desventajas de mis diseños específicos.
 * Revisión puntual: contraste de errores o riesgos antes de integrar un cambio.
-* Implementacion puntual de refactors o simplificaciones.
+* Implementacion de refactors o simplificaciones: primero analizo yo cuales mejoras puedo aplicar y despues dejo que la IA las implemente, de a una tarea; reviso cada cambio antes de integrarlo.
 * Consulta de metodos y API del engine: es el uso mas extensivo que le doy. Por ejemplo, como se marca un destino en una navigation region o que metodo usar para una tarea puntual de Godot.
 
-La IA no es el autor principal de las ideas, del código ni de los assets. Las sugerencias se revisan, adaptan y se aplican.
-Esto quiere decir que no se deja a la IA mas que como consulta y para la implementacion rapida de mis ideas de refactor y no es usada para vibe coding
+La IA no es el autor principal de las ideas ni de los assets. Las sugerencias se revisan, adaptan y se aplican.
+Esto quiere decir que la IA consulta y, despues de que yo analizo que mejoras puedo aplicar, implementa los refactors; no es usada para vibe coding
 
 
 ## Recursos de aprendizaje: ##
