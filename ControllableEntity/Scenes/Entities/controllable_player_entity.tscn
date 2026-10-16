@@ -25,13 +25,13 @@ move_speed = 5.0
 gravity_modifier = 10.0
 rotation_speed = 30.0
 
-[sub_resource type="Resource" id="Resource_player_level_0_projectile_movement_config"]
-script = ExtResource("linear_projectile_movement_config_script")
-max_speed = 8.0
-
 [sub_resource type="Resource" id="Resource_player_level_0_shot_cost_config"]
 script = ExtResource("fire_rate_shot_cost_config_script")
 fire_rate_seconds = 0.5
+
+[sub_resource type="Resource" id="Resource_player_level_0_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 8.0
 
 [sub_resource type="Resource" id="Resource_player_level_0_weapon_config"]
 script = ExtResource("3_weapon_config")
@@ -39,7 +39,7 @@ weapon_scene = ExtResource("4_normal_weapon_base")
 projectile_scene = ExtResource("5_player_level_0_projectile")
 projectile_movement_config = SubResource("Resource_player_level_0_projectile_movement_config")
 projectile_damage_points = 1
-shot_cost_config = SubResource("Resource_player_level_0_shot_cost_config")
+_shot_cost_config = SubResource("Resource_player_level_0_shot_cost_config")
 
 [sub_resource type="Resource" id="Resource_player_level_0_entity_level_config"]
 script = ExtResource("1_entity_level_config")
@@ -54,13 +54,13 @@ move_speed = 6.0
 gravity_modifier = 10.0
 rotation_speed = 35.0
 
-[sub_resource type="Resource" id="Resource_player_level_1_projectile_movement_config"]
-script = ExtResource("linear_projectile_movement_config_script")
-max_speed = 20.0
-
 [sub_resource type="Resource" id="Resource_player_level_1_shot_cost_config"]
 script = ExtResource("fire_rate_shot_cost_config_script")
 fire_rate_seconds = 0.25
+
+[sub_resource type="Resource" id="Resource_player_level_1_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 20.0
 
 [sub_resource type="Resource" id="Resource_player_level_1_weapon_config"]
 script = ExtResource("3_weapon_config")
@@ -68,7 +68,7 @@ weapon_scene = ExtResource("4_normal_weapon_base")
 projectile_scene = ExtResource("7_player_level_1_projectile")
 projectile_movement_config = SubResource("Resource_player_level_1_projectile_movement_config")
 projectile_damage_points = 2
-shot_cost_config = SubResource("Resource_player_level_1_shot_cost_config")
+_shot_cost_config = SubResource("Resource_player_level_1_shot_cost_config")
 
 [sub_resource type="Resource" id="Resource_player_level_1_entity_level_config"]
 script = ExtResource("1_entity_level_config")
@@ -83,13 +83,13 @@ move_speed = 7.5
 gravity_modifier = 10.0
 rotation_speed = 40.0
 
-[sub_resource type="Resource" id="Resource_player_level_2_projectile_movement_config"]
-script = ExtResource("linear_projectile_movement_config_script")
-max_speed = 30.0
-
 [sub_resource type="Resource" id="Resource_player_level_2_shot_cost_config"]
 script = ExtResource("fire_rate_shot_cost_config_script")
 fire_rate_seconds = 0.125
+
+[sub_resource type="Resource" id="Resource_player_level_2_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 30.0
 
 [sub_resource type="Resource" id="Resource_player_level_2_weapon_config"]
 script = ExtResource("3_weapon_config")
@@ -97,7 +97,7 @@ weapon_scene = ExtResource("8_double_fast_weapon_base")
 projectile_scene = ExtResource("11_player_level_2_projectile")
 projectile_movement_config = SubResource("Resource_player_level_2_projectile_movement_config")
 projectile_damage_points = 3
-shot_cost_config = SubResource("Resource_player_level_2_shot_cost_config")
+_shot_cost_config = SubResource("Resource_player_level_2_shot_cost_config")
 
 [sub_resource type="Resource" id="Resource_player_level_2_entity_level_config"]
 script = ExtResource("1_entity_level_config")

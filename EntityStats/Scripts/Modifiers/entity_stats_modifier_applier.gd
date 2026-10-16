@@ -14,10 +14,7 @@ func _init(entity_stats_modifier: EntityStatsModifierInterface, on_depleted: Cal
 	# we connect the signal to notify that the modifier is depleted
 	_depleted.connect(on_depleted)
 	# we also need to create a timer
-	entity_stats_modifier.timer_manager.create_one_shot(
-			entity_stats_modifier.duration, 
-			_deplete_modifier, 
-			owner_exited)
+	entity_stats_modifier.create_duration_timer(_deplete_modifier, owner_exited)
 
 
 ## we apply the modifier logic using the config resource

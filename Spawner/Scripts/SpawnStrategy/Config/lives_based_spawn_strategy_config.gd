@@ -8,7 +8,7 @@ extends SpawnStrategyConfig
 
 @export_group("References")
 ## the shared timer manager used to request the respawn delay timer
-@export var timer_manager : TimerManagerResource
+@export var _timer_manager : TimerManagerResource
 ## the scene_to_spawn to instantiate, one instance per life
 @export var scene_to_spawn : PackedScene
 
@@ -41,6 +41,11 @@ func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedString
 	if spawn_points.size() != 1:
 		warnings.append("lives based spawn strategy needs exactly one spawn point")
 	return warnings
+
+
+## requests the timer that waits the respawn delay before the next life
+func create_respawn_timer(on_timeout: Callable, owner_exited: Signal) -> CustomTimer:
+	return _timer_manager.create_one_shot(respawn_delay, on_timeout, owner_exited)
 
 
 ## notifies that there are no lives left

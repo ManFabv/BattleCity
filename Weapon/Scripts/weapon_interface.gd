@@ -22,7 +22,7 @@ var _shot_cost : ShotCostInterface
 ## we create the shot cost once, it is cleaned up when this weapon leaves the tree
 func _ready() -> void:
 	# we keep the cost of this weapon
-	_shot_cost = _weapon_config.shot_cost_config.create_shot_cost(_timer_manager, tree_exited)
+	_shot_cost = _weapon_config.create_shot_cost(_timer_manager, tree_exited)
 
 
 ## we cache the config every shot reads from; called before the weapon enters the tree

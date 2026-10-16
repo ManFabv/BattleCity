@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_ovlcb")
-timer_manager = ExtResource("2_timerres")
+_timer_manager = ExtResource("2_timerres")
 metadata/_custom_type_script = "uid://bkh3w3nsj0th2"

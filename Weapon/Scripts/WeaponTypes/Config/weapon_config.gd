@@ -23,4 +23,9 @@ extends Resource
 
 @export_group("Shot")
 ## what each shot costs (ex: waiting between shots)
-@export var shot_cost_config : ShotCostConfig
+@export var _shot_cost_config : ShotCostConfig
+
+
+## creates the runtime shot cost of one weapon that uses this config
+func create_shot_cost(timer_manager: TimerManagerResource, owner_exited: Signal) -> ShotCostInterface:
+	return _shot_cost_config.create_shot_cost(timer_manager, owner_exited)

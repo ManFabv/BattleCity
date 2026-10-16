@@ -14,13 +14,13 @@ script = ExtResource("2_entity_stats")
 move_speed = 2.5
 gravity_modifier = 10.0
 
-[sub_resource type="Resource" id="Resource_enemy_slow_projectile_movement_config"]
-script = ExtResource("linear_projectile_movement_config_script")
-max_speed = 8.0
-
 [sub_resource type="Resource" id="Resource_enemy_slow_shot_cost_config"]
 script = ExtResource("fire_rate_shot_cost_config_script")
 fire_rate_seconds = 3.0
+
+[sub_resource type="Resource" id="Resource_enemy_slow_projectile_movement_config"]
+script = ExtResource("linear_projectile_movement_config_script")
+max_speed = 8.0
 
 [sub_resource type="Resource" id="Resource_enemy_slow_weapon_config"]
 script = ExtResource("3_weapon_config")
@@ -28,7 +28,7 @@ weapon_scene = ExtResource("4_normal_weapon_base")
 projectile_scene = ExtResource("5_enemy_projectile")
 projectile_movement_config = SubResource("Resource_enemy_slow_projectile_movement_config")
 projectile_damage_points = 1
-shot_cost_config = SubResource("Resource_enemy_slow_shot_cost_config")
+_shot_cost_config = SubResource("Resource_enemy_slow_shot_cost_config")
 
 [sub_resource type="Resource" id="Resource_enemy_slow_entity_level_config"]
 script = ExtResource("7_entity_level_config")

@@ -45,11 +45,10 @@ func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	# we index every spawn point assigned in the manager by its id
 	_index_spawn_points_by_id(spawn_points)
 	# a single manual timer for the whole timeline, it starts now with the delay of the first entry
-	_spawn_delay_timer = _timeline_based_spawn_strategy_config.timer_manager.create_manual(
-			_next_spawn_entry_config.spawn_delay_seconds, 
+	_spawn_delay_timer = _timeline_based_spawn_strategy_config.create_spawn_delay_timer(
+			_next_spawn_entry_config.spawn_delay_seconds,
 			_on_spawn_delay_timer_timeout,
-			owner_exited,
-			true)
+			owner_exited)
 	# we listen to the alive count so we know when there is room again
 	_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
 			_on_alive_count_changed_handler, 

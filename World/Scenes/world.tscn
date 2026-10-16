@@ -116,13 +116,13 @@ scene_to_spawn = ExtResource("11_enemy_slow_tank")
 script = ExtResource("12_timeline_based_spawn_str")
 _on_alive_count_changed = ExtResource("13_on_enemy_count_changed")
 _on_all_spawns_finished = ExtResource("14_on_all_spawns_finished")
-timer_manager = ExtResource("4_timer_manager")
+_timer_manager = ExtResource("4_timer_manager")
 _spawn_entry_configs = Array[ExtResource("8_timeline_spawn_entry_con")]([SubResource("Resource_enemy_timeline_spawn_entry_1"), SubResource("Resource_enemy_timeline_spawn_entry_2"), SubResource("Resource_enemy_timeline_spawn_entry_3"), SubResource("Resource_enemy_timeline_spawn_entry_4"), SubResource("Resource_enemy_timeline_spawn_entry_5"), SubResource("Resource_enemy_timeline_spawn_entry_6")])
 
 [sub_resource type="Resource" id="Resource_player_lives_based_spawn_strategy_config"]
 script = ExtResource("2_lives_based_spawn_strate")
 _on_out_of_lives = ExtResource("3_on_player_out_of_lives")
-timer_manager = ExtResource("4_timer_manager")
+_timer_manager = ExtResource("4_timer_manager")
 scene_to_spawn = ExtResource("5_controllable_player_enti")
 
 [sub_resource type="Resource" id="Resource_base_once_based_spawn_strategy_config"]

@@ -10,7 +10,7 @@ extends SpawnStrategyConfig
 
 @export_group("References")
 ## the shared timer manager used to request the entry timers
-@export var timer_manager : TimerManagerResource
+@export var _timer_manager : TimerManagerResource
 
 @export_group("Config")
 ## maximum spawned nodes alive at the same time
@@ -63,6 +63,11 @@ func get_spawn_entry_config_at(index: int) -> TimelineSpawnEntryConfig:
 ## index of the last entry
 func last_index() -> int:
 	return _spawn_entry_configs.size() - 1
+
+
+## requests the manual timer that waits the delay of an entry, it starts right away
+func create_spawn_delay_timer(delay_seconds: float, on_timeout: Callable, owner_exited: Signal) -> CustomTimer:
+	return _timer_manager.create_manual(delay_seconds, on_timeout, owner_exited, true)
 
 
 ## listeners are notified every time the count of spawned nodes alive changes
