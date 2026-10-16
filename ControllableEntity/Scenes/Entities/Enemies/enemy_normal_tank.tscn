@@ -40,6 +40,3 @@ entity_color = Color(1, 0.45, 0, 1)
 
 [node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
 _entity_level_configs = Array[ExtResource("7_entity_level_config")]([SubResource("Resource_enemy_normal_entity_level_config")])
-
-[node name="StateMachine" parent="." index="9" unique_id=1728153428]
-_wander_timeout_seconds = 7.5

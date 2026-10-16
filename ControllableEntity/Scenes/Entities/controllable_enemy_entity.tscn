@@ -29,5 +29,5 @@ _owner_controllable_entity = NodePath("..")
 _ai_controller = NodePath("../AiController")
 _weapon_system = NodePath("../WeaponSystem")
 
-[connection signal="target_reached" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_target_reached"]
+[connection signal="navigation_finished" from="NavigationAgent3D" to="StateMachine" method="_on_navigation_agent_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="AiController" method="_on_navigation_agent_velocity_computed"]

@@ -3,7 +3,7 @@ extends Node
 
 @export_group("Rebake Config")
 ## how many destroyed blocks accumulate before we trigger a rebake
-@export_range(1, 40) var _blocks_before_rebake : int = 12:
+@export_range(1, 40) var _blocks_before_rebake : int = 8:
 	set(new_value):
 		# below 1 a rebake would start even without destroyed blocks
 		_blocks_before_rebake = maxi(new_value, 1)
@@ -39,11 +39,11 @@ func _on_grid_map_level_block_destroyed(_cell: Vector3i) -> void:
 	_try_rebake.call_deferred(_blocks_before_rebake)
 
 
-## the base blocks the way from now on, so we rebake right away
+## the base blocks the way from now on, so we rebake
 func _on_base_spawned_handler(_base: Base) -> void:
 	_pending_changes_count += 1
-	# the base is already placed and in the tree: the spawn point sets its transform before emitting
-	_try_rebake()
+	# deferred: the base spawns on the first frame and the GridMaps build their collision shapes in a deferred call, so a bake now would miss every brick
+	_try_rebake.call_deferred()
 
 
 ## changes made while baking were not in that bake: rebake if any are pending

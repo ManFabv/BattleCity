@@ -4,8 +4,6 @@ extends Node
 ## state chart events, as StringName so send_event() doesn't convert a String on every call
 const _AIM_EVENT : StringName = &"aim_event"
 const _WANDER_EVENT : StringName = &"wander_event"
-## state chart expression property read by the wander timeout transition
-const _WANDER_TIMEOUT_PROPERTY : StringName = &"wander_timeout_seconds"
 
 @export_group("References")
 ## the entity controller reference
@@ -14,13 +12,6 @@ const _WANDER_TIMEOUT_PROPERTY : StringName = &"wander_timeout_seconds"
 @export var _weapon_system : WeaponSystem
 ## the entity state chart for triggering state events
 @export var _state_chart : StateChart
-
-@export_group("Wander Setup")
-## seconds the entity has to reach the current wander target before giving up on it (unreachable point or blocked way)
-@export_range(0.1, 20.0) var _wander_timeout_seconds : float = 10.0:
-	set(new_value):
-		# we prevent negative timeouts
-		_wander_timeout_seconds = maxf(new_value, 0.0)
 
 @export_group("Attack Setup")
 ## chance of aiming at the player when it is in sight; the rest of the chances aims forward
@@ -35,10 +26,8 @@ const _WANDER_TIMEOUT_PROPERTY : StringName = &"wander_timeout_seconds"
 		_attack_base_chance = clampf(new_value, 0.0, 1.0)
 
 
-## we publish the wander timeout to the chart and subscribe to the weapon signal
+## we subscribe to the weapon signal
 func _ready() -> void:
-	# the chart reads it when it enters Wander, so it has to exist before that
-	_state_chart.set_expression_property(_WANDER_TIMEOUT_PROPERTY, _wander_timeout_seconds)
 	# we listen to the shots of the equipped weapon
 	_weapon_system.subscribe_to_shot_fired(_on_weapon_system_shot_fired)
 
@@ -73,8 +62,8 @@ func _on_fire_state_entered() -> void:
 	_ai_controller.start_shooting()
 
 
-## the wander target was reached, so the entity aims
-func _on_navigation_agent_target_reached() -> void:
+## the navigation path finished, whether the wander target was reachable or not, so the entity aims
+func _on_navigation_agent_navigation_finished() -> void:
 	# we send the aim event to the chart
 	_state_chart.send_event(_AIM_EVENT)
 
