@@ -49,8 +49,11 @@ func fire(move_direction: Vector3) -> void:
 	_projectile_movement.aim(move_direction)
 
 
-## this will tell us that we should destroy this projectile
+## a shield stopped this projectile, it must not hurt even if it already touched a health in this physics step
 func intercept() -> void:
+	# we cancel the damage first
+	_hurt_entity.disarm()
+	# we remove the projectile
 	_destroy_projectile()
 
 
