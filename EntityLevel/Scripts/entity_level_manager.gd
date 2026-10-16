@@ -51,6 +51,16 @@ func _configure_entity_for_level(entity_level_config: EntityLevelConfig) -> void
 	_weapon_system.apply_color(entity_level_config.entity_color)
 
 
+## config for the given level index, clamped to the available levels; null with an error when there are none
+func _level_config_at(index: int) -> EntityLevelConfig:
+	# an entity without levels can't be configured, we report which node is wrong
+	if _entity_level_configs.is_empty():
+		push_error("EntityLevelManager %s has no level configs" % get_path())
+		return null
+	# we keep the index inside the available levels
+	return _entity_level_configs[clampi(index, 0, _entity_level_configs.size() - 1)]
+
+
 ## we check if we are at the highest level of this entity
 func _is_at_max_level() -> bool:
 	return _current_level >= _entity_level_configs.size()
@@ -58,10 +68,11 @@ func _is_at_max_level() -> bool:
 
 ## applies the next level, if there is one
 func _apply_next_level() -> void:
+	# the config at the current level is the next one; an entity without levels was reported by the lookup
+	var entity_level_config : EntityLevelConfig = _level_config_at(_current_level)
 	# already at the highest level: re-applying it would refill health and rebuild the weapon for nothing
-	if not _is_at_max_level():
-		# the config at the current level is the next one
-		_configure_entity_for_level(_entity_level_configs[_current_level])
+	if is_instance_valid(entity_level_config) and not _is_at_max_level():
+		_configure_entity_for_level(entity_level_config)
 		# we count the applied level
 		_current_level += 1
 
