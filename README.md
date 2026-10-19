@@ -1,6 +1,6 @@
 # UNL PVJ3 Actividad 5 Final en Godot Engine #
-**Version del documento 0.0.4**
-**27/09/2026**
+**Version del documento 0.1.0** (igual a `config/version` de `project.godot`; `1.0.0` en la entrega)
+**19/10/2026**
 
 ## Itch.io ##
 [Battle City UNL](https://manfabv.itch.io/battle-city-unl)
@@ -19,19 +19,19 @@ A continuacion pasaremos a detallar algunas de las caracteristicas del juego
 El jugador controla un tanque que cuenta con la posibilidad de disparar para eliminar a los enemigos del nivel antes que ellos destruyan su base.
 
 Comportamiento:
-* El tanque puede moverse en 4 direcciones (arriba/abajo/izquierda/derecha) y rotar alrededor de su centro, asi como tambien disparar hacia donde apunta.
+* El tanque se mueve en cualquier direccion y apunta de forma independiente (twin stick): con el mouse o con el stick derecho. *(Cambio respecto al GDD evaluado: el original movia en 4 direcciones.)*
 
 Vidas:
 * El tanque del jugador cuenta con una cantidad limitada de *"vidas o intentos"*
 * Cada vez que un enemigo acierte con un disparo al jugador, el jugador perdera una vida.
 
-Diferentes tipos de disparo y cuenta con municion ilimitada:
-* Normal: el que puede disparar la municion mas rapidamente. 
-* Rapido: con daño normal, sin efecto grafico.
-* Lento, con daño aumentado, con efecto grafico.
+Diferentes tipos de disparo segun su nivel de mejora (la estrella sube de nivel), con municion ilimitada:
+* Nivel 0 (lento): proyectil lento, 1 de daño, 0.5 s entre disparos, con efecto grafico.
+* Nivel 1 (normal): 2 de daño, 0.25 s entre disparos.
+* Nivel 2 (doble rapido): dos cañones, 3 de daño, 0.125 s entre disparos.
 
 Estado de vida critica:
-* Cuando al jugador le queda una sola vida (o un umbral bajo de vidas), su tanque activa un efecto grafico de energia (el mismo shader que antes se usaba para el disparo cargado) como advertencia visual de que esta a punto de perder.
+* Cuando la vida del tanque baja de un umbral configurable, se activa un efecto grafico de energia como advertencia. Jugador y enemigos usan el mismo criterio (un umbral de vida por arquetipo). *(Cambio: el GDD hablaba de vidas para el jugador y de disparos para los enemigos; el disparo cargado se quito.)*
 
 Punto de inicio del jugador:
 * Cada vez que inicie un nivel o el jugador pierda una vida (si todavia le queda alguna), volvera a reaparecer en el mismo punto.
@@ -47,10 +47,10 @@ Vida:
 * Los enemigos cuentan con una cantidad limite de disparos que puede recibir de parte del jugador
 
 Estado de vida critica:
-* Cuando a un enemigo le queda un solo disparo antes de ser destruido, activa el mismo efecto grafico de energia usado por el jugador, indicando que esta a punto de morir.
+* El mismo efecto y el mismo criterio de umbral que el jugador.
 
 Generacion:
-* La generacion de enemigos sera en puntos especificos del mapa seleccionados de forma aleatoria
+* Cada nivel define una linea de tiempo de enemigos: que tipo, cuantos segundos despues del anterior y en que punto, fijo o aleatorio entre los del nivel. Un maximo de enemigos vivos a la vez frena la linea de tiempo.
 
 #### **Niveles** ####
 Los niveles seran gridmaps con un suelo, con diferentes tipos de elementos que el jugador puede usar para su ventaja
@@ -65,7 +65,7 @@ Sera un punto fijo en el mapa que el jugador debera defender impidiendo que los 
 Vida:
 * La base estara resguardada con ladrillos que los enemigos deberan atravesar antes de disparar al centro
 * El centro de la base solo soporta un disparo enemigo
-* Si los enemigos destruyen la base, el nivel se reinicia y el jugador pierde una vida
+* Si los enemigos destruyen la base, se pierde la partida *(cambio: el GDD decia que el nivel se reiniciaba y se perdia una vida)*
 
 #### **Power-ups** ####
 Cada nivel contara con un listado de power-ups que podran aparecer aleatoriamente en el mapa
@@ -74,6 +74,17 @@ Cada nivel contara con un listado de power-ups que podran aparecer aleatoriament
 * Eliminar: todos los enemigos actualmente en el nivel
 * Estrella: sube de nivel al tanque (mejora sus stats, vida y arma)
 * Velocidad: aplica un modificador que aumenta la velocidad del tanque
+
+## Flujo de juego ##
+Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc o Start en cualquier momento del nivel. Opciones: volumen de musica y efectos, guardado entre sesiones.
+
+## Controles ##
+| Accion | Teclado y mouse | Gamepad |
+|---|---|---|
+| Moverse | TBD (WASD / flechas) | stick izquierdo |
+| Apuntar | mouse | stick derecho |
+| Disparar | TBD (click izquierdo) | TBD |
+| Pausa | Esc | Start |
 
 ## Objetivos ##
 El jugador debera defender su base (un objeto fijo en el mapa) de las sucesivas oleadas de enemigos que iran apareciendo el nivel hasta superar todos los niveles.
@@ -86,6 +97,12 @@ El jugador debera defender su base de los ataques enemigos y tratar que los enem
 ## Genero ##
 Juego de accion Twin Stick Shooter 3D con vista Top-Down
 
+## Arquitectura (una linea por sistema) ##
+* `BaseEvent`, `TimerManagerResource`, `TintedMaterialsResource` y `AudioSettingsResource`: servicios compartidos como `Resource` inyectados por export (sin autoloads). Los eventos anuncian hechos; cada listener decide.
+* `SceneManager`: unico dueño de la escena activa y de la pausa.
+* `SpawnManager` + estrategias Once (base), Lives (jugador), Timeline (enemigos) e Interval (power-ups), configuradas por nivel.
+* `EntityLevelManager`: configura stats, vida, arma y color de cada nivel de una entidad; el root solo orquesta.
+* Mundo: `world_base.tscn` con todo lo comun y un `world_NN.tscn` heredado por nivel (layout, spawn points, configs, navmesh).
 ## Política de Colaboración con IA ##
 Este proyecto utiliza Inteligencia Artificial como consultor, herramienta de brainstorming y para implementar los refactors que yo decido aplicar. La arquitectura, las decisiones de diseño, la decisión de qué refactors aplicar, la integración final del código y la optimización del sistema son responsabilidad del autor.
 
