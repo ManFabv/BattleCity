@@ -26,19 +26,19 @@ Vidas:
 * Cada vida tiene puntos de vida (3, 4 o 5 segun el nivel de mejora del tanque). Cada disparo enemigo que acierta quita entre 1 y 3 puntos segun el tipo de enemigo; al llegar a 0 el jugador pierde esa vida. *(Cambio respecto al GDD evaluado: decia que cada acierto quitaba una vida.)*
 
 Diferentes tipos de disparo segun su nivel de mejora (la estrella sube de nivel), con municion ilimitada:
-* Nivel 0 (lento): proyectil lento, 1 de daño, 0.5 s entre disparos, con efecto grafico.
+* Nivel 0 (lento): proyectil lento, 1 de daño, 0.5 s entre disparos *(el efecto grafico del proyectil esta pendiente, opcional)*.
 * Nivel 1 (normal): 2 de daño, 0.25 s entre disparos.
 * Nivel 2 (doble rapido): dos cañones, 3 de daño, 0.125 s entre disparos.
 
-Estado de vida critica:
-* Cuando la vida del tanque baja de un umbral configurable, se activa un efecto grafico de energia como advertencia. Jugador y enemigos usan el mismo criterio (un umbral de vida por arquetipo). *(Cambio: el GDD hablaba de vidas para el jugador y de disparos para los enemigos; el disparo cargado se quito.)*
+Estado de vida critica *(pendiente, opcional)*:
+* Cuando la vida del tanque baje de un umbral configurable, se activara un efecto grafico de energia como advertencia. Jugador y enemigos usaran el mismo criterio (un umbral de vida por arquetipo). *(Cambio: el GDD hablaba de vidas para el jugador y de disparos para los enemigos; el disparo cargado se quito.)*
 
 Punto de inicio del jugador:
 * Cada vez que inicie un nivel o el jugador pierda una vida (si todavia le queda alguna), volvera a reaparecer en el mismo punto.
 * Al perder una vida, el jugador debera esperar un lapso de tiempo para reaparecer. Los enemigos siguen moviendose
 
 #### **Enemigos** ####
-Habra diferentes tipos de enemigos con diferente velocidad de movimiento y cadencia de disparo
+Hay tres tipos de enemigos (normal, pesado y lento) con diferente vida, velocidad de movimiento, daño y cadencia de disparo
 
 Comportamiento:
 * Los enemigos se mueven por el mapa aleatoriamente y disparando a intervalos de tiempo
@@ -47,21 +47,21 @@ Comportamiento:
 Vida:
 * Los enemigos cuentan con una cantidad limite de disparos que puede recibir de parte del jugador
 
-Estado de vida critica:
+Estado de vida critica *(pendiente, opcional)*:
 * El mismo efecto y el mismo criterio de umbral que el jugador.
 
 Generacion:
 * Cada nivel define una linea de tiempo de enemigos: que tipo, cuantos segundos despues del anterior y en que punto, fijo o aleatorio entre los del nivel. Un maximo de enemigos vivos a la vez frena la linea de tiempo.
 
 #### **Niveles** ####
-Los niveles seran gridmaps con un suelo, con diferentes tipos de elementos que el jugador puede usar para su ventaja
+Los niveles son gridmaps con un suelo, con diferentes tipos de elementos que el jugador puede usar para su ventaja
 * Roca: no se puede atravesar ni se destruye con disparos
 * Ladrillo: se rompe con los disparos
 * Agua: no se puede atravesar
 * Vegetacion: se puede atrasevar
 
 #### **Base** ####
-Sera un punto fijo en el mapa que el jugador debera defender impidiendo que los enemigos le disparen
+Es un punto fijo en el mapa que el jugador debera defender impidiendo que los enemigos le disparen
 
 Vida:
 * La base estara resguardada con ladrillos que los enemigos deberan atravesar antes de disparar al centro
@@ -69,7 +69,7 @@ Vida:
 * Si los enemigos destruyen la base, se pierde la partida *(cambio: el GDD decia que el nivel se reiniciaba y se perdia una vida)*
 
 #### **Power-ups** ####
-Cada nivel contara con un listado de power-ups que podran aparecer aleatoriamente en el mapa
+Cada nivel tiene un listado de power-ups que aparecen aleatoriamente en el mapa (cada cierto intervalo y con un maximo a la vez, configurables por nivel)
 * Escudo: para el tanque con limite de tiempo
 * Escudo: para la base con limite de tiempo
 * Eliminar: todos los enemigos actualmente en el nivel
@@ -85,7 +85,8 @@ Menu principal → Nueva partida → nivel 1 → nivel 2 → nivel 3 → victori
 | Moverse | WASD o flechas | stick izquierdo |
 | Apuntar | mouse | stick derecho |
 | Disparar | click izquierdo (mantener) | gatillo derecho (mantener) |
-| Pausa | Esc o P | Start |
+| Pausa | Esc o P (en el navegador, Esc sale de pantalla completa) | Start |
+| Navegar los menus | mouse, flechas y Enter | cruceta o stick izquierdo y boton A |
 
 ## Objetivos ##
 El jugador debera defender su base (un objeto fijo en el mapa) de las sucesivas oleadas de enemigos que iran apareciendo el nivel hasta superar todos los niveles.
@@ -98,13 +99,22 @@ El jugador debera defender su base de los ataques enemigos y tratar que los enem
 ## Genero ##
 Juego de accion Twin Stick Shooter 3D con vista Top-Down
 
+## Edicion de niveles desde el editor ##
+Todo se ajusta desde el Inspector, sin abrir scripts:
+* Cada nivel es una escena `world_NN.tscn` heredada de `world_base.tscn`: layout (gridmaps), props, spawn points, linea de tiempo de enemigos, vidas, lista de power-ups, intervalo y maximo simultaneo, todo exportado.
+* La aleatoriedad se define con datos: cada entrada de la linea de tiempo elige un spawn point fijo o uno al azar, y el spawner de power-ups elige escena y punto libre al azar entre los configurados.
+* Stats, vida, arma y color de cada tipo de tanque y de cada nivel de mejora del jugador son recursos en su escena.
+* Ayudas visuales (`@tool`): cada spawn point muestra su id sobre si mismo, cada enemigo muestra su rango de vision como un anillo, y los spawn managers marcan con un aviso configuraciones invalidas (ids repetidos o inexistentes, entradas sin escena, slots vacios).
+
 ## Arquitectura (una linea por sistema) ##
-* `BaseEvent`, `TimerManagerResource`, `TintedMaterialsResource` y `AudioSettingsResource`: servicios compartidos como `Resource` inyectados por export (sin autoloads). Los eventos anuncian hechos; cada listener decide.
-* `SceneManager`: unico dueño de la escena activa y de la pausa.
+* `BaseEvent`, `TimerManagerResource`, `TintedMaterialsResource`, `AudioSettingsResource` y `GameProgressResource`: servicios compartidos como `Resource` inyectados por export (sin autoloads). Los eventos anuncian hechos; cada listener decide.
+* `GameManager` (raiz de `game.tscn`): carga las opciones (`user://settings.cfg`) y la partida guardada (`user://save.cfg`) antes que cualquier sistema.
+* `SceneManager`: unico dueño de la escena activa y de la pausa; cada cambio pasa por la pantalla de carga con fade.
+* `GameResultController`: decide victoria o derrota una vez, guarda el progreso en ese instante, congela el nivel y muestra el cartel del resultado.
 * `SpawnManager` + estrategias Once (base), Lives (jugador), Timeline (enemigos) e Interval (power-ups), configuradas por nivel.
 * `EntityLevelManager`: configura stats, vida, arma y color de cada nivel de una entidad; el root solo orquesta.
 * `Weapon` + `WeaponConfig`: el tipo de arma es una escena con sus cañones; cadencia, velocidad, daño y vida del proyectil son datos del `WeaponConfig`.
-* Mundo: `world_base.tscn` con todo lo comun y un `world_NN.tscn` heredado por nivel (layout, spawn points, configs, navmesh).
+* Mundo: `world_base.tscn` con todo lo comun (HUD y carteles incluidos) y un `world_NN.tscn` heredado por nivel (layout, spawn points, configs, navmesh); hay tres niveles.
 ## Política de Colaboración con IA ##
 Este proyecto utiliza Inteligencia Artificial como consultor, herramienta de brainstorming y para implementar los refactors que yo decido aplicar. La arquitectura, las decisiones de diseño, la decisión de qué refactors aplicar, la integración final del código y la optimización del sistema son responsabilidad del autor.
 
