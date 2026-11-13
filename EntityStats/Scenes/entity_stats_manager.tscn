@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cjcbxwooxbpas"]
-
-[ext_resource type="Script" uid="uid://blplj2x6q7w0u" path="res://EntityStats/Scripts/entity_stats_manager.gd" id="1_ccgp5"]
-
-[node name="EntityStatsManager" type="Node" unique_id=1299752098]
-script = ExtResource("1_ccgp5")

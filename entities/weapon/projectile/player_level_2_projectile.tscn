@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b7k2naxq4ndvh"]
+
+[ext_resource type="PackedScene" uid="uid://7qiygjcjgvkl" path="res://entities/weapon/projectile/projectile.tscn" id="1_base"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_level_2"]
+radius = 0.1
+height = 0.2
+radial_segments = 16
+rings = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_level_2"]
+radius = 0.102
+
+[node name="PlayerLevel2Projectile" unique_id=1840560226 instance=ExtResource("1_base")]
+editor_description = ""
+collision_layer = 256
+collision_mask = 145
+
+[node name="TintedMesh" parent="." index="0" unique_id=1454117825]
+mesh = SubResource("SphereMesh_level_2")
+
+[node name="CollisionShape3D" parent="." index="1" unique_id=130583393]
+shape = SubResource("SphereShape3D_level_2")
+
+[node name="Hurt" parent="." index="3" unique_id=868547820]
+collision_mask = 1024
+
+[node name="CollisionShape3D" parent="Hurt" index="0" unique_id=1269524477]
+shape = SubResource("SphereShape3D_level_2")

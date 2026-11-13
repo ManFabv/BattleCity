@@ -39,3 +39,6 @@ sync.ffs_db
 .idea/
 .vs/
 .vscode/*
+# Generated project dump and graph
+godot_project_dump.txt
+graphify-out/

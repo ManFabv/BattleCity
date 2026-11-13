@@ -1,0 +1,13 @@
+class_name SpeedEntityStatsModifier
+extends EntityStatsModifierInterface
+
+@export_group("Config")
+## how much the speed will be multiplied by when this modifier is applied
+@export_range(1, 10) var _speed_multiplier: float = 1.5:
+	set(new_value):
+		_speed_multiplier = maxf(new_value, 0.0)
+
+
+## We modify the recalculated speed stats in place
+func apply(stats: EntityStats) -> void:
+	stats.move_speed *= _speed_multiplier

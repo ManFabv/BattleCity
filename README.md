@@ -76,7 +76,7 @@ Cada nivel contara con un listado de power-ups que podran aparecer aleatoriament
 * Velocidad: aplica un modificador que aumenta la velocidad del tanque
 
 ## Flujo de juego ##
-Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc o Start en cualquier momento del nivel. Opciones: volumen de musica y efectos, guardado entre sesiones.
+Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc, P o Start en cualquier momento del nivel. Opciones: volumen de musica y efectos, guardado entre sesiones.
 
 ## Controles ##
 | Accion | Teclado y mouse | Gamepad |
