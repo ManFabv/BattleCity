@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://d1ijd6es5kwxf"]
+
+[ext_resource type="Script" uid="uid://cyk0qikx4neho" path="res://ui/loading_screen/loading_screen.gd" id="1_loading_screen"]
+
+[node name="LoadingScreen" type="CanvasLayer" unique_id=1418827360 node_paths=PackedStringArray("_cover")]
+process_mode = 3
+layer = 100
+script = ExtResource("1_loading_screen")
+_cover = NodePath("Cover")
+
+[node name="Cover" type="Control" parent="." unique_id=1680305913]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Cover" unique_id=905417266]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LoadingLabel" type="Label" parent="Cover" unique_id=1203984152]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Cargando..."
+horizontal_alignment = 1
+vertical_alignment = 1
