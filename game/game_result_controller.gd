@@ -22,6 +22,8 @@ extends Node
 @export var _defeat_prompt : LevelPrompt
 ## the level nodes that freeze while the result prompt is shown (tanks, projectiles, power-ups): nothing moves after the outcome
 @export var _gameplay_nodes : Array[Node]
+## the game progress, saved the moment the outcome is decided (before the prompt, so quitting during it changes nothing)
+@export var _game_progress : GameProgressResource
 
 ## true once there are no more enemies to spawn
 var _are_all_spawns_finished : bool = false
@@ -45,18 +47,28 @@ func _ready() -> void:
 
 ## the level is won once every spawn is done and no enemies are left alive
 func _check_victory() -> void:
-	if _are_all_spawns_finished and _enemies_alive_count == 0:
+	# the guard of the outcome must also cover the save, so the level is checked here first
+	if _are_all_spawns_finished and _enemies_alive_count == 0 and not _is_level_resolved:
+		# the next game level and the tank level reached are saved right away
+		_game_progress.save_game_level_won()
 		_emit_level_outcome_event(_on_victory, _victory_prompt)
+
+
+## the level is lost: the tank goes back to its first level and that is saved right away, then the defeat is shown
+func _lose_level() -> void:
+	if not _is_level_resolved:
+		_game_progress.reset_player_entity_level()
+		_emit_level_outcome_event(_on_defeat, _defeat_prompt)
 
 
 ## the base ran out of health, so the level is lost
 func _on_base_destroyed_handler(_event_context: Variant = null) -> void:
-	_emit_level_outcome_event(_on_defeat, _defeat_prompt)
+	_lose_level()
 
 
 ## the player ran out of lives, so the level is lost
 func _on_player_out_of_lives_handler(_event_context: Variant = null) -> void:
-	_emit_level_outcome_event(_on_defeat, _defeat_prompt)
+	_lose_level()
 
 
 ## there is nothing left to spawn, so the level is won as soon as no enemies are alive

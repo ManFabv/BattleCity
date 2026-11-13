@@ -28,6 +28,7 @@ func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	_owner_exited = owner_exited
 	# we start with the configured amount of lives
 	_remaining_lives = _lives_based_spawn_strategy_config.starting_lives
+	_lives_based_spawn_strategy_config.emit_lives_changed_event(_remaining_lives)
 	# we spawn the first life right away
 	_consume_life()
 
@@ -46,6 +47,7 @@ func _consume_life() -> void:
 func _on_entity_died() -> void:
 	# we lose the life that just died
 	_remaining_lives -= 1
+	_lives_based_spawn_strategy_config.emit_lives_changed_event(_remaining_lives)
 	# if there are no lives left we notify it and stop respawning
 	if _remaining_lives == 0:
 		_lives_based_spawn_strategy_config.emit_out_of_lives_event()

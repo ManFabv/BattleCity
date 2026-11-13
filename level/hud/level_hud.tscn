@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cuhrswcebr2iq"]
+
+[ext_resource type="Script" uid="uid://clxc43svews3f" path="res://level/hud/level_hud.gd" id="1_level_hud"]
+[ext_resource type="Theme" uid="uid://d67r1tiiaiyt" path="res://ui/theme/ui_theme.tres" id="2_ui_theme"]
+[ext_resource type="Resource" uid="uid://8x3f4f6c0ud4" path="res://core/event_bus/events/on_player_lives_changed.tres" id="3_on_player_lives_changed"]
+[ext_resource type="Resource" uid="uid://wnehlutj6tvm" path="res://core/event_bus/events/on_enemies_remaining_changed.tres" id="4_on_enemies_remaining_changed"]
+
+[node name="LevelHud" type="CanvasLayer" unique_id=1162828051 node_paths=PackedStringArray("_lives_label", "_enemies_label")]
+script = ExtResource("1_level_hud")
+_on_player_lives_changed = ExtResource("3_on_player_lives_changed")
+_on_enemies_remaining_changed = ExtResource("4_on_enemies_remaining_changed")
+_lives_label = NodePath("MarginContainer/HBoxContainer/LivesLabel")
+_enemies_label = NodePath("MarginContainer/HBoxContainer/EnemiesLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=495632338]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("2_ui_theme")
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1106177110]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 48
+
+[node name="LivesLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1222221531]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Vidas: 0"
+
+[node name="EnemiesLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=374786033]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Enemigos: 0"

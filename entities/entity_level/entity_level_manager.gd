@@ -5,6 +5,10 @@ extends Node
 ## event announcing that a star was picked up, the entity levels up; empty for the entities that never level up
 @export var _on_star_picked_up : BaseEvent
 
+@export_group("Progress")
+## the game progress, only the player's tank has it: it starts at the saved tank level and reports every level up
+@export var _game_progress : GameProgressResource
+
 @export_group("Entity")
 ## the levels the entity gets one by one; level 0 is its starting level
 @export var _entity_level_configs : Array[EntityLevelConfig]
@@ -26,12 +30,14 @@ var _current_level : int = 0:
 		_current_level = clampi(new_value, 0, _entity_level_configs.size())
 
 
-## we apply the starting level and we listen to the stars
-## TODO: the run state will restore the saved level here
+## we apply the starting level (the saved one for the player) and we listen to the stars
 func _ready() -> void:
 	# an entity without levels can't be configured, we report which node is wrong
 	if _entity_level_configs.is_empty():
 		push_error("EntityLevelManager %s has no level configs" % get_path())
+	# the player starts every life with the tank level its game level started with; the setter clamps a stale save
+	if is_instance_valid(_game_progress):
+		_current_level = _game_progress.get_player_entity_level()
 	# the entity starts at its first level
 	_apply_next_level()
 	# only the entities that level up listen to the stars
@@ -61,6 +67,9 @@ func _apply_next_level() -> void:
 		_configure_entity_for_level(_entity_level_configs[_current_level])
 		# we count the applied level
 		_current_level += 1
+		# the progress keeps the level just applied, for the next game level if this one is won
+		if is_instance_valid(_game_progress):
+			_game_progress.set_current_player_entity_level(_current_level - 1)
 	# at the highest level a star refills the health of that level, so a picked star always does something
 	elif not _entity_level_configs.is_empty():
 		_health.configure(_entity_level_configs[-1].max_health_points)

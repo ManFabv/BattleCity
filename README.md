@@ -77,7 +77,7 @@ Cada nivel contara con un listado de power-ups que podran aparecer aleatoriament
 * Velocidad: aplica un modificador que aumenta la velocidad del tanque; tomar otro mientras dura lo reemplaza y reinicia la duracion (no se acumula)
 
 ## Flujo de juego ##
-Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc, P o Start en cualquier momento del nivel, incluso mientras el jugador espera para reaparecer. Opciones: volumen de musica y efectos, guardado entre sesiones.
+Menu principal → Nueva partida → nivel 1 → nivel 2 → nivel 3 → victoria. Cada nivel ganado se guarda (nivel de juego y mejora del tanque) y "Continuar" retoma desde ahi. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se reintenta el mismo nivel con el tanque en su primer nivel. Pausa con Esc, P o Start en cualquier momento del nivel, incluso mientras el jugador espera para reaparecer. Opciones: volumen de musica y efectos, guardado entre sesiones. En el nivel, un HUD muestra las vidas y los enemigos que faltan eliminar (desde el total del nivel hacia 0); con gamepad el cursor del mouse se oculta.
 
 ## Controles ##
 | Accion | Teclado y mouse | Gamepad |

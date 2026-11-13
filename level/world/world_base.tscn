@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://level/kill_zone/kill_zone.tscn" id="62_killzone"]
 [ext_resource type="PackedScene" uid="uid://dc6mhqa3pvt85" path="res://level/level_prompt/level_prompt.tscn" id="63_levelprompt"]
 [ext_resource type="PackedScene" uid="uid://v02m5uulgbn" path="res://core/container/power_up_container.tscn" id="64_powerupcontainer"]
+[ext_resource type="PackedScene" uid="uid://cuhrswcebr2iq" path="res://level/hud/level_hud.tscn" id="65_levelhud"]
+[ext_resource type="Resource" uid="uid://bdqrnuhmfenp6" path="res://core/game_progress/game_progress.tres" id="66_gameprogress"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qjlgo"]
 size = Vector3(30, 0.5, 20)
@@ -108,9 +110,12 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 _victory_prompt = NodePath("../../VictoryPrompt")
 _defeat_prompt = NodePath("../../DefeatPrompt")
 _gameplay_nodes = [NodePath("../../Enemies"), NodePath("../../Player"), NodePath("../../Projectiles"), NodePath("../../PowerUps")]
+_game_progress = ExtResource("66_gameprogress")
 
 [node name="KillZone" parent="." unique_id=1222635435 instance=ExtResource("62_killzone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="LevelHud" parent="." unique_id=1309471658 instance=ExtResource("65_levelhud")]
 
 [node name="LevelStartPrompt" parent="." unique_id=1309471655 instance=ExtResource("63_levelprompt")]
 

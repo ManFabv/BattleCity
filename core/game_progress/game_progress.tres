@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="GameProgressResource" format=3 uid="uid://bdqrnuhmfenp6"]
+
+[ext_resource type="Script" uid="uid://ci6q0odi33qab" path="res://core/game_progress/game_progress_resource.gd" id="1_game_progress"]
+
+[resource]
+script = ExtResource("1_game_progress")
