@@ -14,11 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://d1ijd6es5kwxf" path="res://ui/loading_screen/loading_screen.tscn" id="12_loading_screen"]
 [ext_resource type="PackedScene" uid="uid://jdkne86ry6jv" path="res://ui/pause_overlay/pause_overlay.tscn" id="13_pause_overlay"]
 [ext_resource type="Resource" uid="uid://p0nnspjpeli2" path="res://core/event_bus/events/on_resume_pressed.tres" id="14_on_resume_pressed"]
+[ext_resource type="PackedScene" uid="uid://b6h5nxlx6p3x4" path="res://level/levels/level_02/world_02.tscn" id="15_world_02"]
+[ext_resource type="PackedScene" uid="uid://b2cj0jwhq8hvd" path="res://level/levels/level_03/world_03.tscn" id="16_world_03"]
 
 [node name="SceneManager" type="Node" unique_id=1846203417 node_paths=PackedStringArray("_loading_screen", "_pause_overlay")]
 process_mode = 3
 script = ExtResource("1_scene_manager")
-_level_scenes = Array[PackedScene]([ExtResource("2_world_01")])
+_level_scenes = Array[PackedScene]([ExtResource("2_world_01"), ExtResource("15_world_02"), ExtResource("16_world_03")])
 _main_menu_scene = ExtResource("5_main_menu_screen")
 _victory_scene = ExtResource("6_victory_screen")
 _defeat_scene = ExtResource("7_defeat_screen")

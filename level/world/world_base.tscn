@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://spawner/spawn_manager/spawn_manager.tscn" id="41_spawnmanager"]
 [ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://level/world/world.gd" id="60_world"]
 [ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://level/kill_zone/kill_zone.tscn" id="62_killzone"]
-[ext_resource type="PackedScene" uid="uid://dc6mhqa3pvt85" path="res://level/level_start_prompt/level_start_prompt.tscn" id="63_levelstartprompt"]
+[ext_resource type="PackedScene" uid="uid://dc6mhqa3pvt85" path="res://level/level_prompt/level_prompt.tscn" id="63_levelprompt"]
 [ext_resource type="PackedScene" uid="uid://v02m5uulgbn" path="res://core/container/power_up_container.tscn" id="64_powerupcontainer"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qjlgo"]
@@ -104,9 +104,20 @@ transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49
 
 [node name="Game" type="Node" parent="." unique_id=700000005]
 
-[node name="LevelResultController" parent="Game" unique_id=561437413 instance=ExtResource("14_outcome")]
+[node name="LevelResultController" parent="Game" unique_id=561437413 node_paths=PackedStringArray("_victory_prompt", "_defeat_prompt", "_gameplay_nodes") instance=ExtResource("14_outcome")]
+_victory_prompt = NodePath("../../VictoryPrompt")
+_defeat_prompt = NodePath("../../DefeatPrompt")
+_gameplay_nodes = [NodePath("../../Enemies"), NodePath("../../Player"), NodePath("../../Projectiles"), NodePath("../../PowerUps")]
 
 [node name="KillZone" parent="." unique_id=1222635435 instance=ExtResource("62_killzone")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 
-[node name="LevelStartPrompt" parent="." unique_id=1309471655 instance=ExtResource("63_levelstartprompt")]
+[node name="LevelStartPrompt" parent="." unique_id=1309471655 instance=ExtResource("63_levelprompt")]
+
+[node name="VictoryPrompt" parent="." unique_id=1309471656 instance=ExtResource("63_levelprompt")]
+_prompt_text = "¡NIVEL SUPERADO!"
+_duration_seconds = 2.0
+
+[node name="DefeatPrompt" parent="." unique_id=1309471657 instance=ExtResource("63_levelprompt")]
+_prompt_text = "DERROTA"
+_duration_seconds = 2.0

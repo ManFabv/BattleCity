@@ -11,7 +11,7 @@ extends Node3D
 ## spawns the power-ups of the level at random, every interval
 @export var _power_up_spawn_manager : SpawnManager
 ## the text shown before the level starts; the player and the enemies wait until it ends
-@export var _level_start_prompt : LevelStartPrompt
+@export var _level_start_prompt : LevelPrompt
 
 
 ## we start the base and show the start prompt; it runs after every child _ready(), so every listener is already subscribed
