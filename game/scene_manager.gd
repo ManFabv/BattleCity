@@ -18,6 +18,8 @@ const _OPEN_UI_MENU_ACTION : StringName = &"open_ui_menu"
 @export_group("References")
 ## the cover shown while a scene is swapped; a child of this scene, so it survives every swap
 @export var _loading_screen : LoadingScreen
+## the pause menu shown over a paused level; a child of this scene, so it survives every swap
+@export var _pause_overlay : PauseOverlay
 
 @export_group("Events")
 ## event emitted once a level is won, we load the next level or the victory screen
@@ -26,8 +28,10 @@ const _OPEN_UI_MENU_ACTION : StringName = &"open_ui_menu"
 @export var _on_defeat : BaseEvent
 ## event emitted by the play button, we start the first level
 @export var _on_play_pressed : BaseEvent
-## event emitted by the retry buttons, we start again from the first level
+## event emitted by the restart buttons, we restart the paused level or, from a screen, the first one
 @export var _on_restart_pressed : BaseEvent
+## event emitted by the resume button of the pause menu, we resume the level
+@export var _on_resume_pressed : BaseEvent
 ## event emitted by the menu buttons, we show the main menu
 @export var _on_menu_pressed : BaseEvent
 ## event emitted by the quit button, we close the game
@@ -53,6 +57,7 @@ func _ready() -> void:
 	_on_defeat.subscribe(_on_defeat_handler, tree_exited)
 	_on_play_pressed.subscribe(_on_play_pressed_handler, tree_exited)
 	_on_restart_pressed.subscribe(_on_restart_pressed_handler, tree_exited)
+	_on_resume_pressed.subscribe(_on_resume_pressed_handler, tree_exited)
 	_on_menu_pressed.subscribe(_on_menu_pressed_handler, tree_exited)
 	_on_quit_pressed.subscribe(_on_quit_pressed_handler, tree_exited)
 	# the game starts at the main menu
@@ -66,8 +71,18 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _is_level_shown and not _is_changing_scene and event.is_action_pressed(_OPEN_UI_MENU_ACTION, false):
 		# we consume the event so no other node handles it
 		get_viewport().set_input_as_handled()
-		# the tree pause stops every pausable node (movement, AI, timers)
-		get_tree().paused = not get_tree().paused
+		# the same input opens and closes the pause menu
+		_set_level_paused(not get_tree().paused)
+
+
+## pauses or resumes the level and opens or closes the pause menu with it
+func _set_level_paused(is_paused: bool) -> void:
+	# the tree pause stops every pausable node (movement, AI, timers); the menu is Always, so it keeps working
+	get_tree().paused = is_paused
+	if is_paused:
+		_pause_overlay.open()
+	else:
+		_pause_overlay.close()
 
 
 ## shows the level of the given index
@@ -98,6 +113,8 @@ func _change_scene(new_scene: PackedScene, is_level: bool) -> void:
 	if _is_changing_scene:
 		return
 	_is_changing_scene = true
+	# a change can start from the pause menu (restart, menu): the fade covers the scene, not the menu
+	_pause_overlay.close()
 	# the old scene freezes under the fade and the new one doesn't start until it is uncovered
 	get_tree().paused = true
 	await _loading_screen.show_loading()
@@ -142,9 +159,17 @@ func _on_play_pressed_handler(_event_context: Variant = null) -> void:
 	_show_level(0)
 
 
-## the player retries: progress isn't kept between levels, so we start again from the first one
+## from the pause menu the level starts over; from the result screens, progress isn't kept, so the first level does
 func _on_restart_pressed_handler(_event_context: Variant = null) -> void:
-	_show_level(0)
+	if _is_level_shown:
+		_show_level(_current_level_index)
+	else:
+		_show_level(0)
+
+
+## the player resumes the paused level
+func _on_resume_pressed_handler(_event_context: Variant = null) -> void:
+	_set_level_paused(false)
 
 
 ## the player goes back to the main menu
@@ -152,6 +177,6 @@ func _on_menu_pressed_handler(_event_context: Variant = null) -> void:
 	_show_scene(_main_menu_scene, false)
 
 
-## the player closes the game; the button is hidden in the web build, where quitting does nothing
+## the player closes the game (main menu or pause menu); the button is hidden in the web build, where quitting does nothing
 func _on_quit_pressed_handler(_event_context: Variant = null) -> void:
 	get_tree().quit()

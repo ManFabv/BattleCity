@@ -1,19 +1,30 @@
 [gd_scene format=3 uid="uid://diu87ed3ml1vy"]
 
 [ext_resource type="Script" uid="uid://c8hxx5a8sy4i6" path="res://ui/event_button/event_button.gd" id="1_event_button"]
-[ext_resource type="Resource" uid="uid://csk6hwlftff3c" path="res://core/event_bus/events/on_play_pressed.tres" id="2_on_play_pressed"]
-[ext_resource type="Resource" uid="uid://c0np261be3asn" path="res://core/event_bus/events/on_quit_pressed.tres" id="3_on_quit_pressed"]
+[ext_resource type="Theme" uid="uid://d67r1tiiaiyt" path="res://ui/theme/ui_theme.tres" id="2_ui_theme"]
+[ext_resource type="Resource" uid="uid://csk6hwlftff3c" path="res://core/event_bus/events/on_play_pressed.tres" id="4_on_play_pressed"]
+[ext_resource type="Resource" uid="uid://c0np261be3asn" path="res://core/event_bus/events/on_quit_pressed.tres" id="5_on_quit_pressed"]
 
 [node name="MainMenuScreen" type="Control" unique_id=143619771]
-editor_description = "Placeholder screen: a title and buttons that only emit their event; the SceneManager decides what comes next."
+editor_description = "Main menu: its buttons only emit their event; the SceneManager decides what comes next. The first button takes the focus for keyboard and gamepad."
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ui_theme")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1499757141]
+[node name="Background" type="ColorRect" parent="." unique_id=1585055841]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.06, 0.05, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=988859937]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,27 +32,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1703723727]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=821418155]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=132773691]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1374947262]
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=902959237]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Battle City"
+theme_override_colors/font_color = Color(1, 0.84, 0.3, 1)
+theme_override_font_sizes/font_size = 64
+text = "BATTLE CITY"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=499872823]
-custom_minimum_size = Vector2(240, 48)
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1354391257]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Defendé tu base de las oleadas enemigas"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1480659965]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=207243499]
+custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
 text = "Jugar"
 script = ExtResource("1_event_button")
-_on_pressed = ExtResource("2_on_play_pressed")
+_on_pressed = ExtResource("4_on_play_pressed")
+_grabs_focus_on_ready = true
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=740023649]
-custom_minimum_size = Vector2(240, 48)
+[node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=269207395]
+custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
 text = "Salir"
 script = ExtResource("1_event_button")
-_on_pressed = ExtResource("3_on_quit_pressed")
+_on_pressed = ExtResource("5_on_quit_pressed")
 _is_hidden_on_web = true

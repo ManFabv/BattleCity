@@ -1,19 +1,30 @@
 [gd_scene format=3 uid="uid://h0vypfxobxo5"]
 
 [ext_resource type="Script" uid="uid://c8hxx5a8sy4i6" path="res://ui/event_button/event_button.gd" id="1_event_button"]
-[ext_resource type="Resource" uid="uid://br52hwmqfa2ya" path="res://core/event_bus/events/on_restart_pressed.tres" id="2_on_restart_pressed"]
-[ext_resource type="Resource" uid="uid://m5acdfkc6tgy" path="res://core/event_bus/events/on_menu_pressed.tres" id="3_on_menu_pressed"]
+[ext_resource type="Theme" uid="uid://d67r1tiiaiyt" path="res://ui/theme/ui_theme.tres" id="2_ui_theme"]
+[ext_resource type="Resource" uid="uid://br52hwmqfa2ya" path="res://core/event_bus/events/on_restart_pressed.tres" id="4_on_restart_pressed"]
+[ext_resource type="Resource" uid="uid://m5acdfkc6tgy" path="res://core/event_bus/events/on_menu_pressed.tres" id="5_on_menu_pressed"]
 
 [node name="VictoryScreen" type="Control" unique_id=1770747064]
-editor_description = "Placeholder screen: a title and buttons that only emit their event; the SceneManager decides what comes next."
+editor_description = "Shown after the last level is won: its buttons only emit their event. The first button takes the focus for keyboard and gamepad."
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ui_theme")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1314877393]
+[node name="Background" type="ColorRect" parent="." unique_id=1692371084]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.06, 0.05, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=639184401]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,26 +32,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1510357219]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=409498797]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1551017538]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1650985166]
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=654796528]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "¡Victoria!"
+theme_override_colors/font_color = Color(1, 0.84, 0.3, 1)
+theme_override_font_sizes/font_size = 64
+text = "¡VICTORIA!"
 horizontal_alignment = 1
 
-[node name="PlayAgainButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=450955981]
-custom_minimum_size = Vector2(240, 48)
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=303472005]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Superaste todos los niveles"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1183865574]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="PlayAgainButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=153609023]
+custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
 text = "Jugar de nuevo"
 script = ExtResource("1_event_button")
-_on_pressed = ExtResource("2_on_restart_pressed")
+_on_pressed = ExtResource("4_on_restart_pressed")
+_grabs_focus_on_ready = true
 
-[node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1592673735]
-custom_minimum_size = Vector2(240, 48)
+[node name="MenuButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=290870012]
+custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
 text = "Menú"
 script = ExtResource("1_event_button")
-_on_pressed = ExtResource("3_on_menu_pressed")
+_on_pressed = ExtResource("5_on_menu_pressed")
