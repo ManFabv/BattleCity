@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://v02m5uulgbn"]
+
+[ext_resource type="Script" uid="uid://do2b3wnec6llb" path="res://core/container/node_container.gd" id="1_node_container"]
+[ext_resource type="Resource" uid="uid://b1qeqjethjy24" path="res://core/event_bus/events/on_power_up_spawned.tres" id="2_on_power_up_spawned"]
+
+[node name="PowerUpContainer" type="Node" unique_id=1739450311]
+script = ExtResource("1_node_container")
+_on_node_spawned = ExtResource("2_on_power_up_spawned")

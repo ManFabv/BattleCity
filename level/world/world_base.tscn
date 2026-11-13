@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://level/world/world.gd" id="60_world"]
 [ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://level/kill_zone/kill_zone.tscn" id="62_killzone"]
 [ext_resource type="PackedScene" uid="uid://dc6mhqa3pvt85" path="res://level/level_start_prompt/level_start_prompt.tscn" id="63_levelstartprompt"]
+[ext_resource type="PackedScene" uid="uid://v02m5uulgbn" path="res://core/container/power_up_container.tscn" id="64_powerupcontainer"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qjlgo"]
 size = Vector3(30, 0.5, 20)
@@ -24,12 +25,13 @@ albedo_color = Color(0.690196, 0.537255, 0.380392, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_r26qh"]
 size = Vector3(30, 0.5, 20)
 
-[node name="World" type="Node3D" unique_id=1462594140 node_paths=PackedStringArray("_enemy_spawn_manager", "_player_spawn_manager", "_base_spawn_manager", "_level_start_prompt")]
+[node name="World" type="Node3D" unique_id=1462594140 node_paths=PackedStringArray("_enemy_spawn_manager", "_player_spawn_manager", "_base_spawn_manager", "_power_up_spawn_manager", "_level_start_prompt")]
 editor_description = "Base of every level, never played on its own: it holds what every level has. Each world_NN.tscn inherits it and adds its layout, props, spawn points, spawn configs and its own navmesh."
 script = ExtResource("60_world")
 _enemy_spawn_manager = NodePath("Enemies/EnemySpawnManager")
 _player_spawn_manager = NodePath("Player/PlayerSpawnManager")
 _base_spawn_manager = NodePath("Base/BaseSpawnManager")
+_power_up_spawn_manager = NodePath("PowerUps/PowerUpSpawnManager")
 _level_start_prompt = NodePath("LevelStartPrompt")
 
 [node name="Environment" type="Node" parent="." unique_id=524306100]
@@ -67,6 +69,10 @@ _navigation_region = NodePath("../NavigationRegion")
 _grid_map_level = NodePath("../NavigationRegion/Level")
 
 [node name="PowerUps" type="Node" parent="." unique_id=987654321]
+
+[node name="PowerUpContainer" parent="PowerUps" unique_id=1739450312 instance=ExtResource("64_powerupcontainer")]
+
+[node name="PowerUpSpawnManager" parent="PowerUps" unique_id=1739450313 instance=ExtResource("41_spawnmanager")]
 
 [node name="Enemies" type="Node" parent="." unique_id=700000001]
 
