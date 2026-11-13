@@ -7,7 +7,7 @@ extends Node3D
 @export var _on_projectile_spawned : BaseEvent
 
 @export_group("References")
-## the shared timer manager the shot cost requests its timers from
+## the shared timer manager the cooldown between shots is requested from
 @export var _timer_manager : TimerManagerResource
 ## the meshes of this weapon, tinted with the weapon color
 @export var _tinted_meshes : Array[TintedMesh]
@@ -18,14 +18,15 @@ extends Node3D
 var _weapon_config : WeaponConfig
 ## color of the weapon meshes and of the projectiles it fires, set by apply_color()
 var _weapon_color : Color = Color.WHITE
-## what a shot costs, created from the config; it decides when the weapon can shoot
-var _shot_cost : ShotCostInterface
+## cooldown between shots, restarted manually on every shot
+var _fire_rate_timer : CustomTimer
+## true once the cooldown elapsed, so the next shot is allowed
+var _is_fire_rate_ready : bool = true
 
 
-## we create the shot cost once, it is cleaned up when this weapon leaves the tree
+## we request the cooldown once, not started so the first shot is allowed right away; it is cleaned up with this weapon
 func _ready() -> void:
-	# we keep the cost of this weapon
-	_shot_cost = _weapon_config.create_shot_cost(_timer_manager, tree_exited)
+	_fire_rate_timer = _timer_manager.create_manual(_weapon_config.fire_rate_seconds, _on_fire_rate_timer_timeout, tree_exited)
 
 
 ## we cache the config every shot reads from; called before the weapon enters the tree
@@ -42,13 +43,15 @@ func apply_color(color: Color) -> void:
 		tinted_mesh.apply_color(color)
 
 
-## shoots if the shot cost can be paid and returns true when a shot was fired
+## shoots if the cooldown elapsed and returns true when a shot was fired
 func try_shot() -> bool:
-	# we can't shoot until the cost can be paid
-	if not _shot_cost.can_shoot():
+	# we can't shoot until the cooldown elapsed
+	if not _is_fire_rate_ready:
 		return false
-	# we charge the cost only when we actually shoot
-	_shot_cost.consume()
+	# we consume the shot
+	_is_fire_rate_ready = false
+	# the cooldown counts from this shot
+	_fire_rate_timer.start()
 	# one projectile per muzzle
 	for muzzle in _muzzles:
 		_fire_projectile(muzzle)
@@ -70,7 +73,7 @@ func _fire_projectile(muzzle: Marker3D) -> void:
 		# we configure it with the weapon values
 		projectile.configure(
 				_weapon_color,
-				_weapon_config.projectile_movement_config,
+				_weapon_config.projectile_speed,
 				_weapon_config.projectile_damage_points,
 				_weapon_config.projectile_lifetime_seconds)
 		# we fire it along the muzzle forward axis
@@ -81,3 +84,7 @@ func _fire_projectile(muzzle: Marker3D) -> void:
 		# a node outside the tree is not reference counted, so nobody else would free it
 		instance.free()
 
+
+## the cooldown elapsed, so the next shot is allowed
+func _on_fire_rate_timer_timeout() -> void:
+	_is_fire_rate_ready = true

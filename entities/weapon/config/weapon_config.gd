@@ -8,8 +8,11 @@ extends Resource
 @export var projectile_scene: PackedScene
 
 @export_group("Projectile")
-## how each projectile moves (ex: a straight line at a speed)
-@export var projectile_movement_config : ProjectileMovementConfig
+## units per second each projectile moves in a straight line; above 42 it can skip a 0.5 brick, since the area only samples once per physics tick
+@export_range(0.1, 100.0) var projectile_speed : float = 10.0:
+	set(new_value):
+		# we prevent negative speeds, which would move the projectiles backwards
+		projectile_speed = maxf(new_value, 0.0)
 ## damage points each projectile deals
 @export_range(1, 100) var projectile_damage_points : int = 10:
 	set(new_value):
@@ -22,10 +25,8 @@ extends Resource
 		projectile_lifetime_seconds = maxf(new_value, 1.0)
 
 @export_group("Shot")
-## what each shot costs (ex: waiting between shots)
-@export var _shot_cost_config : ShotCostConfig
-
-
-## creates the runtime shot cost of one weapon that uses this config
-func create_shot_cost(timer_manager: TimerManagerResource, owner_exited: Signal) -> ShotCostInterface:
-	return _shot_cost_config.create_shot_cost(timer_manager, owner_exited)
+## seconds the weapon waits between shots
+@export_range(0.1, 10.0) var fire_rate_seconds : float = 1.0:
+	set(new_value):
+		# we prevent negative cooldowns
+		fire_rate_seconds = maxf(new_value, 0.0)

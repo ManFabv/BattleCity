@@ -54,13 +54,16 @@ func _configure_entity_for_level(entity_level_config: EntityLevelConfig) -> void
 	_weapon_system.apply_color(entity_level_config.entity_color)
 
 
-## applies the next level, if there is one
+## applies the next level, or refills the health when the entity is already at its highest one
 func _apply_next_level() -> void:
 	# one past the last level means the entity is already at its highest one
 	if _current_level < _entity_level_configs.size():
 		_configure_entity_for_level(_entity_level_configs[_current_level])
 		# we count the applied level
 		_current_level += 1
+	# at the highest level a star refills the health of that level, so a picked star always does something
+	elif not _entity_level_configs.is_empty():
+		_health.configure(_entity_level_configs[-1].max_health_points)
 
 
 ## advances to the next entity level, if there is one

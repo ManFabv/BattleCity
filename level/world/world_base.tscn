@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://mbqifg36n8vf"]
+
+[ext_resource type="PackedScene" uid="uid://by3dt8h5n8avg" path="res://core/container/projectile_container.tscn" id="3_3rhlx"]
+[ext_resource type="PackedScene" uid="uid://if85h33ppep0" path="res://core/container/enemy_container.tscn" id="3_yw7h8"]
+[ext_resource type="PackedScene" uid="uid://duohrtg45dkra" path="res://level/grid_map/grid_map_level.tscn" id="9_level"]
+[ext_resource type="PackedScene" uid="uid://b34uyvhb4eo81" path="res://level/enemy_tracking/enemy_alive_tracker.tscn" id="11_tracker"]
+[ext_resource type="PackedScene" uid="uid://1vv6ytwsbtjd" path="res://level/enemy_tracking/enemy_target_applier.tscn" id="12_applier"]
+[ext_resource type="PackedScene" uid="uid://c5vua24awli0v" path="res://game/game_result_controller.tscn" id="14_outcome"]
+[ext_resource type="PackedScene" uid="uid://n85x68ab0xky" path="res://core/container/player_container.tscn" id="23_playercontainer"]
+[ext_resource type="PackedScene" uid="uid://bag6b0v4b3kl" path="res://level/camera/player_camera.tscn" id="24_playercamera"]
+[ext_resource type="PackedScene" uid="uid://fsxgcqmd3col" path="res://level/grid_map/grid_map_navmesh_dynamic_baker.tscn" id="32_gridmapupdater"]
+[ext_resource type="PackedScene" uid="uid://n0pip2x8kmch" path="res://core/container/base_container.tscn" id="33_basecontainer"]
+[ext_resource type="PackedScene" uid="uid://ckcogc3uobdfw" path="res://spawner/spawn_manager/spawn_manager.tscn" id="41_spawnmanager"]
+[ext_resource type="Script" uid="uid://32j1du21xbfq" path="res://level/world/world.gd" id="60_world"]
+[ext_resource type="PackedScene" uid="uid://bfkioew14o5qw" path="res://level/kill_zone/kill_zone.tscn" id="62_killzone"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qjlgo"]
+size = Vector3(30, 0.5, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qjlgo"]
+albedo_color = Color(0.690196, 0.537255, 0.380392, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r26qh"]
+size = Vector3(30, 0.5, 20)
+
+[node name="World" type="Node3D" unique_id=1462594140 node_paths=PackedStringArray("_enemy_spawn_manager", "_player_spawn_manager", "_base_spawn_manager")]
+editor_description = "Base of every level, never played on its own: it holds what every level has. Each world_NN.tscn inherits it and adds its layout, props, spawn points, spawn configs and its own navmesh."
+script = ExtResource("60_world")
+_enemy_spawn_manager = NodePath("Enemies/EnemySpawnManager")
+_player_spawn_manager = NodePath("Player/PlayerSpawnManager")
+_base_spawn_manager = NodePath("Base/BaseSpawnManager")
+
+[node name="Environment" type="Node" parent="." unique_id=524306100]
+
+[node name="Sun" type="DirectionalLight3D" parent="Environment" unique_id=1109002588]
+transform = Transform3D(0.6968456, 0.62113243, -0.3586095, 1.4756209e-08, 0.49999845, 0.8660263, 0.7172212, -0.6034866, 0.3484217, 0, 0, 0)
+light_color = Color(0.92, 0.8257, 0.5428, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="Navigation" type="Node" parent="." unique_id=1021368003]
+
+[node name="NavigationRegion" type="NavigationRegion3D" parent="Navigation" unique_id=1099192252]
+
+[node name="Floor" type="StaticBody3D" parent="Navigation/NavigationRegion" unique_id=798486507]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Floor" unique_id=230454027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194702, 0, 0)
+shape = SubResource("BoxShape3D_qjlgo")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Navigation/NavigationRegion/Floor" unique_id=1725150571]
+material_override = SubResource("StandardMaterial3D_qjlgo")
+mesh = SubResource("BoxMesh_r26qh")
+skeleton = NodePath("../../../..")
+
+[node name="Level" parent="Navigation/NavigationRegion" unique_id=1932757374 instance=ExtResource("9_level")]
+
+[node name="BaseContainer" parent="Navigation/NavigationRegion" unique_id=601915876 instance=ExtResource("33_basecontainer")]
+
+[node name="GridMapUpdater" parent="Navigation" unique_id=1099192253 node_paths=PackedStringArray("_navigation_region", "_grid_map_level") instance=ExtResource("32_gridmapupdater")]
+_navigation_region = NodePath("../NavigationRegion")
+_grid_map_level = NodePath("../NavigationRegion/Level")
+
+[node name="PowerUps" type="Node" parent="." unique_id=987654321]
+
+[node name="Enemies" type="Node" parent="." unique_id=700000001]
+
+[node name="EnemyContainer" parent="Enemies" unique_id=1579195151 instance=ExtResource("3_yw7h8")]
+
+[node name="EnemyTargetApplier" parent="Enemies" unique_id=1356891942 instance=ExtResource("12_applier")]
+
+[node name="EnemyAliveTracker" parent="Enemies" unique_id=2081209512 instance=ExtResource("11_tracker")]
+
+[node name="EnemySpawnManager" parent="Enemies" unique_id=1309938727 instance=ExtResource("41_spawnmanager")]
+
+[node name="Projectiles" type="Node" parent="." unique_id=700000002]
+
+[node name="ProjectileContainer" parent="Projectiles" unique_id=645560195 instance=ExtResource("3_3rhlx")]
+
+[node name="Player" type="Node" parent="." unique_id=700000003]
+
+[node name="PlayerContainer" parent="Player" unique_id=297298887 instance=ExtResource("23_playercontainer")]
+
+[node name="PlayerCamera" parent="Player" unique_id=297298889 instance=ExtResource("24_playercamera")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 14.51, 8.5)
+
+[node name="PlayerSpawnManager" parent="Player" unique_id=1376865603 instance=ExtResource("41_spawnmanager")]
+
+[node name="Base" type="Node" parent="." unique_id=700000004]
+
+[node name="BaseSpawnManager" parent="Base" unique_id=1979519489 instance=ExtResource("41_spawnmanager")]
+
+[node name="Game" type="Node" parent="." unique_id=700000005]
+
+[node name="LevelResultController" parent="Game" unique_id=561437413 instance=ExtResource("14_outcome")]
+
+[node name="KillZone" parent="." unique_id=1222635435 instance=ExtResource("62_killzone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)

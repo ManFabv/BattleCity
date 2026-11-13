@@ -11,8 +11,10 @@ extends Area3D
 ## the shared timer manager used to request the lifetime timer
 @export var _timer_manager : TimerManagerResource
 
-## how this projectile moves, created from the movement config on configure
-var _projectile_movement : ProjectileMovementInterface
+## units per second the projectile moves, set on configure
+var _speed : float = 0.0
+## unit direction the projectile moves along, set on fire
+var _move_direction : Vector3 = Vector3.FORWARD
 
 
 ## to avoid having to connect this signal on every node, we connect it here
@@ -25,18 +27,18 @@ func _ready() -> void:
 	_visible_on_screen_notifier.screen_exited.connect(_destroy_projectile)
 
 
-## we move the projectile as its movement says
+## we move the projectile in a straight line
 func _physics_process(delta: float) -> void:
 	# only the position changes, so we don't rebuild the whole transform
-	global_position = _projectile_movement.move(global_position, delta)
+	global_position += _move_direction * _speed * delta
 
 
-## tints the projectile, creates its movement, sets its damage and starts its lifetime; called once it's in the tree
-func configure(projectile_color: Color, projectile_movement_config: ProjectileMovementConfig, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
+## tints the projectile, sets its speed and damage and starts its lifetime; called once it's in the tree
+func configure(projectile_color: Color, projectile_speed: float, projectile_damage_points: int, projectile_lifetime_seconds: float) -> void:
 	# we tint the projectile with the color of whoever fired it
 	_tinted_mesh.apply_color(projectile_color)
-	# we keep the movement of this projectile
-	_projectile_movement = projectile_movement_config.create_projectile_movement()
+	# we cache the speed the physics tick reads
+	_speed = projectile_speed
 	# we set the damage the hurt area deals
 	_hurt.configure(projectile_damage_points)
 	# a shot spawned off screen never gets screen_exited, so its lifetime timer removes it
@@ -45,8 +47,8 @@ func configure(projectile_color: Color, projectile_movement_config: ProjectileMo
 
 ## sets the direction it moves; the shooter placed it before it entered the tree
 func fire(move_direction: Vector3) -> void:
-	# the movement keeps the direction it follows
-	_projectile_movement.aim(move_direction)
+	# we normalize the direction once here, so the physics tick doesn't have to
+	_move_direction = move_direction.normalized()
 
 
 ## a shield stopped this projectile, it must not hurt even if it already touched a health in this physics step

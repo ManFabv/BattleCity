@@ -19,6 +19,8 @@ func configure(new_entity_stats: EntityStats) -> void:
 
 ## we add the modifier applier and we recompute the stats from the base with every active one
 func add_modifier(new_entity_stats_modifier: EntityStatsModifierInterface) -> void:
+	# the same modifier picked again replaces the active one instead of stacking on top of it
+	_remove_modifier_created_from(new_entity_stats_modifier)
 	# we cache the actual instance that will apply the modification
 	var applier : EntityStatsModifierApplier = new_entity_stats_modifier.create_new_applier(
 			_on_modifier_depleted,
@@ -42,6 +44,18 @@ func _apply_modifiers() -> void:
 	for modifier in _modifiers:
 		# we "decorate" the current stats with this current modifier
 		modifier.apply(_current_stacked_entity_stats)
+
+
+## cancels and drops the active applier created from the given modifier, if there is one
+func _remove_modifier_created_from(entity_stats_modifier: EntityStatsModifierInterface) -> void:
+	for modifier in _modifiers:
+		if modifier.is_created_from(entity_stats_modifier):
+			# otherwise its timer would still fire later and keep it alive until then
+			modifier.cancel()
+			# the list was its only owner, so it's freed
+			_modifiers.erase(modifier)
+			# at most one applier per modifier exists, so we stop before the erase shifts the loop
+			return
 
 
 ## when a modifier is depleted, we remove it and we reapply the others left

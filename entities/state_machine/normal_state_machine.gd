@@ -46,11 +46,11 @@ func _on_aim_in_place_state_entered() -> void:
 	var roll : float = randf()
 	# the first slice of the roll is for the base
 	if roll < _attack_base_chance:
-		# the controller checks the sight on its next physics tick
+		# the controller aims at it only if it is in sight
 		_ai_controller.try_attack_base()
 	# the next slice is for the player
 	elif roll < _attack_base_chance + _attack_player_chance:
-		# the controller checks the sight on its next physics tick
+		# the controller aims at it only if it is in sight
 		_ai_controller.try_attack_player()
 	# the rest of the roll keeps the entity aiming forward, where it already faces
 

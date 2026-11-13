@@ -10,9 +10,9 @@ extends Node
 @export var _on_all_spawns_finished : BaseEvent
 ## event emitted whenever the alive enemies count changes, with the current count as context
 @export var _on_enemy_count_changed : BaseEvent
-## event emitted once every spawn is done and no enemies are left alive, for the future level UI
+## event emitted once every spawn is done and no enemies are left alive, the scene manager loads what comes next
 @export var _on_victory : BaseEvent
-## event emitted once the level is lost, for the future level UI
+## event emitted once the level is lost, the scene manager loads what comes next
 @export var _on_defeat : BaseEvent
 
 ## true once there are no more enemies to spawn
@@ -41,19 +41,6 @@ func _check_victory() -> void:
 		_emit_level_outcome_event(_on_victory)
 
 
-## freezes gameplay for a moment and reloads the level, so every counter, spawner and life starts clean
-## TODO: a victory should load the next level once the scene manager exists
-func _restart_level() -> void:
-	# we freeze gameplay while the outcome is shown
-	get_tree().paused = true
-	# the scene tree timer keeps running while paused
-	await get_tree().create_timer(1.0).timeout
-	# we resume before reloading so the new level doesn't start paused
-	get_tree().paused = false
-	# we reload the level from scratch
-	get_tree().reload_current_scene()
-
-
 ## the base ran out of health, so the level is lost
 func _on_base_destroyed_handler(_event_context: Variant = null) -> void:
 	_emit_level_outcome_event(_on_defeat)
@@ -76,14 +63,12 @@ func _on_enemy_count_changed_handler(new_count: int) -> void:
 	_check_victory()
 
 
-## emits the first outcome of the level, restarts it and ignores any later outcome
+## emits the first outcome of the level and ignores any later outcome
 func _emit_level_outcome_event(level_outcome_event: BaseEvent) -> void:
 	# we ignore any outcome after the first one, a second one can arrive in the same physics flush
 	if _is_level_resolved:
 		return
 	# we mark it before emitting, a listener could cause another outcome synchronously
 	_is_level_resolved = true
-	# we notify the outcome
+	# we notify the outcome, the scene manager decides what comes next
 	level_outcome_event.emit()
-	# we restart the level ourselves, the event is only a notification
-	_restart_level()
