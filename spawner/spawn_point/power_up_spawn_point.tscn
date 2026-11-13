@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cncl8xmecoqr0"]
+
+[ext_resource type="PackedScene" uid="uid://c7nxe8h6r2vw0" path="res://spawner/spawn_point/spawn_point.tscn" id="1"]
+[ext_resource type="Resource" uid="uid://b1qeqjethjy24" path="res://core/event_bus/events/on_power_up_spawned.tres" id="2"]
+
+[node name="PowerUpSpawnPoint" unique_id=1186254402 instance=ExtResource("1")]
+_on_spawned = ExtResource("2")

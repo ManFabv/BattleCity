@@ -3,6 +3,8 @@ extends SpawnStrategyInterface
 
 ## the config with the capacity, the events and the timeline entries
 var _timeline_based_spawn_strategy_config : TimelineBasedSpawnStrategyConfig
+## the spawn points of the manager, the random entries pick among them
+var _spawn_points : Array[SpawnPoint]
 ## the spawn points the entries refer to, indexed by their spawn_point_id
 var _spawn_point_by_id : Dictionary[int, SpawnPoint] = {}
 ## one timer for the whole timeline, restarted with the delay of each entry once the previous one spawned
@@ -42,6 +44,8 @@ func _init(timeline_based_spawn_strategy_config: TimelineBasedSpawnStrategyConfi
 
 ## we index the spawn points and start the delay of the first entry, the config validated the timeline
 func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
+	# we keep the spawn points for the random entries
+	_spawn_points = spawn_points
 	# we index every spawn point assigned in the manager by its id
 	_index_spawn_points_by_id(spawn_points)
 	# a single manual timer for the whole timeline, it starts now with the delay of the first entry
@@ -77,13 +81,21 @@ func _try_spawn_next_entry() -> void:
 	# we move to the next entry
 	_next_spawn_entry_index += 1
 	# we spawn the scene of this entry at its spawn point, both validated when the timeline started
-	_spawn_point_by_id[spawn_entry_config.spawn_point_id].spawn(spawn_entry_config.scene_to_spawn)
+	_get_spawn_point_for(spawn_entry_config).spawn(spawn_entry_config.scene_to_spawn)
 	# the last spawn finishes the timeline: we notify it once and the timer is never started again
 	if _next_spawn_entry_index > _timeline_based_spawn_strategy_config.last_index():
 		_timeline_based_spawn_strategy_config.emit_all_spawns_finished_event()
 		return
 	# the delay of the next entry counts from this spawn
 	_spawn_delay_timer.start(_next_spawn_entry_config.spawn_delay_seconds)
+
+
+## a random spawn point of the manager for a random entry, otherwise the one of its id
+func _get_spawn_point_for(spawn_entry_config: TimelineSpawnEntryConfig) -> SpawnPoint:
+	# a tank spawned over another one is pushed out by move_and_slide(), so any spawn point is valid
+	if spawn_entry_config.is_spawn_point_random:
+		return _spawn_points.pick_random()
+	return _spawn_point_by_id[spawn_entry_config.spawn_point_id]
 
 
 ## the delay of the next entry elapsed: it is due until there is room for it

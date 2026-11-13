@@ -8,6 +8,8 @@ extends Node3D
 @export var _player_spawn_manager : SpawnManager
 ## spawns the base once
 @export var _base_spawn_manager : SpawnManager
+## spawns the power-ups of the level at random, every interval
+@export var _power_up_spawn_manager : SpawnManager
 ## the text shown before the level starts; the player and the enemies wait until it ends
 @export var _level_start_prompt : LevelStartPrompt
 
@@ -21,7 +23,8 @@ func _ready() -> void:
 	_level_start_prompt.show_prompt()
 
 
-## the prompt ended: the enemy timeline starts counting and the player spawns
+## the prompt ended: the enemy timeline and the power-up interval start counting and the player spawns
 func _on_level_start_prompt_finished() -> void:
 	_enemy_spawn_manager.start()
 	_player_spawn_manager.start()
+	_power_up_spawn_manager.start()

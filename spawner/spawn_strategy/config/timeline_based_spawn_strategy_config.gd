@@ -27,7 +27,7 @@ func create_spawn_strategy() -> SpawnStrategyInterface:
 	return TimelineBasedSpawnStrategy.new(self)
 
 
-## the ids of the spawn points have to be unique and every entry needs a scene and an id that exists
+## the ids of the spawn points have to be unique and every entry needs a scene and, unless it is random, an id that exists
 func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedStringArray:
 	# we collect everything that is wrong
 	var warnings : PackedStringArray = PackedStringArray()
@@ -42,6 +42,9 @@ func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedString
 				warnings.append("spawn point id %d is used by more than one spawn point" % spawn_point.spawn_point_id)
 			# we keep the id
 			spawn_point_ids[spawn_point.spawn_point_id] = true
+	# a random entry picks among the spawn points, so there must be at least one
+	if spawn_points.is_empty():
+		warnings.append("timeline based spawn strategy needs at least one spawn point")
 	# a timeline without entries never finishes, so the level could not be won
 	if _spawn_entry_configs.is_empty():
 		warnings.append("timeline based spawn strategy needs at least one entry")
@@ -49,8 +52,8 @@ func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedString
 	for entry_index : int in _spawn_entry_configs.size():
 		# an empty slot left in the inspector can't spawn anything
 		var spawn_entry_config : TimelineSpawnEntryConfig = _spawn_entry_configs[entry_index]
-		# the entry needs a scene to spawn and a spawn point that exists
-		if not (is_instance_valid(spawn_entry_config) and is_instance_valid(spawn_entry_config.scene_to_spawn) and spawn_point_ids.has(spawn_entry_config.spawn_point_id)):
+		# the entry needs a scene to spawn and, unless it picks a random one, a spawn point that exists
+		if not (is_instance_valid(spawn_entry_config) and is_instance_valid(spawn_entry_config.scene_to_spawn) and (spawn_entry_config.is_spawn_point_random or spawn_point_ids.has(spawn_entry_config.spawn_point_id))):
 			warnings.append("timeline entry %d is empty, has no scene or points to a spawn point id that does not exist" % entry_index)
 	return warnings
 
