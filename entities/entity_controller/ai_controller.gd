@@ -21,8 +21,6 @@ var _safe_move_direction : Vector3
 var _target_look_at : float
 ## true while the state machine wants this entity to shoot, read as the shoot input
 var _has_shot : bool = false
-## true when the pending sight check is for the player, false when it is for the base
-var _is_player_attack_requested : bool = true
 ## current target used when attacking the player instead of wandering
 var _player_target : ControllableEntity
 ## current target used when attacking the base instead of wandering
@@ -31,25 +29,12 @@ var _base_target : Base
 var _current_attack_target : Node3D
 
 
-## we subscribe to the events and sleep until an attack is requested
+## we subscribe to the events
 func _ready() -> void:
-	# the sight check only runs when an attack is requested
-	set_physics_process(false)
 	# the spawn point already rotated the entity before it entered the tree
 	_target_look_at = _owner_controllable_entity.rotation.y
 	_on_grenade_picked_up.subscribe(_on_grenade_picked_up_handler, tree_exited)
 	_on_player_spawned.subscribe(_on_player_spawned_handler, tree_exited)
-
-
-## checks the line of sight on a physics tick, the only place where the physics space can be queried
-func _physics_process(_delta: float) -> void:
-	# we check once, then we sleep until the next request
-	set_physics_process(false)
-	# we check the target that was requested
-	if _is_player_attack_requested:
-		_try_attack_player()
-	else:
-		_try_attack_base()
 
 
 ## feeds the agent the desired velocity and returns the safe direction computed by the avoidance
@@ -110,20 +95,18 @@ func stop_moving() -> void:
 	_navigation_agent.set_target_position(_owner_controllable_entity.global_position)
 
 
-## aims at the player if it is in sight, otherwise it keeps aiming forward; the sight is checked on the next physics tick
+## aims at the player if it is in sight, otherwise it keeps aiming forward
 func try_attack_player() -> void:
-	# the next sight check is for the player
-	_is_player_attack_requested = true
-	# the sight check needs a physics tick
-	set_physics_process(true)
+	# physics runs on the main thread, so the sight can be checked right away
+	if _can_attack_player():
+		_current_attack_target = _player_target
 
 
-## aims at the base if it is in sight, otherwise it keeps aiming forward; the sight is checked on the next physics tick
+## aims at the base if it is in sight, otherwise it keeps aiming forward
 func try_attack_base() -> void:
-	# the next sight check is for the base
-	_is_player_attack_requested = false
-	# the sight check needs a physics tick
-	set_physics_process(true)
+	# physics runs on the main thread, so the sight can be checked right away
+	if _can_attack_base():
+		_current_attack_target = _base_target
 
 
 ## freezes the look-at angle where it was aiming, so the entity doesn't turn while it fires
@@ -139,24 +122,6 @@ func set_random_target_position() -> void:
 	var random_target_position : Vector3 = _get_random_wander_target()
 	# we set the new target destination position
 	_navigation_agent.set_target_position(random_target_position)
-
-
-## aims at the player if it is in sight and returns true; otherwise it does nothing and returns false
-func _try_attack_player() -> bool:
-	# the player has to be in range and in direct line of sight
-	var can_attack : bool = _can_attack_player()
-	if can_attack:
-		_current_attack_target = _player_target
-	return can_attack
-
-
-## aims at the base if it is in sight and returns true; otherwise it does nothing and returns false
-func _try_attack_base() -> bool:
-	# the base has to be in range and in direct line of sight
-	var can_attack : bool = _can_attack_base()
-	if can_attack:
-		_current_attack_target = _base_target
-	return can_attack
 
 
 ## true if the player is close enough and in direct line of sight

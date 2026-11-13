@@ -2,8 +2,10 @@ class_name EntityControllerInterface
 extends Node
 
 @export_group("References")
-## the entity this controller drives, player or AI
+## the entity this controller drives, player or AI; only the subtypes read it
+@warning_ignore_start("unused_private_class_variable")
 @export var _owner_controllable_entity : ControllableEntity
+@warning_ignore_restore("unused_private_class_variable")
 
 
 ## the direction the entity wants to move, each controller decides it its own way

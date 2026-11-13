@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d2r1ggeoifkug"]
+
+[ext_resource type="Script" uid="uid://bfjkfetiog7y4" path="res://game/scene_manager.gd" id="1_scene_manager"]
+[ext_resource type="PackedScene" uid="uid://dg55x5csc0cim" path="res://level/levels/level_01/world_01.tscn" id="2_world_01"]
+[ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://core/event_bus/events/on_victory.tres" id="3_on_victory"]
+[ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://core/event_bus/events/on_defeat.tres" id="4_on_defeat"]
+
+[node name="SceneManager" type="Node" unique_id=1846203417]
+process_mode = 3
+script = ExtResource("1_scene_manager")
+_level_scenes = Array[PackedScene]([ExtResource("2_world_01")])
+_on_victory = ExtResource("3_on_victory")
+_on_defeat = ExtResource("4_on_defeat")

@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://dc0iugm0iea4h"]
 
-[ext_resource type="Script" uid="uid://b4p5namp6kwu1" path="res://game/game_manager.gd" id="1_0648w"]
-[ext_resource type="PackedScene" uid="uid://dwt62qx867bb3" path="res://level/world/world.tscn" id="2_0648w"]
-[ext_resource type="PackedScene" uid="uid://bmh0tl4vipift" path="res://core/timer_manager/timer_manager.tscn" id="3_xa23u"]
+[ext_resource type="PackedScene" uid="uid://bmh0tl4vipift" path="res://core/timer_manager/timer_manager.tscn" id="1_timer_manager"]
+[ext_resource type="PackedScene" uid="uid://d2r1ggeoifkug" path="res://game/scene_manager.tscn" id="2_scene_manager"]
 
-[node name="Game" type="Node3D" unique_id=624028641]
-script = ExtResource("1_0648w")
-_initial_scene = ExtResource("2_0648w")
-_timer_manager_scene = ExtResource("3_xa23u")
+[node name="Game" type="Node" unique_id=624028641]
+editor_description = "Boot scene: the global systems are its children in start order. The SceneManager goes last, so every global listener is subscribed when it shows the first scene."
+
+[node name="TimerManager" parent="." unique_id=557686219 instance=ExtResource("1_timer_manager")]
+
+[node name="SceneManager" parent="." unique_id=1846203418 instance=ExtResource("2_scene_manager")]

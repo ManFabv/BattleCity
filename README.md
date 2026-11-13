@@ -42,6 +42,7 @@ Habra diferentes tipos de enemigos con diferente velocidad de movimiento y caden
 
 Comportamiento:
 * Los enemigos se mueven por el mapa aleatoriamente y disparando a intervalos de tiempo
+* Cada enemigo tiene un rango de vision configurable, que se ve en el editor como un anillo alrededor del tanque
 
 Vida:
 * Los enemigos cuentan con una cantidad limite de disparos que puede recibir de parte del jugador
@@ -72,11 +73,11 @@ Cada nivel contara con un listado de power-ups que podran aparecer aleatoriament
 * Escudo: para el tanque con limite de tiempo
 * Escudo: para la base con limite de tiempo
 * Eliminar: todos los enemigos actualmente en el nivel
-* Estrella: sube de nivel al tanque (mejora sus stats, vida y arma)
-* Velocidad: aplica un modificador que aumenta la velocidad del tanque
+* Estrella: sube de nivel al tanque (mejora sus stats, vida y arma); en el nivel maximo le rellena la vida
+* Velocidad: aplica un modificador que aumenta la velocidad del tanque; tomar otro mientras dura lo reemplaza y reinicia la duracion (no se acumula)
 
 ## Flujo de juego ##
-Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc, P o Start en cualquier momento del nivel. Opciones: volumen de musica y efectos, guardado entre sesiones.
+Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perder (base destruida o sin vidas) lleva a la pantalla de derrota, desde donde se vuelve a jugar desde el nivel 1. Pausa con Esc, P o Start en cualquier momento del nivel, incluso mientras el jugador espera para reaparecer. Opciones: volumen de musica y efectos, guardado entre sesiones.
 
 ## Controles ##
 | Accion | Teclado y mouse | Gamepad |
@@ -102,6 +103,7 @@ Juego de accion Twin Stick Shooter 3D con vista Top-Down
 * `SceneManager`: unico dueño de la escena activa y de la pausa.
 * `SpawnManager` + estrategias Once (base), Lives (jugador), Timeline (enemigos) e Interval (power-ups), configuradas por nivel.
 * `EntityLevelManager`: configura stats, vida, arma y color de cada nivel de una entidad; el root solo orquesta.
+* `Weapon` + `WeaponConfig`: el tipo de arma es una escena con sus cañones; cadencia, velocidad, daño y vida del proyectil son datos del `WeaponConfig`.
 * Mundo: `world_base.tscn` con todo lo comun y un `world_NN.tscn` heredado por nivel (layout, spawn points, configs, navmesh).
 ## Política de Colaboración con IA ##
 Este proyecto utiliza Inteligencia Artificial como consultor, herramienta de brainstorming y para implementar los refactors que yo decido aplicar. La arquitectura, las decisiones de diseño, la decisión de qué refactors aplicar, la integración final del código y la optimización del sistema son responsabilidad del autor.
