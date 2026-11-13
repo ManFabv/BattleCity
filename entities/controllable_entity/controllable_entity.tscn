@@ -14,6 +14,7 @@ size = Vector3(1, 0.7, 1.65)
 size = Vector3(0.8, 0.5, 1.2)
 
 [node name="ControllableEntity" type="CharacterBody3D" unique_id=800100001 node_paths=PackedStringArray("_weapon_system", "_entity_stats_manager", "_health")]
+editor_description = "Base of every tank, never spawned on its own: its EntityLevelManager has no levels, so its components get no config. The player and the enemy scenes inherit it."
 collision_mask = 247
 script = ExtResource("1")
 _weapon_system = NodePath("WeaponSystem")

@@ -12,6 +12,7 @@ rings = 16
 radius = 0.102
 
 [node name="PlayerLevel2Projectile" unique_id=1840560226 instance=ExtResource("1_base")]
+editor_description = ""
 collision_layer = 256
 collision_mask = 145
 

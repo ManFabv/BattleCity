@@ -107,6 +107,7 @@ weapon_config = SubResource("Resource_player_level_2_weapon_config")
 entity_color = Color(0.66, 0.82, 0.48, 1)
 
 [node name="Player" unique_id=1580826190 node_paths=PackedStringArray("_entity_controller") instance=ExtResource("1_base")]
+editor_description = ""
 collision_layer = 2
 _entity_controller = NodePath("PlayerController")
 

@@ -37,6 +37,7 @@ weapon_config = SubResource("Resource_enemy_normal_weapon_config")
 entity_color = Color(1, 0.45, 0, 1)
 
 [node name="EnemyNormalTank" unique_id=459530449 instance=ExtResource("1_base")]
+editor_description = ""
 
 [node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
 _entity_level_configs = Array[ExtResource("7_entity_level_config")]([SubResource("Resource_enemy_normal_entity_level_config")])

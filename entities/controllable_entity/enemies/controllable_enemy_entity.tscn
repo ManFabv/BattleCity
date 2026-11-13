@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://yymqre1qxim7" path="res://entities/entity_detection/sight_attack_detector.tscn" id="12"]
 
 [node name="EnemyTank" unique_id=659922350 node_paths=PackedStringArray("_entity_controller") instance=ExtResource("1_base")]
+editor_description = "Base of every enemy type, never spawned on its own: it adds the AI but no level. Each enemy tank scene inherits it and embeds its single EntityLevelConfig."
 collision_layer = 4
 _entity_controller = NodePath("AiController")
 
