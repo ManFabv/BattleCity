@@ -8,15 +8,37 @@ const _OPEN_UI_MENU_ACTION : StringName = &"open_ui_menu"
 @export_group("Scenes")
 ## the levels in play order; level 0 is the first one
 @export var _level_scenes : Array[PackedScene]
+## the screen shown at startup and when the player goes back to the menu
+@export var _main_menu_scene : PackedScene
+## the screen shown after winning the last level
+@export var _victory_scene : PackedScene
+## the screen shown after losing a level
+@export var _defeat_scene : PackedScene
+
+@export_group("References")
+## the cover shown while a scene is swapped; a child of this scene, so it survives every swap
+@export var _loading_screen : LoadingScreen
 
 @export_group("Events")
-## event emitted once a level is won, we load the next level
+## event emitted once a level is won, we load the next level or the victory screen
 @export var _on_victory : BaseEvent
-## event emitted once a level is lost, we start again from the first level
+## event emitted once a level is lost, we show the defeat screen
 @export var _on_defeat : BaseEvent
+## event emitted by the play button, we start the first level
+@export var _on_play_pressed : BaseEvent
+## event emitted by the retry buttons, we start again from the first level
+@export var _on_restart_pressed : BaseEvent
+## event emitted by the menu buttons, we show the main menu
+@export var _on_menu_pressed : BaseEvent
+## event emitted by the quit button, we close the game
+@export var _on_quit_pressed : BaseEvent
 
 ## the scene currently shown, null until the first swap
 var _current_scene : Node
+## true while the scene shown is a level, the only kind of scene that can be paused
+var _is_level_shown : bool = false
+## true while a scene change runs; a second request is ignored until it ends
+var _is_changing_scene : bool = false
 
 ## index of the level being played
 var _current_level_index : int = 0:
@@ -25,26 +47,30 @@ var _current_level_index : int = 0:
 		_current_level_index = clampi(new_value, 0, maxi(_level_scenes.size() - 1, 0))
 
 
-## we listen to the level outcomes and show the first level; the global systems above us are already subscribed
+## we listen to the outcomes and the buttons and show the main menu; the global systems above us are already subscribed
 func _ready() -> void:
 	_on_victory.subscribe(_on_victory_handler, tree_exited)
 	_on_defeat.subscribe(_on_defeat_handler, tree_exited)
-	# the game starts at the first level
-	_show_level(0)
+	_on_play_pressed.subscribe(_on_play_pressed_handler, tree_exited)
+	_on_restart_pressed.subscribe(_on_restart_pressed_handler, tree_exited)
+	_on_menu_pressed.subscribe(_on_menu_pressed_handler, tree_exited)
+	_on_quit_pressed.subscribe(_on_quit_pressed_handler, tree_exited)
+	# the game starts at the main menu
+	_show_scene(_main_menu_scene, false)
 
 
 ## runs while paused (process_mode Always), so the same input pauses and resumes the level
-## unhandled: the GUI, such as a future pause overlay, gets the event before us
+## unhandled: the GUI, such as a screen's buttons, gets the event before us
 func _unhandled_input(event: InputEvent) -> void:
-	# only a level can be paused, and only on a fresh press of this event, never an echo or another event of the frame
-	if _is_level_active() and event.is_action_pressed(_OPEN_UI_MENU_ACTION, false):
+	# only a level can be paused, never mid-change, and only on a fresh press of this event, never an echo or another event of the frame
+	if _is_level_shown and not _is_changing_scene and event.is_action_pressed(_OPEN_UI_MENU_ACTION, false):
 		# we consume the event so no other node handles it
 		get_viewport().set_input_as_handled()
 		# the tree pause stops every pausable node (movement, AI, timers)
 		get_tree().paused = not get_tree().paused
 
 
-## shows the level of the given index, reporting an empty slot before changing anything
+## shows the level of the given index
 func _show_level(level_index: int) -> void:
 	# without levels there is nothing to show, we report it instead of leaving an empty screen
 	if _level_scenes.is_empty():
@@ -52,24 +78,39 @@ func _show_level(level_index: int) -> void:
 		return
 	# we keep the index of the level we are going to play
 	_current_level_index = level_index
-	var level_scene : PackedScene = _level_scenes[_current_level_index]
+	_show_scene(_level_scenes[_current_level_index], true)
+
+
+## shows the given scene, reporting an empty slot before changing anything
+func _show_scene(new_scene: PackedScene, is_level: bool) -> void:
 	# an empty slot would leave a screen where nothing responds
-	if is_instance_valid(level_scene):
-		# deferred: an outcome can arrive inside a physics callback, where bodies can't leave the tree
-		_swap_scene.call_deferred(level_scene)
+	if is_instance_valid(new_scene):
+		# deferred: an outcome can arrive inside a physics callback, where bodies can't leave the tree nor the tree pause
+		_change_scene.call_deferred(new_scene, is_level)
 	else:
-		push_error("SceneManager has an empty level slot at index %d" % _current_level_index)
+		push_error("SceneManager has an empty scene slot (level index %d, is level: %s)" % [_current_level_index, is_level])
 
 
-## true while the active scene is a level
-func _is_level_active() -> bool:
-	return is_instance_valid(_current_scene)
+## covers the screen, swaps the scene and uncovers it once the new scene is loaded; nothing moves meanwhile
+## TODO: lowest priority, load the scene with ResourceLoader.load_threaded_request() while covered (the web build has no threads)
+func _change_scene(new_scene: PackedScene, is_level: bool) -> void:
+	# a request during a change (ex: a click on the fading screen) is dropped
+	if _is_changing_scene:
+		return
+	_is_changing_scene = true
+	# the old scene freezes under the fade and the new one doesn't start until it is uncovered
+	get_tree().paused = true
+	await _loading_screen.show_loading()
+	_swap_scene(new_scene, is_level)
+	# one frame so the new scene finishes its _ready() and draws once before it is uncovered
+	await get_tree().process_frame
+	await _loading_screen.hide_loading()
+	get_tree().paused = false
+	_is_changing_scene = false
 
 
 ## replaces the active scene with a new instance of the given one
-func _swap_scene(new_scene: PackedScene) -> void:
-	# a new scene never starts paused
-	get_tree().paused = false
+func _swap_scene(new_scene: PackedScene, is_level: bool) -> void:
 	if is_instance_valid(_current_scene):
 		# remove_child() runs its tree_exited now, so its events and timers are released before the new _ready()
 		remove_child(_current_scene)
@@ -79,20 +120,38 @@ func _swap_scene(new_scene: PackedScene) -> void:
 	_current_scene = new_scene.instantiate()
 	# we are Always and our children would inherit it, so the pause wouldn't freeze the scene
 	_current_scene.process_mode = Node.PROCESS_MODE_PAUSABLE
+	_is_level_shown = is_level
 	add_child(_current_scene)
 
 
-## the level was won: the next level, or the first one again after the last
-## TODO: the victory screen will be shown after the last level
+## the level was won: the next level, or the victory screen after the last one
 func _on_victory_handler(_event_context: Variant = null) -> void:
-	# after the last level we go back to the first one
 	if _current_level_index < _level_scenes.size() - 1:
 		_show_level(_current_level_index + 1)
 	else:
-		_show_level(0)
+		_show_scene(_victory_scene, false)
 
 
-## the level was lost: we start again from the first level
-## TODO: the defeat screen will be shown instead
+## the level was lost: we show the defeat screen
 func _on_defeat_handler(_event_context: Variant = null) -> void:
+	_show_scene(_defeat_scene, false)
+
+
+## the player wants to play: we start the first level
+func _on_play_pressed_handler(_event_context: Variant = null) -> void:
 	_show_level(0)
+
+
+## the player retries: progress isn't kept between levels, so we start again from the first one
+func _on_restart_pressed_handler(_event_context: Variant = null) -> void:
+	_show_level(0)
+
+
+## the player goes back to the main menu
+func _on_menu_pressed_handler(_event_context: Variant = null) -> void:
+	_show_scene(_main_menu_scene, false)
+
+
+## the player closes the game; the button is hidden in the web build, where quitting does nothing
+func _on_quit_pressed_handler(_event_context: Variant = null) -> void:
+	get_tree().quit()

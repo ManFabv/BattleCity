@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://tq4yn0tc2av7"]
+
+[ext_resource type="Script" uid="uid://c8hxx5a8sy4i6" path="res://ui/event_button/event_button.gd" id="1_event_button"]
+[ext_resource type="Resource" uid="uid://br52hwmqfa2ya" path="res://core/event_bus/events/on_restart_pressed.tres" id="2_on_restart_pressed"]
+[ext_resource type="Resource" uid="uid://m5acdfkc6tgy" path="res://core/event_bus/events/on_menu_pressed.tres" id="3_on_menu_pressed"]
+
+[node name="DefeatScreen" type="Control" unique_id=387395120]
+editor_description = "Placeholder screen: a title and buttons that only emit their event; the SceneManager decides what comes next."
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1256729038]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1936157944]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1654461253]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Derrota"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1590082024]
+custom_minimum_size = Vector2(240, 48)
+layout_mode = 2
+text = "Reintentar"
+script = ExtResource("1_event_button")
+_on_pressed = ExtResource("2_on_restart_pressed")
+
+[node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1577853110]
+custom_minimum_size = Vector2(240, 48)
+layout_mode = 2
+text = "Menú"
+script = ExtResource("1_event_button")
+_on_pressed = ExtResource("3_on_menu_pressed")

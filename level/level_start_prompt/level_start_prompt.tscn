@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dc6mhqa3pvt85"]
+
+[ext_resource type="Script" uid="uid://bdb7fy84tswor" path="res://level/level_start_prompt/level_start_prompt.gd" id="1_level_start_prompt"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://core/timer_manager/timer_manager.tres" id="2_timer_manager"]
+
+[node name="LevelStartPrompt" type="CanvasLayer" unique_id=1572049183]
+script = ExtResource("1_level_start_prompt")
+_timer_manager = ExtResource("2_timer_manager")
+
+[node name="PromptLabel" type="Label" parent="." unique_id=1093751862]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "¡Listo!"
+horizontal_alignment = 1
+vertical_alignment = 1

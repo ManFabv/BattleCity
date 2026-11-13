@@ -8,13 +8,20 @@ extends Node3D
 @export var _player_spawn_manager : SpawnManager
 ## spawns the base once
 @export var _base_spawn_manager : SpawnManager
+## the text shown before the level starts; the player and the enemies wait until it ends
+@export var _level_start_prompt : LevelStartPrompt
 
 
-## we start each spawn manager; it runs after every child _ready(), so every listener is already subscribed
+## we start the base and show the start prompt; it runs after every child _ready(), so every listener is already subscribed
 func _ready() -> void:
-	# the enemy timeline starts counting now
-	_enemy_spawn_manager.start()
-	# the player spawns right away
-	_player_spawn_manager.start()
-	# the base spawns right away
+	# the base is static, it spawns right away so the navmesh rebake doesn't wait for the prompt
 	_base_spawn_manager.start()
+	# nothing that moves spawns until the prompt ends
+	_level_start_prompt.subscribe_to_finished(_on_level_start_prompt_finished)
+	_level_start_prompt.show_prompt()
+
+
+## the prompt ended: the enemy timeline starts counting and the player spawns
+func _on_level_start_prompt_finished() -> void:
+	_enemy_spawn_manager.start()
+	_player_spawn_manager.start()

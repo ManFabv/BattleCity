@@ -4,10 +4,28 @@
 [ext_resource type="PackedScene" uid="uid://dg55x5csc0cim" path="res://level/levels/level_01/world_01.tscn" id="2_world_01"]
 [ext_resource type="Resource" uid="uid://fpoukqdydbwr" path="res://core/event_bus/events/on_victory.tres" id="3_on_victory"]
 [ext_resource type="Resource" uid="uid://bwcmf1ft4ivut" path="res://core/event_bus/events/on_defeat.tres" id="4_on_defeat"]
+[ext_resource type="PackedScene" uid="uid://diu87ed3ml1vy" path="res://ui/screens/main_menu_screen.tscn" id="5_main_menu_screen"]
+[ext_resource type="PackedScene" uid="uid://h0vypfxobxo5" path="res://ui/screens/victory_screen.tscn" id="6_victory_screen"]
+[ext_resource type="PackedScene" uid="uid://tq4yn0tc2av7" path="res://ui/screens/defeat_screen.tscn" id="7_defeat_screen"]
+[ext_resource type="Resource" uid="uid://csk6hwlftff3c" path="res://core/event_bus/events/on_play_pressed.tres" id="8_on_play_pressed"]
+[ext_resource type="Resource" uid="uid://br52hwmqfa2ya" path="res://core/event_bus/events/on_restart_pressed.tres" id="9_on_restart_pressed"]
+[ext_resource type="Resource" uid="uid://m5acdfkc6tgy" path="res://core/event_bus/events/on_menu_pressed.tres" id="10_on_menu_pressed"]
+[ext_resource type="Resource" uid="uid://c0np261be3asn" path="res://core/event_bus/events/on_quit_pressed.tres" id="11_on_quit_pressed"]
+[ext_resource type="PackedScene" uid="uid://d1ijd6es5kwxf" path="res://ui/loading_screen/loading_screen.tscn" id="12_loading_screen"]
 
-[node name="SceneManager" type="Node" unique_id=1846203417]
+[node name="SceneManager" type="Node" unique_id=1846203417 node_paths=PackedStringArray("_loading_screen")]
 process_mode = 3
 script = ExtResource("1_scene_manager")
 _level_scenes = Array[PackedScene]([ExtResource("2_world_01")])
+_main_menu_scene = ExtResource("5_main_menu_screen")
+_victory_scene = ExtResource("6_victory_screen")
+_defeat_scene = ExtResource("7_defeat_screen")
+_loading_screen = NodePath("LoadingScreen")
 _on_victory = ExtResource("3_on_victory")
 _on_defeat = ExtResource("4_on_defeat")
+_on_play_pressed = ExtResource("8_on_play_pressed")
+_on_restart_pressed = ExtResource("9_on_restart_pressed")
+_on_menu_pressed = ExtResource("10_on_menu_pressed")
+_on_quit_pressed = ExtResource("11_on_quit_pressed")
+
+[node name="LoadingScreen" parent="." unique_id=1962331145 instance=ExtResource("12_loading_screen")]
