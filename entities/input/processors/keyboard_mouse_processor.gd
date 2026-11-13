@@ -12,14 +12,19 @@ extends InputInterface
 		_aim_height_offset = maxf(new_value, 0.0)
 
 
-## called when we are going to start using this input
+## the player uses keyboard and mouse again: the cursor comes back
 func enter_input_type() -> void:
-	pass # TODO: show the mouse cursor
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
-## called when we are going to stop using this input and change to another
+## the player switched to a gamepad: the cursor would only be in the way
 func exit_input_type() -> void:
-	pass # TODO: hide the mouse cursor
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+
+## the tank left the tree (death, end of the level): the menus that follow need the cursor even if a gamepad was active
+func _exit_tree() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 ## here we need to calculate where to look according to mouse position

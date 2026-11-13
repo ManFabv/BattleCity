@@ -14,21 +14,29 @@ const _OPEN_UI_MENU_ACTION : StringName = &"open_ui_menu"
 @export var _victory_scene : PackedScene
 ## the screen shown after losing a level
 @export var _defeat_scene : PackedScene
+## the screen with the volume sliders
+@export var _options_scene : PackedScene
 
 @export_group("References")
 ## the cover shown while a scene is swapped; a child of this scene, so it survives every swap
 @export var _loading_screen : LoadingScreen
 ## the pause menu shown over a paused level; a child of this scene, so it survives every swap
 @export var _pause_overlay : PauseOverlay
+## the game progress: told which level is played, read to continue; the GameResultController saves it
+@export var _game_progress : GameProgressResource
 
 @export_group("Events")
 ## event emitted once a level is won, we load the next level or the victory screen
 @export var _on_victory : BaseEvent
 ## event emitted once a level is lost, we show the defeat screen
 @export var _on_defeat : BaseEvent
-## event emitted by the play button, we start the first level
+## event emitted by the play buttons, we start a new game at the first level
 @export var _on_play_pressed : BaseEvent
-## event emitted by the restart buttons, we restart the paused level or, from a screen, the first one
+## event emitted by the continue button, we start the saved game level
+@export var _on_continue_pressed : BaseEvent
+## event emitted by the options button, we show the options screen
+@export var _on_options_pressed : BaseEvent
+## event emitted by the restart buttons (pause menu, defeat screen), we start the current level again
 @export var _on_restart_pressed : BaseEvent
 ## event emitted by the resume button of the pause menu, we resume the level
 @export var _on_resume_pressed : BaseEvent
@@ -56,6 +64,8 @@ func _ready() -> void:
 	_on_victory.subscribe(_on_victory_handler, tree_exited)
 	_on_defeat.subscribe(_on_defeat_handler, tree_exited)
 	_on_play_pressed.subscribe(_on_play_pressed_handler, tree_exited)
+	_on_continue_pressed.subscribe(_on_continue_pressed_handler, tree_exited)
+	_on_options_pressed.subscribe(_on_options_pressed_handler, tree_exited)
 	_on_restart_pressed.subscribe(_on_restart_pressed_handler, tree_exited)
 	_on_resume_pressed.subscribe(_on_resume_pressed_handler, tree_exited)
 	_on_menu_pressed.subscribe(_on_menu_pressed_handler, tree_exited)
@@ -93,6 +103,8 @@ func _show_level(level_index: int) -> void:
 		return
 	# we keep the index of the level we are going to play
 	_current_level_index = level_index
+	# the progress knows which level is played, so a win saves the next one
+	_game_progress.begin_game_level(_current_level_index)
 	_show_scene(_level_scenes[_current_level_index], true)
 
 
@@ -141,11 +153,13 @@ func _swap_scene(new_scene: PackedScene, is_level: bool) -> void:
 	add_child(_current_scene)
 
 
-## the level was won: the next level, or the victory screen after the last one
+## the level was won (the progress was already saved): the next level, or the victory screen after the last one
 func _on_victory_handler(_event_context: Variant = null) -> void:
 	if _current_level_index < _level_scenes.size() - 1:
 		_show_level(_current_level_index + 1)
 	else:
+		# the game is finished, there is nothing left to continue
+		_game_progress.clear_progress()
 		_show_scene(_victory_scene, false)
 
 
@@ -154,17 +168,25 @@ func _on_defeat_handler(_event_context: Variant = null) -> void:
 	_show_scene(_defeat_scene, false)
 
 
-## the player wants to play: we start the first level
+## the player starts a new game: the previous save is deleted and it starts at the first level with the first tank level
 func _on_play_pressed_handler(_event_context: Variant = null) -> void:
+	_game_progress.clear_progress()
 	_show_level(0)
 
 
-## from the pause menu the level starts over; from the result screens, progress isn't kept, so the first level does
+## the player continues the saved game level, with the saved tank level
+func _on_continue_pressed_handler(_event_context: Variant = null) -> void:
+	_show_level(_game_progress.get_game_level_index())
+
+
+## the player opens the options
+func _on_options_pressed_handler(_event_context: Variant = null) -> void:
+	_show_scene(_options_scene, false)
+
+
+## the current level starts over (pause menu, defeat screen), with the saved tank level (0 after a defeat)
 func _on_restart_pressed_handler(_event_context: Variant = null) -> void:
-	if _is_level_shown:
-		_show_level(_current_level_index)
-	else:
-		_show_level(0)
+	_show_level(_current_level_index)
 
 
 ## the player resumes the paused level

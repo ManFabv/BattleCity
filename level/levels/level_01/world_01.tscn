@@ -24,8 +24,10 @@
 [ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://spawner/spawn_point/base_spawn_point.tscn" id="49_basespawnpoint"]
 [ext_resource type="Script" uid="uid://d0qduetugb3ak" path="res://spawner/spawn_strategy/config/interval_based_spawn_strategy_config.gd" id="50_interval_based_spawn_str"]
 [ext_resource type="PackedScene" uid="uid://cncl8xmecoqr0" path="res://spawner/spawn_point/power_up_spawn_point.tscn" id="51_powerupspawnpoint"]
+[ext_resource type="Resource" uid="uid://8x3f4f6c0ud4" path="res://core/event_bus/events/on_player_lives_changed.tres" id="52_on_player_lives_changed"]
+[ext_resource type="Resource" uid="uid://wnehlutj6tvm" path="res://core/event_bus/events/on_enemies_remaining_changed.tres" id="53_on_enemies_remaining_changed"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_0mp0f"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_drktj"]
 resource_local_to_scene = true
 vertices = PackedVector3Array(-10.573521, 0.5, -9.416717, -12.823521, 0.5, -9.416717, -13.823521, 0.5, -7.9167166, -12.323521, 0.5, -2.9167166, -10.573521, 0.5, -2.9167166, -14.323521, 0.5, 1.0832834, -12.823521, 0.5, 1.0832834, -12.823521, 0.5, -2.4167166, -14.323521, 0.5, -7.9167166, -8.073521, 0.5, -2.4167166, -8.073521, 0.5, 0.083283424, -4.5735207, 0.5, 0.083283424, -8.573521, 0.5, -2.9167166, -0.82352066, 0.5, -8.166717, -1.8235207, 0.5, -9.416717, -4.0735207, 0.5, 0.8332834, 12.426479, 0.5, -0.9167166, 12.926479, 0.5, 0.33328342, 14.426479, 0.5, 0.33328342, 14.426479, 0.5, -7.1667166, 5.6764793, 0.5, 0.083283424, 8.176479, 0.5, 0.083283424, 8.676479, 0.5, -0.9167166, 12.926479, 0.5, -8.166717, 12.926479, 0.5, -9.416717, 1.9264793, 0.5, -9.416717, 1.1764793, 0.5, -8.416717, 5.1764793, 0.5, 0.8332834, -4.0735207, 0.5, 2.3332834, -3.0735207, 0.5, 5.5832834, 1.1764793, 0.5, 5.5832834, 5.1764793, 0.5, 2.0832834, 12.426479, 0.5, 1.8332834, 14.426479, 0.5, 7.5832834, 9.926479, 0.5, 1.8332834, 9.176479, 0.5, 2.8332834, 9.176479, 0.5, 9.333283, 12.926479, 0.5, 8.333283, 12.676479, 0.5, 9.333283, -12.323521, 0.5, 1.8332834, -14.323521, 0.5, 7.8332834, -13.323521, 0.5, 8.583283, -4.5735207, 0.5, 2.8332834, -3.8235207, 0.5, 6.0832834, -8.323521, 0.5, 2.8332834, -8.823521, 0.5, 1.8332834, -13.323521, 0.5, 9.333283, -3.8235207, 0.5, 9.333283, 1.9264793, 0.5, 6.0832834, 5.6764793, 0.5, 2.8332834, 1.9264793, 0.5, 9.333283)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 8), PackedInt32Array(2, 3, 8), PackedInt32Array(8, 3, 7), PackedInt32Array(11, 10, 9), PackedInt32Array(9, 12, 11), PackedInt32Array(11, 12, 0), PackedInt32Array(11, 0, 14), PackedInt32Array(11, 14, 13), PackedInt32Array(12, 4, 0), PackedInt32Array(11, 13, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(22, 21, 20), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 20), PackedInt32Array(24, 20, 25), PackedInt32Array(25, 20, 26), PackedInt32Array(19, 16, 23), PackedInt32Array(23, 16, 22), PackedInt32Array(20, 27, 26), PackedInt32Array(29, 28, 15), PackedInt32Array(27, 31, 30), PackedInt32Array(29, 15, 30), PackedInt32Array(30, 15, 27), PackedInt32Array(27, 15, 13), PackedInt32Array(27, 13, 26), PackedInt32Array(17, 18, 32), PackedInt32Array(32, 18, 33), PackedInt32Array(34, 32, 35), PackedInt32Array(35, 32, 33), PackedInt32Array(35, 33, 37), PackedInt32Array(35, 37, 36), PackedInt32Array(37, 38, 36), PackedInt32Array(6, 39, 5), PackedInt32Array(5, 39, 40), PackedInt32Array(40, 39, 41), PackedInt32Array(42, 28, 29), PackedInt32Array(29, 43, 42), PackedInt32Array(42, 43, 44), PackedInt32Array(39, 45, 44), PackedInt32Array(41, 39, 46), PackedInt32Array(46, 39, 44), PackedInt32Array(46, 44, 43), PackedInt32Array(46, 43, 47), PackedInt32Array(49, 48, 31), PackedInt32Array(31, 48, 30), PackedInt32Array(48, 49, 50), PackedInt32Array(50, 49, 35), PackedInt32Array(50, 35, 36)]
@@ -92,12 +94,14 @@ scene_to_spawn = ExtResource("11_enemy_slow_tank")
 script = ExtResource("12_timeline_based_spawn_str")
 _on_alive_count_changed = ExtResource("13_on_enemy_count_changed")
 _on_all_spawns_finished = ExtResource("14_on_all_spawns_finished")
+_on_remaining_count_changed = ExtResource("53_on_enemies_remaining_changed")
 _timer_manager = ExtResource("4_timer_manager")
 _spawn_entry_configs = Array[ExtResource("8_timeline_spawn_entry_con")]([SubResource("Resource_enemy_timeline_spawn_entry_1"), SubResource("Resource_enemy_timeline_spawn_entry_2"), SubResource("Resource_enemy_timeline_spawn_entry_3"), SubResource("Resource_enemy_timeline_spawn_entry_4"), SubResource("Resource_enemy_timeline_spawn_entry_5"), SubResource("Resource_enemy_timeline_spawn_entry_6")])
 
 [sub_resource type="Resource" id="Resource_player_lives_based_spawn_strategy_config"]
 script = ExtResource("2_lives_based_spawn_strate")
 _on_out_of_lives = ExtResource("3_on_player_out_of_lives")
+_on_lives_changed = ExtResource("52_on_player_lives_changed")
 _timer_manager = ExtResource("4_timer_manager")
 scene_to_spawn = ExtResource("5_controllable_player_enti")
 
@@ -109,7 +113,7 @@ scene_to_spawn = ExtResource("7_base")
 editor_description = ""
 
 [node name="NavigationRegion" parent="Navigation" parent_id_path=PackedInt32Array(1021368003) index="0" unique_id=1099192252]
-navigation_mesh = SubResource("NavigationMesh_0mp0f")
+navigation_mesh = SubResource("NavigationMesh_drktj")
 
 [node name="BricksGridMap" parent="Navigation/NavigationRegion/Level" parent_id_path=PackedInt32Array(1932757374) index="0" unique_id=1059575894]
 data = {
@@ -258,7 +262,7 @@ _spawn_strategy_config = SubResource("Resource_base_once_based_spawn_strategy_co
 [node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" index="0" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 8.5)
 
-[node name="LevelStartPrompt" parent="." index="9" unique_id=1309471655]
+[node name="LevelStartPrompt" parent="." index="10" unique_id=1309471655]
 _prompt_text = "NIVEL 1
 ¡Listo!"
 

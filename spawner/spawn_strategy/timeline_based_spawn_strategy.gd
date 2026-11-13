@@ -57,6 +57,8 @@ func start(spawn_points: Array[SpawnPoint], owner_exited: Signal) -> void:
 	_timeline_based_spawn_strategy_config.subscribe_to_alive_count_changed(
 			_on_alive_count_changed_handler, 
 			owner_exited)
+	# nothing spawned yet, so every entry is left to eliminate
+	_emit_remaining_count()
 	# a spawn already deferred when the level leaves the tree must find nothing due
 	owner_exited.connect(_on_spawn_manager_tree_exited, CONNECT_ONE_SHOT)
 
@@ -98,6 +100,12 @@ func _get_spawn_point_for(spawn_entry_config: TimelineSpawnEntryConfig) -> Spawn
 	return _spawn_point_by_id[spawn_entry_config.spawn_point_id]
 
 
+## announces the entries left to eliminate: the ones still to spawn plus the ones alive; a spawn moves one from the first group to the second
+func _emit_remaining_count() -> void:
+	var entries_to_spawn_count : int = _timeline_based_spawn_strategy_config.last_index() + 1 - _next_spawn_entry_index
+	_timeline_based_spawn_strategy_config.emit_remaining_count_changed_event(entries_to_spawn_count + _spawned_nodes_alive_count)
+
+
 ## the delay of the next entry elapsed: it is due until there is room for it
 func _on_spawn_delay_timer_timeout() -> void:
 	# the next entry is waiting to spawn
@@ -110,6 +118,8 @@ func _on_spawn_delay_timer_timeout() -> void:
 func _on_alive_count_changed_handler(new_count: int) -> void:
 	# we cache the new amount of spawned nodes alive
 	_spawned_nodes_alive_count = new_count
+	# a death lowers the remaining count; a spawn already moved the entry to the alive ones, so it stays the same
+	_emit_remaining_count()
 	# deferred because we want to wait until this frame and timers are processed
 	_try_spawn_next_entry.call_deferred()
 

@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://e6st5wy2v3s6" path="res://entities/input/processors/game_pad_processor.gd" id="11_g2a7d"]
 [ext_resource type="PackedScene" uid="uid://b7k2naxq4ndvh" path="res://entities/weapon/projectile/player_level_2_projectile.tscn" id="11_player_level_2_projectile"]
 [ext_resource type="Resource" uid="uid://d4jcpakwh7ul7" path="res://core/event_bus/events/on_tank_shield_picked_up.tres" id="ev_on_tank_shield_picked_up"]
+[ext_resource type="Resource" uid="uid://bdqrnuhmfenp6" path="res://core/game_progress/game_progress.tres" id="game_progress"]
 [ext_resource type="Resource" uid="uid://djlo04ybhx8qw" path="res://core/event_bus/events/on_star_picked_up.tres" id="on_star_picked_up"]
 [ext_resource type="PackedScene" uid="uid://bran8tym1bgkp" path="res://power_ups/upgrade_attach_point/upgrade_attach_point.tscn" id="upgrade_attach_point"]
 
@@ -87,6 +88,7 @@ _entity_controller = NodePath("PlayerController")
 
 [node name="EntityLevelManager" parent="." index="5" unique_id=555100003]
 _on_star_picked_up = ExtResource("on_star_picked_up")
+_game_progress = ExtResource("game_progress")
 _entity_level_configs = Array[ExtResource("1_entity_level_config")]([SubResource("Resource_player_level_0_entity_level_config"), SubResource("Resource_player_level_1_entity_level_config"), SubResource("Resource_player_level_2_entity_level_config")])
 
 [node name="PlayerController" parent="." index="6" unique_id=1337604346 node_paths=PackedStringArray("_input_manager", "_owner_controllable_entity") instance=ExtResource("8_sfijf")]

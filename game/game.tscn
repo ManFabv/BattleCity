@@ -2,9 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://bmh0tl4vipift" path="res://core/timer_manager/timer_manager.tscn" id="1_timer_manager"]
 [ext_resource type="PackedScene" uid="uid://d2r1ggeoifkug" path="res://game/scene_manager.tscn" id="2_scene_manager"]
+[ext_resource type="Script" uid="uid://gieu5nrbtytw" path="res://game/game_manager.gd" id="3_game_manager"]
+[ext_resource type="Resource" uid="uid://bnramrldbcqyj" path="res://core/audio_settings/audio_settings.tres" id="4_audio_settings"]
+[ext_resource type="Resource" uid="uid://bdqrnuhmfenp6" path="res://core/game_progress/game_progress.tres" id="5_game_progress"]
 
 [node name="Game" type="Node" unique_id=624028641]
-editor_description = "Boot scene: the global systems are its children in start order. The SceneManager goes last, so every global listener is subscribed when it shows the first scene."
+editor_description = "Boot scene: the global systems are its children in start order. The SceneManager goes last, so every global listener is subscribed when it shows the first scene. Its GameManager loads the saved settings and progress in _enter_tree(), before any child."
+script = ExtResource("3_game_manager")
+_audio_settings = ExtResource("4_audio_settings")
+_game_progress = ExtResource("5_game_progress")
 
 [node name="TimerManager" parent="." unique_id=557686219 instance=ExtResource("1_timer_manager")]
 

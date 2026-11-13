@@ -4,9 +4,13 @@
 [ext_resource type="Theme" uid="uid://d67r1tiiaiyt" path="res://ui/theme/ui_theme.tres" id="2_ui_theme"]
 [ext_resource type="Resource" uid="uid://csk6hwlftff3c" path="res://core/event_bus/events/on_play_pressed.tres" id="4_on_play_pressed"]
 [ext_resource type="Resource" uid="uid://c0np261be3asn" path="res://core/event_bus/events/on_quit_pressed.tres" id="5_on_quit_pressed"]
+[ext_resource type="Script" uid="uid://e0uxniw6od58" path="res://ui/screens/main_menu_screen.gd" id="6_main_menu_screen"]
+[ext_resource type="Resource" uid="uid://bdqrnuhmfenp6" path="res://core/game_progress/game_progress.tres" id="7_game_progress"]
+[ext_resource type="Resource" uid="uid://dncdcdy1vqjb" path="res://core/event_bus/events/on_continue_pressed.tres" id="8_on_continue_pressed"]
+[ext_resource type="Resource" uid="uid://dpxl0e7spya4j" path="res://core/event_bus/events/on_options_pressed.tres" id="9_on_options_pressed"]
 
-[node name="MainMenuScreen" type="Control" unique_id=143619771]
-editor_description = "Main menu: its buttons only emit their event; the SceneManager decides what comes next. The first button takes the focus for keyboard and gamepad."
+[node name="MainMenuScreen" type="Control" unique_id=143619771 node_paths=PackedStringArray("_continue_button", "_play_button")]
+editor_description = "Main menu: its buttons only emit their event; the SceneManager decides what comes next. Continue only shows with a saved game; the first visible button takes the focus for keyboard and gamepad."
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +18,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ui_theme")
+script = ExtResource("6_main_menu_screen")
+_game_progress = ExtResource("7_game_progress")
+_continue_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/ContinueButton")
+_play_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/PlayButton")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1585055841]
 layout_mode = 1
@@ -56,13 +64,26 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1873312406]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+text = "Continuar"
+script = ExtResource("1_event_button")
+_on_pressed = ExtResource("8_on_continue_pressed")
+
 [node name="PlayButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=207243499]
 custom_minimum_size = Vector2(320, 52)
 layout_mode = 2
-text = "Jugar"
+text = "Nueva partida"
 script = ExtResource("1_event_button")
 _on_pressed = ExtResource("4_on_play_pressed")
-_grabs_focus_on_ready = true
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1873312407]
+custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
+text = "Opciones"
+script = ExtResource("1_event_button")
+_on_pressed = ExtResource("9_on_options_pressed")
 
 [node name="QuitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=269207395]
 custom_minimum_size = Vector2(320, 52)

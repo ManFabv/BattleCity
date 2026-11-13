@@ -5,6 +5,8 @@ extends SpawnStrategyConfig
 @export_group("Events")
 ## emitted when there are no lives left
 @export var _on_out_of_lives : BaseEvent
+## emitted with the lives left when the strategy starts and on every death (ex: the HUD shows them)
+@export var _on_lives_changed : BaseEvent
 
 @export_group("References")
 ## the shared timer manager used to request the respawn delay timer
@@ -46,6 +48,11 @@ func get_configuration_warnings(spawn_points: Array[SpawnPoint]) -> PackedString
 ## requests the timer that waits the respawn delay before the next life
 func create_respawn_timer(on_timeout: Callable, owner_exited: Signal) -> CustomTimer:
 	return _timer_manager.create_one_shot(respawn_delay_seconds, on_timeout, owner_exited)
+
+
+## notifies the lives left
+func emit_lives_changed_event(remaining_lives: int) -> void:
+	_on_lives_changed.emit(remaining_lives)
 
 
 ## notifies that there are no lives left

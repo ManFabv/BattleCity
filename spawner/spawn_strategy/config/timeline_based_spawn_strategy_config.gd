@@ -7,6 +7,8 @@ extends SpawnStrategyConfig
 @export var _on_alive_count_changed : BaseEvent
 ## event emitted once, when the last entry of the timeline has spawned
 @export var _on_all_spawns_finished : BaseEvent
+## event emitted with the entries not yet eliminated (still to spawn plus alive) when the timeline starts and on every alive count change
+@export var _on_remaining_count_changed : BaseEvent
 
 @export_group("References")
 ## the shared timer manager used to request the entry timers
@@ -77,6 +79,11 @@ func create_spawn_delay_timer(delay_seconds: float, on_timeout: Callable, owner_
 func subscribe_to_alive_count_changed(on_alive_count_changed: Callable, owner_exited: Signal) -> void:
 	# we listen to the alive count until the owner exits the tree
 	_on_alive_count_changed.subscribe(on_alive_count_changed, owner_exited)
+
+
+## notifies how many entries are left to eliminate
+func emit_remaining_count_changed_event(remaining_count: int) -> void:
+	_on_remaining_count_changed.emit(remaining_count)
 
 
 ## notifies once that the last entry has spawned
