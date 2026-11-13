@@ -1,0 +1,32 @@
+class_name PlayerController
+extends EntityControllerInterface
+
+@export_group("Controllers")
+## reference to the input manager
+@export var _input_manager : InputManager
+
+
+## the move input in any direction, on the floor plane; get_vector() already applies the deadzone and caps the length at 1
+func get_move_direction() -> Vector3:
+	# we get the move axis from the input manager
+	var move_input : Vector2 = _input_manager.get_input_movement()
+	# we convert 2D input to 3D movement
+	var move_direction : Vector3 = Vector3(move_input.x, 0, move_input.y)
+	# we return the wanted move direction
+	return move_direction
+
+
+## the yaw toward the aim of the active controller
+func get_look_at_angle() -> float:
+	# we get the position where we have to look at
+	var look_at_input : Vector2 = _input_manager.get_look_at()
+	# without aim input we keep the current yaw, atan2(-0.0, -0.0) is -PI
+	if look_at_input.is_zero_approx():
+		return _owner_controllable_entity.rotation.y
+	# the input's y is the world's z, so the yaw comes straight from the 2D input
+	return atan2(-look_at_input.x, -look_at_input.y)
+
+
+## true while the shoot input is held
+func is_shot_pressed() -> bool:
+	return _input_manager.is_shot_pressed()

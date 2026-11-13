@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://7qiygjcjgvkl"]
+
+[ext_resource type="Script" uid="uid://djh8eqiopi43t" path="res://entities/weapon/projectile/projectile.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://cvdeyn0atuv7o" path="res://entities/health/hurt.tscn" id="2_hurt"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://core/timer_manager/timer_manager.tres" id="timer_manager"]
+[ext_resource type="PackedScene" uid="uid://bmwysfba733ec" path="res://core/tinted_mesh/tinted_mesh.tscn" id="tinted_mesh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_projectile"]
+radius = 0.125
+height = 0.25
+radial_segments = 16
+rings = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_projectile"]
+radius = 0.127266
+
+[node name="Projectile" type="Area3D" unique_id=1840560226 node_paths=PackedStringArray("_hurt", "_tinted_mesh", "_visible_on_screen_notifier")]
+editor_description = "Base of every projectile, never fired on its own: each inherited projectile sets its team layers and masks, and assigns its own shape or mesh when its size differs."
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_script")
+_hurt = NodePath("Hurt")
+_tinted_mesh = NodePath("TintedMesh")
+_visible_on_screen_notifier = NodePath("VisibleOnScreenNotifier3D")
+_timer_manager = ExtResource("timer_manager")
+
+[node name="TintedMesh" parent="." unique_id=1454117825 instance=ExtResource("tinted_mesh")]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_projectile")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=130583393]
+shape = SubResource("SphereShape3D_projectile")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="." unique_id=1294217409]
+
+[node name="Hurt" parent="." unique_id=868547820 instance=ExtResource("2_hurt")]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=1269524477]
+shape = SubResource("SphereShape3D_projectile")

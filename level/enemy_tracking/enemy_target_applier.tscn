@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://1vv6ytwsbtjd"]
+
+[ext_resource type="Script" uid="uid://lyuub8ybt1p" path="res://level/enemy_tracking/enemy_target_applier.gd" id="1"]
+[ext_resource type="Resource" uid="uid://l8rvmkak5kgl" path="res://core/event_bus/events/on_base_spawned.tres" id="ev_on_base_spawned"]
+[ext_resource type="Resource" uid="uid://b5fwsamkdob85" path="res://core/event_bus/events/on_enemy_spawned.tres" id="ev_on_enemy_spawned"]
+[ext_resource type="Resource" uid="uid://c8u35sb78y6qm" path="res://core/event_bus/events/on_player_spawned.tres" id="ev_on_player_spawned"]
+
+[node name="EnemyTargetApplier" type="Node" unique_id=1463908443]
+script = ExtResource("1")
+_on_enemy_spawned = ExtResource("ev_on_enemy_spawned")
+_on_player_spawned = ExtResource("ev_on_player_spawned")
+_on_base_spawned = ExtResource("ev_on_base_spawned")

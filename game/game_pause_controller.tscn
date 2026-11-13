@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bm0o8lxhv8cmv"]
+
+[ext_resource type="Script" uid="uid://puqdbt7caklc" path="res://game/game_pause_controller.gd" id="1"]
+[ext_resource type="Resource" uid="uid://5smcqee2w0m" path="res://core/event_bus/events/on_pause_input_pressed.tres" id="ev_on_pause_input_pressed"]
+
+[node name="GamePauseController" type="Node" unique_id=1230938135]
+script = ExtResource("1")
+_on_pause_input_pressed = ExtResource("ev_on_pause_input_pressed")
