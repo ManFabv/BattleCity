@@ -1,9 +1,9 @@
 # UNL PVJ3 Actividad 5 Final en Godot Engine #
 **Version del documento 0.1.0** (igual a `config/version` de `project.godot`; `1.0.0` en la entrega)
-**19/10/2026**
+**12/11/2026**
 
 ## Itch.io ##
-[Battle City UNL](https://manfabv.itch.io/battle-city-unl)
+[Battle City UNL](https://manfabv.itch.io/battle-city-unl) (se juega en el navegador)
 
 ## Idea ##
 **Recreacion del juego Battle City de NES en Godot Engine** *(ver seccion referencias para un gameplay)*
@@ -23,7 +23,7 @@ Comportamiento:
 
 Vidas:
 * El tanque del jugador cuenta con una cantidad limitada de *"vidas o intentos"*
-* Cada vez que un enemigo acierte con un disparo al jugador, el jugador perdera una vida.
+* Cada vida tiene puntos de vida (3, 4 o 5 segun el nivel de mejora del tanque). Cada disparo enemigo que acierta quita entre 1 y 3 puntos segun el tipo de enemigo; al llegar a 0 el jugador pierde esa vida. *(Cambio respecto al GDD evaluado: decia que cada acierto quitaba una vida.)*
 
 Diferentes tipos de disparo segun su nivel de mejora (la estrella sube de nivel), con municion ilimitada:
 * Nivel 0 (lento): proyectil lento, 1 de daño, 0.5 s entre disparos, con efecto grafico.
@@ -81,10 +81,10 @@ Menu principal → Jugar → nivel 1 → nivel 2 → nivel 3 → victoria. Perde
 ## Controles ##
 | Accion | Teclado y mouse | Gamepad |
 |---|---|---|
-| Moverse | TBD (WASD / flechas) | stick izquierdo |
+| Moverse | WASD o flechas | stick izquierdo |
 | Apuntar | mouse | stick derecho |
-| Disparar | TBD (click izquierdo) | TBD |
-| Pausa | Esc | Start |
+| Disparar | click izquierdo (mantener) | gatillo derecho (mantener) |
+| Pausa | Esc o P | Start |
 
 ## Objetivos ##
 El jugador debera defender su base (un objeto fijo en el mapa) de las sucesivas oleadas de enemigos que iran apareciendo el nivel hasta superar todos los niveles.
