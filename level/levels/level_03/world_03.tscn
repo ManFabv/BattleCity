@@ -1,0 +1,292 @@
+[gd_scene format=3 uid="uid://b2cj0jwhq8hvd"]
+
+[ext_resource type="PackedScene" uid="uid://mbqifg36n8vf" path="res://level/world/world_base.tscn" id="1_world_base"]
+[ext_resource type="Script" uid="uid://b7x7ewwg8re0f" path="res://spawner/spawn_strategy/config/lives_based_spawn_strategy_config.gd" id="2_lives_based_spawn_strate"]
+[ext_resource type="Resource" uid="uid://23lans1g7ioe" path="res://core/event_bus/events/on_player_out_of_lives.tres" id="3_on_player_out_of_lives"]
+[ext_resource type="Resource" uid="uid://b4ya0a88y8e7p" path="res://core/timer_manager/timer_manager.tres" id="4_timer_manager"]
+[ext_resource type="PackedScene" uid="uid://d177b15gvya4j" path="res://entities/controllable_entity/player/controllable_player_entity.tscn" id="5_controllable_player_enti"]
+[ext_resource type="Script" uid="uid://c2w31bd4a4ikv" path="res://spawner/spawn_strategy/config/once_based_spawn_strategy_config.gd" id="6_once_based_spawn_strateg"]
+[ext_resource type="PackedScene" uid="uid://du3bb6dhyyqi5" path="res://level/base/base.tscn" id="7_base"]
+[ext_resource type="Script" uid="uid://cpepyapyqkgw7" path="res://spawner/spawn_strategy/config/entries/timeline_spawn_entry_config.gd" id="8_timeline_spawn_entry_con"]
+[ext_resource type="PackedScene" uid="uid://bj0gsf8vnreo7" path="res://entities/controllable_entity/enemies/enemy_normal_tank.tscn" id="9_enemy_normal_tank"]
+[ext_resource type="PackedScene" uid="uid://dkyrchyfa23ja" path="res://entities/controllable_entity/enemies/enemy_heavy_tank.tscn" id="10_enemy_heavy_tank"]
+[ext_resource type="PackedScene" uid="uid://dw50dti804jgi" path="res://entities/controllable_entity/enemies/enemy_slow_tank.tscn" id="11_enemy_slow_tank"]
+[ext_resource type="Script" uid="uid://df8ssy5pgt87p" path="res://spawner/spawn_strategy/config/timeline_based_spawn_strategy_config.gd" id="12_timeline_based_spawn_str"]
+[ext_resource type="Resource" uid="uid://dhpyh0cp61ok" path="res://core/event_bus/events/on_enemy_count_changed.tres" id="13_on_enemy_count_changed"]
+[ext_resource type="Resource" uid="uid://y23wews0h7px" path="res://core/event_bus/events/on_all_spawns_finished.tres" id="14_on_all_spawns_finished"]
+[ext_resource type="PackedScene" uid="uid://cqxjw6b0h1t8f" path="res://power_ups/pickable_power_up/pickables/pickable_star_power_up.tscn" id="17_star"]
+[ext_resource type="PackedScene" uid="uid://bqk3n5t8v2m4x" path="res://power_ups/pickable_power_up/pickables/pickable_tank_shield_power_up.tscn" id="18_shield"]
+[ext_resource type="PackedScene" uid="uid://dqk8w2p5narjy" path="res://power_ups/pickable_power_up/pickables/pickable_speed_power_up.tscn" id="19_speed"]
+[ext_resource type="PackedScene" uid="uid://c4h7t6b2tawke" path="res://power_ups/pickable_power_up/pickables/pickable_base_shield_power_up.tscn" id="20_baseshield"]
+[ext_resource type="PackedScene" uid="uid://beq3lar5w0n2m" path="res://power_ups/pickable_power_up/pickables/pickable_grenade_power_up.tscn" id="21_grenade"]
+[ext_resource type="PackedScene" uid="uid://clarxhdin7fnj" path="res://spawner/spawn_point/enemy_spawn_point.tscn" id="47_enemyspawnpoint"]
+[ext_resource type="PackedScene" uid="uid://2l3v13pllwmv" path="res://spawner/spawn_point/player_spawn_point.tscn" id="48_playerspawnpoint"]
+[ext_resource type="PackedScene" uid="uid://bncwi1tplqwty" path="res://spawner/spawn_point/base_spawn_point.tscn" id="49_basespawnpoint"]
+[ext_resource type="Script" uid="uid://d0qduetugb3ak" path="res://spawner/spawn_strategy/config/interval_based_spawn_strategy_config.gd" id="50_interval_based_spawn_str"]
+[ext_resource type="PackedScene" uid="uid://cncl8xmecoqr0" path="res://spawner/spawn_point/power_up_spawn_point.tscn" id="51_powerupspawnpoint"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_nx0yc"]
+resource_local_to_scene = true
+vertices = PackedVector3Array(-12.573521, 0.5, -2.7775412, -12.073521, 0.5, -1.5275412, -10.823521, 0.5, -1.5275412, -10.823521, 0.5, -6.277541, -9.573521, 0.5, -6.777541, -9.573521, 0.5, -9.277541, -12.823521, 0.5, -9.277541, -13.573521, 0.5, -8.027541, -14.323521, 0.5, -8.027541, -14.323521, 0.5, -2.7775412, -8.073521, 0.5, -1.5275412, -6.8235207, 0.5, -1.2775412, -6.3235207, 0.5, -2.7775412, -6.8235207, 0.5, -4.527541, -8.073521, 0.5, -6.277541, -3.0735207, 0.5, -2.7775412, -3.3235207, 0.5, -4.027541, -6.3235207, 0.5, -4.027541, -6.3235207, 0.5, -6.777541, -3.8235207, 0.5, -9.277541, -6.8235207, 0.5, -6.277541, -3.8235207, 0.5, -6.777541, 0.67647934, 0.5, -0.52754116, -0.57352066, 0.5, -0.52754116, -1.3235207, 0.5, -0.02754116, -1.0735207, 0.5, 1.2224588, 1.1764793, 0.5, 1.2224588, 1.4264793, 0.5, -0.02754116, -1.5735207, 0.5, -6.777541, -1.0735207, 0.5, -6.277541, 1.1764793, 0.5, -6.277541, 1.6764793, 0.5, -6.777541, 3.9264793, 0.5, -9.277541, -1.5735207, 0.5, -4.027541, -1.0735207, 0.5, -2.7775412, 3.9264793, 0.5, -6.777541, -1.0735207, 0.5, -4.527541, 3.1764793, 0.5, -2.7775412, 3.4264793, 0.5, -4.027541, 1.6764793, 0.5, -4.027541, 1.1764793, 0.5, -2.7775412, 1.1764793, 0.5, -4.527541, -0.57352066, 0.5, -2.2775412, 0.67647934, 0.5, -2.2775412, 6.4264793, 0.5, -2.7775412, 6.9264793, 0.5, -1.2775412, 8.176479, 0.5, -1.5275412, 8.176479, 0.5, -6.277541, 6.9264793, 0.5, -4.527541, 6.4264793, 0.5, -4.027541, 9.676479, 0.5, -6.777541, 9.676479, 0.5, -9.277541, 6.4264793, 0.5, -6.777541, 6.9264793, 0.5, -6.277541, 12.926479, 0.5, 2.7224588, 12.926479, 0.5, 4.222459, 14.426479, 0.5, 4.222459, 10.426479, 0.5, -0.02754116, 9.176479, 0.5, -0.02754116, 9.426479, 0.5, 2.4724588, 10.926479, 0.5, -0.52754116, 12.426479, 0.5, 2.2224588, 12.676479, 0.5, -0.02754116, 12.176479, 0.5, -0.52754116, 12.176479, 0.5, -2.2775412, 10.926479, 0.5, -6.277541, 14.426479, 0.5, -0.02754116, 12.676479, 0.5, -2.7775412, 14.426479, 0.5, -7.277541, 12.926479, 0.5, -8.277541, 14.426479, 0.5, -2.7775412, 12.926479, 0.5, -9.277541, -13.323521, 0.5, 8.472459, -13.323521, 0.5, 9.472459, -11.573521, 0.5, 9.472459, -10.323521, 0.5, -0.02754116, -12.573521, 0.5, -0.02754116, -11.573521, 0.5, 5.972459, -12.823521, 0.5, 5.472459, -14.323521, 0.5, 7.722459, -9.323521, 0.5, 2.4724588, -9.073521, 0.5, -0.02754116, -12.323521, 0.5, 2.2224588, -14.323521, 0.5, -0.02754116, -12.823521, 0.5, 2.7224588, -8.073521, 0.5, -0.52754116, -6.3235207, 0.5, -0.02754116, -1.8235207, 0.5, 1.7224588, -3.8235207, 0.5, 6.472459, -3.3235207, 0.5, 5.722459, -9.073521, 0.5, 5.222459, -0.07352066, 0.5, 5.722459, 0.17647934, 0.5, 3.9724588, -1.3235207, 0.5, 3.9724588, -1.8235207, 0.5, 3.4724588, 1.4264793, 0.5, 5.722459, 1.9264793, 0.5, 6.722459, 2.1764793, 0.5, 6.722459, 2.6764793, 0.5, 5.222459, 1.9264793, 0.5, 3.4724588, 1.4264793, 0.5, 3.9724588, 1.9264793, 0.5, 1.7224588, 5.1764793, 0.5, 5.222459, 8.176479, 0.5, -0.52754116, 6.4264793, 0.5, -0.02754116, 9.176479, 0.5, 4.472459, 2.6764793, 0.5, 7.972459, 1.9264793, 0.5, 9.472459, 12.676479, 0.5, 9.472459, 12.676479, 0.5, 8.722459, 12.426479, 0.5, 5.972459, 9.676479, 0.5, 5.972459, 5.9264793, 0.5, 7.472459, 5.4264793, 0.5, 7.972459, 12.926479, 0.5, 5.472459, 14.426479, 0.5, 7.722459, 13.676479, 0.5, 7.722459, 5.9264793, 0.5, 5.722459, -9.573521, 0.5, 5.972459, -3.8235207, 0.5, 9.472459)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(6, 3, 7), PackedInt32Array(7, 3, 8), PackedInt32Array(8, 3, 0), PackedInt32Array(8, 0, 9), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(13, 10, 14), PackedInt32Array(17, 16, 12), PackedInt32Array(12, 16, 15), PackedInt32Array(14, 4, 18), PackedInt32Array(18, 4, 5), PackedInt32Array(18, 5, 19), PackedInt32Array(13, 17, 12), PackedInt32Array(18, 20, 14), PackedInt32Array(19, 21, 18), PackedInt32Array(20, 13, 14), PackedInt32Array(27, 26, 22), PackedInt32Array(22, 26, 23), PackedInt32Array(23, 26, 24), PackedInt32Array(24, 26, 25), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(31, 28, 19), PackedInt32Array(31, 19, 32), PackedInt32Array(16, 33, 15), PackedInt32Array(15, 33, 34), PackedInt32Array(32, 35, 31), PackedInt32Array(34, 33, 36), PackedInt32Array(38, 37, 39), PackedInt32Array(39, 37, 40), PackedInt32Array(28, 21, 19), PackedInt32Array(40, 41, 39), PackedInt32Array(42, 34, 43), PackedInt32Array(43, 34, 40), PackedInt32Array(40, 34, 36), PackedInt32Array(40, 36, 41), PackedInt32Array(30, 41, 29), PackedInt32Array(29, 41, 36), PackedInt32Array(43, 22, 42), PackedInt32Array(42, 22, 23), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 48), PackedInt32Array(46, 48, 47), PackedInt32Array(49, 44, 38), PackedInt32Array(38, 44, 37), PackedInt32Array(47, 52, 50), PackedInt32Array(50, 52, 51), PackedInt32Array(51, 52, 32), PackedInt32Array(44, 49, 48), PackedInt32Array(47, 53, 52), PackedInt32Array(52, 35, 32), PackedInt32Array(47, 48, 53), PackedInt32Array(56, 55, 54), PackedInt32Array(59, 58, 57), PackedInt32Array(63, 62, 60), PackedInt32Array(60, 62, 57), PackedInt32Array(57, 62, 61), PackedInt32Array(57, 61, 59), PackedInt32Array(63, 60, 64), PackedInt32Array(64, 60, 65), PackedInt32Array(62, 66, 54), PackedInt32Array(54, 66, 56), PackedInt32Array(67, 64, 65), PackedInt32Array(62, 54, 61), PackedInt32Array(69, 68, 65), PackedInt32Array(65, 68, 67), PackedInt32Array(67, 68, 70), PackedInt32Array(50, 51, 65), PackedInt32Array(65, 51, 69), PackedInt32Array(69, 51, 71), PackedInt32Array(74, 73, 72), PackedInt32Array(2, 75, 1), PackedInt32Array(1, 75, 76), PackedInt32Array(72, 79, 74), PackedInt32Array(74, 79, 77), PackedInt32Array(77, 79, 78), PackedInt32Array(75, 81, 80), PackedInt32Array(76, 75, 82), PackedInt32Array(82, 75, 80), PackedInt32Array(82, 84, 76), PackedInt32Array(76, 84, 83), PackedInt32Array(78, 79, 84), PackedInt32Array(84, 79, 83), PackedInt32Array(10, 11, 85), PackedInt32Array(85, 11, 86), PackedInt32Array(25, 87, 24), PackedInt32Array(24, 87, 86), PackedInt32Array(89, 88, 87), PackedInt32Array(87, 88, 86), PackedInt32Array(86, 88, 80), PackedInt32Array(80, 88, 90), PackedInt32Array(93, 92, 91), PackedInt32Array(93, 91, 94), PackedInt32Array(94, 91, 89), PackedInt32Array(87, 94, 89), PackedInt32Array(85, 86, 81), PackedInt32Array(81, 86, 80), PackedInt32Array(96, 95, 97), PackedInt32Array(97, 95, 98), PackedInt32Array(98, 95, 100), PackedInt32Array(98, 100, 99), PackedInt32Array(99, 101, 98), PackedInt32Array(98, 101, 102), PackedInt32Array(46, 103, 45), PackedInt32Array(45, 103, 104), PackedInt32Array(101, 26, 27), PackedInt32Array(103, 58, 104), PackedInt32Array(104, 58, 59), PackedInt32Array(100, 95, 92), PackedInt32Array(92, 95, 91), PackedInt32Array(105, 102, 59), PackedInt32Array(59, 102, 104), PackedInt32Array(104, 102, 101), PackedInt32Array(104, 101, 27), PackedInt32Array(97, 106, 96), PackedInt32Array(96, 106, 107), PackedInt32Array(109, 108, 110), PackedInt32Array(110, 108, 111), PackedInt32Array(111, 108, 112), PackedInt32Array(112, 108, 113), PackedInt32Array(114, 55, 56), PackedInt32Array(110, 114, 116), PackedInt32Array(116, 114, 115), PackedInt32Array(115, 114, 56), PackedInt32Array(106, 113, 107), PackedInt32Array(107, 113, 108), PackedInt32Array(105, 111, 117), PackedInt32Array(117, 111, 112), PackedInt32Array(110, 116, 109), PackedInt32Array(117, 102, 105), PackedInt32Array(74, 77, 118), PackedInt32Array(118, 90, 74), PackedInt32Array(74, 90, 88), PackedInt32Array(74, 88, 119)]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 241
+agent_radius = 0.75
+region_min_size = 8.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e2bkl"]
+points = PackedVector3Array(1, 1, 0, 1, -1, 0, 0.995106, 1, -0.0980814, 0.995106, 1, 0.0978857, 0.995106, -1, 0.0978857, 0.995106, -1, -0.0980814, 0.980619, 1, -0.195184, 0.980619, 1, 0.194988, 0.980619, -1, 0.194988, 0.980619, -1, -0.195184, 0.95693, 1, -0.290329, 0.95693, 1, 0.290133, 0.95693, -1, 0.290133, 0.95693, -1, -0.290329, 0.923845, 1, -0.382733, 0.923845, 1, 0.382537, 0.923845, -1, 0.382537, 0.923845, -1, -0.382733, 0.881754, 1, -0.471417, 0.881754, 1, 0.471222, 0.881754, -1, 0.471222, 0.881754, -1, -0.471417, 0.831441, 1, -0.555599, 0.831441, 1, 0.555403, 0.831441, -1, 0.555403, 0.831441, -1, -0.555599, 0.772905, 1, -0.634495, 0.772905, 1, 0.634299, 0.772905, -1, 0.634299, 0.772905, -1, -0.634495, 0.70693, 1, -0.707126, 0.70693, 1, 0.70693, 0.70693, -1, 0.70693, 0.70693, -1, -0.707126, 0.634299, 1, -0.773101, 0.634299, 1, 0.772905, 0.634299, -1, 0.772905, 0.634299, -1, -0.773101, 0.555403, 1, -0.831637, 0.555403, 1, 0.831441, 0.555403, -1, 0.831441, 0.555403, -1, -0.831637, 0.471222, 1, -0.88195, 0.471222, 1, 0.881754, 0.471222, -1, 0.881754, 0.471222, -1, -0.88195, 0.382537, 1, -0.924041, 0.382537, 1, 0.923845, 0.382537, -1, 0.923845, 0.382537, -1, -0.924041, 0.290133, 1, -0.957126, 0.290133, 1, 0.95693, 0.290133, -1, 0.95693, 0.290133, -1, -0.957126, 0.194988, 1, -0.980814, 0.194988, 1, 0.980619, 0.194988, -1, 0.980619, 0.194988, -1, -0.980814, 0.0978857, 1, -0.995301, 0.0978857, 1, 0.995106, 0.0978857, -1, 0.995106, 0.0978857, -1, -0.995301, 0, 1, -1, 0, 1, 1, 0, -1, 1, 0, -1, -1, -0.0980814, 1, -0.995301, -0.0980814, 1, 0.995106, -0.0980814, -1, 0.995106, -0.0980814, -1, -0.995301, -0.195184, 1, -0.980814, -0.195184, 1, 0.980619, -0.195184, -1, 0.980619, -0.195184, -1, -0.980814, -0.290329, 1, -0.957126, -0.290329, 1, 0.95693, -0.290329, -1, 0.95693, -0.290329, -1, -0.957126, -0.382733, 1, -0.924041, -0.382733, 1, 0.923845, -0.382733, -1, 0.923845, -0.382733, -1, -0.924041, -0.471417, 1, -0.88195, -0.471417, 1, 0.881754, -0.471417, -1, 0.881754, -0.471417, -1, -0.88195, -0.555599, 1, -0.831637, -0.555599, 1, 0.831441, -0.555599, -1, 0.831441, -0.555599, -1, -0.831637, -0.634495, 1, -0.773101, -0.634495, 1, 0.772905, -0.634495, -1, 0.772905, -0.634495, -1, -0.773101, -0.707126, 1, -0.707126, -0.707126, 1, 0.70693, -0.707126, -1, 0.70693, -0.707126, -1, -0.707126, -0.773101, 1, -0.634495, -0.773101, 1, 0.634299, -0.773101, -1, 0.634299, -0.773101, -1, -0.634495, -0.831637, 1, -0.555599, -0.831637, 1, 0.555403, -0.831637, -1, 0.555403, -0.831637, -1, -0.555599, -0.88195, 1, -0.471417, -0.88195, 1, 0.471222, -0.88195, -1, 0.471222, -0.88195, -1, -0.471417, -0.924041, 1, -0.382733, -0.924041, 1, 0.382537, -0.924041, -1, 0.382537, -0.924041, -1, -0.382733, -0.957126, 1, -0.290329, -0.957126, 1, 0.290133, -0.957126, -1, 0.290133, -0.957126, -1, -0.290329, -0.980814, 1, -0.195184, -0.980814, 1, 0.194988, -0.980814, -1, 0.194988, -0.980814, -1, -0.195184, -0.995301, 1, -0.0980814, -0.995301, 1, 0.0978857, -0.995301, -1, 0.0978857, -0.995301, -1, -0.0980814, -1, 1, 0, -1, -1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2bkl"]
+albedo_color = Color(0.556581, 0.365005, 0.803822, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t1gg8"]
+material = SubResource("StandardMaterial3D_e2bkl")
+top_radius = 1.0
+bottom_radius = 1.0
+
+[sub_resource type="Resource" id="Resource_power_up_interval_based_spawn_strategy_config"]
+script = ExtResource("50_interval_based_spawn_str")
+_timer_manager = ExtResource("4_timer_manager")
+_scenes_to_spawn = Array[PackedScene]([ExtResource("17_star"), ExtResource("18_shield"), ExtResource("19_speed"), ExtResource("20_baseshield"), ExtResource("21_grenade")])
+spawn_interval_seconds = 12.0
+max_alive_count = 1
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_1"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_point_id = 1
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_2"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 2
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_3"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+spawn_point_id = 3
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_4"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_5"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_6"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_7"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_8"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_9"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_10"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_11"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("11_enemy_slow_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_12"]
+script = ExtResource("8_timeline_spawn_entry_con")
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_13"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("9_enemy_normal_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_spawn_entry_14"]
+script = ExtResource("8_timeline_spawn_entry_con")
+spawn_delay_seconds = 0.5
+is_spawn_point_random = true
+scene_to_spawn = ExtResource("10_enemy_heavy_tank")
+
+[sub_resource type="Resource" id="Resource_enemy_timeline_based_spawn_strategy_config"]
+script = ExtResource("12_timeline_based_spawn_str")
+_on_alive_count_changed = ExtResource("13_on_enemy_count_changed")
+_on_all_spawns_finished = ExtResource("14_on_all_spawns_finished")
+_timer_manager = ExtResource("4_timer_manager")
+max_alive_count = 5
+_spawn_entry_configs = Array[ExtResource("8_timeline_spawn_entry_con")]([SubResource("Resource_enemy_timeline_spawn_entry_1"), SubResource("Resource_enemy_timeline_spawn_entry_2"), SubResource("Resource_enemy_timeline_spawn_entry_3"), SubResource("Resource_enemy_timeline_spawn_entry_4"), SubResource("Resource_enemy_timeline_spawn_entry_5"), SubResource("Resource_enemy_timeline_spawn_entry_6"), SubResource("Resource_enemy_timeline_spawn_entry_7"), SubResource("Resource_enemy_timeline_spawn_entry_8"), SubResource("Resource_enemy_timeline_spawn_entry_9"), SubResource("Resource_enemy_timeline_spawn_entry_10"), SubResource("Resource_enemy_timeline_spawn_entry_11"), SubResource("Resource_enemy_timeline_spawn_entry_12"), SubResource("Resource_enemy_timeline_spawn_entry_13"), SubResource("Resource_enemy_timeline_spawn_entry_14")])
+
+[sub_resource type="Resource" id="Resource_player_lives_based_spawn_strategy_config"]
+script = ExtResource("2_lives_based_spawn_strate")
+_on_out_of_lives = ExtResource("3_on_player_out_of_lives")
+_timer_manager = ExtResource("4_timer_manager")
+scene_to_spawn = ExtResource("5_controllable_player_enti")
+starting_lives = 2
+
+[sub_resource type="Resource" id="Resource_base_once_based_spawn_strategy_config"]
+script = ExtResource("6_once_based_spawn_strateg")
+scene_to_spawn = ExtResource("7_base")
+
+[node name="World03" unique_id=1041734159 instance=ExtResource("1_world_base")]
+editor_description = ""
+
+[node name="NavigationRegion" parent="Navigation" parent_id_path=PackedInt32Array(1021368003) index="0" unique_id=1099192252]
+navigation_mesh = SubResource("NavigationMesh_nx0yc")
+
+[node name="BricksGridMap" parent="Navigation/NavigationRegion/Level" parent_id_path=PackedInt32Array(1932757374) index="0" unique_id=1059575894]
+data = {
+"cells": PackedInt32Array(65530, 13, 0, 65530, 14, 0, 65530, 19, 0, 65531, 13, 0, 65531, 14, 0, 65531, 19, 0, 65532, 13, 0, 65532, 14, 0, 65532, 19, 0, 65533, 13, 0, 65533, 14, 0, 65533, 19, 0, 65534, 13, 0, 65534, 14, 0, 65534, 19, 0, 65535, 13, 0, 65535, 14, 0, 65535, 19, 0, 0, 13, 0, 0, 14, 0, 0, 19, 0, 1, 13, 0, 1, 14, 0, 1, 19, 0, 65530, 15, 0, 65530, 16, 0, 65530, 17, 0, 65530, 18, 0, 65531, 15, 0, 65531, 16, 0, 65531, 17, 0, 65531, 18, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 1, 15, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 65524, 65524, 0, 65524, 65525, 0, 65525, 65524, 0, 65525, 65525, 0, 65526, 65524, 0, 65526, 65525, 0, 65527, 65524, 0, 65527, 65525, 0, 65528, 65524, 0, 65528, 65525, 0, 65529, 65524, 0, 65529, 65525, 0, 65530, 65524, 0, 65530, 65525, 0, 65531, 65524, 0, 65531, 65525, 0, 4, 65524, 0, 4, 65525, 0, 5, 65524, 0, 5, 65525, 0, 6, 65524, 0, 6, 65525, 0, 7, 65524, 0, 7, 65525, 0, 8, 65524, 0, 8, 65525, 0, 9, 65524, 0, 9, 65525, 0, 10, 65524, 0, 10, 65525, 0, 11, 65524, 0, 11, 65525, 0, 65524, 65532, 0, 65524, 65533, 0, 65525, 65532, 0, 65525, 65533, 0, 65526, 65532, 0, 65526, 65533, 0, 65527, 65532, 0, 65527, 65533, 0, 65528, 65532, 0, 65528, 65533, 0, 65529, 65532, 0, 65529, 65533, 0, 65530, 65532, 0, 65530, 65533, 0, 65531, 65532, 0, 65531, 65533, 0, 65532, 65532, 0, 65532, 65533, 0, 3, 65532, 0, 3, 65533, 0, 4, 65532, 0, 4, 65533, 0, 5, 65532, 0, 5, 65533, 0, 6, 65532, 0, 6, 65533, 0, 7, 65532, 0, 7, 65533, 0, 8, 65532, 0, 8, 65533, 0, 9, 65532, 0, 9, 65533, 0, 10, 65532, 0, 10, 65533, 0, 11, 65532, 0, 11, 65533, 0, 65512, 6, 0, 65512, 7, 0, 65512, 8, 0, 65512, 9, 0, 65513, 6, 0, 65513, 7, 0, 65513, 8, 0, 65513, 9, 0, 65514, 6, 0, 65514, 7, 0, 65514, 8, 0, 65514, 9, 0, 65515, 6, 0, 65515, 7, 0, 65515, 8, 0, 65515, 9, 0, 20, 6, 0, 20, 7, 0, 20, 8, 0, 20, 9, 0, 21, 6, 0, 21, 7, 0, 21, 8, 0, 21, 9, 0, 22, 6, 0, 22, 7, 0, 22, 8, 0, 22, 9, 0, 23, 6, 0, 23, 7, 0, 23, 8, 0, 23, 9, 0, 6, 12, 0, 6, 13, 0, 7, 12, 0, 7, 13, 0, 8, 12, 0, 8, 13, 0, 9, 12, 0, 9, 13, 0)
+}
+
+[node name="RocksGridMap" parent="Navigation/NavigationRegion/Level" parent_id_path=PackedInt32Array(1932757374) index="1" unique_id=169841109]
+data = {
+"cells": PackedInt32Array(65516, 65524, 0, 65516, 65525, 0, 65516, 65526, 0, 65516, 65527, 0, 65516, 65528, 0, 65516, 65529, 0, 65516, 65530, 0, 65516, 65531, 0, 65516, 65532, 0, 65516, 65533, 0, 65517, 65524, 0, 65517, 65525, 0, 65517, 65526, 0, 65517, 65527, 0, 65517, 65528, 0, 65517, 65529, 0, 65517, 65530, 0, 65517, 65531, 0, 65517, 65532, 0, 65517, 65533, 0, 18, 65524, 0, 18, 65525, 0, 18, 65526, 0, 18, 65527, 0, 18, 65528, 0, 18, 65529, 0, 18, 65530, 0, 18, 65531, 0, 18, 65532, 0, 18, 65533, 0, 19, 65524, 0, 19, 65525, 0, 19, 65526, 0, 19, 65527, 0, 19, 65528, 0, 19, 65529, 0, 19, 65530, 0, 19, 65531, 0, 19, 65532, 0, 19, 65533, 0, 65534, 4, 0, 65534, 5, 0, 65535, 4, 0, 65535, 5, 0, 0, 4, 0, 0, 5, 0, 1, 4, 0, 1, 5, 0)
+}
+
+[node name="WaterGridMap" parent="Navigation/NavigationRegion/Level" parent_id_path=PackedInt32Array(1932757374) index="2" unique_id=1059575895]
+data = {
+"cells": PackedInt32Array(65506, 65532, 0, 65506, 65533, 0, 65507, 65532, 0, 65507, 65533, 0, 65508, 65532, 0, 65508, 65533, 0, 65509, 65532, 0, 65509, 65533, 0, 26, 65532, 0, 26, 65533, 0, 27, 65532, 0, 27, 65533, 0, 28, 65532, 0, 28, 65533, 0, 29, 65532, 0, 29, 65533, 0)
+}
+
+[node name="VegetationGridMap" parent="Navigation/NavigationRegion/Level" parent_id_path=PackedInt32Array(1932757374) index="3" unique_id=1059575896]
+data = {
+"cells": PackedInt32Array(65520, 2, 0, 65520, 3, 0, 65520, 4, 0, 65520, 5, 0, 65521, 2, 0, 65521, 3, 0, 65521, 4, 0, 65521, 5, 0, 65522, 2, 0, 65522, 3, 0, 65522, 4, 0, 65522, 5, 0, 65523, 2, 0, 65523, 3, 0, 65523, 4, 0, 65523, 5, 0, 65524, 2, 0, 65524, 3, 0, 65524, 4, 0, 65524, 5, 0, 65525, 2, 0, 65525, 3, 0, 65525, 4, 0, 65525, 5, 0, 65526, 2, 0, 65526, 3, 0, 65526, 4, 0, 65526, 5, 0, 65527, 2, 0, 65527, 3, 0, 65527, 4, 0, 65527, 5, 0, 8, 2, 0, 8, 3, 0, 8, 4, 0, 8, 5, 0, 9, 2, 0, 9, 3, 0, 9, 4, 0, 9, 5, 0, 10, 2, 0, 10, 3, 0, 10, 4, 0, 10, 5, 0, 11, 2, 0, 11, 3, 0, 11, 4, 0, 11, 5, 0, 12, 2, 0, 12, 3, 0, 12, 4, 0, 12, 5, 0, 13, 2, 0, 13, 3, 0, 13, 4, 0, 13, 5, 0, 14, 2, 0, 14, 3, 0, 14, 4, 0, 14, 5, 0, 15, 2, 0, 15, 3, 0, 15, 4, 0, 15, 5, 0)
+}
+
+[node name="Props" type="Node3D" parent="Navigation/NavigationRegion" index="3" unique_id=123985705]
+
+[node name="Prop1" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" index="0" unique_id=1549059202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.732019, 1, -9.777541)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop1" index="0" unique_id=762764896]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CylinderProp1" type="MeshInstance3D" parent="Navigation/NavigationRegion/Props/Prop1" index="1" unique_id=1696622848]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop2" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" index="1" unique_id=1556113742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7680855, 1, -9.160876)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop2" index="0" unique_id=390393976]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CylinderProp2" type="MeshInstance3D" parent="Navigation/NavigationRegion/Props/Prop2" index="1" unique_id=807161278]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop4" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" index="2" unique_id=468190196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.625225, 1, 9.484417)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop4" index="0" unique_id=1697326503]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CylinderProp4" type="MeshInstance3D" parent="Navigation/NavigationRegion/Props/Prop4" index="1" unique_id=1078441321]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="Prop5" type="StaticBody3D" parent="Navigation/NavigationRegion/Props" index="3" unique_id=764690419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.073521, 1, 9.564598)
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Navigation/NavigationRegion/Props/Prop5" index="0" unique_id=703023856]
+shape = SubResource("ConvexPolygonShape3D_e2bkl")
+
+[node name="CylinderProp5" type="MeshInstance3D" parent="Navigation/NavigationRegion/Props/Prop5" index="1" unique_id=190467853]
+mesh = SubResource("CylinderMesh_t1gg8")
+skeleton = NodePath("../..")
+
+[node name="PowerUpSpawnManager" parent="PowerUps" parent_id_path=PackedInt32Array(987654321) index="1" unique_id=1739450313 node_paths=PackedStringArray("_spawn_points")]
+_spawn_points = [NodePath("PowerUpSpawnPoint1"), NodePath("PowerUpSpawnPoint2"), NodePath("PowerUpSpawnPoint3"), NodePath("PowerUpSpawnPoint4"), NodePath("PowerUpSpawnPoint5"), NodePath("PowerUpSpawnPoint6"), NodePath("PowerUpSpawnPoint7"), NodePath("PowerUpSpawnPoint8")]
+_spawn_strategy_config = SubResource("Resource_power_up_interval_based_spawn_strategy_config")
+
+[node name="PowerUpSpawnPoint1" parent="PowerUps/PowerUpSpawnManager" index="0" unique_id=668631633 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, -4)
+spawn_point_id = 1
+
+[node name="PowerUpSpawnPoint2" parent="PowerUps/PowerUpSpawnManager" index="1" unique_id=654718365 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.5, -4)
+spawn_point_id = 2
+
+[node name="PowerUpSpawnPoint3" parent="PowerUps/PowerUpSpawnManager" index="2" unique_id=987332592 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3.5)
+spawn_point_id = 3
+
+[node name="PowerUpSpawnPoint4" parent="PowerUps/PowerUpSpawnManager" index="3" unique_id=1148122287 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.5, -3.5)
+spawn_point_id = 4
+
+[node name="PowerUpSpawnPoint5" parent="PowerUps/PowerUpSpawnManager" index="4" unique_id=1917847223 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.5, -3.5)
+spawn_point_id = 5
+
+[node name="PowerUpSpawnPoint6" parent="PowerUps/PowerUpSpawnManager" index="5" unique_id=1918056176 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 2)
+spawn_point_id = 6
+
+[node name="PowerUpSpawnPoint7" parent="PowerUps/PowerUpSpawnManager" index="6" unique_id=853238417 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 2)
+spawn_point_id = 7
+
+[node name="PowerUpSpawnPoint8" parent="PowerUps/PowerUpSpawnManager" index="7" unique_id=1471712655 instance=ExtResource("51_powerupspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.5, 7)
+spawn_point_id = 8
+
+[node name="EnemySpawnManager" parent="Enemies" parent_id_path=PackedInt32Array(700000001) index="3" unique_id=1309938727 node_paths=PackedStringArray("_spawn_points")]
+_spawn_points = [NodePath("EnemySpawnPoint1"), NodePath("EnemySpawnPoint2"), NodePath("EnemySpawnPoint3")]
+_spawn_strategy_config = SubResource("Resource_enemy_timeline_based_spawn_strategy_config")
+
+[node name="EnemySpawnPoint1" parent="Enemies/EnemySpawnManager" index="0" unique_id=1479237174 instance=ExtResource("47_enemyspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -8)
+spawn_point_id = 1
+
+[node name="EnemySpawnPoint2" parent="Enemies/EnemySpawnManager" index="1" unique_id=712620655 instance=ExtResource("47_enemyspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+spawn_point_id = 2
+
+[node name="EnemySpawnPoint3" parent="Enemies/EnemySpawnManager" index="2" unique_id=804831103 instance=ExtResource("47_enemyspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -8)
+spawn_point_id = 3
+
+[node name="PlayerSpawnManager" parent="Player" parent_id_path=PackedInt32Array(700000003) index="2" unique_id=1376865603 node_paths=PackedStringArray("_spawn_points")]
+_spawn_points = [NodePath("PlayerSpawnPoint")]
+_spawn_strategy_config = SubResource("Resource_player_lives_based_spawn_strategy_config")
+
+[node name="PlayerSpawnPoint" parent="Player/PlayerSpawnManager" index="0" unique_id=297298890 instance=ExtResource("48_playerspawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5664244, 0, 8.64792)
+
+[node name="BaseSpawnManager" parent="Base" parent_id_path=PackedInt32Array(700000004) index="0" unique_id=1979519489 node_paths=PackedStringArray("_spawn_points")]
+_spawn_points = [NodePath("BaseSpawnPoint")]
+_spawn_strategy_config = SubResource("Resource_base_once_based_spawn_strategy_config")
+
+[node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" index="0" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 8.5)
+
+[node name="LevelStartPrompt" parent="." index="9" unique_id=1309471655]
+_prompt_text = "NIVEL 3
+¡Listo!"
+
+[editable path="Navigation/NavigationRegion/Level"]

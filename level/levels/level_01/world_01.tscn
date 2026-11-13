@@ -258,4 +258,8 @@ _spawn_strategy_config = SubResource("Resource_base_once_based_spawn_strategy_co
 [node name="BaseSpawnPoint" parent="Base/BaseSpawnManager" index="0" unique_id=601915875 instance=ExtResource("49_basespawnpoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 8.5)
 
+[node name="LevelStartPrompt" parent="." index="9" unique_id=1309471655]
+_prompt_text = "NIVEL 1
+¡Listo!"
+
 [editable path="Navigation/NavigationRegion/Level"]
